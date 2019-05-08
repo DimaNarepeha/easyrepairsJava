@@ -6,5 +6,7 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
         <include file="db/changelog/02-05-2019-15-55_initial.xml"/>
+        <include file="db/changelog/07-05-2019-19-00_add_columns.xml"/>
+        <include file="db/changelog/07-05-2019-19-30_add_relations.xml"/>
 
 </databaseChangeLog>
