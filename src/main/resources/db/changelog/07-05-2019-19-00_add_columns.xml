@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Oleksandr">
+        <addColumn tableName="offers">
+            <column name="location_id" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="3" author="Oleksandr">
+        <addColumn tableName="phone">
+            <column name="phone_type" type="VARCHAR(20)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="4" author="Oleksandr">
+        <addColumn tableName="customer">
+            <column name="last_update" type="date"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="5" author="Oleksandr">
+        <addColumn tableName="service_provider">
+            <column name="last_update" type="date"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="6" author="Oleksandr">
+        <renameTable oldTableName="users" newTableName="usr"/>
+    </changeSet>
+    <changeSet id="7" author="Oleksandr">
+        <dropNotNullConstraint tableName="service_provider" columnName="location_id" columnDataType="INT"/>
+    </changeSet>
+    <changeSet id="8" author="Oleksandr">
+        <dropColumn tableName="offers" columnName="provider_id"/>
+    </changeSet>
+
+    <changeSet id="9" author="Oleksandr">
+        <dropColumn tableName="orders" columnName="customer_id"/>
+        <dropColumn tableName="orders" columnName="start_date"/>
+        <addColumn tableName="orders">
+            <column name="offer_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="10" author="Oleksandr">
+        <dropNotNullConstraint tableName="feedback" columnName="addressed_from" columnDataType="INT"/>
+    </changeSet>
+</databaseChangeLog>
