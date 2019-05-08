@@ -1,12 +1,18 @@
 package com.softserve.demo.controller;
 
 import com.softserve.demo.model.Providers;
+import com.softserve.demo.service.FilesStorageService;
 import com.softserve.demo.service.ProvidersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -19,6 +25,9 @@ public class ProvidersController {
 
     @Autowired
     private ProvidersService providersService;
+
+    @Autowired
+    FilesStorageService fileStorageService;
 
     @PostMapping("save")
     public ResponseEntity<Providers> saveServiceProvider(@RequestBody Providers serviceProviders) {
@@ -44,5 +53,47 @@ public class ProvidersController {
     @GetMapping("find-by-id/{id}")
     public ResponseEntity<Providers> findById(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(providersService.findById(id), HttpStatus.OK);
+    }
+
+    @PostMapping("{userId}")
+    public ResponseEntity<?> uploadImage(
+            @PathVariable("userId") Integer id,
+            @RequestParam("imageFile") MultipartFile file
+    ) {
+        System.out.println(file.getOriginalFilename());
+
+        fileStorageService.storeFile(file);
+        providersService.addImageToCustomer(id, file.getOriginalFilename());
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/image/{imageName}")
+    public ResponseEntity<?> getImage(
+            @PathVariable("imageName") String name,
+            HttpServletRequest servletRequest
+    ) {
+
+        Resource resource = fileStorageService.loadFile(name);
+
+        String contentType = null;
+
+        try {
+            contentType = servletRequest
+                    .getServletContext()
+                    .getMimeType(
+                            resource.getFile().getAbsolutePath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "inline; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
     }
 }
