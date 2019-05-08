@@ -5,6 +5,7 @@ import com.softserve.demo.service.FilesStorageService;
 import com.softserve.demo.service.ProvidersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -42,6 +43,11 @@ public class ProvidersController {
     @GetMapping("find-all")
     public ResponseEntity<List<Providers>> findAll() {
         return new ResponseEntity<>(providersService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("find-all/page")
+    public Page<Providers> getServiceProvidersByPage(@RequestParam(defaultValue = "0") int page)  {
+        return providersService.getServiceProvidersByPage(page);
     }
 
     @DeleteMapping("delete/{id}")

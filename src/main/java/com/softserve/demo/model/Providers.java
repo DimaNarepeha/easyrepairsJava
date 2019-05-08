@@ -28,4 +28,10 @@ public class Providers {
     @Column(name = "path_to_photo")
     private String image;
 
+    @Column(name = "user_id")
+    private Integer userId;
+
+    @Column(name = "location_id")
+    private Integer locationId;
+
 }
