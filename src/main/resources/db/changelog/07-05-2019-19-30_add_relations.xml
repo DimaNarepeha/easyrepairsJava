@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="customer" 
+                                 baseColumnNames="user_id" 
+                                 constraintName="customer_user" 
+                                 referencedTableName="usr"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet id="2" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="phone" 
+                                 baseColumnNames="user_id" 
+                                 constraintName="phone_user"
+                                 referencedTableName="usr"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet id="3" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="service_provider" 
+                                 baseColumnNames="user_id"
+                                 constraintName="provider_user"
+                                 referencedTableName="usr"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="CASCADE"/>
+        
+    </changeSet>
+    <changeSet id="4" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="service_provider"
+                                 baseColumnNames="location_id"
+                                 constraintName="provider_location"
+                                 referencedTableName="location"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="SET NULL"/>
+    </changeSet>
+    <changeSet id="5" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="feedback"
+                                 baseColumnNames="addressed_from"
+                                 constraintName="addressed_from_user"
+                                 referencedTableName="usr"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="SET NULL"/>
+    </changeSet>
+    <changeSet id="6" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="feedback"
+                                 baseColumnNames="addressed_to"
+                                 constraintName="addressed_to_user"
+                                 referencedTableName="usr"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet id="7" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="offers"
+                                 baseColumnNames="customer_id"
+                                 constraintName="offer_customer"
+                                 referencedTableName="customer"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"/>
+    </changeSet>
+    <changeSet id="8" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="offers"
+                                 baseColumnNames="location_id"
+                                 constraintName="offer_location"
+                                 referencedTableName="location"
+                                 referencedColumnNames="id"
+                                 onDelete="SET NULL"
+                                 onUpdate="CASCADE"/>
+    </changeSet>
+    <changeSet id="9" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="orders"
+                                 baseColumnNames="provider_id"
+                                 constraintName="order_provider"
+                                 referencedTableName="service_provider"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet id="10" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="orders"
+                                 baseColumnNames="offer_id"
+                                 constraintName="order_offer"
+                                 referencedTableName="offers"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet id="12" author="Oleksandr">
+        <createTable tableName="provider_service">
+            <column name="provider_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="service_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="13" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="provider_service"
+                                 baseColumnNames="provider_id"
+                                 constraintName="provider_service_service_provider"
+                                 referencedTableName="service_provider"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"/>
+    </changeSet>
+    <changeSet id="14" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="provider_service"
+                                 baseColumnNames="service_id"
+                                 constraintName="provider_service_services"
+                                 referencedTableName="services"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet id="15" author="Oleksandr">
+        <createTable tableName="offer_service">
+            <column name="offer_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="service_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="16" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="offer_service" baseColumnNames="offer_id"
+                                 constraintName="offer_service_offers"
+                                 referencedTableName="offers"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"/>
+    </changeSet>
+    <changeSet id="17" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="offer_service" baseColumnNames="service_id"
+                                 constraintName="offer_service_services"
+                                 referencedTableName="services"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+</databaseChangeLog>
