@@ -1,24 +1,24 @@
 package com.softserve.demo.service;
 
-import com.softserve.demo.model.Providers;
+import com.softserve.demo.model.ServiceProvider;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface ProvidersService {
 
-    Providers findById (Integer id);
+    ServiceProvider findById (Integer id);
 
-    List<Providers> findAll();
+    List<ServiceProvider> findAll();
 
-    Providers save(Providers providers);
+    ServiceProvider save(ServiceProvider providers);
 
     void delete (Integer id);
 
-    Providers update (Integer id, Providers providers);
+    ServiceProvider update (Integer id, ServiceProvider providers);
 
     void addImageToCustomer(Integer id, String fileName);
 
-    public Page<Providers> getServiceProvidersByPage(int page);
+    public Page<ServiceProvider> getServiceProvidersByPage(int page);
 
 }

@@ -1,6 +1,6 @@
 package com.softserve.demo.service.impl;
 
-import com.softserve.demo.model.Providers;
+import com.softserve.demo.model.ServiceProvider;
 import com.softserve.demo.repository.ProvidersRepository;
 import com.softserve.demo.service.ProvidersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,23 +23,23 @@ public class ProvidersServiceImpl implements ProvidersService {
     private ProvidersRepository providersRepository;
 
     @Override
-    public Providers findById(Integer id) {
+    public ServiceProvider findById(Integer id) {
         return providersRepository.findById(id).get();
     }
 
     @Override
-    public List<Providers> findAll() {
+    public List<ServiceProvider> findAll() {
         return providersRepository.findAll();
     }
 
     @Override
-    public Providers save(Providers providers) {
+    public ServiceProvider save(ServiceProvider providers) {
         return providersRepository.save(providers);
     }
 
     @Override
-    public Providers update(Integer id, Providers providers) {
-        Providers newProviders = providersRepository.findById(id).get();
+    public ServiceProvider update(Integer id, ServiceProvider providers) {
+        ServiceProvider newProviders = providersRepository.findById(id).get();
         newProviders.setName(providers.getName());
         return newProviders;
     }
@@ -51,7 +51,7 @@ public class ProvidersServiceImpl implements ProvidersService {
 
     @Override
     public void addImageToCustomer(Integer id, String fileName) {
-        Providers providers=
+        ServiceProvider providers=
                 providersRepository.findById(id).get();
 
         providers.setImage(fileName);
@@ -59,8 +59,8 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public Page<Providers> getServiceProvidersByPage(int page) {
-        Page<Providers> serviceProviders =
+    public Page<ServiceProvider> getServiceProvidersByPage(int page) {
+        Page<ServiceProvider> serviceProviders =
                 providersRepository.findAll(new PageRequest(page,4));
         return serviceProviders;
     }
