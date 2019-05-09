@@ -1,6 +1,6 @@
 package com.softserve.demo.controller;
 
-import com.softserve.demo.model.Providers;
+import com.softserve.demo.model.ServiceProvider;
 import com.softserve.demo.service.FilesStorageService;
 import com.softserve.demo.service.ProvidersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,33 +31,33 @@ public class ProvidersController {
     FilesStorageService fileStorageService;
 
     @PostMapping("save")
-    public ResponseEntity<Providers> saveServiceProvider(@RequestBody Providers serviceProviders) {
+    public ResponseEntity<ServiceProvider> saveServiceProvider(@RequestBody ServiceProvider serviceProviders) {
         return new ResponseEntity<>(providersService.save(serviceProviders), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Providers> updateServiceProviders(@PathVariable("id") Integer id, @RequestBody Providers serviceProviders) {
+    public ResponseEntity<ServiceProvider> updateServiceProviders(@PathVariable("id") Integer id, @RequestBody ServiceProvider serviceProviders) {
         return new ResponseEntity<>(providersService.update(id, serviceProviders), HttpStatus.OK);
     }
 
     @GetMapping("find-all")
-    public ResponseEntity<List<Providers>> findAll() {
+    public ResponseEntity<List<ServiceProvider>> findAll() {
         return new ResponseEntity<>(providersService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("find-all/page")
-    public Page<Providers> getServiceProvidersByPage(@RequestParam(defaultValue = "0") int page)  {
+    public Page<ServiceProvider> getServiceProvidersByPage(@RequestParam(defaultValue = "0") int page)  {
         return providersService.getServiceProvidersByPage(page);
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<Providers> deleteServiceProvidersResponse(@PathVariable("id") Integer id) {
+    public ResponseEntity<ServiceProvider> deleteServiceProvidersResponse(@PathVariable("id") Integer id) {
         providersService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("find-by-id/{id}")
-    public ResponseEntity<Providers> findById(@PathVariable("id") Integer id) {
+    public ResponseEntity<ServiceProvider> findById(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(providersService.findById(id), HttpStatus.OK);
     }
 

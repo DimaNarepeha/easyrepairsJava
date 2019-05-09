@@ -27,7 +27,7 @@ public class Customer {
     private String email;
 
     @Column(name = "path_to_photo")
-    private String pathToPhoto;
+    private String image;
 
     @Column(name = "last_update")
     private Date lastUpdate;
