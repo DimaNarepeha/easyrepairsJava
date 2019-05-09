@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface CustomerService {
     void createCustomer(CustomerEntity customer);
-    CustomerEntity updateCustomer(Long id, CustomerEntity customer);
+    CustomerEntity updateCustomer(Integer id, CustomerEntity customer);
     List<CustomerEntity> getAllCustomers();
-    CustomerEntity deleteCustomer(Long id);
-    CustomerEntity getCustomerById(Long id);
+    CustomerEntity deleteCustomer(Integer id);
+    CustomerEntity getCustomerById(Integer id);
    Page<CustomerEntity> getCustomersByPage(int page);
-   void addImageToCustomer(Long id, String fileName);
+   void addImageToCustomer(Integer id, String fileName);
 }

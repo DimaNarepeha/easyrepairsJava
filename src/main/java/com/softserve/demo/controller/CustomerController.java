@@ -1,6 +1,9 @@
 package com.softserve.demo.controller;
 
+import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.model.CustomerEntity;
+import com.softserve.demo.repository.CustomerRepository;
+import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.CustomerService;
 import com.softserve.demo.service.FilesStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,10 @@ public class CustomerController {
     CustomerService customerService;
     @Autowired
     private FilesStorageService fileStorageService;
+    @Autowired
+    private CustomerRepository customerRepository;
+    @Autowired
+    private UserRepository userRepository;
 
 //     @PostMapping("saveUserProfile")
 //     public ResponseEntity<?> createCustomer(@RequestParam("file")MultipartFile multipartFile,
@@ -36,6 +43,14 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<?> createCustomer(
             @RequestBody CustomerEntity customer) {
+        customer.setUser(userRepository.findById(customer.getUserId()));
+        /*CustomerEntity customerE = new CustomerEntity();
+        customerE.setFirstName(customer.getFirstName());
+        customerE.setLastName(customer.getLastName());
+        customerE.setImage(customer.getImage());
+        customerE.setEmail(customer.getEmail());
+        customerE.setUpdated(customer.getUpdated());
+        customerE.setUserId(userRepository.findById(customer.getUserId()));*/
         customerService.createCustomer(customer);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -48,7 +63,7 @@ public class CustomerController {
     }
 
     @GetMapping("{userId}")
-    public ResponseEntity<?> getUserById(@PathVariable("userId") Long id) {
+    public ResponseEntity<?> getUserById(@PathVariable("userId") Integer id) {
         return new ResponseEntity<>(
                 customerService.getCustomerById(id), HttpStatus.OK
         );
@@ -60,13 +75,13 @@ public class CustomerController {
 
 
     @DeleteMapping("{userId}")
-    public ResponseEntity<?> deleteUserById(@PathVariable("userId") Long id) {
+    public ResponseEntity<?> deleteUserById(@PathVariable("userId") Integer id) {
        customerService.deleteCustomer(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @PutMapping("{id}")
     public ResponseEntity<?> updateUser(
-            @PathVariable("id") Long id,
+            @PathVariable("id") Integer id,
             @RequestBody CustomerEntity customer
     ) {
         CustomerEntity customerUpdated= customerService.updateCustomer(id, customer);
@@ -79,7 +94,7 @@ public class CustomerController {
     }
     @PostMapping("{userId}/image")
     public ResponseEntity<?> uploadImage(
-            @PathVariable("userId") Long id,
+            @PathVariable("userId")Integer id,
             @RequestParam("imageFile")MultipartFile file
     ) {
         System.out.println(file.getOriginalFilename());

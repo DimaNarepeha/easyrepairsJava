@@ -1,34 +1,49 @@
 package com.softserve.demo.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name="customer")
+@Table(name = "customer")
 public class CustomerEntity {
+    @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(name ="firstname", length = 45, nullable = false)
+    @Column(name = "firstname")
     private String firstName;
 
-    @Column(name ="lastname", length = 45, nullable = false )
+    @Column(name = "lastname")
     private String lastName;
 
-    @Column(length = 60)
+    @Column(name = "email")
     private String email;
 
-    @Column(name="user_id")
-    private int userId;
-
-    @Column(name="path_to_photo",length = 400)
+    @Column(name = "path_to_photo")
     private String image;
 
-    @Column(name="last_update")
+    @Column(name = "last_update")
     private Date updated;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer",cascade = CascadeType.REMOVE)
+    private List<Offer> offers;
+
+
+
+    @Column(name = "usr")
+    private int userId;
+
 }

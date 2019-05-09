@@ -36,7 +36,7 @@ CustomerRepository customerRepository;
     }
 
     @Override
-    public CustomerEntity updateCustomer(Long id, CustomerEntity customer) {
+    public CustomerEntity updateCustomer(Integer id, CustomerEntity customer) {
         boolean exists = customerRepository.existsById(id);
         if (!exists) {
             return null;
@@ -64,7 +64,7 @@ CustomerRepository customerRepository;
     }
 
     @Override
-    public CustomerEntity deleteCustomer(Long id) {
+    public CustomerEntity deleteCustomer(Integer id) {
         if (!customerRepository.existsById(id)) {
             return null;
         }
@@ -74,7 +74,7 @@ CustomerRepository customerRepository;
     }
 
     @Override
-    public CustomerEntity getCustomerById(Long id) {
+    public CustomerEntity getCustomerById(Integer id) {
         if(!customerRepository.existsById(id))return null;
         CustomerEntity customerEntity = customerRepository.findById(id).get();
         return customerEntity;
@@ -87,7 +87,7 @@ CustomerRepository customerRepository;
     }
 
     @Override
-    public void addImageToCustomer(Long id, String fileName) {
+    public void addImageToCustomer(Integer id, String fileName) {
         CustomerEntity customerEntity =
                 customerRepository.findById(id).get();
 
