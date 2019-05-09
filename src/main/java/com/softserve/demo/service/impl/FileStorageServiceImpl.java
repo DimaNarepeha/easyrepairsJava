@@ -19,7 +19,6 @@ public class FileStorageServiceImpl implements FilesStorageService {
 
     private final String PATH = System.getProperty("user.dir");
     private final String SEPARATOR = System.getProperty("file.separator");
-
     private final Path fileStorageLocation;
 
     public FileStorageServiceImpl() {
