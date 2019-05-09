@@ -16,7 +16,7 @@
             </column>
             <column name="path_to_photo" type="VARCHAR(400)"/>
             <column name="user_id" type="INT">
-                <!--<constraints nullable="false"/>-->
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
