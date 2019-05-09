@@ -14,7 +14,7 @@ import static org.springframework.test.util.AssertionErrors.assertTrue;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class EmailServiceImplTest {
+public class EmailServiceFromProvidersImplTest {
     @Autowired
     private EmailService emailService;
 

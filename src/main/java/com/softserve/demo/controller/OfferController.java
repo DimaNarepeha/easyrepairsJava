@@ -18,7 +18,7 @@ public class OfferController {
 
     @PostMapping
     public ResponseEntity<?> createOffer(@RequestBody Offer offer) {
-        offerService.createCustomer(offer);
+        offerService.createOffer(offer);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

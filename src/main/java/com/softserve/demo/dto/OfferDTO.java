@@ -14,4 +14,5 @@ public class OfferDTO {
     private Integer providerId;
     private Date StartDate;
     private String description;
+    private Integer locationId;
 }

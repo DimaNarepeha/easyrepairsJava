@@ -17,7 +17,7 @@ public class OfferServiceImpl implements OfferService {
     OfferRepository offerRepository;
 
     @Override
-    public void createCustomer(Offer offer) {
+    public void createOffer(Offer offer) {
         offerRepository.save(offer);
     }
 
@@ -25,10 +25,10 @@ public class OfferServiceImpl implements OfferService {
     public Offer updateOffer(Long id, Offer offer) {
         if (offerRepository.existsById(id)) {
             Offer offerFromDB = offerRepository.getOne(id);
-            offerFromDB.setCustomerId(offer.getCustomerId());
-            offerFromDB.setProviderId(offer.getProviderId());
+            offerFromDB.setCustomer(offer.getCustomer());
             offerFromDB.setStartDate(offer.getStartDate());
             offerFromDB.setDescription(offer.getDescription());
+            offerFromDB.setLocation(offer.getLocation());
             offerRepository.save(offerFromDB);
             return offerRepository.getOne(id);
         }

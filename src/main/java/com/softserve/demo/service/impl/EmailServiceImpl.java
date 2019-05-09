@@ -1,7 +1,7 @@
 /*
  *Open source 2019
  */
-package com.softserve.demo.service.impl;
+package com.softserve.demo.service.Impl;
 
 import com.softserve.demo.service.EmailService;
 import org.springframework.core.io.ClassPathResource;
@@ -50,7 +50,7 @@ public class EmailServiceImpl implements EmailService {
     /**
      * constructor which inserts emailSender while initializing.
      *
-     * @param emailSender emailSender to be used by email Service
+     * @param emailSender emailSender to be used by email ServiceFromProviders
      */
     public EmailServiceImpl(final JavaMailSender emailSender) {
         this.emailSender = emailSender;
