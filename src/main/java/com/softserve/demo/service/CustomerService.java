@@ -2,17 +2,17 @@ package com.softserve.demo.service;
 
 
 
-import com.softserve.demo.model.CustomerEntity;
+import com.softserve.demo.model.Customer;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface CustomerService {
-    void createCustomer(CustomerEntity customer);
-    CustomerEntity updateCustomer(Integer id, CustomerEntity customer);
-    List<CustomerEntity> getAllCustomers();
-    CustomerEntity deleteCustomer(Integer id);
-    CustomerEntity getCustomerById(Integer id);
-   Page<CustomerEntity> getCustomersByPage(int page);
+    void createCustomer(Customer customer);
+    Customer updateCustomer(Integer id, Customer customer);
+    List<Customer> getAllCustomers();
+    Customer deleteCustomer(Integer id);
+    Customer getCustomerById(Integer id);
+   Page<Customer> getCustomersByPage(int page);
    void addImageToCustomer(Integer id, String fileName);
 }

@@ -1,7 +1,6 @@
 package com.softserve.demo.controller;
 
-import com.softserve.demo.dto.CustomerDTO;
-import com.softserve.demo.model.CustomerEntity;
+import com.softserve.demo.model.Customer;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.CustomerService;
@@ -42,9 +41,9 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<?> createCustomer(
-            @RequestBody CustomerEntity customer) {
+            @RequestBody Customer customer) {
         customer.setUser(userRepository.findById(customer.getUserId()));
-        /*CustomerEntity customerE = new CustomerEntity();
+        /*Customer customerE = new Customer();
         customerE.setFirstName(customer.getFirstName());
         customerE.setLastName(customer.getLastName());
         customerE.setImage(customer.getImage());
@@ -69,7 +68,7 @@ public class CustomerController {
         );
     }
     @GetMapping("list")
-    public Page<CustomerEntity> getUsersByPage(@RequestParam(defaultValue = "0") int page)  {
+    public Page<Customer> getUsersByPage(@RequestParam(defaultValue = "0") int page)  {
         return customerService.getCustomersByPage(page);
     }
 
@@ -82,9 +81,9 @@ public class CustomerController {
     @PutMapping("{id}")
     public ResponseEntity<?> updateUser(
             @PathVariable("id") Integer id,
-            @RequestBody CustomerEntity customer
+            @RequestBody Customer customer
     ) {
-        CustomerEntity customerUpdated= customerService.updateCustomer(id, customer);
+        Customer customerUpdated= customerService.updateCustomer(id, customer);
 
         if (customerUpdated == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 400

@@ -1,6 +1,6 @@
 package com.softserve.demo.service.impl;
 
-import com.softserve.demo.model.CustomerEntity;
+import com.softserve.demo.model.Customer;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ CustomerRepository customerRepository;
 
 
     @Override
-    public void createCustomer(CustomerEntity customer) {
+    public void createCustomer(Customer customer) {
         java.util.Date uDate = new java.util.Date();
         System.out.println("Time in java.util.Date is : " + uDate);
         java.sql.Date sDate = convertUtilToSql(uDate);
@@ -36,13 +36,13 @@ CustomerRepository customerRepository;
     }
 
     @Override
-    public CustomerEntity updateCustomer(Integer id, CustomerEntity customer) {
+    public Customer updateCustomer(Integer id, Customer customer) {
         boolean exists = customerRepository.existsById(id);
         if (!exists) {
             return null;
         }
 
-       CustomerEntity customerFromDB = customerRepository.findById(id).get();
+       Customer customerFromDB = customerRepository.findById(id).get();
         customerFromDB.setFirstName(customer.getFirstName());
         customerFromDB.setLastName(customer.getLastName());
         customerFromDB.setEmail(customer.getEmail());
@@ -58,37 +58,37 @@ CustomerRepository customerRepository;
     }
 
     @Override
-    public List<CustomerEntity> getAllCustomers() {
-        List<CustomerEntity> customers = customerRepository.findAll();
+    public List<Customer> getAllCustomers() {
+        List<Customer> customers = customerRepository.findAll();
         return customers;
     }
 
     @Override
-    public CustomerEntity deleteCustomer(Integer id) {
+    public Customer deleteCustomer(Integer id) {
         if (!customerRepository.existsById(id)) {
             return null;
         }
-        CustomerEntity customer =  customerRepository.findById(id).get();
+        Customer customer =  customerRepository.findById(id).get();
        customerRepository.deleteById(id);
         return customer;
     }
 
     @Override
-    public CustomerEntity getCustomerById(Integer id) {
+    public Customer getCustomerById(Integer id) {
         if(!customerRepository.existsById(id))return null;
-        CustomerEntity customerEntity = customerRepository.findById(id).get();
+        Customer customerEntity = customerRepository.findById(id).get();
         return customerEntity;
     }
 
-    public Page<CustomerEntity> getCustomersByPage(int page) {
-        Page<CustomerEntity> userEntities =
+    public Page<Customer> getCustomersByPage(int page) {
+        Page<Customer> userEntities =
                 customerRepository.findAll(new PageRequest(page,4));
         return userEntities;
     }
 
     @Override
     public void addImageToCustomer(Integer id, String fileName) {
-        CustomerEntity customerEntity =
+        Customer customerEntity =
                 customerRepository.findById(id).get();
 
        customerEntity.setImage(fileName);

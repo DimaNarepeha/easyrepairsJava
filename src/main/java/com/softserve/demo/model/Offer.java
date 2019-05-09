@@ -26,7 +26,7 @@ public class Offer {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private CustomerEntity customer;
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "location_id")
