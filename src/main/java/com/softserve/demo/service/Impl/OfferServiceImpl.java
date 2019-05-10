@@ -22,7 +22,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public Offer updateOffer(Long id, Offer offer) {
+    public Offer updateOffer(Integer id, Offer offer) {
         if (offerRepository.existsById(id)) {
             Offer offerFromDB = offerRepository.getOne(id);
             offerFromDB.setCustomer(offer.getCustomer());
@@ -41,7 +41,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public Offer deleteOffer(Long id) {
+    public Offer deleteOffer(Integer id) {
         if (offerRepository.existsById(id)) {
             Offer offerFromDB = offerRepository.getOne(id);
             offerRepository.deleteById(id);
@@ -51,7 +51,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public Offer getOfferById(Long id) {
+    public Offer getOfferById(Integer id) {
         if (offerRepository.existsById(id)) {
             return offerRepository.getOne(id);
         }

@@ -28,12 +28,12 @@ public class ServiceController {
     }
 
     @GetMapping("{serviceId}")
-    public ResponseEntity<?> getServiceById(@PathVariable("serviceId") Long id) {
+    public ResponseEntity<?> getServiceById(@PathVariable("serviceId") Integer id) {
         return new ResponseEntity<>(serviceFromProviders.getServiceById(id), HttpStatus.OK);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> updateService(@PathVariable("id") Long id, @RequestBody Service service) {
+    public ResponseEntity<?> updateService(@PathVariable("id") Integer id, @RequestBody Service service) {
         Service serviceUpdated = serviceFromProviders.updateService(id, service);
 
         if (serviceUpdated == null) {
@@ -43,7 +43,7 @@ public class ServiceController {
     }
 
     @DeleteMapping("{serviceId}")
-    public ResponseEntity<?> deleteServiceFromProvidersById(@PathVariable("serviceId") Long id) {
+    public ResponseEntity<?> deleteServiceFromProvidersById(@PathVariable("serviceId") Integer id) {
         serviceFromProviders.deleteService(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -22,7 +22,7 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
     }
 
     @Override
-    public Service updateService(Long id, Service service) {
+    public Service updateService(Integer id, Service service) {
         if (servicesRepository.existsById(id)) {
             Service serviceFromDB = servicesRepository.getOne(id);
             serviceFromDB.setServiceName(service.getServiceName());
@@ -38,7 +38,7 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
     }
 
     @Override
-    public Service deleteService(Long id) {
+    public Service deleteService(Integer id) {
         if (servicesRepository.existsById(id)) {
             Service serviceFromDB = servicesRepository.getOne(id);
             servicesRepository.deleteById(id);
@@ -48,7 +48,7 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
     }
 
     @Override
-    public Service getServiceById(Long id) {
+    public Service getServiceById(Integer id) {
         if (servicesRepository.existsById(id)) {
             return servicesRepository.getOne(id);
         }

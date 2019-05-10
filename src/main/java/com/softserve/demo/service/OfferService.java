@@ -9,13 +9,13 @@ public interface OfferService {
 
     void createOffer(Offer offer);
 
-    Offer updateOffer(Long id, Offer offer);
+    Offer updateOffer(Integer id, Offer offer);
 
     List<Offer> getAllOffers();
 
-    Offer deleteOffer(Long id);
+    Offer deleteOffer(Integer id);
 
-    Offer getOfferById(Long id);
+    Offer getOfferById(Integer id);
 
     Page<Offer> getOffersByPage(int page);
 }

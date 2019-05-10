@@ -9,13 +9,13 @@ public interface ServiceFromProviders {
 
     void createService(Service service);
 
-    com.softserve.demo.model.Service updateService(Long id, Service service);
+    Service updateService(Integer id, Service service);
 
     List<Service> getAllServices();
 
-    Service deleteService(Long id);
+    Service deleteService(Integer id);
 
-    Service getServiceById(Long id);
+    Service getServiceById(Integer id);
 
     Page<Service> getServicesByPage(int page);
 }

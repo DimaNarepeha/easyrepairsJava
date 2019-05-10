@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("Offers")
+@RequestMapping("offers")
 public class OfferController {
 
     @Autowired
@@ -28,12 +28,12 @@ public class OfferController {
     }
 
     @GetMapping("{offerId}")
-    public ResponseEntity<?> getOfferById(@PathVariable("offerId") Long id) {
+    public ResponseEntity<?> getOfferById(@PathVariable("offerId") Integer id) {
         return new ResponseEntity<>(offerService.getOfferById(id), HttpStatus.OK);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> updateOffer(@PathVariable("id") Long id, @RequestBody Offer offer) {
+    public ResponseEntity<?> updateOffer(@PathVariable("id") Integer id, @RequestBody Offer offer) {
         Offer offerUpdated = offerService.updateOffer(id, offer);
 
         if (offerUpdated == null) {
@@ -43,7 +43,7 @@ public class OfferController {
     }
 
     @DeleteMapping("{offerId}")
-    public ResponseEntity<?> deleteOfferById(@PathVariable("offerId") Long id) {
+    public ResponseEntity<?> deleteOfferById(@PathVariable("offerId") Integer id) {
         offerService.deleteOffer(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
