@@ -1,30 +1,46 @@
 package com.softserve.demo.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name="offers")
+@Table(name = "offers")
 public class Offer {
-
+    @Column(name = "id")
     @Id
-    @Column(name ="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(name ="customer_id")
-    private Integer customerId;
+    @Column(name = "start_date")
+    private Date startDate;
 
-    @Column(name ="provider_id")
-    private Integer providerId;
-
-    @Column(name ="start_date")
-    @Temporal(value = TemporalType.DATE)
-    private Date StartDate;
-
-    @Column(name ="description", length = 1000)
+    @Column(name = "description")
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
+
+    @OneToOne(mappedBy = "offer")
+    private Order order;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "offer_service",
+            joinColumns = {@JoinColumn(name = "offer_id")},
+            inverseJoinColumns = {@JoinColumn(name = "service_id")}
+    )
+    private List<Service> services = new ArrayList<>();
+
 }
