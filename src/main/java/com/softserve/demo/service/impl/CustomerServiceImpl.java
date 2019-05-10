@@ -2,6 +2,7 @@ package com.softserve.demo.service.impl;
 
 import com.softserve.demo.model.Customer;
 import com.softserve.demo.repository.CustomerRepository;
+import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,10 +18,12 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
 @Autowired
 CustomerRepository customerRepository;
-
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public void createCustomer(Customer customer) {
+        customer.setUser(userRepository.findById(1));
         java.util.Date uDate = new java.util.Date();
         System.out.println("Time in java.util.Date is : " + uDate);
         java.sql.Date sDate = convertUtilToSql(uDate);

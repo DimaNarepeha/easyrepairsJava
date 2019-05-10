@@ -26,10 +26,8 @@ public class CustomerController {
     CustomerService customerService;
     @Autowired
     private FilesStorageService fileStorageService;
-    @Autowired
-    private CustomerRepository customerRepository;
-    @Autowired
-    private UserRepository userRepository;
+
+
 
 //     @PostMapping("saveUserProfile")
 //     public ResponseEntity<?> createCustomer(@RequestParam("file")MultipartFile multipartFile,
@@ -42,7 +40,7 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<?> createCustomer(
             @RequestBody Customer customer) {
-        customer.setUser(userRepository.findById(customer.getUserId()));
+
         /*Customer customerE = new Customer();
         customerE.setFirstName(customer.getFirstName());
         customerE.setLastName(customer.getLastName());

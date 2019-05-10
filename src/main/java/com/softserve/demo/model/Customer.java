@@ -43,7 +43,4 @@ public class Customer {
 
 
 
-    @Column(name = "usr")
-    private int userId;
-
 }
