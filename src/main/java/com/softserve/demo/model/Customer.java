@@ -1,11 +1,13 @@
 package com.softserve.demo.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
+
 
 @Getter
 @Setter
@@ -30,7 +32,7 @@ public class Customer {
     private String image;
 
     @Column(name = "last_update")
-    private Date lastUpdate;
+    private Date updated;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -38,5 +40,7 @@ public class Customer {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer",cascade = CascadeType.REMOVE)
     private List<Offer> offers;
+
+
 
 }

@@ -13,65 +13,64 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-/**
- * Created by Illia Chenchak
- */
-@Service
-public class FileStorageServiceImpl implements FilesStorageService {
+
+    @Service
+    public class FileStorageServiceImpl implements FilesStorageService {
 
 
-    private final String PATH = System.getProperty("user.dir");
-    private final String SEPARATOR = System.getProperty("file.separator");
+        private final String PATH = System.getProperty("user.dir");
+        private final String SEPARATOR = System.getProperty("file.separator");
 
-    private final Path fileStorageLocation;
 
-    public FileStorageServiceImpl() {
-        String uploadDir = PATH + SEPARATOR + "uploads";
-        System.out.println(uploadDir);
+        private final Path fileStorageLocation;
 
-        this.fileStorageLocation = Paths.get(uploadDir)
-                .toAbsolutePath().normalize();
+        public FileStorageServiceImpl() {
+            String uploadDir = PATH + SEPARATOR + "uploads";
+            System.out.println(uploadDir);
 
-        try {
-            Files.createDirectories(this.fileStorageLocation);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            this.fileStorageLocation = Paths.get(uploadDir)
+                    .toAbsolutePath().normalize();
 
-    }
-
-    @Override
-    public String storeFile(MultipartFile file) {
-        String fileName = file.getOriginalFilename();
-
-        Path targetLocation = null;
-
-        try {
-            targetLocation = this.fileStorageLocation.resolve(fileName);
-            Files.copy(file.getInputStream(), targetLocation,
-                    StandardCopyOption.REPLACE_EXISTING);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return fileName;
-    }
-
-    @Override
-    public Resource loadFile(String fileName) {
-
-        Path filePath = this.fileStorageLocation.resolve(fileName);
-
-        try {
-            Resource resource = new UrlResource(filePath.toUri());
-
-            if (resource.exists()) {
-                return resource;
+            try {
+                Files.createDirectories(this.fileStorageLocation);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+
         }
 
-        return null;
+        @Override
+        public String storeFile(MultipartFile file) {
+            String fileName = file.getOriginalFilename();
+
+            Path targetLocation = null;
+
+            try {
+                targetLocation = this.fileStorageLocation.resolve(fileName);
+                Files.copy(file.getInputStream(), targetLocation,
+                        StandardCopyOption.REPLACE_EXISTING);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return fileName;
+        }
+
+        @Override
+        public Resource loadFile(String fileName) {
+
+            Path filePath = this.fileStorageLocation.resolve(fileName);
+
+            try {
+                Resource resource = new UrlResource(filePath.toUri());
+
+                if (resource.exists()) {
+                    return resource;
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
     }
-}
