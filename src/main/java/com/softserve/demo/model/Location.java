@@ -2,7 +2,6 @@ package com.softserve.demo.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.omg.CORBA.BAD_POLICY_TYPE;
 
 import javax.persistence.*;
 import java.util.List;
