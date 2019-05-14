@@ -42,7 +42,7 @@ public class ServiceProvider {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider",cascade = CascadeType.REMOVE)
     private List<Order> orders;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
     @JoinTable(
             name = "provider_service",
             joinColumns = {@JoinColumn(name = "provider_id")},

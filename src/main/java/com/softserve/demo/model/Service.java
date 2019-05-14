@@ -20,10 +20,10 @@ public class Service {
     @Column(name = "service_name")
     private String serviceName;
 
-    @ManyToMany(mappedBy = "services")
+    @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
     private List<Offer> offers = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "services")
+    @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
     private List<ServiceProvider> providers = new ArrayList<>();
 
 }
