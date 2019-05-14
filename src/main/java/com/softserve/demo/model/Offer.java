@@ -35,7 +35,7 @@ public class Offer {
     @OneToOne(mappedBy = "offer")
     private Order order;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(
             name = "offer_service",
             joinColumns = {@JoinColumn(name = "offer_id")},
