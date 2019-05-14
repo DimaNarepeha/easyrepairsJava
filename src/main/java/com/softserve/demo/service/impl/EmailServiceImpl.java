@@ -71,6 +71,7 @@ public class EmailServiceImpl implements EmailService {
             MimeMessage message = emailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setTo(to);
+            helper.setSubject(subject);
             helper.setText(getMailTemplateWithText(text), true);
             emailSender.send(message);
         } catch (MessagingException e) {
