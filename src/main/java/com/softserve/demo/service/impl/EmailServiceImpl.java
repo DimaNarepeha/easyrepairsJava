@@ -60,17 +60,17 @@ public class EmailServiceImpl implements EmailService {
      * This method sends email
      * to the provided address.
      *
-     * @param to      receiver of the letter
+     * @param addressedTo      receiver of the letter
      * @param subject subject of the letter
      * @param text    the letter text itself
      * @return true if no exception occurred
      */
     @Override
-    public boolean sendEmailTo(final String to, final String subject, final String text) {
+    public boolean sendEmailTo(final String addressedTo, final String subject, final String text) {
         try {
             MimeMessage message = emailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setTo(to);
+            helper.setTo(addressedTo);
             helper.setSubject(subject);
             helper.setText(getMailTemplateWithText(text), true);
             emailSender.send(message);

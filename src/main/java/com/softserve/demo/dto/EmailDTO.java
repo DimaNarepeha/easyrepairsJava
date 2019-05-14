@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EmailDTO {
-    String to;
+    String addressedTo;
     String subject;
     String text;
 }
