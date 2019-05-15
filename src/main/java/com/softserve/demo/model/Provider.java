@@ -45,10 +45,10 @@ public class Provider {
     private User user;
 
     @JsonBackReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider",cascade = CascadeType.REMOVE)
     private List<Order> orders;
 
-    @ManyToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.REMOVE ,fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinTable(
             name = "provider_service",

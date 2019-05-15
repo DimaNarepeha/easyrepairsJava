@@ -28,7 +28,6 @@ public class ProvidersServiceImpl implements ProvidersService {
 
     private final UserRepository userRepository;
 
-    @Autowired
     public ProvidersServiceImpl(ProviderRepository providerRepository, UserRepository userRepository) {
         this.providerRepository = providerRepository;
         this.userRepository = userRepository;
