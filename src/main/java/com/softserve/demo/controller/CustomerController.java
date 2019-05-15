@@ -1,10 +1,13 @@
 package com.softserve.demo.controller;
 
+import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.model.Customer;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.CustomerService;
 import com.softserve.demo.service.FilesStorageService;
+import com.softserve.demo.util.CustomerMapper;
+import com.softserve.demo.util.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
@@ -27,36 +30,20 @@ public class CustomerController {
     @Autowired
     private FilesStorageService fileStorageService;
 
-
-
-//     @PostMapping("saveUserProfile")
-//     public ResponseEntity<?> createCustomer(@RequestParam("file")MultipartFile multipartFile,
-//        @RequestParam("user")String user
-//     )
-//         return new ResponseEntity<>(HttpStatus.CREATED);
-//     }
-
-
     @PostMapping
     public ResponseEntity<?> createCustomer(
-            @RequestBody Customer customer) {
-
-        /*Customer customerE = new Customer();
-        customerE.setFirstName(customer.getFirstName());
-        customerE.setLastName(customer.getLastName());
-        customerE.setImage(customer.getImage());
-        customerE.setEmail(customer.getEmail());
-        customerE.setUpdated(customer.getUpdated());
-        customerE.setUserId(userRepository.findById(customer.getUserId()));*/
-        customerService.createCustomer(customer);
+            @RequestBody CustomerDTO customer) {
+        customerService.createCustomer(CustomerMapper.INSTANCE.CustomerDTOToCustomer(customer));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<?> getAllUsers() {
         return new ResponseEntity<>(
-                customerService.getAllCustomers(), HttpStatus.OK
-        );
+                customerService.getAllCustomers().stream().map(
+                        CustomerMapper.INSTANCE::CustomerToCustomerDTO)
+                        ,HttpStatus.OK);
+
     }
 
     @GetMapping("{userId}")
