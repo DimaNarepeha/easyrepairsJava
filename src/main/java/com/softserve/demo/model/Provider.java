@@ -3,6 +3,7 @@ package com.softserve.demo.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -12,8 +13,9 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "service_provider")
-public class ServiceProvider {
+public class Provider {
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
