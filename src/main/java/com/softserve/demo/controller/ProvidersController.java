@@ -20,15 +20,19 @@ import java.util.List;
  * Created by Illia Chenchak
  */
 @RestController
-@RequestMapping("service-providers")
+    @RequestMapping("service-providers")
 @CrossOrigin("*")
 public class ProvidersController {
 
-    @Autowired
-    private ProvidersService providersService;
+    private final ProvidersService providersService;
+
+    private final FilesStorageService fileStorageService;
 
     @Autowired
-    FilesStorageService fileStorageService;
+    public ProvidersController(ProvidersService providersService, FilesStorageService fileStorageService) {
+        this.providersService = providersService;
+        this.fileStorageService = fileStorageService;
+    }
 
     @PostMapping("save")
     public ResponseEntity<Providers> saveServiceProvider(@RequestBody Providers serviceProviders) {
