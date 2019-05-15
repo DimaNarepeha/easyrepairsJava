@@ -51,7 +51,7 @@ public class ProvidersController {
     }
 
     @GetMapping("find-all/page")
-    public Page<?> getServiceProvidersByPage(@RequestParam(defaultValue = "0") int page)  {
+    public Page<?> getServiceProvidersByPage(@RequestParam(defaultValue = "0") int page) {
         return providersService.getServiceProvidersByPage(page);
     }
 
@@ -78,13 +78,9 @@ public class ProvidersController {
 
     @GetMapping("/image/{imageName}")
     public ResponseEntity<?> getImageForProviders(@PathVariable("imageName") String name,
-            HttpServletRequest servletRequest
-    ) {
-
+                                                  HttpServletRequest servletRequest) {
         Resource resource = fileStorageService.loadFile(name);
-
         String contentType = null;
-
         try {
             contentType = servletRequest
                     .getServletContext()
@@ -93,11 +89,9 @@ public class ProvidersController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         if (contentType == null) {
             contentType = "application/octet-stream";
         }
-
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION,

@@ -50,6 +50,7 @@ public class ProvidersServiceImpl implements ProvidersService {
         Date uDate = new java.util.Date();
         java.sql.Date sDate = new java.sql.Date(uDate.getTime());
         provider.setLastUpdate(sDate);
+        provider.setImage("nophoto.png");
         providerRepository.save(provider);
         ProviderDTO newProviderDTO = ProviderMapper.INSTANCE.ProviderToProviderDTO(provider);
         return newProviderDTO;
