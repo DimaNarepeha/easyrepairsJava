@@ -1,5 +1,6 @@
 package com.softserve.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,6 +30,7 @@ public class Order {
     @JoinColumn(name = "offer_id", referencedColumnName = "id")
     private Offer offer;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "provider_id")
     private ServiceProvider provider;

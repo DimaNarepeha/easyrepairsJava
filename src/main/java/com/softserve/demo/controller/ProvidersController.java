@@ -73,13 +73,12 @@ public class ProvidersController {
         System.out.println(file.getOriginalFilename());
 
         fileStorageService.storeFile(file);
-        providersService.addImageToCustomer(id, file.getOriginalFilename());
+        providersService.addImageToProviderds(id, file.getOriginalFilename());
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/image/{imageName}")
-    public ResponseEntity<?> getImage(
-            @PathVariable("imageName") String name,
+    public ResponseEntity<?> getImageForProviders(@PathVariable("imageName") String name,
             HttpServletRequest servletRequest
     ) {
 

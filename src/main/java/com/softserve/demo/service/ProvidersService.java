@@ -17,7 +17,7 @@ public interface ProvidersService {
 
     ServiceProvider update (Integer id, ServiceProvider providers);
 
-    void addImageToCustomer(Integer id, String fileName);
+    void addImageToProviderds (Integer id, String fileName);
 
     public Page<ServiceProvider> getServiceProvidersByPage(int page);
 

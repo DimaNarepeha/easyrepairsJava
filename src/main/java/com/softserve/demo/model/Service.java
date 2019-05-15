@@ -1,5 +1,6 @@
 package com.softserve.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,7 @@ public class Service {
     @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
     private List<Offer> offers = new ArrayList<>();
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
     private List<ServiceProvider> providers = new ArrayList<>();
 
