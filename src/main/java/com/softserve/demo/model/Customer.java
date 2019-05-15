@@ -3,6 +3,7 @@ package com.softserve.demo.model;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "customer")
 public class Customer {
     @Column(name = "id")
@@ -40,7 +42,4 @@ public class Customer {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer",cascade = CascadeType.REMOVE)
     private List<Offer> offers;
-
-
-
 }

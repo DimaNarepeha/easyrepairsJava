@@ -2,6 +2,7 @@ package com.softserve.demo.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "offers")
 public class Offer {
     @Column(name = "id")
@@ -35,12 +37,11 @@ public class Offer {
     @OneToOne(mappedBy = "offer")
     private Order order;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(
             name = "offer_service",
             joinColumns = {@JoinColumn(name = "offer_id")},
             inverseJoinColumns = {@JoinColumn(name = "service_id")}
     )
     private List<Service> services = new ArrayList<>();
-
 }
