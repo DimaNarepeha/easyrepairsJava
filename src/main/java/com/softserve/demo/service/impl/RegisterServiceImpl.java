@@ -23,8 +23,13 @@ public class RegisterServiceImpl implements RegisterService {
     private final CustomerRepository customerRepository;
     private final ProviderRepository providerRepository;
 
-    @Autowired
-    public RegisterServiceImpl(CustomerRepository customerRepository, UserRepository userRepository, ProviderRepository providerRepository) {
+    private static final String USERNAME_EXISTS = "This username already exist";
+    private static final String EMAIL_EXISTS = "This email already used";
+    private static final String OK = "Everything is fine";
+
+    public RegisterServiceImpl(final CustomerRepository customerRepository,
+                               final UserRepository userRepository,
+                               final ProviderRepository providerRepository) {
         this.userRepository = userRepository;
         this.customerRepository = customerRepository;
         this.providerRepository = providerRepository;
@@ -32,24 +37,37 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     @Transactional
-    public String createCustomer(CustomerDTO customerDTO) {
+    public String createCustomer(final CustomerDTO customerDTO) {
         User user = UserMapper.INSTANCE.UserDTOToUser(customerDTO.getUserDTO());
+        if (userRepository.existsByUsername(user.getUsername())) {
+            return USERNAME_EXISTS;
+        }
+        if (customerRepository.existsByEmail(customerDTO.getEmail())) {
+            return EMAIL_EXISTS;
+        }
         userRepository.save(user);
         user = userRepository.findByUsername(user.getUsername());
         Customer customer = CustomerMapper.INSTANCE.CustomerDTOToCustomer(customerDTO);
         customer.setUser(user);
         customerRepository.save(customer);
-        return "everything is OK";
+        return OK;
     }
 
     @Override
-    public String createProvider(ProviderDTO providerDTO) {
+    @Transactional
+    public String createProvider(final ProviderDTO providerDTO) {
         User user = UserMapper.INSTANCE.UserDTOToUser(providerDTO.getUserDTO());
+        if (userRepository.existsByUsername(user.getUsername())) {
+            return USERNAME_EXISTS;
+        }
+        if (providerRepository.existsByEmail(providerDTO.getEmail())) {
+            return EMAIL_EXISTS;
+        }
         userRepository.save(user);
         user = userRepository.findByUsername(user.getUsername());
         Provider provider = ProviderMapper.INSTANCE.ProviderDTOToProvider(providerDTO);
         provider.setUser(user);
         providerRepository.save(provider);
-        return "everything is OK";
+        return OK;
     }
 }
