@@ -71,8 +71,6 @@ public class ProvidersController {
             @PathVariable("userId") Integer id,
             @RequestParam("imageFile") MultipartFile file
     ) {
-        System.out.println(file.getOriginalFilename());
-
         fileStorageService.storeFile(file);
         providersService.addImageToProviderds(id, file.getOriginalFilename());
         return new ResponseEntity<>(HttpStatus.ACCEPTED);

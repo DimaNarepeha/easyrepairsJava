@@ -45,7 +45,7 @@ public class Provider {
     private User user;
 
     @JsonBackReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider",cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider",cascade = CascadeType.ALL)
     private List<Order> orders;
 
     @ManyToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
