@@ -3,6 +3,7 @@ package com.softserve.demo.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@ToString
 @Table(name = "services")
 public class Service {
     @Column(name = "id")
@@ -26,6 +28,6 @@ public class Service {
 
     @JsonBackReference
     @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
-    private List<ServiceProvider> providers = new ArrayList<>();
+    private List<Provider> providers = new ArrayList<>();
 
 }

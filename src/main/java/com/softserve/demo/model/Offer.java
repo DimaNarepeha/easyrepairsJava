@@ -2,6 +2,7 @@ package com.softserve.demo.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "offers")
 public class Offer {
     @Column(name = "id")
@@ -42,5 +44,4 @@ public class Offer {
             inverseJoinColumns = {@JoinColumn(name = "service_id")}
     )
     private List<Service> services = new ArrayList<>();
-
 }

@@ -1,8 +1,8 @@
 package com.softserve.demo.service.impl;
 
-import com.softserve.demo.model.ServiceProvider;
-import com.softserve.demo.model.User;
-import com.softserve.demo.repository.ProvidersRepository;
+
+import com.softserve.demo.model.Provider;
+import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.ProvidersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -24,61 +22,64 @@ import java.util.List;
 @Transactional
 public class ProvidersServiceImpl implements ProvidersService {
 
-    private final ProvidersRepository providersRepository;
+    private final ProviderRepository providerRepository;
 
     private final UserRepository userRepository;
 
     @Autowired
-    public ProvidersServiceImpl(ProvidersRepository providersRepository, UserRepository userRepository) {
-        this.providersRepository = providersRepository;
+    public ProvidersServiceImpl(ProviderRepository providerRepository, UserRepository userRepository) {
+        this.providerRepository = providerRepository;
         this.userRepository = userRepository;
     }
 
     @Override
-    public ServiceProvider findById(Integer id) {
-        return providersRepository.findById(id).get();
+    public Provider findById(Integer id) {
+        return providerRepository.findById(id).get();
     }
 
     @Override
-    public List<ServiceProvider> findAll() {
-        return providersRepository.findAll();
+    public List<Provider> findAll() {
+        return providerRepository.findAll();
     }
 
     @Override
-    public ServiceProvider save(ServiceProvider providers) {
-        providers.setUser(userRepository.findById(1));
+    public Provider save(Provider provider) {
+        provider.setUser(userRepository.findById(1));
         Date date = new Date();
-        providers.setLastUpdate((java.sql.Date) date);
-        return providersRepository.save(providers);
+        provider.setLastUpdate((java.sql.Date) date);
+        return providerRepository.save(provider);
     }
 
     @Override
-    public ServiceProvider update(Integer id, ServiceProvider providers) {
-        ServiceProvider newProviders = providersRepository.findById(id).get();
+    public Provider update(Integer id, Provider provider) {
+        Provider newProvider = providerRepository.findById(id).get();
         Date date = new Date();
-        providers.setLastUpdate((java.sql.Date) date);
-        newProviders.setName(providers.getName());
-        return newProviders;
+        newProvider.setLastUpdate((java.sql.Date) date);
+        newProvider.setName(provider.getName());
+        newProvider.setEmail(provider.getEmail());
+        newProvider.setDescription(provider.getDescription());
+        return newProvider;
+
     }
+
 
     @Override
     public void delete(Integer id) {
-        providersRepository.delete(providersRepository.findById(id).get());
+        providerRepository.delete(providerRepository.findById(id).get());
     }
 
     @Override
     public void addImageToProviderds(Integer id, String fileName) {
-        ServiceProvider providers=
-                providersRepository.findById(id).get();
-
-        providers.setImage(fileName);
-        providersRepository.save(providers);
+        Provider provider =
+                providerRepository.findById(id).get();
+        provider.setImage(fileName);
+        providerRepository.save(provider);
     }
 
     @Override
-    public Page<ServiceProvider> getServiceProvidersByPage(int page) {
-        Page<ServiceProvider> serviceProviders =
-                providersRepository.findAll(new PageRequest(page,4));
+    public Page<Provider> getServiceProvidersByPage(int page) {
+        Page<Provider> serviceProviders =
+                providerRepository.findAll(new PageRequest(page, 4));
         return serviceProviders;
     }
 }

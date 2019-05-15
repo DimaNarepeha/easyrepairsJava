@@ -3,6 +3,7 @@ package com.softserve.demo.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -10,6 +11,7 @@ import java.sql.Date;
 @Entity
 @Getter
 @Setter
+@ToString
 @Table(name = "orders")
 public class Order {
     @Column(name = "id")
@@ -33,5 +35,5 @@ public class Order {
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "provider_id")
-    private ServiceProvider provider;
+    private Provider provider;
 }
