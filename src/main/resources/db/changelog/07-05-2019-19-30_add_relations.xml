@@ -15,8 +15,8 @@
                                  onDelete="CASCADE"/>
     </changeSet>
     <changeSet id="2" author="Oleksandr">
-        <addForeignKeyConstraint baseTableName="phone" 
-                                 baseColumnNames="user_id" 
+        <addForeignKeyConstraint baseTableName="phone"
+                                 baseColumnNames="user_id"
                                  constraintName="phone_user"
                                  referencedTableName="usr"
                                  referencedColumnNames="id"
@@ -24,14 +24,14 @@
                                  onDelete="CASCADE"/>
     </changeSet>
     <changeSet id="3" author="Oleksandr">
-        <addForeignKeyConstraint baseTableName="service_provider" 
+        <addForeignKeyConstraint baseTableName="service_provider"
                                  baseColumnNames="user_id"
                                  constraintName="provider_user"
                                  referencedTableName="usr"
                                  referencedColumnNames="id"
                                  onUpdate="CASCADE"
                                  onDelete="CASCADE"/>
-        
+
     </changeSet>
     <changeSet id="4" author="Oleksandr">
         <addForeignKeyConstraint baseTableName="service_provider"
