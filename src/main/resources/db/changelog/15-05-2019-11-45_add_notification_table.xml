@@ -9,9 +9,6 @@
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="user_id" type="INT">
-                <constraints nullable="false"/>
-            </column>
             <column name="notification_header" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
@@ -27,9 +24,16 @@
         </createTable>
     </changeSet>
     <changeSet author="Dima" id="2">
-        <addForeignKeyConstraint baseTableName="notifications" baseColumnNames="user_id"
+        <addColumn tableName="usr">
+            <column name="notification_id" type="INT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Dima" id="3">
+        <addForeignKeyConstraint baseTableName="usr" baseColumnNames="notification_id"
                                  constraintName="notifications_user"
-                                 referencedTableName="usr"
+                                 referencedTableName="notifications"
                                  referencedColumnNames="id"
                                  onUpdate="CASCADE"/>
     </changeSet>
