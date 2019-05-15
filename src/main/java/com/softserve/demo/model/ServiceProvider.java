@@ -1,5 +1,6 @@
 package com.softserve.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,14 +36,17 @@ public class ServiceProvider {
 
 
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider",cascade = CascadeType.REMOVE)
     private List<Order> orders;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinTable(
             name = "provider_service",
             joinColumns = {@JoinColumn(name = "provider_id")},
@@ -50,6 +54,7 @@ public class ServiceProvider {
     )
     private List<Service> services = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
