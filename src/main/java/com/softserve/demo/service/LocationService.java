@@ -9,11 +9,11 @@ public interface LocationService {
     
     void createLocation(Location location);
 
-    Location updateLocation(Integer id, Location location);
+    void updateLocation(Location location);
 
     List<Location> getAllLocations();
 
-    Location deleteLocation(Integer id);
+    void deleteLocation(Integer id);
 
     Location getLocationById(Integer id);
 

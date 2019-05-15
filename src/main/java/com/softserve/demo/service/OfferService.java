@@ -9,11 +9,11 @@ public interface OfferService {
 
     void createOffer(Offer offer);
 
-    Offer updateOffer(Integer id, Offer offer);
+    void updateOffer(Offer offer);
 
     List<Offer> getAllOffers();
 
-    Offer deleteOffer(Integer id);
+    void deleteOffer(Integer id);
 
     Offer getOfferById(Integer id);
 

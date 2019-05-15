@@ -12,8 +12,11 @@ import java.util.List;
 @org.springframework.stereotype.Service
 public class ServiceFromProvidersImpl implements ServiceFromProviders {
 
-    @Autowired
-    ServicesRepository servicesRepository;
+    private ServicesRepository servicesRepository;
+
+    public ServiceFromProvidersImpl(ServicesRepository servicesRepository) {
+        this.servicesRepository = servicesRepository;
+    }
 
 
     @Override
@@ -22,14 +25,12 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
     }
 
     @Override
-    public Service updateService(Integer id, Service service) {
-        if (servicesRepository.existsById(id)) {
-            Service serviceFromDB = servicesRepository.getOne(id);
+    public void updateService(Service service) {
+        Service serviceFromDB;
+        if ((serviceFromDB = servicesRepository.getOne(service.getId())) != null) {
             serviceFromDB.setServiceName(service.getServiceName());
             servicesRepository.save(serviceFromDB);
-            return servicesRepository.getOne(id);
         }
-        return null;
     }
 
     @Override
@@ -38,21 +39,13 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
     }
 
     @Override
-    public Service deleteService(Integer id) {
-        if (servicesRepository.existsById(id)) {
-            Service serviceFromDB = servicesRepository.getOne(id);
-            servicesRepository.deleteById(id);
-            return serviceFromDB;
-        }
-        return null;
+    public void deleteService(Integer id) {
+        servicesRepository.deleteById(id);
     }
 
     @Override
     public Service getServiceById(Integer id) {
-        if (servicesRepository.existsById(id)) {
-            return servicesRepository.getOne(id);
-        }
-        return null;
+        return servicesRepository.getOne(id);
     }
 
     @Override

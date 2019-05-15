@@ -13,8 +13,11 @@ import java.util.List;
 @Service
 public class OfferServiceImpl implements OfferService {
 
-    @Autowired
-    OfferRepository offerRepository;
+    private OfferRepository offerRepository;
+
+    public OfferServiceImpl(OfferRepository offerRepository) {
+        this.offerRepository = offerRepository;
+    }
 
     @Override
     public void createOffer(Offer offer) {
@@ -22,17 +25,15 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public Offer updateOffer(Integer id, Offer offer) {
-        if (offerRepository.existsById(id)) {
-            Offer offerFromDB = offerRepository.getOne(id);
+    public void updateOffer(Offer offer) {
+        Offer offerFromDB;
+        if ((offerFromDB = offerRepository.getOne(offer.getId())) != null) {
             offerFromDB.setCustomer(offer.getCustomer());
             offerFromDB.setStartDate(offer.getStartDate());
             offerFromDB.setDescription(offer.getDescription());
             offerFromDB.setLocation(offer.getLocation());
             offerRepository.save(offerFromDB);
-            return offerRepository.getOne(id);
         }
-        return null;
     }
 
     @Override
@@ -41,21 +42,13 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public Offer deleteOffer(Integer id) {
-        if (offerRepository.existsById(id)) {
-            Offer offerFromDB = offerRepository.getOne(id);
-            offerRepository.deleteById(id);
-            return offerFromDB;
-        }
-        return null;
+    public void deleteOffer(Integer id) {
+        offerRepository.deleteById(id);
     }
 
     @Override
     public Offer getOfferById(Integer id) {
-        if (offerRepository.existsById(id)) {
-            return offerRepository.getOne(id);
-        }
-        return null;
+        return offerRepository.getOne(id);
     }
 
     @Override

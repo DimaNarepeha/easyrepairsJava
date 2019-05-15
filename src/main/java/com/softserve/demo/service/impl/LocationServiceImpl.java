@@ -12,26 +12,27 @@ import java.util.List;
 
 @Service
 public class LocationServiceImpl implements LocationService {
-    
-    @Autowired
-    LocationRepository locationRepository;
-    
+
+    private LocationRepository locationRepository;
+
+    public LocationServiceImpl(LocationRepository locationRepository) {
+        this.locationRepository = locationRepository;
+    }
+
     @Override
     public void createLocation(Location location) {
         locationRepository.save(location);
     }
 
     @Override
-    public Location updateLocation(Integer id, Location location) {
-        if (locationRepository.existsById(id)) {
-            Location locationFromDB = locationRepository.getOne(id);
+    public void updateLocation(Location location) {
+            Location locationFromDB;
+        if ((locationFromDB = locationRepository.getOne(location.getId())) != null) {
             locationFromDB.setCountry(location.getCountry());
             locationFromDB.setCity(location.getCity());
             locationFromDB.setRegion(location.getRegion());
             locationRepository.save(locationFromDB);
-            return locationRepository.getOne(id);
         }
-        return null;
     }
 
     @Override
@@ -40,21 +41,13 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Location deleteLocation(Integer id) {
-        if (locationRepository.existsById(id)) {
-            Location locationFromDB = locationRepository.getOne(id);
+    public void deleteLocation(Integer id) {
             locationRepository.deleteById(id);
-            return locationFromDB;
-        }
-        return null;
     }
 
     @Override
     public Location getLocationById(Integer id) {
-        if (locationRepository.existsById(id)) {
             return locationRepository.getOne(id);
-        }
-        return null;
     }
 
     @Override

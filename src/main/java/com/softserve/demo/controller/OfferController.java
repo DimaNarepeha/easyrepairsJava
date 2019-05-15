@@ -2,7 +2,6 @@ package com.softserve.demo.controller;
 
 import com.softserve.demo.model.Offer;
 import com.softserve.demo.service.OfferService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("offers")
 public class OfferController {
 
-    @Autowired
-    OfferService offerService;
+    private OfferService offerService;
+
+    public OfferController(OfferService offerService) {
+        this.offerService = offerService;
+    }
 
     @PostMapping
     public ResponseEntity<?> createOffer(@RequestBody Offer offer) {
@@ -27,23 +29,19 @@ public class OfferController {
         return new ResponseEntity<>(offerService.getAllOffers(), HttpStatus.OK);
     }
 
-    @GetMapping("{offerId}")
-    public ResponseEntity<?> getOfferById(@PathVariable("offerId") Integer id) {
+    @GetMapping("{id}")
+    public ResponseEntity<?> getOfferById(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(offerService.getOfferById(id), HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<?> updateOffer(@PathVariable("id") Integer id, @RequestBody Offer offer) {
-        Offer offerUpdated = offerService.updateOffer(id, offer);
-
-        if (offerUpdated == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(offerUpdated, HttpStatus.OK);
+    @PutMapping("update")
+    public ResponseEntity<?> updateOffer(@RequestBody Offer offer) {
+        offerService.updateOffer(offer);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("{offerId}")
-    public ResponseEntity<?> deleteOfferById(@PathVariable("offerId") Integer id) {
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteOfferById(@PathVariable("id") Integer id) {
         offerService.deleteOffer(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
