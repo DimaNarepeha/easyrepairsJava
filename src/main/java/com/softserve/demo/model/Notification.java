@@ -20,4 +20,6 @@ public class Notification {
     private String message;
     @Column(name = "createdAt")
     private String time;
+    @Column(name = "seen")
+    private Boolean seen; // if user have already read this notification
 }
