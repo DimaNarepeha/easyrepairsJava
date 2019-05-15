@@ -2,6 +2,7 @@ package com.softserve.demo.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -9,6 +10,7 @@ import java.sql.Date;
 @Entity
 @Getter
 @Setter
+@ToString
 @Table(name = "orders")
 public class Order {
     @Column(name = "id")
@@ -31,5 +33,5 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "provider_id")
-    private ServiceProvider provider;
+    private Provider provider;
 }
