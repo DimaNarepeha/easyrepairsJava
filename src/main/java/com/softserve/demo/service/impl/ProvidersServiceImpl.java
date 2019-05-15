@@ -44,17 +44,19 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public Provider save(ProviderDTO providerDTO) {
+    public ProviderDTO save(ProviderDTO providerDTO) {
         Provider provider = ProviderMapper.INSTANCE.ProviderDTOToProvider(providerDTO);
         provider.setUser(userRepository.findById(1));
         Date uDate = new java.util.Date();
         java.sql.Date sDate = new java.sql.Date(uDate.getTime());
         provider.setLastUpdate(sDate);
-        return providerRepository.save(provider);
+        providerRepository.save(provider);
+        ProviderDTO newProviderDTO = ProviderMapper.INSTANCE.ProviderToProviderDTO(provider);
+        return newProviderDTO;
     }
 
     @Override
-    public Provider update(Integer id, ProviderDTO providerDTO) {
+    public ProviderDTO update(Integer id, ProviderDTO providerDTO) {
         Provider provider = ProviderMapper.INSTANCE.ProviderDTOToProvider(providerDTO);
         Provider newProvider = providerRepository.findById(id).get();
         Date uDate = new java.util.Date();
@@ -63,7 +65,8 @@ public class ProvidersServiceImpl implements ProvidersService {
         newProvider.setName(provider.getName());
         newProvider.setEmail(provider.getEmail());
         newProvider.setDescription(provider.getDescription());
-        return newProvider;
+        ProviderDTO newProviderDTO = ProviderMapper.INSTANCE.ProviderToProviderDTO(newProvider);
+        return newProviderDTO;
 
     }
 
@@ -84,7 +87,7 @@ public class ProvidersServiceImpl implements ProvidersService {
     @Override
     public Page<Provider> getServiceProvidersByPage(int page) {
         Page<Provider> serviceProviders =
-                providerRepository.findAll(new PageRequest(page, 4));
+                providerRepository.findAll(PageRequest.of(page,4));
         return serviceProviders;
     }
 }

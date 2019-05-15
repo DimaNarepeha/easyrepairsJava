@@ -12,14 +12,14 @@ public interface ProvidersService {
 
     List<Provider> findAll();
 
-    Provider save(ProviderDTO providerDTO);
+    ProviderDTO save(ProviderDTO providerDTO);
 
     void delete (Integer id);
 
-    Provider update (Integer id, ProviderDTO providerDTO);
+    ProviderDTO update (Integer id, ProviderDTO providerDTO);
 
     void addImageToProviderds (Integer id, String fileName);
 
-    public Page<Provider> getServiceProvidersByPage(int page);
+    Page<Provider> getServiceProvidersByPage(int page);
 
 }
