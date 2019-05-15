@@ -1,5 +1,6 @@
 package com.softserve.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
@@ -43,12 +44,12 @@ public class Provider {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider",cascade = CascadeType.REMOVE)
     private List<Order> orders;
 
     @ManyToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonBackReference
     @JoinTable(
             name = "provider_service",
             joinColumns = {@JoinColumn(name = "provider_id")},

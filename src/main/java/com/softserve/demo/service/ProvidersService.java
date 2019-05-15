@@ -1,5 +1,6 @@
 package com.softserve.demo.service;
 
+import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
 import org.springframework.data.domain.Page;
 
@@ -11,11 +12,11 @@ public interface ProvidersService {
 
     List<Provider> findAll();
 
-    Provider save(Provider providers);
+    Provider save(ProviderDTO providerDTO);
 
     void delete (Integer id);
 
-    Provider update (Integer id, Provider providers);
+    Provider update (Integer id, ProviderDTO providerDTO);
 
     void addImageToProviderds (Integer id, String fileName);
 

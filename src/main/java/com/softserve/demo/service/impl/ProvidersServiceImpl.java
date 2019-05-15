@@ -1,10 +1,12 @@
 package com.softserve.demo.service.impl;
 
 
+import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.ProvidersService;
+import com.softserve.demo.util.ProviderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -43,18 +45,22 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public Provider save(Provider provider) {
+    public Provider save(ProviderDTO providerDTO) {
+        Provider provider = ProviderMapper.INSTANCE.ProviderDTOToProvider(providerDTO);
         provider.setUser(userRepository.findById(1));
-        Date date = new Date();
-        provider.setLastUpdate((java.sql.Date) date);
+        Date uDate = new java.util.Date();
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        provider.setLastUpdate(sDate);
         return providerRepository.save(provider);
     }
 
     @Override
-    public Provider update(Integer id, Provider provider) {
+    public Provider update(Integer id, ProviderDTO providerDTO) {
+        Provider provider = ProviderMapper.INSTANCE.ProviderDTOToProvider(providerDTO);
         Provider newProvider = providerRepository.findById(id).get();
-        Date date = new Date();
-        newProvider.setLastUpdate((java.sql.Date) date);
+        Date uDate = new java.util.Date();
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        newProvider.setLastUpdate(sDate);
         newProvider.setName(provider.getName());
         newProvider.setEmail(provider.getEmail());
         newProvider.setDescription(provider.getDescription());

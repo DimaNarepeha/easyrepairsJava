@@ -1,5 +1,6 @@
 package com.softserve.demo.controller;
 
+import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
 import com.softserve.demo.service.FilesStorageService;
 import com.softserve.demo.service.ProvidersService;
@@ -20,7 +21,7 @@ import java.util.List;
  * Created by Illia Chenchak
  */
 @RestController
-    @RequestMapping("service-providers")
+@RequestMapping("service-providers")
 @CrossOrigin("*")
 public class ProvidersController {
 
@@ -35,33 +36,33 @@ public class ProvidersController {
     }
 
     @PostMapping("save")
-    public ResponseEntity<Provider> saveServiceProvider(@RequestBody Provider providers) {
-        return new ResponseEntity<>(providersService.save(providers), HttpStatus.OK);
+    public ResponseEntity<?> saveServiceProvider(@RequestBody ProviderDTO providerDTO) {
+        return new ResponseEntity<>(providersService.save(providerDTO), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Provider> updateServiceProviders(@PathVariable("id") Integer id, @RequestBody Provider providers) {
-        return new ResponseEntity<>(providersService.update(id, providers), HttpStatus.OK);
+    public ResponseEntity<?> updateServiceProviders(@PathVariable("id") Integer id, @RequestBody ProviderDTO providerDTO) {
+        return new ResponseEntity<>(providersService.update(id, providerDTO), HttpStatus.OK);
     }
 
     @GetMapping("find-all")
-    public ResponseEntity<List<Provider>> findAll() {
+    public ResponseEntity<?> findAll() {
         return new ResponseEntity<>(providersService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("find-all/page")
-    public Page<Provider> getServiceProvidersByPage(@RequestParam(defaultValue = "0") int page)  {
+    public Page<?> getServiceProvidersByPage(@RequestParam(defaultValue = "0") int page)  {
         return providersService.getServiceProvidersByPage(page);
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<Provider> deleteServiceProvidersResponse(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> deleteServiceProvidersResponse(@PathVariable("id") Integer id) {
         providersService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("find-by-id/{id}")
-    public ResponseEntity<Provider> findById(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> findById(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(providersService.findById(id), HttpStatus.OK);
     }
 
