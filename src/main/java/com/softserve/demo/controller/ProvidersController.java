@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -86,10 +87,8 @@ public class ProvidersController {
                     .getServletContext()
                     .getMimeType(
                             resource.getFile().getAbsolutePath());
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-        if (contentType == null) {
             contentType = "application/octet-stream";
         }
         return ResponseEntity.ok()
