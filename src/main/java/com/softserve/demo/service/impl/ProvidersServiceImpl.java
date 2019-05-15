@@ -1,7 +1,7 @@
 package com.softserve.demo.service.impl;
 
-import com.softserve.demo.model.ServiceProvider;
-import com.softserve.demo.repository.ProvidersRepository;
+import com.softserve.demo.model.Provider;
+import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.service.ProvidersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,48 +20,48 @@ import java.util.List;
 public class ProvidersServiceImpl implements ProvidersService {
 
     @Autowired
-    private ProvidersRepository providersRepository;
+    private ProviderRepository providerRepository;
 
     @Override
-    public ServiceProvider findById(Integer id) {
-        return providersRepository.findById(id).get();
+    public Provider findById(Integer id) {
+        return providerRepository.findById(id).get();
     }
 
     @Override
-    public List<ServiceProvider> findAll() {
-        return providersRepository.findAll();
+    public List<Provider> findAll() {
+        return providerRepository.findAll();
     }
 
     @Override
-    public ServiceProvider save(ServiceProvider providers) {
-        return providersRepository.save(providers);
+    public Provider save(Provider providers) {
+        return providerRepository.save(providers);
     }
 
     @Override
-    public ServiceProvider update(Integer id, ServiceProvider providers) {
-        ServiceProvider newProviders = providersRepository.findById(id).get();
+    public Provider update(Integer id, Provider providers) {
+        Provider newProviders = providerRepository.findById(id).get();
         newProviders.setName(providers.getName());
         return newProviders;
     }
 
     @Override
     public void delete(Integer id) {
-        providersRepository.delete(providersRepository.findById(id).get());
+        providerRepository.delete(providerRepository.findById(id).get());
     }
 
     @Override
     public void addImageToCustomer(Integer id, String fileName) {
-        ServiceProvider providers=
-                providersRepository.findById(id).get();
+        Provider providers=
+                providerRepository.findById(id).get();
 
         providers.setImage(fileName);
-        providersRepository.save(providers);
+        providerRepository.save(providers);
     }
 
     @Override
-    public Page<ServiceProvider> getServiceProvidersByPage(int page) {
-        Page<ServiceProvider> serviceProviders =
-                providersRepository.findAll(new PageRequest(page,4));
+    public Page<Provider> getServiceProvidersByPage(int page) {
+        Page<Provider> serviceProviders =
+                providerRepository.findAll(new PageRequest(page,4));
         return serviceProviders;
     }
 }
