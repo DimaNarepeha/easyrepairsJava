@@ -29,7 +29,7 @@ public class ProvidersController {
 
     private final FilesStorageService fileStorageService;
 
-    @Autowired
+
     public ProvidersController(ProvidersService providersService, FilesStorageService fileStorageService) {
         this.providersService = providersService;
         this.fileStorageService = fileStorageService;
