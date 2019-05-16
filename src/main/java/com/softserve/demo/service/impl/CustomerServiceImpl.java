@@ -40,21 +40,18 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer updateCustomer(Integer id, CustomerDTO customerDTO) {
+    public CustomerDTO updateCustomer(Integer id, CustomerDTO customerDTO) {
         Customer customer = CustomerMapper.INSTANCE.CustomerDTOToCustomer(customerDTO);
         boolean exists = customerRepository.existsById(id);
         if (!exists) {
             return null;
         }
-        Customer customerFromDB = customerRepository.findById(id).get();
-        customerFromDB.setFirstName(customer.getFirstName());
-        customerFromDB.setLastName(customer.getLastName());
-        customerFromDB.setEmail(customer.getEmail());
+
         java.util.Date uDate = new java.util.Date();
         java.sql.Date sDate = convertUtilToSql(uDate);
-        customerFromDB.setUpdated(sDate);
-        customerRepository.save(customerFromDB);
-        return customerFromDB;
+        customer.setUpdated(sDate);
+        customerRepository.save(customer);
+        return CustomerMapper.INSTANCE.CustomerToCustomerDTO(customer);
     }
 
     @Override
