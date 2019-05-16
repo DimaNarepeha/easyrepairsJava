@@ -1,5 +1,6 @@
 package com.softserve.demo.service.impl;
 
+import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.model.Customer;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.service.CustomerService;
@@ -21,7 +22,7 @@ public class СustomerServiceImpl {
     @Mock
     CustomerRepository customerRepository;
     @Mock
-    Customer customer;
+    CustomerDTO customer;
 
     @Test
     public void givenCountMethodMocked_WhenCountInvoked_ThenMockValueReturned() {
