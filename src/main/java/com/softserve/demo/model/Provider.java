@@ -1,6 +1,8 @@
 package com.softserve.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -38,17 +40,16 @@ public class Provider {
 
 
 
-    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @JsonIgnore
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider",cascade = CascadeType.REMOVE)
     private List<Order> orders;
 
-    @ManyToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
-    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.REMOVE ,fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinTable(
             name = "provider_service",
             joinColumns = {@JoinColumn(name = "provider_id")},
@@ -56,7 +57,6 @@ public class Provider {
     )
     private List<Service> services = new ArrayList<>();
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
