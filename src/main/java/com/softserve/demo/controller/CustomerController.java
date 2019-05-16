@@ -35,29 +35,28 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<?> createCustomer(
             @RequestBody CustomerDTO customer) {
-        customerService.createCustomer(CustomerMapper.INSTANCE.CustomerDTOToCustomer(customer));
+        customerService.createCustomer(customer);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<?> getAllCustomers() {
         return new ResponseEntity<>(
-                customerService.getAllCustomers().stream().map(
-                        CustomerMapper.INSTANCE::CustomerToCustomerDTO)
+                customerService.getAllCustomers()
                 , HttpStatus.OK);
     }
 
     @GetMapping("{userId}")
     public ResponseEntity<?> getCustomerById(@PathVariable("userId") Integer id) {
         return new ResponseEntity<>(
-                CustomerMapper.INSTANCE.CustomerToCustomerDTO(customerService.getCustomerById(id)), HttpStatus.OK
+                customerService.getCustomerById(id), HttpStatus.OK
         );
     }
 
     @GetMapping("list")
     public Page<CustomerDTO> getCustomersByPage(@PageableDefault Pageable pageable) {
         return customerService.getCustomersByPage(pageable)
-                .map(CustomerMapper.INSTANCE::CustomerToCustomerDTO);
+                ;
     }
 
     @DeleteMapping("{userId}")
@@ -69,9 +68,10 @@ public class CustomerController {
     @PutMapping("{id}")
     public ResponseEntity<?> updateCustomer(
             @PathVariable("id") Integer id,
-            @RequestBody Customer customer
+            @RequestBody CustomerDTO customer
     ) {
-        CustomerDTO customerUpdated = CustomerMapper.INSTANCE.CustomerToCustomerDTO(customerService.updateCustomer(id, customer));
+        CustomerDTO customerUpdated = CustomerMapper.INSTANCE.CustomerToCustomerDTO(
+                customerService.updateCustomer(id, customer));
 
         if (customerUpdated == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 400
