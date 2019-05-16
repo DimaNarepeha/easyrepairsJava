@@ -2,15 +2,14 @@ package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.model.Customer;
-import com.softserve.demo.repository.CustomerRepository;
-import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.CustomerService;
 import com.softserve.demo.service.FilesStorageService;
 import com.softserve.demo.util.CustomerMapper;
-import com.softserve.demo.util.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,17 +17,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("customers")
 public class CustomerController {
+    private final CustomerService customerService;
+    private final FilesStorageService fileStorageService;
+
     @Autowired
-    CustomerService customerService;
-    @Autowired
-    private FilesStorageService fileStorageService;
+    public CustomerController(CustomerService customerService, FilesStorageService fileStorageService) {
+        this.customerService = customerService;
+        this.fileStorageService = fileStorageService;
+    }
 
     @PostMapping
     public ResponseEntity<?> createCustomer(
@@ -38,37 +40,38 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllUsers() {
+    public ResponseEntity<?> getAllCustomers() {
         return new ResponseEntity<>(
                 customerService.getAllCustomers().stream().map(
                         CustomerMapper.INSTANCE::CustomerToCustomerDTO)
-                        ,HttpStatus.OK);
-
+                , HttpStatus.OK);
     }
 
     @GetMapping("{userId}")
-    public ResponseEntity<?> getUserById(@PathVariable("userId") Integer id) {
+    public ResponseEntity<?> getCustomerById(@PathVariable("userId") Integer id) {
         return new ResponseEntity<>(
-                customerService.getCustomerById(id), HttpStatus.OK
+                CustomerMapper.INSTANCE.CustomerToCustomerDTO(customerService.getCustomerById(id)), HttpStatus.OK
         );
     }
-    @GetMapping("list")
-    public Page<Customer> getUsersByPage(@RequestParam(defaultValue = "0") int page)  {
-        return customerService.getCustomersByPage(page);
-    }
 
+    @GetMapping("list")
+    public Page<CustomerDTO> getCustomersByPage(@PageableDefault Pageable pageable) {
+        return customerService.getCustomersByPage(pageable)
+                .map(CustomerMapper.INSTANCE::CustomerToCustomerDTO);
+    }
 
     @DeleteMapping("{userId}")
-    public ResponseEntity<?> deleteUserById(@PathVariable("userId") Integer id) {
-       customerService.deleteCustomer(id);
+    public ResponseEntity<?> deleteCustomerById(@PathVariable("userId") Integer id) {
+        customerService.deleteCustomer(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @PutMapping("{id}")
-    public ResponseEntity<?> updateUser(
+    public ResponseEntity<?> updateCustomer(
             @PathVariable("id") Integer id,
             @RequestBody Customer customer
     ) {
-        Customer customerUpdated= customerService.updateCustomer(id, customer);
+        CustomerDTO customerUpdated = CustomerMapper.INSTANCE.CustomerToCustomerDTO(customerService.updateCustomer(id, customer));
 
         if (customerUpdated == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 400
@@ -76,10 +79,11 @@ public class CustomerController {
 
         return new ResponseEntity<>(customerUpdated, HttpStatus.OK); // 200
     }
+
     @PostMapping("{userId}/image")
     public ResponseEntity<?> uploadImage(
-            @PathVariable("userId")Integer id,
-            @RequestParam("imageFile")MultipartFile file
+            @PathVariable("userId") Integer id,
+            @RequestParam("imageFile") MultipartFile file
     ) {
         System.out.println(file.getOriginalFilename());
 
