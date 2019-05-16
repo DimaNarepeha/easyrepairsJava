@@ -75,7 +75,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getCustomerById(Integer id) {
-        if (!customerRepository.existsById(id)) return null;
+        if (!customerRepository.existsById(id)) {
+            return null;
+        }
         return CustomerMapper.INSTANCE.CustomerToCustomerDTO(customerRepository.findById(id).get());
     }
 

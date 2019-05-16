@@ -1,7 +1,6 @@
 package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.CustomerDTO;
-import com.softserve.demo.model.Customer;
 import com.softserve.demo.service.CustomerService;
 import com.softserve.demo.service.FilesStorageService;
 import com.softserve.demo.util.CustomerMapper;
@@ -27,7 +26,7 @@ public class CustomerController {
     private final FilesStorageService fileStorageService;
 
     @Autowired
-    public CustomerController(CustomerService customerService, FilesStorageService fileStorageService) {
+    public CustomerController(final CustomerService customerService, final FilesStorageService fileStorageService) {
         this.customerService = customerService;
         this.fileStorageService = fileStorageService;
     }
@@ -42,8 +41,7 @@ public class CustomerController {
     @GetMapping
     public ResponseEntity<?> getAllCustomers() {
         return new ResponseEntity<>(
-                customerService.getAllCustomers()
-                , HttpStatus.OK);
+                customerService.getAllCustomers(), HttpStatus.OK);
     }
 
     @GetMapping("{userId}")
@@ -55,8 +53,7 @@ public class CustomerController {
 
     @GetMapping("list")
     public Page<CustomerDTO> getCustomersByPage(@PageableDefault Pageable pageable) {
-        return customerService.getCustomersByPage(pageable)
-                ;
+        return customerService.getCustomersByPage(pageable);
     }
 
     @DeleteMapping("{userId}")
@@ -95,7 +92,7 @@ public class CustomerController {
     @GetMapping("image/{imageName}")
     public ResponseEntity<?> getImage(
             @PathVariable("imageName") String name,
-            HttpServletRequest servletRequest
+            final HttpServletRequest servletRequest
     ) {
 
         Resource resource = fileStorageService.loadFile(name);
