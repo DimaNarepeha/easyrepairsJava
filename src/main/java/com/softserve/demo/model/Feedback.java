@@ -2,6 +2,7 @@ package com.softserve.demo.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -9,6 +10,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "feedback")
 public class Feedback {
     @Column(name = "id")

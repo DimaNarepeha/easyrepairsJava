@@ -1,22 +1,24 @@
 package com.softserve.demo.dto;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.sql.Date;
+import java.util.List;
 
-@NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class CustomerDTO {
+public class ProviderDTO {
     private Integer id;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String email;
+    private String description;
     private String image;
-    private Date updated;
+    private Date lastUpdate;
     private UserDTO userDTO;
+    private List<OrderDTO> ordersDTO;
+    private List<ServiceDTO> servicesDTO;
+    private LocationDTO locationDTO;
 }

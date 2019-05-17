@@ -1,5 +1,6 @@
 package com.softserve.demo.service;
 
+import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
@@ -12,15 +13,15 @@ public interface ProvidersService {
 
     List<Provider> findAll();
 
-    Provider save(Provider providers);
-
     void delete (Integer id);
 
-    Provider update (Integer id, Provider providers);
+    ProviderDTO save(ProviderDTO providerDTO);
 
-    void addImageToCustomer(Integer id, String fileName);
+    ProviderDTO update (Integer id, ProviderDTO providerDTO);
 
-    public Page<Provider> getServiceProvidersByPage(int page);
+    void addImageToProviderds (Integer id, String fileName);
+
+    Page<Provider> getServiceProvidersByPage(int page);
 
     <T> List<Provider> findAll(Specification<T> approved);
 }

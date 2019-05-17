@@ -2,6 +2,7 @@ package com.softserve.demo.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,11 +12,12 @@ import java.util.Set;
 @Table(name = "usr")
 @Getter
 @Setter
+@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "login" )
+    @Column(name = "login")
     private String username;
     private String password;
 
@@ -32,4 +34,7 @@ public class User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Phone> phones;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = CascadeType.ALL)
+    private List<Notification> notifications;
 }

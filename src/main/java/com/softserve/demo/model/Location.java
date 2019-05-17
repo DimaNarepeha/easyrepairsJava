@@ -2,6 +2,8 @@ package com.softserve.demo.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "location")
 public class Location {
     @Column(name = "id")

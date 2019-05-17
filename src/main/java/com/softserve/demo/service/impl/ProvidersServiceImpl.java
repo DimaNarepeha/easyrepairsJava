@@ -1,15 +1,18 @@
 package com.softserve.demo.service.impl;
 
+import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
-import com.softserve.demo.repository.ProvidersRepository;
+import com.softserve.demo.repository.ProviderRepository;
+import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.ProvidersService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.softserve.demo.util.ProviderMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,54 +23,70 @@ import java.util.List;
 @Transactional
 public class ProvidersServiceImpl implements ProvidersService {
 
-    @Autowired
-    private ProvidersRepository providersRepository;
+    private final ProviderRepository providerRepository;
+
+    private final UserRepository userRepository;
+
+    public ProvidersServiceImpl(ProviderRepository providerRepository, UserRepository userRepository) {
+        this.providerRepository = providerRepository;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public Provider findById(Integer id) {
-        return providersRepository.findById(id).get();
+        return providerRepository.findById(id).get();
     }
 
     @Override
     public List<Provider> findAll() {
-        return providersRepository.findAll();
+        return providerRepository.findAll();
     }
 
     @Override
-    public Provider save(Provider providers) {
-        return providersRepository.save(providers);
+    public ProviderDTO save(ProviderDTO providerDTO) {
+        Provider provider = ProviderMapper.INSTANCE.ProviderDTOToProvider(providerDTO);
+        provider.setUser(userRepository.findById(1));
+        Date uDate = new java.util.Date();
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        provider.setLastUpdate(sDate);
+        provider.setImage("nophoto.png");
+        providerRepository.save(provider);
+        return ProviderMapper.INSTANCE.ProviderToProviderDTO(provider);
     }
 
     @Override
-    public Provider update(Integer id, Provider providers) {
-        Provider newProviders = providersRepository.findById(id).get();
-        newProviders.setName(providers.getName());
-        return newProviders;
+    public ProviderDTO update(Integer id, ProviderDTO providerDTO) {
+        Provider provider = ProviderMapper.INSTANCE.ProviderDTOToProvider(providerDTO);
+        Provider newProvider = providerRepository.findById(id).get();
+        Date uDate = new java.util.Date();
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        newProvider.setLastUpdate(sDate);
+        newProvider.setName(provider.getName());
+        newProvider.setEmail(provider.getEmail());
+        newProvider.setDescription(provider.getDescription());
+        return ProviderMapper.INSTANCE.ProviderToProviderDTO(newProvider);
     }
 
     @Override
     public void delete(Integer id) {
-        providersRepository.delete(providersRepository.findById(id).get());
+        providerRepository.delete(providerRepository.findById(id).get());
     }
 
     @Override
-    public void addImageToCustomer(Integer id, String fileName) {
-        Provider providers=
-                providersRepository.findById(id).get();
-
-        providers.setImage(fileName);
-        providersRepository.save(providers);
+    public void addImageToProviderds(Integer id, String fileName) {
+        Provider provider =
+                providerRepository.findById(id).get();
+        provider.setImage(fileName);
+        providerRepository.save(provider);
     }
 
     @Override
     public Page<Provider> getServiceProvidersByPage(int page) {
-        Page<Provider> serviceProviders =
-                providersRepository.findAll(new PageRequest(page,4));
-        return serviceProviders;
+        return providerRepository.findAll(PageRequest.of(page, 4));
     }
 
     @Override
     public <T> List<Provider> findAll(Specification<T> approved) {
-        return providersRepository.findAll(approved);
+        return providerRepository.findAll(approved);
     }
 }
