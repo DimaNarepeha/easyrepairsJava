@@ -4,17 +4,14 @@
 package com.softserve.demo.service.impl;
 
 import com.softserve.demo.service.EmailService;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 /**
  * Implementation of email service.
@@ -23,46 +20,35 @@ import java.nio.file.Paths;
  */
 @Service
 public class EmailServiceImpl implements EmailService {
-    /**
-     * Simple Mail template.
-     */
-    private static String template;
+
 
     /**
      * Email sender from springframework.
      */
     private final JavaMailSender emailSender;
-
-    //reads file with template to string
-    static {
-        try {
-            template = new String(
-                                Files.readAllBytes(
-                                Paths.get(
-                                new ClassPathResource("src\\main\\resources\\email\\emailTemplate.html").getPath())));
-        } catch (IOException e) {
-            e.printStackTrace();
-            template = "";
-            //TODO add logging here
-        }
-    }
+    /**
+     * Provided by thymeleaf.
+     */
+    private final TemplateEngine templateEngine;
 
     /**
      * constructor which inserts emailSender while initializing.
      *
-     * @param emailSender emailSender to be used by email Service
+     * @param emailSender    emailSender to be used by email Service
+     * @param templateEngine provided by Thymeleaf
      */
-    public EmailServiceImpl(final JavaMailSender emailSender) {
+    public EmailServiceImpl(final JavaMailSender emailSender, final TemplateEngine templateEngine) {
         this.emailSender = emailSender;
+        this.templateEngine = templateEngine;
     }
 
     /**
      * This method sends email
      * to the provided address.
      *
-     * @param addressedTo      receiver of the letter
-     * @param subject subject of the letter
-     * @param text    the letter text itself
+     * @param addressedTo receiver of the letter
+     * @param subject     subject of the letter
+     * @param text        the letter text itself
      * @return true if no exception occurred
      */
     @Override
@@ -85,10 +71,12 @@ public class EmailServiceImpl implements EmailService {
     /**
      * This method creates an html template for the provided text.
      *
-     * @param text text which will be wrapped with html
+     * @param message text which will be wrapped with html
      * @return html mail message
      */
-    private String getMailTemplateWithText(final String text) {
-        return String.format(template, text);
+    private String getMailTemplateWithText(final String message) {
+        Context context = new Context();
+        context.setVariable("message", message);
+        return templateEngine.process("emailTemplate", context);
     }
 }
