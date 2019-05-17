@@ -1,6 +1,6 @@
 package com.softserve.demo.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -40,6 +40,7 @@ public class Customer {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer",cascade = CascadeType.REMOVE)
     private List<Offer> offers;
 }

@@ -1,6 +1,8 @@
 package com.softserve.demo.model;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -14,6 +16,9 @@ import java.util.List;
 @Entity
 @ToString
 @Table(name = "offers")
+@NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Offer {
     @Column(name = "id")
     @Id
@@ -26,10 +31,12 @@ public class Offer {
     @Column(name = "description")
     private String description;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
@@ -37,7 +44,8 @@ public class Offer {
     @OneToOne(mappedBy = "offer")
     private Order order;
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinTable(
             name = "offer_service",
             joinColumns = {@JoinColumn(name = "offer_id")},

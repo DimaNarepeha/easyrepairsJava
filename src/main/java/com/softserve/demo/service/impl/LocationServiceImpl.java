@@ -3,7 +3,6 @@ package com.softserve.demo.service.impl;
 import com.softserve.demo.model.Location;
 import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.service.LocationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -26,8 +25,8 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public void updateLocation(Location location) {
-            Location locationFromDB;
-        if ((locationFromDB = locationRepository.getOne(location.getId())) != null) {
+        Location locationFromDB = locationRepository.getOne(location.getId());
+        if (locationFromDB != null) {
             locationFromDB.setCountry(location.getCountry());
             locationFromDB.setCity(location.getCity());
             locationFromDB.setRegion(location.getRegion());
@@ -42,12 +41,12 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public void deleteLocation(Integer id) {
-            locationRepository.deleteById(id);
+        locationRepository.deleteById(id);
     }
 
     @Override
     public Location getLocationById(Integer id) {
-            return locationRepository.getOne(id);
+        return locationRepository.getOne(id);
     }
 
     @Override

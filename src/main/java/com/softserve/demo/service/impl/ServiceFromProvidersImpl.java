@@ -3,7 +3,6 @@ package com.softserve.demo.service.impl;
 import com.softserve.demo.model.Service;
 import com.softserve.demo.repository.ServicesRepository;
 import com.softserve.demo.service.ServiceFromProviders;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -18,7 +17,6 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
         this.servicesRepository = servicesRepository;
     }
 
-
     @Override
     public void createService(Service service) {
         servicesRepository.save(service);
@@ -26,8 +24,8 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
 
     @Override
     public void updateService(Service service) {
-        Service serviceFromDB;
-        if ((serviceFromDB = servicesRepository.getOne(service.getId())) != null) {
+        Service serviceFromDB = servicesRepository.getOne(service.getId());
+        if (serviceFromDB != null) {
             serviceFromDB.setServiceName(service.getServiceName());
             servicesRepository.save(serviceFromDB);
         }
