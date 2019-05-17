@@ -1,12 +1,12 @@
 package com.softserve.demo.service.impl;
 
 import com.softserve.demo.dto.CustomerDTO;
+import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Customer;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.CustomerService;
 import com.softserve.demo.util.CustomerMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final UserRepository userRepository;
 
-    @Autowired
+
     public CustomerServiceImpl(CustomerRepository customerRepository, UserRepository userRepository) {
         this.customerRepository = customerRepository;
         this.userRepository = userRepository;
@@ -46,7 +46,6 @@ public class CustomerServiceImpl implements CustomerService {
         if (!exists) {
             return null;
         }
-
         java.util.Date uDate = new java.util.Date();
         java.sql.Date sDate = convertUtilToSql(uDate);
         customer.setUpdated(sDate);
@@ -62,20 +61,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO deleteCustomer(Integer id) {
-        if (!customerRepository.existsById(id)) {
-            return null;
-        }
-        Customer customer = customerRepository.findById(id).get();
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
+
         customerRepository.deleteById(id);
         return CustomerMapper.INSTANCE.CustomerToCustomerDTO(customer);
     }
 
     @Override
     public CustomerDTO getCustomerById(Integer id) {
-        if (!customerRepository.existsById(id)) {
-            return null;
-        }
-        return CustomerMapper.INSTANCE.CustomerToCustomerDTO(customerRepository.findById(id).get());
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
+        return CustomerMapper.INSTANCE.CustomerToCustomerDTO(customer);
     }
 
     public Page<CustomerDTO> getCustomersByPage(Pageable pageable) {
@@ -86,7 +81,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void addImageToCustomer(Integer id, String fileName) {
         Customer customerEntity =
-                customerRepository.findById(id).get();
+                customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
         customerEntity.setImage(fileName);
         customerRepository.save(customerEntity);
     }

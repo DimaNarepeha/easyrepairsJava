@@ -3,7 +3,6 @@ package com.softserve.demo.controller;
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.service.CustomerService;
 import com.softserve.demo.service.FilesStorageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +23,7 @@ public class CustomerController {
     private final CustomerService customerService;
     private final FilesStorageService fileStorageService;
 
-    @Autowired
+
     public CustomerController(final CustomerService customerService, final FilesStorageService fileStorageService) {
         this.customerService = customerService;
         this.fileStorageService = fileStorageService;
@@ -68,9 +67,6 @@ public class CustomerController {
     ) {
         CustomerDTO customerUpdated = customerService.updateCustomer(id, customer);
 
-        if (customerUpdated == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         return new ResponseEntity<>(customerUpdated, HttpStatus.OK);
     }
 
