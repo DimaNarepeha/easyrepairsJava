@@ -45,8 +45,8 @@ public class ServiceProvider {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider",cascade = CascadeType.REMOVE)
     private List<Order> orders;
 
+    @ManyToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "provider_service",
             joinColumns = {@JoinColumn(name = "provider_id")},
