@@ -36,6 +36,7 @@ public class Provider {
     private String image;
 
     @Column(name = "last_update")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
 
 
