@@ -1,11 +1,16 @@
 package com.softserve.demo.service.impl;
 
 
+import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
+import com.softserve.demo.model.Location;
 import com.softserve.demo.model.Provider;
+import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
+import com.softserve.demo.service.LocationService;
 import com.softserve.demo.service.ProvidersService;
+import com.softserve.demo.util.LocationMapper;
 import com.softserve.demo.util.ProviderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,9 +33,15 @@ public class ProvidersServiceImpl implements ProvidersService {
 
     private final UserRepository userRepository;
 
-    public ProvidersServiceImpl(ProviderRepository providerRepository, UserRepository userRepository) {
+    private final LocationService locationService;
+
+    private final LocationRepository locationRepository;
+
+    public ProvidersServiceImpl(ProviderRepository providerRepository, UserRepository userRepository, LocationService locationService, LocationRepository locationRepository) {
         this.providerRepository = providerRepository;
         this.userRepository = userRepository;
+        this.locationService = locationService;
+        this.locationRepository = locationRepository;
     }
 
     @Override
@@ -44,9 +55,17 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public ProviderDTO save(ProviderDTO providerDTO) {
+    public ProviderDTO save(ProviderDTO providerDTO, LocationDTO locationDTO) {
         Provider provider = ProviderMapper.INSTANCE.ProviderDTOToProvider(providerDTO);
+        Location location1 = LocationMapper.INSTANCE.LocationDTOToLocation(locationDTO);
         provider.setUser(userRepository.findById(1));
+        locationRepository.findAll().stream().forEach(location -> {
+            if ((location.getCountry().equals(location1.getCountry())) && (location.getCity()
+                    .equals(location1.getCity()))) {
+                locationRepository.save(location1);
+            }
+        });
+        provider.setLocation(location1);
         Date uDate = new java.util.Date();
         java.sql.Date sDate = new java.sql.Date(uDate.getTime());
         provider.setLastUpdate(sDate);
@@ -88,7 +107,7 @@ public class ProvidersServiceImpl implements ProvidersService {
     @Override
     public Page<Provider> getServiceProvidersByPage(int page) {
         Page<Provider> serviceProviders =
-                providerRepository.findAll(PageRequest.of(page,4));
+                providerRepository.findAll(PageRequest.of(page, 4));
         return serviceProviders;
     }
 }

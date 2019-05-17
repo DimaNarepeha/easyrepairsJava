@@ -1,5 +1,7 @@
 package com.softserve.demo.controller;
 
+import com.softserve.demo.dto.LocationDTO;
+import com.softserve.demo.dto.ProviderAndLocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
 import com.softserve.demo.service.FilesStorageService;
@@ -37,8 +39,18 @@ public class ProvidersController {
     }
 
     @PostMapping("save")
-    public ResponseEntity<?> saveServiceProvider(@RequestBody ProviderDTO providerDTO) {
-        return new ResponseEntity<>(providersService.save(providerDTO), HttpStatus.OK);
+    public ResponseEntity<?> saveServiceProvider(@RequestBody ProviderAndLocationDTO providerAndLocationDTO) {
+        ProviderDTO providerDTO = new ProviderDTO();
+        providerDTO.setId(providerAndLocationDTO.getIdProvider());
+        providerDTO.setName(providerAndLocationDTO.getName());
+        providerDTO.setEmail(providerAndLocationDTO.getEmail());
+        providerDTO.setDescription(providerAndLocationDTO.getDescription());
+        LocationDTO locationDTO = new LocationDTO();
+        locationDTO.setId(providerAndLocationDTO.getIdLocation());
+        locationDTO.setCountry(providerAndLocationDTO.getCountry());
+        locationDTO.setCity(providerAndLocationDTO.getCity());
+        locationDTO.setRegion(providerAndLocationDTO.getRegion());
+        return new ResponseEntity<>(providersService.save(providerDTO,locationDTO), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")

@@ -1,5 +1,6 @@
 package com.softserve.demo.service;
 
+import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
 import org.springframework.data.domain.Page;
@@ -12,7 +13,7 @@ public interface ProvidersService {
 
     List<Provider> findAll();
 
-    ProviderDTO save(ProviderDTO providerDTO);
+    ProviderDTO save(ProviderDTO providerDTO, LocationDTO locationDTO);
 
     void delete (Integer id);
 

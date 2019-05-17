@@ -36,7 +36,7 @@ public class Provider {
     private String image;
 
     @Column(name = "last_update")
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
 
 
@@ -58,7 +58,7 @@ public class Provider {
     )
     private List<Service> services = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id")
     private Location location;
 
