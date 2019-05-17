@@ -1,11 +1,12 @@
 package com.softserve.demo.service.impl;
 
-import com.softserve.demo.model.ServiceProvider;
+import com.softserve.demo.model.Provider;
 import com.softserve.demo.repository.ProvidersRepository;
 import com.softserve.demo.service.ProvidersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,23 +24,23 @@ public class ProvidersServiceImpl implements ProvidersService {
     private ProvidersRepository providersRepository;
 
     @Override
-    public ServiceProvider findById(Integer id) {
+    public Provider findById(Integer id) {
         return providersRepository.findById(id).get();
     }
 
     @Override
-    public List<ServiceProvider> findAll() {
+    public List<Provider> findAll() {
         return providersRepository.findAll();
     }
 
     @Override
-    public ServiceProvider save(ServiceProvider providers) {
+    public Provider save(Provider providers) {
         return providersRepository.save(providers);
     }
 
     @Override
-    public ServiceProvider update(Integer id, ServiceProvider providers) {
-        ServiceProvider newProviders = providersRepository.findById(id).get();
+    public Provider update(Integer id, Provider providers) {
+        Provider newProviders = providersRepository.findById(id).get();
         newProviders.setName(providers.getName());
         return newProviders;
     }
@@ -51,7 +52,7 @@ public class ProvidersServiceImpl implements ProvidersService {
 
     @Override
     public void addImageToCustomer(Integer id, String fileName) {
-        ServiceProvider providers=
+        Provider providers=
                 providersRepository.findById(id).get();
 
         providers.setImage(fileName);
@@ -59,9 +60,14 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public Page<ServiceProvider> getServiceProvidersByPage(int page) {
-        Page<ServiceProvider> serviceProviders =
+    public Page<Provider> getServiceProvidersByPage(int page) {
+        Page<Provider> serviceProviders =
                 providersRepository.findAll(new PageRequest(page,4));
         return serviceProviders;
+    }
+
+    @Override
+    public <T> List<Provider> findAll(Specification<T> approved) {
+        return providersRepository.findAll(approved);
     }
 }
