@@ -2,6 +2,7 @@ package com.softserve.demo.service.impl;
 
 import com.softserve.demo.model.Notification;
 import com.softserve.demo.model.User;
+import com.softserve.demo.repository.NotificationRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.NotificationService;
 import org.junit.Assert;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 public class NotificationServiceImplTest {
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private NotificationRepository notificationRepository;
     private User user;
     private NotificationService notificationService;
 
@@ -27,7 +30,7 @@ public class NotificationServiceImplTest {
         user.setId(1);
         user.setNotifications(new ArrayList<>());
         Mockito.when(userRepository.findById(1)).thenReturn(user);
-        notificationService = new NotificationServiceImpl(userRepository);
+        notificationService = new NotificationServiceImpl(userRepository, notificationRepository);
     }
 
     @Test
