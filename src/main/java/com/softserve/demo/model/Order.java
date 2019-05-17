@@ -31,5 +31,5 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "provider_id")
-    private ServiceProvider provider;
+    private Provider provider;
 }

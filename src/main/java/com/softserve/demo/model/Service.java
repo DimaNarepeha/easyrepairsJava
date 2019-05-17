@@ -24,6 +24,6 @@ public class Service {
     private List<Offer> offers = new ArrayList<>();
 
     @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
-    private List<ServiceProvider> providers = new ArrayList<>();
+    private List<Provider> providers = new ArrayList<>();
 
 }

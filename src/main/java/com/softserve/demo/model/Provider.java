@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "service_provider")
-public class ServiceProvider {
+public class Provider {
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,12 @@ public class ServiceProvider {
     @Column(name = "last_update")
     private Date lastUpdate;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ProviderStatus status;
 
+    @Column(name = "raiting")
+    private double raiting;
 
     @JsonIgnore
     @OneToOne

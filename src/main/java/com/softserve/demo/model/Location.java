@@ -2,7 +2,6 @@ package com.softserve.demo.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.omg.CORBA.BAD_POLICY_TYPE;
 
 import javax.persistence.*;
 import java.util.List;
@@ -30,5 +29,5 @@ public class Location {
     private List<Offer> offers;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location", cascade = CascadeType.REMOVE)
-    private List<ServiceProvider> providers;
+    private List<Provider> providers;
 }
