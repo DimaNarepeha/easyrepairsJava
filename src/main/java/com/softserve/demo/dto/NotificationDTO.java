@@ -1,16 +1,16 @@
 package com.softserve.demo.dto;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class UserDTO {
+public class NotificationDTO {
     private Integer id;
-    private String username;
-    private String password;
+    private String header;
+    private String message;
+    private String time;
+    private Boolean seen;
 }

@@ -1,6 +1,5 @@
 package com.softserve.demo.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -33,6 +32,7 @@ public class Customer {
     @Column(name = "path_to_photo")
     private String image;
 
+
     @Column(name = "last_update")
     private Date updated;
 
@@ -40,6 +40,6 @@ public class Customer {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer",cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.REMOVE)
     private List<Offer> offers;
 }
