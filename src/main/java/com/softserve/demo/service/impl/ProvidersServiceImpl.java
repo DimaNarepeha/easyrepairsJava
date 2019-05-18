@@ -2,6 +2,7 @@ package com.softserve.demo.service.impl;
 
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
+import com.softserve.demo.model.ProviderStatus;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.ProvidersService;
@@ -88,5 +89,10 @@ public class ProvidersServiceImpl implements ProvidersService {
     @Override
     public <T> List<Provider> findAll(Specification<T> approved) {
         return providerRepository.findAll(approved);
+    }
+
+    @Override
+    public List<Provider> findAllByStatus(ProviderStatus status) {
+        return providerRepository.findAllByStatus(status);
     }
 }
