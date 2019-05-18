@@ -3,6 +3,7 @@
  */
 package com.softserve.demo.service.impl;
 
+import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Notification;
 import com.softserve.demo.model.User;
 import com.softserve.demo.repository.NotificationRepository;
@@ -12,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,28 +37,31 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void notifyByUserId(final Integer id, final Notification notification) {
-        User userToNotify = userRepository.findById(id);//TODO add throw here
-        List<Notification> userNotifications = userToNotify.getNotifications();
-        if (userNotifications == null) {
-            userNotifications = new ArrayList<>();
-            userToNotify.setNotifications(userNotifications);
+        User userToNotify = userRepository.findById(id);
+        if (userToNotify == null) {
+            log.warn("User with id " + id + " was not found!");
+            throw new NotFoundException("User was not found!");
         }
-        userNotifications.add(notification);
+        userToNotify.getNotifications().add(notification);
     }
 
     @Override
     public List<Notification> getNotificationsByUserId(final Integer id) {
         User user = userRepository.findById(id);
-        if (user != null) {
-            return user.getNotifications();//TODO add throw here
-        } else {
-            return new ArrayList<>();
+        if (user == null) {
+            log.warn("User with id " + id + " was not found!");
+            throw new NotFoundException("User was not found!");
         }
+        return user.getNotifications();
     }
 
     @Override
     public void setNotificationSeen(final Integer notificationId) {
         Optional<Notification> notification = notificationRepository.findById(notificationId);
-        notification.ifPresent(value -> value.setSeen(true));//TODO add throw here
+        if (!notification.isPresent()) {
+            log.warn("Notification with id " + notificationId + " was not found!");
+            throw new NotFoundException("Notification was not found!");
+        }
+        notification.ifPresent(value -> value.setSeen(true));
     }
 }
