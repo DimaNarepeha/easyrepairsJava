@@ -45,6 +45,7 @@ public class Provider {
     @Column(name = "raiting")
     private double raiting;
 
+    @JsonManagedReference
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
@@ -53,8 +54,8 @@ public class Provider {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider",cascade = CascadeType.REMOVE)
     private List<Order> orders;
 
-    @ManyToMany(cascade = CascadeType.REMOVE ,fetch = FetchType.LAZY)
     @JsonBackReference
+    @ManyToMany(cascade = CascadeType.REMOVE ,fetch = FetchType.LAZY)
     @JoinTable(
             name = "provider_service",
             joinColumns = {@JoinColumn(name = "provider_id")},
@@ -62,6 +63,7 @@ public class Provider {
     )
     private List<Service> services = new ArrayList<>();
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
