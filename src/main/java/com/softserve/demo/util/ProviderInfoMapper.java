@@ -3,14 +3,11 @@ package com.softserve.demo.util;
 import com.softserve.demo.dto.ServiceProviderInfoDTO;
 import com.softserve.demo.model.Provider;
 import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = spring)
-public interface ServiceProviderMapper {
-
-   // ServiceProviderMapper INSTANCE = Mappers.getMapper(ServiceProviderMapper.class);
+@Mapper(componentModel = "spring")
+public interface ProviderInfoMapper {
 
     @Mappings({
             @Mapping(target = "id", source = "entity.id"),
@@ -24,7 +21,7 @@ public interface ServiceProviderMapper {
             @Mapping(target = "countComment", expression = "java( entity.getUser().getFeedbackTo().size())")
     })
     @Named("toDto")
-    abstract ServiceProviderInfoDTO convertToDTO(Provider entity);
+    ServiceProviderInfoDTO convertToDTO(Provider entity);
 
     @Mappings({
             @Mapping(target = "id", source = "dto.id"),
@@ -36,10 +33,10 @@ public interface ServiceProviderMapper {
             @Mapping(target = "services", ignore = true),
             @Mapping(target = "raiting", source = "dto.raiting")
     })
-    Provider converToEntity(ServiceProviderInfoDTO dto);
+    Provider convertToEntity(ServiceProviderInfoDTO dto);
 
     @IterableMapping(qualifiedByName = "toDto")
-    abstract List<ServiceProviderInfoDTO> map(List<Provider> children);
+    List<ServiceProviderInfoDTO> map(List<Provider> children);
 }
 
 
