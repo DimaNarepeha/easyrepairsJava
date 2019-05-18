@@ -27,4 +27,6 @@ public interface ProvidersService {
     <T> List<Provider> findAll(Specification<T> approved);
 
     List<Provider> findAllByStatus(ProviderStatus status);
+
+    Page<?> getServiceProvidersByStatus(int page, int numberOfProvidersOnPage ,ProviderStatus status);
 }
