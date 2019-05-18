@@ -1,12 +1,13 @@
 package com.softserve.demo.controller;
 
 
+import com.softserve.demo.dto.ServiceProviderInfoDTO;
 import com.softserve.demo.filter.ProviderFilter;
-import com.softserve.demo.model.Provider;
 import com.softserve.demo.model.ProviderStatus;
 import com.softserve.demo.model.Service;
 import com.softserve.demo.model.search.ProviderCriteria;
 import com.softserve.demo.repository.ServicesRepository;
+import com.softserve.demo.util.ProviderInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,18 +22,20 @@ import java.util.List;
 @ResponseBody
 public class LandingPageController {
    private final ProviderFilter filter;
+   private  final ProviderInfoMapper mapper;
 
     @Autowired
     ServicesRepository sericee;
 
     @Autowired
-    public LandingPageController(ProviderFilter filter) {
+    public LandingPageController(ProviderFilter filter, ProviderInfoMapper mapper) {
         this.filter = filter;
+        this.mapper = mapper;
     }
 
 
     @GetMapping("test")
-    public ResponseEntity<List<Provider>> test() {
+    public ResponseEntity<List<ServiceProviderInfoDTO>> test() {
 
         List<Service> ss = new ArrayList<>();
         ss.add(sericee.getOne(1));
@@ -45,9 +48,14 @@ public class LandingPageController {
         criteria.setStatus(ProviderStatus.APPROVED);
         criteria.setServices(ss);
 
-        return new ResponseEntity<>(filter.findByListServices(criteria), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.map(filter.findByListServices(criteria)), HttpStatus.OK);
     }
 
+
+    @GetMapping("all-approved")
+    public ResponseEntity<List<ServiceProviderInfoDTO>> getAllApproved(){
+        return new ResponseEntity<>(mapper.map(filter.findAllApproved()), HttpStatus.OK);
+    }
 
 }
 
