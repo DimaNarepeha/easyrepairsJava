@@ -2,7 +2,9 @@ package com.softserve.demo.service;
 
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
+import com.softserve.demo.model.ProviderStatus;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
@@ -12,9 +14,9 @@ public interface ProvidersService {
 
     List<Provider> findAll();
 
-    ProviderDTO save(ProviderDTO providerDTO);
-
     void delete (Integer id);
+
+    ProviderDTO save(ProviderDTO providerDTO);
 
     ProviderDTO update (Integer id, ProviderDTO providerDTO);
 
@@ -22,4 +24,7 @@ public interface ProvidersService {
 
     Page<Provider> getServiceProvidersByPage(int page);
 
+    <T> List<Provider> findAll(Specification<T> approved);
+
+    List<Provider> findAllByStatus(ProviderStatus status);
 }

@@ -9,5 +9,7 @@
         <include file="db/changelog/07-05-2019-19-00_add_columns.xml"/>
         <include file="db/changelog/07-05-2019-19-30_add_relations.xml"/>
         <include file="db/changelog/09-05-2019-14-06_optimizeDB.xml"/>
+        <include file="db/changelog/15-05-2019-12-39_add_column_serv_provider.xml"/>
         <include file="db/changelog/15-05-2019-11-45_add_notification_table.xml"/>
+
 </databaseChangeLog>

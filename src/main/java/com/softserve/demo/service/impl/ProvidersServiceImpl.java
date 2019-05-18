@@ -1,15 +1,15 @@
 package com.softserve.demo.service.impl;
 
-
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
+import com.softserve.demo.model.ProviderStatus;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.ProvidersService;
 import com.softserve.demo.util.ProviderMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,8 +52,7 @@ public class ProvidersServiceImpl implements ProvidersService {
         provider.setLastUpdate(sDate);
         provider.setImage("nophoto.png");
         providerRepository.save(provider);
-        ProviderDTO newProviderDTO = ProviderMapper.INSTANCE.ProviderToProviderDTO(provider);
-        return newProviderDTO;
+        return ProviderMapper.INSTANCE.ProviderToProviderDTO(provider);
     }
 
     @Override
@@ -66,11 +65,8 @@ public class ProvidersServiceImpl implements ProvidersService {
         newProvider.setName(provider.getName());
         newProvider.setEmail(provider.getEmail());
         newProvider.setDescription(provider.getDescription());
-        ProviderDTO newProviderDTO = ProviderMapper.INSTANCE.ProviderToProviderDTO(newProvider);
-        return newProviderDTO;
-
+        return ProviderMapper.INSTANCE.ProviderToProviderDTO(newProvider);
     }
-
 
     @Override
     public void delete(Integer id) {
@@ -87,8 +83,16 @@ public class ProvidersServiceImpl implements ProvidersService {
 
     @Override
     public Page<Provider> getServiceProvidersByPage(int page) {
-        Page<Provider> serviceProviders =
-                providerRepository.findAll(PageRequest.of(page,4));
-        return serviceProviders;
+        return providerRepository.findAll(PageRequest.of(page, 4));
+    }
+
+    @Override
+    public <T> List<Provider> findAll(Specification<T> approved) {
+        return providerRepository.findAll(approved);
+    }
+
+    @Override
+    public List<Provider> findAllByStatus(ProviderStatus status) {
+        return providerRepository.findAllByStatus(status);
     }
 }

@@ -1,5 +1,7 @@
 package com.softserve.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,17 +28,21 @@ public class Offer {
     @Column(name = "description")
     private String description;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "offer")
     private Order order;
 
+    @JsonBackReference
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(
             name = "offer_service",

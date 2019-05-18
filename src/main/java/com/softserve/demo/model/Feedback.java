@@ -27,11 +27,12 @@ public class Feedback {
     @Column(name = "created_date")
     private Date createdDate;
 
-    @ManyToOne
-    @JoinColumn(name = "addressed_from")
-    private User addressedFrom;
+//    @JoinColumn(name = "addressed_from")
+@Column(name = "addressed_from")
+    private Integer addressedFrom;
 
-    @ManyToOne
-    @JoinColumn(name = "addressed_to")
-    private User addressedTo;
+   /// @ManyToOne
+   // @JoinColumn(name = "addressed_to")
+   @Column(name = "addressed_to")
+    private Integer addressedTo;
 }

@@ -29,6 +29,7 @@ public class Order {
     @Column(name = "price")
     private Double price;
 
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "offer_id", referencedColumnName = "id")
     private Offer offer;
