@@ -12,6 +12,4 @@ import java.util.List;
 public class ServiceDTO {
     private Integer id;
     private String serviceName;
-    private List<OfferDTO> offersDTO;
-    private List<ProviderDTO> providersDTO;
 }
