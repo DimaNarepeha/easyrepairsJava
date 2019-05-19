@@ -39,27 +39,30 @@ public class NotificationServiceImpl implements NotificationService {
     public void notifyByUserId(final Integer id, final Notification notification) {
         User userToNotify = userRepository.findById(id);
         if (userToNotify == null) {
-            log.warn("User with id " + id + " was not found!");
             throw new NotFoundException("User was not found!");
         }
         userToNotify.getNotifications().add(notification);
+        log.debug("User with id " + id + " was notified");
     }
 
     @Override
     public List<Notification> getNotificationsByUserId(final Integer id) {
         User user = userRepository.findById(id);
         if (user == null) {
-            log.warn("User with id " + id + " was not found!");
             throw new NotFoundException("User was not found!");
         }
         return user.getNotifications();
     }
 
+    /**
+     * This method set the notification status as seen.
+     *
+     * @param notificationId id of notification to be set as seen.
+     */
     @Override
     public void setNotificationSeen(final Integer notificationId) {
         Optional<Notification> notification = notificationRepository.findById(notificationId);
         if (!notification.isPresent()) {
-            log.warn("Notification with id " + notificationId + " was not found!");
             throw new NotFoundException("Notification was not found!");
         }
         notification.ifPresent(value -> value.setSeen(true));
