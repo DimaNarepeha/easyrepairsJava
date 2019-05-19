@@ -3,7 +3,6 @@ package com.softserve.demo.service.impl;
 import com.softserve.demo.model.Offer;
 import com.softserve.demo.repository.OfferRepository;
 import com.softserve.demo.service.OfferService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -13,26 +12,25 @@ import java.util.List;
 @Service
 public class OfferServiceImpl implements OfferService {
 
-    @Autowired
-    OfferRepository offerRepository;
+    private OfferRepository offerRepository;
 
-    @Override
-    public void createOffer(Offer offer) {
-        offerRepository.save(offer);
+    public OfferServiceImpl(OfferRepository offerRepository) {
+        this.offerRepository = offerRepository;
     }
 
     @Override
-    public Offer updateOffer(Integer id, Offer offer) {
-        if (offerRepository.existsById(id)) {
-            Offer offerFromDB = offerRepository.getOne(id);
-            offerFromDB.setCustomer(offer.getCustomer());
-            offerFromDB.setStartDate(offer.getStartDate());
-            offerFromDB.setDescription(offer.getDescription());
-            offerFromDB.setLocation(offer.getLocation());
-            offerRepository.save(offerFromDB);
-            return offerRepository.getOne(id);
+    public void createOffer(Offer offer) {
+        offer.setStartDate(new java.sql.Date(new java.util.Date().getTime()));
+        offerRepository.save(offer);
+    }
+
+    @Override  //TODO check how it works
+    public void updateOffer(Offer offer) {
+        Offer offerFromDB = offerRepository.getOne(offer.getId());
+        if (offerFromDB != null) {
+            offer.setStartDate(offerFromDB.getStartDate());
+            offerRepository.saveAndFlush(offer);
         }
-        return null;
     }
 
     @Override
@@ -41,21 +39,13 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public Offer deleteOffer(Integer id) {
-        if (offerRepository.existsById(id)) {
-            Offer offerFromDB = offerRepository.getOne(id);
-            offerRepository.deleteById(id);
-            return offerFromDB;
-        }
-        return null;
+    public void deleteOffer(Integer id) {
+        offerRepository.deleteById(id);
     }
 
     @Override
     public Offer getOfferById(Integer id) {
-        if (offerRepository.existsById(id)) {
-            return offerRepository.getOne(id);
-        }
-        return null;
+        return offerRepository.getOne(id);
     }
 
     @Override

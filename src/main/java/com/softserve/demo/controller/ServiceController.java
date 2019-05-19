@@ -1,55 +1,50 @@
 package com.softserve.demo.controller;
 
-import com.softserve.demo.model.Service;
+import com.softserve.demo.dto.ServiceDTO;
 import com.softserve.demo.service.ServiceFromProviders;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import com.softserve.demo.util.ServiceMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("Services")
+@RequestMapping("services")
 public class ServiceController {
 
-    @Autowired
-    ServiceFromProviders serviceFromProviders;
+    private final ServiceFromProviders serviceFromProviders;
+    private final ServiceMapper serviceMapper;
+
+    public ServiceController(ServiceFromProviders serviceFromProviders, ServiceMapper serviceMapper) {
+        this.serviceFromProviders = serviceFromProviders;
+        this.serviceMapper = serviceMapper;
+    }
 
     @PostMapping
-    public ResponseEntity<?> createService(@RequestBody Service service) {
-        this.serviceFromProviders.createService(service);
+    public ResponseEntity<?> createService(@RequestBody ServiceDTO serviceDTO) {
+        serviceFromProviders.createService(serviceMapper.ServiceDTOToService(serviceDTO));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("get-all")
     public ResponseEntity<?> getAllServices() {
         return new ResponseEntity<>(serviceFromProviders.getAllServices(), HttpStatus.OK);
     }
 
-    @GetMapping("{serviceId}")
-    public ResponseEntity<?> getServiceById(@PathVariable("serviceId") Integer id) {
+    @GetMapping("{id}")
+    public ResponseEntity<?> getServiceById(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(serviceFromProviders.getServiceById(id), HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<?> updateService(@PathVariable("id") Integer id, @RequestBody Service service) {
-        Service serviceUpdated = serviceFromProviders.updateService(id, service);
-
-        if (serviceUpdated == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(serviceUpdated, HttpStatus.OK);
-    }
-
-    @DeleteMapping("{serviceId}")
-    public ResponseEntity<?> deleteServiceFromProvidersById(@PathVariable("serviceId") Integer id) {
-        serviceFromProviders.deleteService(id);
+    @PutMapping("update")
+    public ResponseEntity<?> updateService(@RequestBody ServiceDTO serviceDTO) {
+        serviceFromProviders.updateService(serviceMapper.ServiceDTOToService(serviceDTO));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("list")
-    public Page<Service> getServiceFromProvidersByPage(@RequestParam(defaultValue = "0") int page) {
-        return serviceFromProviders.getServicesByPage(page);
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<?> deleteServiceFromProvidersById(@PathVariable("id") Integer id) {
+        serviceFromProviders.deleteService(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

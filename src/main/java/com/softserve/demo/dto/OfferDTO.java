@@ -1,16 +1,23 @@
 package com.softserve.demo.dto;
 
+import com.softserve.demo.model.Customer;
+import com.softserve.demo.model.Location;
+import com.softserve.demo.model.Service;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.Date;
+import lombok.ToString;
+
+import java.util.List;
+import java.sql.Date;
 
 @Getter
 @Setter
+@ToString
 public class OfferDTO {
-    private Long id;
-    private Integer customerId;
-    private Integer providerId;
-    private Date StartDate;
+    private Integer id;
     private String description;
-    private Integer locationId;
+    private Date startDate;
+    private Customer customer;
+    private Location location;
+    private List<Service> services;
 }

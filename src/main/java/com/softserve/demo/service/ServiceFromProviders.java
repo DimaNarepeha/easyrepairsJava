@@ -9,11 +9,11 @@ public interface ServiceFromProviders {
 
     void createService(Service service);
 
-    Service updateService(Integer id, Service service);
+    void updateService(Service service);
 
     List<Service> getAllServices();
 
-    Service deleteService(Integer id);
+    void deleteService(Integer id);
 
     Service getServiceById(Integer id);
 
