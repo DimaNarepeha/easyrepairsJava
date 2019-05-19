@@ -59,13 +59,21 @@ public class ProvidersServiceImpl implements ProvidersService {
         Provider provider = ProviderMapper.INSTANCE.ProviderDTOToProvider(providerDTO);
         Location location1 = LocationMapper.INSTANCE.LocationDTOToLocation(locationDTO);
         provider.setUser(userRepository.findById(1));
-        locationRepository.findAll().stream().forEach(location -> {
-            if ((location.getCountry().equals(location1.getCountry())) && (location.getCity()
-                    .equals(location1.getCity()))) {
-                locationRepository.save(location1);
-            }
-        });
-        provider.setLocation(location1);
+//        locationRepository.findAll().stream().forEach(location -> {
+//            if (!(location.getCountry().equals(location1.getCountry())) && !(location.getCity()
+//                    .equals(location1.getCity()))) {
+//                locationRepository.save(location1);
+//            }
+//        });
+
+
+        Location currentLoc = locationRepository.findLocationByCityAndCountry(location1.getCity(),location1.getCountry());
+        if (currentLoc == null) {
+            locationRepository.save(location1);
+            provider.setLocation(location1);
+        } else {
+            provider.setLocation(currentLoc);
+        }
         Date uDate = new java.util.Date();
         java.sql.Date sDate = new java.sql.Date(uDate.getTime());
         provider.setLastUpdate(sDate);
@@ -76,15 +84,22 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public ProviderDTO update(Integer id, ProviderDTO providerDTO) {
+    public ProviderDTO update(Integer id, ProviderDTO providerDTO, LocationDTO locationDTO) {
         Provider provider = ProviderMapper.INSTANCE.ProviderDTOToProvider(providerDTO);
-        Provider newProvider = providerRepository.findById(id).get();
-        Date uDate = new java.util.Date();
-        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
-        newProvider.setLastUpdate(sDate);
+        Provider newProvider = findById(id);
+        Location location1 = LocationMapper.INSTANCE.LocationDTOToLocation(locationDTO);
+        Location newLoc = locationRepository.findLocationByCityAndCountry(location1.getCity(),location1.getCountry());
+        if (newLoc == null) {
+            locationRepository.save(location1);
+            newLoc  = location1;
+        }
+        newProvider.setLocation(newLoc);
         newProvider.setName(provider.getName());
         newProvider.setEmail(provider.getEmail());
         newProvider.setDescription(provider.getDescription());
+        Date uDate = new java.util.Date();
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        newProvider.setLastUpdate(sDate);
         ProviderDTO newProviderDTO = ProviderMapper.INSTANCE.ProviderToProviderDTO(newProvider);
         return newProviderDTO;
 

@@ -46,7 +46,6 @@ public class ProvidersController {
         providerDTO.setEmail(providerAndLocationDTO.getEmail());
         providerDTO.setDescription(providerAndLocationDTO.getDescription());
         LocationDTO locationDTO = new LocationDTO();
-        locationDTO.setId(providerAndLocationDTO.getIdLocation());
         locationDTO.setCountry(providerAndLocationDTO.getCountry());
         locationDTO.setCity(providerAndLocationDTO.getCity());
         locationDTO.setRegion(providerAndLocationDTO.getRegion());
@@ -54,8 +53,17 @@ public class ProvidersController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateServiceProviders(@PathVariable("id") Integer id, @RequestBody ProviderDTO providerDTO) {
-        return new ResponseEntity<>(providersService.update(id, providerDTO), HttpStatus.OK);
+    public ResponseEntity<?> updateServiceProviders(@PathVariable("id")Integer id, @RequestBody ProviderAndLocationDTO providerAndLocationDTO) {
+        ProviderDTO providerDTO = new ProviderDTO();
+        providerDTO.setId(providerAndLocationDTO.getIdProvider());
+        providerDTO.setName(providerAndLocationDTO.getName());
+        providerDTO.setEmail(providerAndLocationDTO.getEmail());
+        providerDTO.setDescription(providerAndLocationDTO.getDescription());
+        LocationDTO locationDTO = new LocationDTO();
+        locationDTO.setCountry(providerAndLocationDTO.getCountry());
+        locationDTO.setCity(providerAndLocationDTO.getCity());
+        locationDTO.setRegion(providerAndLocationDTO.getRegion());
+        return new ResponseEntity<>(providersService.update(id,providerDTO,locationDTO), HttpStatus.OK);
     }
 
     @GetMapping("find-all")

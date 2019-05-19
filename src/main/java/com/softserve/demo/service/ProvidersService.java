@@ -17,7 +17,7 @@ public interface ProvidersService {
 
     void delete (Integer id);
 
-    ProviderDTO update (Integer id, ProviderDTO providerDTO);
+    ProviderDTO update (Integer id, ProviderDTO providerDTO, LocationDTO locationDTO);
 
     void addImageToProviderds (Integer id, String fileName);
 

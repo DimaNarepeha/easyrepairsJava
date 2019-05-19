@@ -58,7 +58,8 @@ public class Provider {
     )
     private List<Service> services = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "location_id")
     private Location location;
 
