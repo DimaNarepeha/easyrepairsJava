@@ -2,14 +2,14 @@ package com.softserve.demo.util;
 
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.model.Customer;
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CustomerMapper {
-    CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 
     @Mappings({
             @Mapping(target = "id", source = "id"),
