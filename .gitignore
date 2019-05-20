@@ -34,8 +34,7 @@ HELP.md
 # Log file
 *.log
 
-#Properties
-*.properties
+
 
 # BlueJ files
 *.ctxt

@@ -15,7 +15,7 @@
             <column name="notification_message" type="VARCHAR(250)">
                 <constraints nullable="false"/>
             </column>
-            <column name="createdAt" type="datetime">
+            <column name="created_at" type="datetime">
                 <constraints nullable="false"/>
             </column>
             <column name="seen" type="boolean">
