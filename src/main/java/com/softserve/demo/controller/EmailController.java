@@ -4,6 +4,8 @@ import com.softserve.demo.dto.EmailDTO;
 import com.softserve.demo.service.EmailService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/email")
@@ -15,7 +17,7 @@ public class EmailController {
     }
 
     @PostMapping
-    public String sendEmailTo(@RequestBody final EmailDTO emailDTO) {
+    public String sendEmailTo(@RequestBody @Valid final EmailDTO emailDTO) {
         emailService.sendEmailTo(emailDTO.getAddressedTo(), emailDTO.getSubject(), emailDTO.getText());
         return "Successfully sent!";
     }
