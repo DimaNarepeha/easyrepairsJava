@@ -1,11 +1,8 @@
 package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.CustomerDTO;
-import com.softserve.demo.model.Customer;
 import com.softserve.demo.service.CustomerService;
 import com.softserve.demo.service.FilesStorageService;
-import com.softserve.demo.util.CustomerMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,8 +23,8 @@ public class CustomerController {
     private final CustomerService customerService;
     private final FilesStorageService fileStorageService;
 
-    @Autowired
-    public CustomerController(CustomerService customerService, FilesStorageService fileStorageService) {
+
+    public CustomerController(final CustomerService customerService, final FilesStorageService fileStorageService) {
         this.customerService = customerService;
         this.fileStorageService = fileStorageService;
     }
@@ -42,12 +39,11 @@ public class CustomerController {
     @GetMapping
     public ResponseEntity<?> getAllCustomers() {
         return new ResponseEntity<>(
-                customerService.getAllCustomers()
-                , HttpStatus.OK);
+                customerService.getAllCustomers(), HttpStatus.OK);
     }
 
-    @GetMapping("{userId}")
-    public ResponseEntity<?> getCustomerById(@PathVariable("userId") Integer id) {
+    @GetMapping("{id}")
+    public ResponseEntity<?> getCustomerById(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(
                 customerService.getCustomerById(id), HttpStatus.OK
         );
@@ -55,12 +51,11 @@ public class CustomerController {
 
     @GetMapping("list")
     public Page<CustomerDTO> getCustomersByPage(@PageableDefault Pageable pageable) {
-        return customerService.getCustomersByPage(pageable)
-                ;
+        return customerService.getCustomersByPage(pageable);
     }
 
-    @DeleteMapping("{userId}")
-    public ResponseEntity<?> deleteCustomerById(@PathVariable("userId") Integer id) {
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteCustomerById(@PathVariable("id") Integer id) {
         customerService.deleteCustomer(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -70,19 +65,14 @@ public class CustomerController {
             @PathVariable("id") Integer id,
             @RequestBody CustomerDTO customer
     ) {
-        CustomerDTO customerUpdated = CustomerMapper.INSTANCE.CustomerToCustomerDTO(
-                customerService.updateCustomer(id, customer));
+        CustomerDTO customerUpdated = customerService.updateCustomer(id, customer);
 
-        if (customerUpdated == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 400
-        }
-
-        return new ResponseEntity<>(customerUpdated, HttpStatus.OK); // 200
+        return new ResponseEntity<>(customerUpdated, HttpStatus.OK);
     }
 
-    @PostMapping("{userId}/image")
+    @PostMapping("{id}/image")
     public ResponseEntity<?> uploadImage(
-            @PathVariable("userId") Integer id,
+            @PathVariable("id") Integer id,
             @RequestParam("imageFile") MultipartFile file
     ) {
         System.out.println(file.getOriginalFilename());
@@ -95,7 +85,7 @@ public class CustomerController {
     @GetMapping("image/{imageName}")
     public ResponseEntity<?> getImage(
             @PathVariable("imageName") String name,
-            HttpServletRequest servletRequest
+            final HttpServletRequest servletRequest
     ) {
 
         Resource resource = fileStorageService.loadFile(name);

@@ -24,11 +24,8 @@ public class CustomerControllerTest {
     @Autowired
     private WebApplicationContext wac;
     private MockMvc mockMvc;
-
     @Mock
     Customer customer;
-
-
     @Before
     public void setup() {
         mockMvc = MockMvcBuilders

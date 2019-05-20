@@ -1,12 +1,17 @@
 package com.softserve.demo.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
+
+
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 
@@ -33,13 +38,14 @@ public class Customer {
     @Column(name = "path_to_photo")
     private String image;
 
+    @UpdateTimestamp
     @Column(name = "last_update")
-    private Date updated;
+    private LocalDateTime updated;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer",cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.REMOVE)
     private List<Offer> offers;
 }
