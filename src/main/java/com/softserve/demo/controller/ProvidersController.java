@@ -48,20 +48,20 @@ public class ProvidersController {
         locationDTO.setCountry(providerAndLocationDTO.getCountry());
         locationDTO.setCity(providerAndLocationDTO.getCity());
         locationDTO.setRegion(providerAndLocationDTO.getRegion());
-        providerDTO.setLocationDTO(locationDTO);
+        providerDTO.setLocation(locationDTO);
         return providerDTO;
     }
 
     @PostMapping("save")
     public ResponseEntity<?> saveServiceProvider(@RequestBody ProviderAndLocationDTO providerAndLocationDTO) {
         ProviderDTO providerDTO = getProviderDTO(providerAndLocationDTO);
-        return new ResponseEntity<>(providersService.save(providerDTO,providerDTO.getLocationDTO()), HttpStatus.OK);
+        return new ResponseEntity<>(providersService.save(providerDTO,providerDTO.getLocation()), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateServiceProviders(@PathVariable("id")Integer id, @RequestBody ProviderAndLocationDTO providerAndLocationDTO) {
         ProviderDTO providerDTO = getProviderDTO(providerAndLocationDTO);
-        return new ResponseEntity<>(providersService.update(id,providerDTO,providerDTO.getLocationDTO()), HttpStatus.OK);
+        return new ResponseEntity<>(providersService.update(id,providerDTO,providerDTO.getLocation()), HttpStatus.OK);
     }
 
     @GetMapping("find-all")

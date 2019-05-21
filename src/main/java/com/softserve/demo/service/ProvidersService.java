@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface ProvidersService {
 
-    Provider findById (Integer id);
+    ProviderDTO findById (Integer id);
 
-    List<Provider> findAll();
+    List<ProviderDTO> findAll();
 
     ProviderDTO save(ProviderDTO providerDTO, LocationDTO locationDTO);
 

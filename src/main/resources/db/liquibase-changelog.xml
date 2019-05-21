@@ -12,4 +12,5 @@
         <include file="db/changelog/15-05-2019-11-45_add_notification_table.xml"/>
         <include file="db/changelog/17-05-2019-13-36_insert_providers_and_fix_field_lastUpdate.xml"/>
         <include file="db/changelog/19-05-2019-17-10_alter_table_location_and_offer.xml"/>
+        <include file="db/changelog/18-05-2019-18-00_change_columns_customer.xml"/>
 </databaseChangeLog>

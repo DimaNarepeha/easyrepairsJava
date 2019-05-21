@@ -19,44 +19,35 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final UserRepository userRepository;
 
+private final CustomerMapper customerMapper;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository, UserRepository userRepository) {
+    public CustomerServiceImpl(CustomerMapper customerMapper, CustomerRepository customerRepository, UserRepository userRepository) {
         this.customerRepository = customerRepository;
         this.userRepository = userRepository;
+        this.customerMapper = customerMapper;
     }
 
     @Override
     public void createCustomer(CustomerDTO customerDTO) {
-       Customer customer = CustomerMapper.INSTANCE.CustomerDTOToCustomer(customerDTO);
+       Customer customer = customerMapper.CustomerDTOToCustomer(customerDTO);
         customer.setUser(userRepository.findById(1));
-        java.util.Date uDate = new java.util.Date();
-        java.sql.Date sDate = convertUtilToSql(uDate);
-        customer.setUpdated(sDate);
         customerRepository.save(customer);
     }
 
-    private static java.sql.Date convertUtilToSql(java.util.Date uDate) {
-        return new java.sql.Date(uDate.getTime());
-    }
+
 
     @Override
     public CustomerDTO updateCustomer(Integer id, CustomerDTO customerDTO) {
-        Customer customer = CustomerMapper.INSTANCE.CustomerDTOToCustomer(customerDTO);
-        boolean exists = customerRepository.existsById(id);
-        if (!exists) {
-            return null;
-        }
-        java.util.Date uDate = new java.util.Date();
-        java.sql.Date sDate = convertUtilToSql(uDate);
-        customer.setUpdated(sDate);
+        Customer customerFromDatabase = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
+        Customer customer = customerMapper.CustomerDTOToCustomer(customerDTO);
         customerRepository.save(customer);
-        return CustomerMapper.INSTANCE.CustomerToCustomerDTO(customer);
+        return customerMapper.CustomerToCustomerDTO(customer);
     }
 
     @Override
     public List<CustomerDTO> getAllCustomers() {
         return customerRepository.findAll().stream().map(
-                CustomerMapper.INSTANCE::CustomerToCustomerDTO).collect(Collectors.toList());
+                customerMapper::CustomerToCustomerDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -64,18 +55,18 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
 
         customerRepository.deleteById(id);
-        return CustomerMapper.INSTANCE.CustomerToCustomerDTO(customer);
+        return customerMapper.CustomerToCustomerDTO(customer);
     }
 
     @Override
     public CustomerDTO getCustomerById(Integer id) {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
-        return CustomerMapper.INSTANCE.CustomerToCustomerDTO(customer);
+        return customerMapper.CustomerToCustomerDTO(customer);
     }
 
     public Page<CustomerDTO> getCustomersByPage(Pageable pageable) {
         return customerRepository.findAll(pageable)
-                .map(CustomerMapper.INSTANCE::CustomerToCustomerDTO);
+                .map(customerMapper::CustomerToCustomerDTO);
     }
 
     @Override
