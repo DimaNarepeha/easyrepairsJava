@@ -12,7 +12,6 @@ import com.softserve.demo.service.LocationService;
 import com.softserve.demo.service.ProvidersService;
 import com.softserve.demo.util.LocationMapper;
 import com.softserve.demo.util.ProviderMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -59,13 +58,6 @@ public class ProvidersServiceImpl implements ProvidersService {
         Provider provider = ProviderMapper.INSTANCE.ProviderDTOToProvider(providerDTO);
         Location location1 = LocationMapper.INSTANCE.LocationDTOToLocation(locationDTO);
         provider.setUser(userRepository.findById(1));
-//        locationRepository.findAll().stream().forEach(location -> {
-//            if (!(location.getCountry().equals(location1.getCountry())) && !(location.getCity()
-//                    .equals(location1.getCity()))) {
-//                locationRepository.save(location1);
-//            }
-//        });
-
 
         Location currentLoc = locationRepository.findLocationByCityAndCountry(location1.getCity(),location1.getCountry());
         if (currentLoc == null) {

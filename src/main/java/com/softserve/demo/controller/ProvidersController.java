@@ -38,8 +38,7 @@ public class ProvidersController {
         this.fileStorageService = fileStorageService;
     }
 
-    @PostMapping("save")
-    public ResponseEntity<?> saveServiceProvider(@RequestBody ProviderAndLocationDTO providerAndLocationDTO) {
+    private ProviderDTO getProviderDTO(ProviderAndLocationDTO providerAndLocationDTO) {
         ProviderDTO providerDTO = new ProviderDTO();
         providerDTO.setId(providerAndLocationDTO.getIdProvider());
         providerDTO.setName(providerAndLocationDTO.getName());
@@ -49,21 +48,20 @@ public class ProvidersController {
         locationDTO.setCountry(providerAndLocationDTO.getCountry());
         locationDTO.setCity(providerAndLocationDTO.getCity());
         locationDTO.setRegion(providerAndLocationDTO.getRegion());
-        return new ResponseEntity<>(providersService.save(providerDTO,locationDTO), HttpStatus.OK);
+        providerDTO.setLocationDTO(locationDTO);
+        return providerDTO;
+    }
+
+    @PostMapping("save")
+    public ResponseEntity<?> saveServiceProvider(@RequestBody ProviderAndLocationDTO providerAndLocationDTO) {
+        ProviderDTO providerDTO = getProviderDTO(providerAndLocationDTO);
+        return new ResponseEntity<>(providersService.save(providerDTO,providerDTO.getLocationDTO()), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateServiceProviders(@PathVariable("id")Integer id, @RequestBody ProviderAndLocationDTO providerAndLocationDTO) {
-        ProviderDTO providerDTO = new ProviderDTO();
-        providerDTO.setId(providerAndLocationDTO.getIdProvider());
-        providerDTO.setName(providerAndLocationDTO.getName());
-        providerDTO.setEmail(providerAndLocationDTO.getEmail());
-        providerDTO.setDescription(providerAndLocationDTO.getDescription());
-        LocationDTO locationDTO = new LocationDTO();
-        locationDTO.setCountry(providerAndLocationDTO.getCountry());
-        locationDTO.setCity(providerAndLocationDTO.getCity());
-        locationDTO.setRegion(providerAndLocationDTO.getRegion());
-        return new ResponseEntity<>(providersService.update(id,providerDTO,locationDTO), HttpStatus.OK);
+        ProviderDTO providerDTO = getProviderDTO(providerAndLocationDTO);
+        return new ResponseEntity<>(providersService.update(id,providerDTO,providerDTO.getLocationDTO()), HttpStatus.OK);
     }
 
     @GetMapping("find-all")
