@@ -42,4 +42,9 @@ public class OfferServiceImpl implements OfferService {
     public void deleteOffer(Integer id) {
         offerRepository.deleteById(id);
     }
+
+    @Override
+    public List<Offer> getOffersByCustomerId(Integer id) {
+        return offerRepository.getAllByCustomer_Id(id);
+    }
 }

@@ -12,4 +12,6 @@ public interface OfferService {
     List<Offer> getAllOffers();
 
     void deleteOffer(Integer id);
+
+    List<Offer> getOffersByCustomerId(Integer id);
 }

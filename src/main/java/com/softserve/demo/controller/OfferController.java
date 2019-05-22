@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @CrossOrigin("*")
@@ -48,7 +47,7 @@ public class OfferController {
     }
 
     @PostMapping("create")
-    public ResponseEntity<?> createOffer(@RequestBody /*@Valid*/ OfferDTO offerDTO) {
+    public ResponseEntity<?> createOffer(@RequestBody @Valid OfferDTO offerDTO) {
         offerService.createOffer(convertToOffer(offerDTO));
         return new ResponseEntity<>(offerDTO, HttpStatus.CREATED);
     }
@@ -57,6 +56,13 @@ public class OfferController {
     public ResponseEntity<?> getAllOffers() {
         return new ResponseEntity<>(
                 offerService.getAllOffers().stream().map(
+                        this::convertToOfferDTO).collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @GetMapping("get-all-by-customer/{id}")
+    public ResponseEntity<?> getOffersByCustomer(@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(
+                offerService.getOffersByCustomerId(id).stream().map(
                         this::convertToOfferDTO).collect(Collectors.toList()), HttpStatus.OK);
     }
 

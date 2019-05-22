@@ -26,13 +26,13 @@
     <changeSet id="2" author="Volodymyr">
         <createTable tableName="oauth_access_token">
             <column name="token_id" type="varchar(256)"/>
-            <column name="token" type="LONG VARBINARY"/>
+            <column name="token" type="LONGVARBINARY"/>
             <column name="authentication_id" type="VARCHAR(256)">
                 <constraints primaryKey="true"/>
             </column>
             <column name="user_name" type="VARCHAR(256)"/>
             <column name="client_id" type="VARCHAR(256)"/>
-            <column name="authentication" type="LONG VARBINARY"/>
+            <column name="authentication" type="LONGVARBINARY"/>
             <column name="refresh_token" type="VARCHAR(256)"/>
         </createTable>
     </changeSet>
@@ -40,8 +40,8 @@
     <changeSet id="3" author="Volodymyr">
         <createTable tableName="oauth_refresh_token">
             <column name="token_id" type="varchar(256)"/>
-            <column name="token" type="LONG VARBINARY"/>
-            <column name="authentication" type="LONG VARBINARY"/>
+            <column name="token" type="LONGVARBINARY"/>
+            <column name="authentication" type="LONGVARBINARY"/>
         </createTable>
     </changeSet>
 
@@ -50,7 +50,7 @@
             <column name="client_id" value="junior-client"/>
             <column name="resource_ids" value="resource_id"/>
             <column name="client_secret" value="$2a$08$lXHoomHZTXuw3AcBag05IeXfEsmGCgUhXJ2tZjIBavoQ8NJzh8lw."/>
-            <column name="scope" value="read,write, trust"/>
+            <column name="scope" value="read,write,trust"/>
             <column name="authorized_grant_types" value="authorization_code,implicit,refresh_token,password"/>
             <column name="web_server_redirect_uri" />
             <column name="authorities" value="ADMIN, PROVIDER, CUSTOMER"/>

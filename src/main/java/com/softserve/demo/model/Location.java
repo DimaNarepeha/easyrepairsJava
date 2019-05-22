@@ -33,6 +33,6 @@ public class Location {
     private List<Offer> offers;
 
     @JsonBackReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "location", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "location", cascade = CascadeType.MERGE)
     private List<Provider> providers;
 }

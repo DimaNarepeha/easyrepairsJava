@@ -33,7 +33,7 @@ public class Order {
     @JoinColumn(name = "offer_id", referencedColumnName = "id")
     private Offer offer;
 
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "provider_id")
     private Provider provider;
