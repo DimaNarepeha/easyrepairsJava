@@ -22,14 +22,12 @@ public class СustomerServiceImpl {
     CustomerDTO customer;
 
     @Test(expected = NotFoundException.class)
-    public void givenExistsMethodMockedWhenDeleteInvokedThenNotFoundExceptionIsThrown() {
-        Mockito.when(customerRepository.existsById(1)).thenReturn(false);
+    public void givenMockedServiceWhenDeleteInvokedThenNotFoundExceptionIsThrown() {
        customerService.deleteCustomer(1);
     }
 
     @Test(expected = NotFoundException.class)
-    public void givenExistsMethodMockedWhenUpdateInvokedThenNotFoundExceptionIsThrown() {
-        Mockito.when(customerRepository.existsById(1)).thenReturn(false);
+    public void givenMockedServiceExistsMethodMockedWhenUpdateInvokedThenNotFoundExceptionIsThrown() {
        customerService.updateCustomer(1,customer);
 
     }
