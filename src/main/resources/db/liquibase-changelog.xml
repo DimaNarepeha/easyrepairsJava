@@ -14,5 +14,5 @@
     <include file="db/changelog/21-05-2019-16-12_insert_column_image.xml"/>
     <include file="db/changelog/22-05-2019-13-17_insert_user_data.xml"/>
     <include file="db/changelog/22-05-2019-13-12_add_register_date.xml"/>
-
+    <include file="db/changelog/22-05-2019-18-12_insert_notification_data.xml"/>
 </databaseChangeLog>
