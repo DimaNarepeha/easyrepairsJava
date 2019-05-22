@@ -17,6 +17,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
+    private static final String SIGNING_KEY = "as466kf";
+
     private final AuthenticationManager authenticationManager;
 
     private final JdbcTemplate jdbcTemplate;
@@ -37,7 +39,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("as466kf");
+        converter.setSigningKey(SIGNING_KEY);
         return converter;
     }
 
