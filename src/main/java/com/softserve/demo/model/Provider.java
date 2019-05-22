@@ -1,13 +1,14 @@
 package com.softserve.demo.model;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,24 +36,27 @@ public class Provider {
     @Column(name = "path_to_photo")
     private String image;
 
+
     @CreationTimestamp
     @Column(name = "registration_date")
     private LocalDateTime registrationDate;
 
+    @UpdateTimestamp
     @Column(name = "last_update")
-    private Date lastUpdate;
+    private LocalDateTime lastUpdate;
 
-    @JsonBackReference
+
+
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider",cascade = CascadeType.REMOVE)
     private List<Order> orders;
 
     @ManyToMany(cascade = CascadeType.REMOVE ,fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonBackReference
     @JoinTable(
             name = "provider_service",
             joinColumns = {@JoinColumn(name = "provider_id")},
@@ -60,8 +64,8 @@ public class Provider {
     )
     private List<Service> services = new ArrayList<>();
 
-    @JsonBackReference
-    @ManyToOne
+    @JsonManagedReference
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "location_id")
     private Location location;
 

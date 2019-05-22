@@ -19,7 +19,7 @@ public interface ProviderMapper {
             @Mapping(target = "userDTO", source = "user"),
 //            @Mapping(target = "ordersDTO", source = "orders"),
 //            @Mapping(target = "servicesDTO", source = "services"),
-//            @Mapping(target = "locationDTO", source = "location")
+            @Mapping(target = "location", source = "location")
             //TODO: create mappping for orders, services, locationsgit status
     })
     ProviderDTO ProviderToProviderDTO(Provider provider);
@@ -34,8 +34,8 @@ public interface ProviderMapper {
             @Mapping(target = "user", source = "userDTO"),
 //            @Mapping(target = "orders", source = "ordersDTO"),
 //            @Mapping(target = "services", source = "servicesDTO"),
-//            @Mapping(target = "location", source = "locationDTO")
-            //TODO: create mappping for orders, services, locations
+            @Mapping(target = "location", source = "location")
+            //TODO: create mappping for orders, services
     })
     Provider ProviderDTOToProvider(ProviderDTO providerDTO);
 }
