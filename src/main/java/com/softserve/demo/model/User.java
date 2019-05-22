@@ -20,6 +20,8 @@ public class User {
     @Column(name = "login")
     private String username;
     private String password;
+    private String image;
+    private String email;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
