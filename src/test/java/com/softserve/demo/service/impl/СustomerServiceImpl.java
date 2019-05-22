@@ -3,7 +3,6 @@ package com.softserve.demo.service.impl;
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.repository.CustomerRepository;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,17 +22,18 @@ public class СustomerServiceImpl {
     CustomerDTO customer;
 
     @Test(expected = NotFoundException.class)
-    public void givenCountMethodMocked_WhenCountInvoked_ThenMockValueReturned() {
+    public void givenExistsMethodMockedWhenDeleteInvokedThenNotFoundExceptionIsThrown() {
         Mockito.when(customerRepository.existsById(1)).thenReturn(false);
        customerService.deleteCustomer(1);
-
     }
 
     @Test(expected = NotFoundException.class)
-    public void givenCountMethodMocked_WhenCountInvoked_ThenMockValueReturned1() {
+    public void givenExistsMethodMockedWhenUpdateInvokedThenNotFoundExceptionIsThrown() {
         Mockito.when(customerRepository.existsById(1)).thenReturn(false);
-        Assert.assertEquals(customerService.updateCustomer(1,customer),null);
+       customerService.updateCustomer(1,customer);
 
     }
+
+
 
 }
