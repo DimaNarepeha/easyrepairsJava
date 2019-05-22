@@ -23,17 +23,28 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="Dima" id="2">
-        <addColumn tableName="usr">
-            <column name="notification_id" type="INT">
-                <constraints nullable="true"/>
+
+    <changeSet id="4" author="Dima">
+        <createTable tableName="usr_notifications">
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
             </column>
-        </addColumn>
+            <column name="notifications_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
     </changeSet>
-    <changeSet author="Dima" id="3">
-        <addForeignKeyConstraint baseTableName="usr" baseColumnNames="notification_id"
-                                 constraintName="notifications_user"
+    <changeSet id="5" author="Dima">
+        <addForeignKeyConstraint baseTableName="usr_notifications" baseColumnNames="notifications_id"
+                                 constraintName="usr_notifications_notifications"
                                  referencedTableName="notifications"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"/>
+    </changeSet>
+    <changeSet id="6" author="Dima">
+        <addForeignKeyConstraint baseTableName="usr_notifications" baseColumnNames="user_id"
+                                 constraintName="usr_notifications_usr"
+                                 referencedTableName="usr"
                                  referencedColumnNames="id"
                                  onUpdate="CASCADE"/>
     </changeSet>

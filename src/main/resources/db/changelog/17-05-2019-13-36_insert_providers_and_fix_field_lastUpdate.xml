@@ -5,10 +5,11 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="1" author="Illia Chenchak">
-        <insert tableName="usr">
-            <column name="login" value="user1"/>
-            <column name="password" value="user1"/>
+    <changeSet id="1" author="Illia Chenhak">
+        <insert tableName="location">
+            <column name="city" value="Львів"/>
+            <column name="country" value="Україна"/>
+            <column name="region" value="Львівська область"/>
         </insert>
     </changeSet>
 
@@ -20,8 +21,9 @@
                 a fairly random description of a belonging to a random race. However,
                 some aspects of the descriptions will remain the same, this is
                 to keep the general structure the same, while still randomizing the important details."/>
-            <column name="user_id" value="1"/>
+            <column name="user_id" value="3"/>
             <column name="path_to_photo" value="1.png"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -33,8 +35,9 @@
                 a fairly random description of a belonging to a random race. However,
                 some aspects of the descriptions will remain the same, this is
                 to keep the general structure the same, while still randomizing the important details."/>
-            <column name="user_id" value="1"/>
+            <column name="user_id" value="3"/>
             <column name="path_to_photo" value="Screenshot_2.png"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -46,8 +49,9 @@
                 a fairly random description of a belonging to a random race. However,
                 some aspects of the descriptions will remain the same, this is
                 to keep the general structure the same, while still randomizing the important details."/>
-            <column name="user_id" value="1"/>
+            <column name="user_id" value="3"/>
             <column name="path_to_photo" value="Screenshot_2.png"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -59,8 +63,9 @@
                 a fairly random description of a belonging to a random race. However,
                 some aspects of the descriptions will remain the same, this is
                 to keep the general structure the same, while still randomizing the important details."/>
-            <column name="user_id" value="1"/>
+            <column name="user_id" value="3"/>
             <column name="path_to_photo" value="nophoto.png"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -73,12 +78,14 @@
                 a fairly random description of a belonging to a random race. However,
                 some aspects of the descriptions will remain the same, this is
                 to keep the general structure the same, while still randomizing the important details."/>
-            <column name="user_id" value="1"/>
+            <column name="user_id" value="3"/>
             <column name="path_to_photo" value="nophoto.png"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
     <changeSet id="7" author="Illia Chenchak">
         <modifyDataType tableName="service_provider" columnName="last_update" newDataType="DATETIME"/>
     </changeSet>
+
 </databaseChangeLog>

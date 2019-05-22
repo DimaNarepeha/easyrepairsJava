@@ -32,22 +32,17 @@ import java.util.stream.Collectors;
 public class ProvidersServiceImpl implements ProvidersService {
 
     private final ProviderRepository providerRepository;
-
     private final UserRepository userRepository;
-
-
-    private final LocationRepository locationRepository;
-
     private final ProviderMapper providerMapper;
-
+    private final LocationRepository locationRepository;
     private final LocationMapper locationMapper;
 
 
     public ProvidersServiceImpl(ProviderRepository providerRepository, UserRepository userRepository, LocationRepository locationRepository, ProviderMapper providerMapper, LocationMapper locationMapper) {
         this.providerRepository = providerRepository;
+        this.providerMapper = providerMapper;
         this.userRepository = userRepository;
         this.locationRepository = locationRepository;
-        this.providerMapper = providerMapper;
         this.locationMapper = locationMapper;
     }
 
@@ -102,7 +97,6 @@ public class ProvidersServiceImpl implements ProvidersService {
         provider.setLastUpdate(localDateTime);
         ProviderDTO newProviderDTO = providerMapper.ProviderToProviderDTO(newProvider);
         return newProviderDTO;
-
     }
 
 

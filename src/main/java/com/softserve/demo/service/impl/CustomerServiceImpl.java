@@ -19,7 +19,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final UserRepository userRepository;
 
-private final CustomerMapper customerMapper;
+    private final CustomerMapper customerMapper;
 
     public CustomerServiceImpl(CustomerMapper customerMapper, CustomerRepository customerRepository, UserRepository userRepository) {
         this.customerRepository = customerRepository;
@@ -29,12 +29,10 @@ private final CustomerMapper customerMapper;
 
     @Override
     public void createCustomer(CustomerDTO customerDTO) {
-       Customer customer = customerMapper.CustomerDTOToCustomer(customerDTO);
+        Customer customer = customerMapper.CustomerDTOToCustomer(customerDTO);
         customer.setUser(userRepository.findById(1));
         customerRepository.save(customer);
     }
-
-
 
     @Override
     public CustomerDTO updateCustomer(Integer id, CustomerDTO customerDTO) {

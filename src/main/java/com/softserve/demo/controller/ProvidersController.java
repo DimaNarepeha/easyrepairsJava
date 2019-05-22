@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("service-providers")
-@CrossOrigin("*")
+@CrossOrigin
 public class ProvidersController {
 
     private final ProvidersService providersService;

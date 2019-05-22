@@ -3,15 +3,11 @@ package com.softserve.demo.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-
-
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 
@@ -41,6 +37,10 @@ public class Customer {
     @UpdateTimestamp
     @Column(name = "last_update")
     private LocalDateTime updated;
+
+    @CreationTimestamp
+    @Column(name = "registration_date")
+    private LocalDateTime registrationDate;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
