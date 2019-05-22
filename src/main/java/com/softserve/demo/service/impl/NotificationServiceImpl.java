@@ -41,7 +41,8 @@ public class NotificationServiceImpl implements NotificationService {
         if (userToNotify == null) {
             throw new NotFoundException("User was not found!");
         }
-        userToNotify.getNotifications().add(notification);
+        Notification persistedNotification = notificationRepository.save(notification);
+        userToNotify.getNotifications().add(persistedNotification);
         log.debug("User with id " + id + " was notified");
     }
 
