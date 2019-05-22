@@ -16,6 +16,7 @@ import com.softserve.demo.util.ProviderMapper;
 import com.softserve.demo.util.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,17 +33,20 @@ public class RegisterServiceImpl implements RegisterService {
     private final CustomerMapper customerMapper;
     private final UserMapper userMapper;
     private final ProviderMapper providerMapper;
+    private final PasswordEncoder passwordEncoder;
 
     private static final String USERNAME_EXISTS = "This username already exist";
     private static final String EMAIL_EXISTS = "This email already used";
 
     public RegisterServiceImpl(
+            final PasswordEncoder passwordEncoder,
             final UserMapper userMapper,
             final CustomerMapper customerMapper,
             final ProviderMapper providerMapper,
             final CustomerRepository customerRepository,
             final UserRepository userRepository,
             final ProviderRepository providerRepository) {
+        this.passwordEncoder = passwordEncoder;
         this.providerMapper = providerMapper;
         this.userMapper = userMapper;
         this.userRepository = userRepository;
@@ -64,6 +68,8 @@ public class RegisterServiceImpl implements RegisterService {
         Set<Role> roles = new HashSet<>();
         roles.add(Role.CUSTOMER);
         user.setRoles(roles);
+        user.setPassword(passwordEncoder.encode(customerDTO.getUserDTO().getPassword()));
+        log.info(user.getPassword());
         userRepository.save(user);
         user = userRepository.findByUsername(user.getUsername());
         Customer customer = customerMapper.CustomerDTOToCustomer(customerDTO);
@@ -84,6 +90,7 @@ public class RegisterServiceImpl implements RegisterService {
         if (customerRepository.existsByEmail(providerDTO.getEmail()) && providerRepository.existsByEmail(providerDTO.getEmail())) {
             throw new AlreadyExistException(EMAIL_EXISTS);
         }
+        user.setPassword(passwordEncoder.encode(providerDTO.getUserDTO().getPassword()));
         Set<Role> roles = new HashSet<>();
         roles.add(Role.PROVIDER);
         user.setRoles(roles);
