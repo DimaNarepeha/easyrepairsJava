@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Illia Chenchak">
+        <dropForeignKeyConstraint baseTableName="offers" constraintName="offer_location"/>
+    </changeSet>
+
+    <changeSet id="2" author="Illia Chenchak">
+        <dropForeignKeyConstraint baseTableName="service_provider" constraintName="provider_location"/>
+    </changeSet>
+
+    <changeSet id="3" author="Ilia Chenchak">
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          tableName="location"/>
+    </changeSet>
+
+    <changeSet id="4" author="Illia Chenchak">
+        <addForeignKeyConstraint baseTableName="offers"
+                                 baseColumnNames="location_id"
+                                 constraintName="offer_location"
+                                 referencedTableName="location"
+                                 referencedColumnNames="id"
+                                 onDelete="SET NULL"
+                                 onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="5" author="Illia Chenchak">
+        <addForeignKeyConstraint baseTableName="service_provider"
+                                 baseColumnNames="location_id"
+                                 constraintName="provider_location"
+                                 referencedTableName="location"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="SET NULL"/>
+
+    </changeSet>
+</databaseChangeLog>

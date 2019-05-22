@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Nastya ">
+        <insert tableName="customer">
+            <column name="firstname" value="Customer #1"/>
+            <column name="lastname" value="Customer"/>
+            <column name="email" value="customer@gmail.com"/>
+            <column name="user_id" value="1"/>
+            <column name="path_to_photo" value="1.jpg"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2" author="Nastya ">
+        <insert tableName="customer">
+            <column name="firstname" value="Customer #2"/>
+            <column name="lastname" value="Customer2"/>
+            <column name="email" value="customer2@gmail.com"/>
+            <column name="user_id" value="1"/>
+            <column name="path_to_photo" value="1.jpg"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="3" author="Nastya ">
+        <insert tableName="customer">
+            <column name="firstname" value="Customer #3"/>
+            <column name="lastname" value="Customer3"/>
+            <column name="email" value="customer3@gmail.com"/>
+            <column name="user_id" value="1"/>
+            <column name="path_to_photo" value="1.jpg"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="4" author="Nastya ">
+        <insert tableName="customer">
+            <column name="firstname" value="Customer #4"/>
+            <column name="lastname" value="Customer4"/>
+            <column name="email" value="customer4@gmail.com"/>
+            <column name="user_id" value="1"/>
+            <column name="path_to_photo" value="1.jpg"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="5" author="Nastya ">
+        <insert tableName="customer">
+            <column name="firstname" value="Customer #5"/>
+            <column name="lastname" value="Customer5"/>
+            <column name="email" value="customer5@gmail.com"/>
+            <column name="user_id" value="1"/>
+            <column name="path_to_photo" value="1.jpg"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="6" author="Nastya ">
+        <insert tableName="customer">
+            <column name="firstname" value="Customer #6"/>
+            <column name="lastname" value="Customer6"/>
+            <column name="email" value="customer6@gmail.com"/>
+            <column name="user_id" value="1"/>
+            <column name="path_to_photo" value="1.jpg"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="7" author="Nastya ">
+        <insert tableName="customer">
+            <column name="firstname" value="Customer #7"/>
+            <column name="lastname" value="Customer7"/>
+            <column name="email" value="customer7@gmail.com"/>
+            <column name="user_id" value="1"/>
+            <column name="path_to_photo" value="1.jpg"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
