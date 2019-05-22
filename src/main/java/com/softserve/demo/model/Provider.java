@@ -1,8 +1,6 @@
 package com.softserve.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,6 +15,8 @@ import java.util.List;
 @Entity
 @ToString
 @Table(name = "service_provider")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Provider {
     @Column(name = "id")
     @Id
@@ -38,18 +38,17 @@ public class Provider {
     @Column(name = "last_update")
     private Date lastUpdate;
 
-
-
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider",cascade = CascadeType.REMOVE)
     private List<Order> orders;
 
     @ManyToMany(cascade = CascadeType.REMOVE ,fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference
     @JoinTable(
             name = "provider_service",
             joinColumns = {@JoinColumn(name = "provider_id")},
@@ -57,6 +56,7 @@ public class Provider {
     )
     private List<Service> services = new ArrayList<>();
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;

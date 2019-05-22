@@ -9,13 +9,7 @@ public interface OfferService {
 
     void createOffer(Offer offer);
 
-    void updateOffer(Offer offer);
-
     List<Offer> getAllOffers();
 
     void deleteOffer(Integer id);
-
-    Offer getOfferById(Integer id);
-
-    Page<Offer> getOffersByPage(int page);
 }

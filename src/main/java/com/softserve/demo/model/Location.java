@@ -28,7 +28,7 @@ public class Location {
     @Column(name = "city")
     private String city;
 
-    @JsonBackReference
+    @JsonBackReference(value="location-movement")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location", cascade = CascadeType.REMOVE)
     private List<Offer> offers;
 

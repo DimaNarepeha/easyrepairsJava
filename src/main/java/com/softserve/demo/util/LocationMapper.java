@@ -7,23 +7,10 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel="spring")
 public interface LocationMapper {
-    LocationMapper INSTANCE = Mappers.getMapper(LocationMapper.class);
 
-    @Mappings({
-            @Mapping(target = "id", source = "location.id"),
-            @Mapping(target = "country", source = "location.country"),
-            @Mapping(target = "region", source = "location.region"),
-            @Mapping(target = "city", source = "location.city")
-    })
     LocationDTO LocationToLocationDTO(Location location);
 
-    @Mappings({
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "country", source = "country"),
-            @Mapping(target = "region", source = "region"),
-            @Mapping(target = "city", source = "city"),
-    })
     Location LocationDTOToLocation(LocationDTO locationDTO);
 }

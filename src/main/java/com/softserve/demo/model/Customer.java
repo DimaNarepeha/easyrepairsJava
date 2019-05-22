@@ -1,6 +1,6 @@
 package com.softserve.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,6 +15,8 @@ import java.util.List;
 @Entity
 @ToString
 @Table(name = "customer")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Customer {
     @Column(name = "id")
     @Id
@@ -36,11 +38,12 @@ public class Customer {
     @Column(name = "last_update")
     private Date updated;
 
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @JsonBackReference
+    @JsonManagedReference(value="customer-movement")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer",cascade = CascadeType.REMOVE)
     private List<Offer> offers;
 }

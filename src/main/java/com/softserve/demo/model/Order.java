@@ -1,7 +1,6 @@
 package com.softserve.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,6 +13,8 @@ import java.sql.Date;
 @Setter
 @ToString
 @Table(name = "orders")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Order {
     @Column(name = "id")
     @Id
@@ -29,11 +30,12 @@ public class Order {
     @Column(name = "price")
     private Double price;
 
+    @JsonBackReference(value="order-movement")
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "offer_id", referencedColumnName = "id")
     private Offer offer;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "provider_id")
     private Provider provider;

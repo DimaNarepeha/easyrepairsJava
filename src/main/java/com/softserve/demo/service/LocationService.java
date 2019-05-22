@@ -1,7 +1,7 @@
 package com.softserve.demo.service;
 
 import com.softserve.demo.model.Location;
-import org.springframework.data.domain.Page;
+import com.softserve.demo.model.Offer;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public interface LocationService {
     
     void createLocation(Location location);
 
-    void updateLocation(Location location);
+    Location updateLocation(Location location);
 
     List<Location> getAllLocations();
 
@@ -17,5 +17,5 @@ public interface LocationService {
 
     Location getLocationById(Integer id);
 
-    Page<Location> getLocationsByPage(int page);
+    Location getLocationByOffer(Offer offer);
 }

@@ -1,14 +1,12 @@
 package com.softserve.demo.dto;
 
-import com.softserve.demo.model.Customer;
-import com.softserve.demo.model.Location;
-import com.softserve.demo.model.Service;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,7 +15,10 @@ public class OfferDTO {
     private Integer id;
     private String description;
     private Date startDate;
-    private Customer customer;
-    private Location location;
-    private List<Service> services;
+    @NotNull
+    private CustomerDTO customerDTO;
+    @NotNull
+    private LocationDTO locationDTO;
+    @NotNull
+    private List<ServiceDTO> serviceDTOs;
 }

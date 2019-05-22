@@ -1,6 +1,7 @@
 package com.softserve.demo.service.impl;
 
 import com.softserve.demo.model.Location;
+import com.softserve.demo.model.Offer;
 import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.service.LocationService;
 import org.springframework.data.domain.Page;
@@ -24,14 +25,12 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public void updateLocation(Location location) {
+    public Location updateLocation(Location location) {
         Location locationFromDB = locationRepository.getOne(location.getId());
-        if (locationFromDB != null) {
-            locationFromDB.setCountry(location.getCountry());
-            locationFromDB.setCity(location.getCity());
-            locationFromDB.setRegion(location.getRegion());
-            locationRepository.save(locationFromDB);
+        if (locationFromDB == null) {
+            return null;
         }
+        return locationRepository.save(location);
     }
 
     @Override
@@ -50,7 +49,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Page<Location> getLocationsByPage(int page) {
-        return locationRepository.findAll(new PageRequest(page, 4));
+    public Location getLocationByOffer(Offer offer) {
+        return locationRepository.getLocationByOffers(offer);
     }
 }

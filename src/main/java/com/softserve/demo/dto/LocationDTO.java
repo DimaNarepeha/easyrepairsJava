@@ -13,5 +13,4 @@ public class LocationDTO {
     private String country;
     private String region;
     private String city;
-
 }

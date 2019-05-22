@@ -1,5 +1,6 @@
 package com.softserve.demo.service.impl;
 
+import com.softserve.demo.model.Offer;
 import com.softserve.demo.model.Service;
 import com.softserve.demo.repository.ServicesRepository;
 import com.softserve.demo.service.ServiceFromProviders;
@@ -23,12 +24,12 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
     }
 
     @Override
-    public void updateService(Service service) {
+    public Service updateService(Service service) {
         Service serviceFromDB = servicesRepository.getOne(service.getId());
-        if (serviceFromDB != null) {
-            serviceFromDB.setServiceName(service.getServiceName());
-            servicesRepository.save(serviceFromDB);
+        if (serviceFromDB == null) {
+            return null;
         }
+        return servicesRepository.save(service);
     }
 
     @Override
@@ -49,5 +50,10 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
     @Override
     public Page<Service> getServicesByPage(int page) {
         return servicesRepository.findAll(new PageRequest(page, 4));
+    }
+
+    @Override
+    public List<Service> getAllByOffer(Offer offer) {
+        return servicesRepository.getAllByOffers(offer);
     }
 }

@@ -16,9 +16,6 @@ import java.util.List;
 @Entity
 @ToString
 @Table(name = "offers")
-@NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Offer {
     @Column(name = "id")
     @Id
@@ -31,25 +28,27 @@ public class Offer {
     @Column(name = "description")
     private String description;
 
-    @JsonManagedReference
+    @JsonBackReference(value="customer-movement")
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @JsonManagedReference
+    @JsonBackReference(value="location-movement")
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
 
+    @JsonBackReference(value="order-movement")
     @OneToOne(mappedBy = "offer")
     private Order order;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonManagedReference
     @JoinTable(
             name = "offer_service",
             joinColumns = {@JoinColumn(name = "offer_id")},
             inverseJoinColumns = {@JoinColumn(name = "service_id")}
     )
     private List<Service> services = new ArrayList<>();
+
 }
