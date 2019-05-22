@@ -35,7 +35,7 @@ public class Offer {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @JsonBackReference(value="location-movement")
+    @JsonManagedReference(value="location-movement")
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;

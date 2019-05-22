@@ -6,16 +6,14 @@ import com.softserve.demo.model.Offer;
 import java.util.List;
 
 public interface LocationService {
-    
-    void createLocation(Location location);
 
-    Location updateLocation(Location location);
+    Location findById(Integer id);
 
-    List<Location> getAllLocations();
+    List<Location> findAll();
 
-    void deleteLocation(Integer id);
+    Location save(Location location);
 
-    Location getLocationById(Integer id);
+    void delete(Integer id);
 
     Location getLocationByOffer(Offer offer);
 }

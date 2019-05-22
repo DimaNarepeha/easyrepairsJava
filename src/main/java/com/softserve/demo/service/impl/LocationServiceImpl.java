@@ -2,6 +2,7 @@ package com.softserve.demo.service.impl;
 
 import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.model.Location;
+import com.softserve.demo.model.Offer;
 import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,10 @@ public class LocationServiceImpl implements LocationService {
         locationRepository.delete(locationRepository.findById(id).get());
     }
 
-
+    @Override
+    public Location getLocationByOffer(Offer offer) {
+        return locationRepository.getLocationByOffers(offer);
+    }
 
 
 }

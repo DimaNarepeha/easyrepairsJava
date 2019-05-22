@@ -28,6 +28,7 @@ public class OfferServiceImpl implements OfferService {
             locationRepository.save(offer.getLocation());
             offerRepository.save(offer);
         } else {
+            offer.getLocation().setId(locationFromDB.getId());
             offerRepository.save(offer);
         }
     }
