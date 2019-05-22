@@ -34,7 +34,6 @@ public class RegisterServiceImpl implements RegisterService {
     private final UserMapper userMapper;
     private final ProviderMapper providerMapper;
     private final PasswordEncoder passwordEncoder;
-
     private static final String USERNAME_EXISTS = "This username already exist";
     private static final String EMAIL_EXISTS = "This email already used";
 

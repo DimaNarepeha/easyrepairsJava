@@ -1,5 +1,6 @@
 package com.softserve.demo.service;
 
+import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
 import org.springframework.data.domain.Page;
@@ -8,17 +9,17 @@ import java.util.List;
 
 public interface ProvidersService {
 
-    Provider findById (Integer id);
+    ProviderDTO findById (Integer id);
 
-    List<Provider> findAll();
+    List<ProviderDTO> findAll();
 
-    ProviderDTO save(ProviderDTO providerDTO);
+    ProviderDTO save(ProviderDTO providerDTO, LocationDTO locationDTO);
 
     void delete (Integer id);
 
-    ProviderDTO update (Integer id, ProviderDTO providerDTO);
+    ProviderDTO update (Integer id, ProviderDTO providerDTO, LocationDTO locationDTO);
 
-    void addImageToProviderds (Integer id, String fileName);
+    void addImageToProviders (Integer id, String fileName);
 
     Page<Provider> getServiceProvidersByPage(int page);
 
