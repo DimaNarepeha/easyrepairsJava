@@ -6,6 +6,7 @@ import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Location;
 import com.softserve.demo.model.Provider;
+import com.softserve.demo.model.ProviderStatus;
 import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
@@ -119,5 +120,19 @@ public class ProvidersServiceImpl implements ProvidersService {
         Page<Provider> serviceProviders =
                 providerRepository.findAll(PageRequest.of(page, 4));
         return serviceProviders;
+    }
+
+    @Override
+    public Page<?> getServiceProvidersByStatus(int page, int numberOfProvidersOnPage, ProviderStatus status) {
+        return providerRepository.findByStatus(status, PageRequest.of(page, numberOfProvidersOnPage));
+    }
+
+    @Override
+    public ProviderDTO updateStatus(Integer id, String status) {
+        Provider provider = providerRepository.findById(id).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
+        System.out.println("here we go!!!!!");
+        provider.setStatus(ProviderStatus.valueOf(status));
+        providerRepository.save(provider);
+        return providerMapper.ProviderToProviderDTO(provider);
     }
 }
