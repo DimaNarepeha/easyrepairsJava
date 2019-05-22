@@ -17,8 +17,6 @@ import java.util.List;
 @Entity
 @ToString
 @Table(name = "service_provider")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Provider {
     @Column(name = "id")
     @Id

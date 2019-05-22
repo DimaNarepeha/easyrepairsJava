@@ -13,8 +13,6 @@ import java.sql.Date;
 @Setter
 @ToString
 @Table(name = "orders")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Order {
     @Column(name = "id")
     @Id
