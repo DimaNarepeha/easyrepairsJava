@@ -1,12 +1,17 @@
 package com.softserve.demo.model;
 
-import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
+
+
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 
@@ -15,8 +20,6 @@ import java.util.List;
 @Entity
 @ToString
 @Table(name = "customer")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Customer {
     @Column(name = "id")
     @Id
@@ -35,15 +38,14 @@ public class Customer {
     @Column(name = "path_to_photo")
     private String image;
 
+    @UpdateTimestamp
     @Column(name = "last_update")
-    private Date updated;
+    private LocalDateTime updated;
 
-    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @JsonManagedReference(value="customer-movement")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer",cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.REMOVE)
     private List<Offer> offers;
 }

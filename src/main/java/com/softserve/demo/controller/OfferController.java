@@ -48,7 +48,7 @@ public class OfferController {
     }
 
     @PostMapping("create")
-    public ResponseEntity<?> createOffer(@RequestBody @Valid OfferDTO offerDTO) {
+    public ResponseEntity<?> createOffer(@RequestBody /*@Valid*/ OfferDTO offerDTO) {
         offerService.createOffer(convertToOffer(offerDTO));
         return new ResponseEntity<>(offerDTO, HttpStatus.CREATED);
     }
