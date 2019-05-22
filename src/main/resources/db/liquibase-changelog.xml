@@ -17,5 +17,5 @@
     <include file="db/changelog/17-05-2019-13-36_insert_providers_and_fix_field_lastUpdate.xml"/>
     <include file="db/changelog/22-05-2019-13-12_add_register_date.xml"/>
     <include file="db/changelog/22-05-2019-18-34_insert_customers.xml"/>
-
+    <include file="db/changelog/22-05-2019-18-12_insert_notification_data.xml"/>
 </databaseChangeLog>
