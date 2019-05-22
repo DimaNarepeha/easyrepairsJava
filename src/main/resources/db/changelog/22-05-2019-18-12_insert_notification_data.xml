@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Dima">
+        <insert tableName="notifications">
+            <column name="id" value="1"/>
+            <column name="notification_header" value="You received job offer!"/>
+            <column name="notification_message" value="User 'Tom Smith' sent you the job offer!"/>
+            <column name="created_at" value="2019-05-22 18:06:33"/>
+            <column name="seen" valueBoolean="false"/>
+        </insert>
+        <insert tableName="notifications">
+            <column name="id" value="2"/>
+            <column name="notification_header" value="Your account was approved!"/>
+            <column name="notification_message" value="Your account was approved by admins!"/>
+            <column name="created_at" value="2019-05-22 18:06:33"/>
+            <column name="seen" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2" author="Dima">
+        <insert tableName="usr_notifications">
+            <column name="user_id" value="1"/>
+            <column name="notifications_id" value="1"/>
+        </insert>
+        <insert tableName="usr_notifications">
+            <column name="user_id" value="1"/>
+            <column name="notifications_id" value="2"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>
