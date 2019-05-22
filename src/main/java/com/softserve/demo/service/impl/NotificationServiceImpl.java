@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Implementation of Notification service
@@ -62,10 +61,8 @@ public class NotificationServiceImpl implements NotificationService {
      */
     @Override
     public void setNotificationSeen(final Integer notificationId) {
-        Optional<Notification> notification = notificationRepository.findById(notificationId);
-        if (!notification.isPresent()) {
-            throw new NotFoundException("Notification was not found!");
-        }
-        notification.ifPresent(value -> value.setSeen(true));
+        Notification notification = notificationRepository
+                .findById(notificationId).orElseThrow(() -> new NotFoundException("Notification was not found"));
+        notification.setSeen(true);
     }
 }
