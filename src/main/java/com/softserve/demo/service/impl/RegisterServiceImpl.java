@@ -15,7 +15,7 @@ import com.softserve.demo.util.CustomerMapper;
 import com.softserve.demo.util.ProviderMapper;
 import com.softserve.demo.util.UserMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,17 +32,20 @@ public class RegisterServiceImpl implements RegisterService {
     private final CustomerMapper customerMapper;
     private final UserMapper userMapper;
     private final ProviderMapper providerMapper;
+    private final PasswordEncoder passwordEncoder;
 
     private static final String USERNAME_EXISTS = "This username already exist";
     private static final String EMAIL_EXISTS = "This email already used";
 
     public RegisterServiceImpl(
+            final PasswordEncoder passwordEncoder,
             final UserMapper userMapper,
             final CustomerMapper customerMapper,
             final ProviderMapper providerMapper,
             final CustomerRepository customerRepository,
             final UserRepository userRepository,
             final ProviderRepository providerRepository) {
+        this.passwordEncoder = passwordEncoder;
         this.providerMapper = providerMapper;
         this.userMapper = userMapper;
         this.userRepository = userRepository;
@@ -54,16 +57,20 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     @Transactional
     public CustomerDTO createCustomer(final CustomerDTO customerDTO) {
-        User user = userMapper.UserDTOToUser(customerDTO.getUserDTO());
+        User user = userMapper.userDTOToUser(customerDTO.getUserDTO());
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new AlreadyExistException(USERNAME_EXISTS);
         }
         if (customerRepository.existsByEmail(customerDTO.getEmail()) && providerRepository.existsByEmail(customerDTO.getEmail())) {
             throw new AlreadyExistException(EMAIL_EXISTS);
         }
+
+
         Set<Role> roles = new HashSet<>();
         roles.add(Role.CUSTOMER);
         user.setRoles(roles);
+        user.setPassword(passwordEncoder.encode(customerDTO.getUserDTO().getPassword()));
+        log.info(user.getPassword());
         userRepository.save(user);
         user = userRepository.findByUsername(user.getUsername());
         Customer customer = customerMapper.CustomerDTOToCustomer(customerDTO);
@@ -77,13 +84,14 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     @Transactional
     public ProviderDTO createProvider(final ProviderDTO providerDTO) {
-        User user = userMapper.UserDTOToUser(providerDTO.getUserDTO());
+        User user = userMapper.userDTOToUser(providerDTO.getUserDTO());
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new AlreadyExistException(USERNAME_EXISTS);
         }
         if (customerRepository.existsByEmail(providerDTO.getEmail()) && providerRepository.existsByEmail(providerDTO.getEmail())) {
             throw new AlreadyExistException(EMAIL_EXISTS);
         }
+        user.setPassword(passwordEncoder.encode(providerDTO.getUserDTO().getPassword()));
         Set<Role> roles = new HashSet<>();
         roles.add(Role.PROVIDER);
         user.setRoles(roles);

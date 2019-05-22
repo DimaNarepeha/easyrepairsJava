@@ -9,17 +9,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    @Mappings({
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "username", source = "username"),
-            @Mapping(target = "password", source = "password")
-    })
-    UserDTO UserToUserDTO(User user);
-
-    @Mappings({
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "username", source = "username"),
-            @Mapping(target = "password", source = "password")
-    })
-    User UserDTOToUser(UserDTO userDTO);
+    UserDTO userToUserDTO(User user);
+    User userDTOToUser(UserDTO userDTO);
 }

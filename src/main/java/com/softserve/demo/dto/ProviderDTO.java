@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Email;
 import java.sql.Date;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class ProviderDTO {
     private Integer id;
     private String name;
+    @Email
     private String email;
     private String description;
     private String image;
