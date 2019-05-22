@@ -19,4 +19,10 @@ public class CustomExceptionHandler
         log.warn("Not found", e);
         return new ResponseEntity<>(exResponse, HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(AlreadyExistException.class)
+    public ResponseEntity<?> handleAlreadyExistException(Exception e, WebRequest req) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(e.getMessage(), req.getDescription(false));
+        log.warn(e.getMessage() + "already exist");
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
 }
