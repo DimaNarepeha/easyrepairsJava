@@ -5,10 +5,14 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-        <include file="db/changelog/02-05-2019-15-55_initial.xml"/>
-        <include file="db/changelog/07-05-2019-19-00_add_columns.xml"/>
-        <include file="db/changelog/07-05-2019-19-30_add_relations.xml"/>
-        <include file="db/changelog/09-05-2019-14-06_optimizeDB.xml"/>
-        <include file="db/changelog/15-05-2019-11-45_add_notification_table.xml"/>
-        <include file="db/changelog/22-05-2019-13-12_add_register_date.xml"/>
+    <include file="db/changelog/02-05-2019-15-55_initial.xml"/>
+    <include file="db/changelog/07-05-2019-19-00_add_columns.xml"/>
+    <include file="db/changelog/07-05-2019-19-30_add_relations.xml"/>
+    <include file="db/changelog/09-05-2019-14-06_optimizeDB.xml"/>
+    <include file="db/changelog/15-05-2019-11-17_add_security_tables.xml"/>
+    <include file="db/changelog/15-05-2019-11-45_add_notification_table.xml"/>
+    <include file="db/changelog/21-05-2019-16-12_insert_column_image.xml"/>
+    <include file="db/changelog/22-05-2019-13-17_insert_user_data.xml"/>
+    <include file="db/changelog/22-05-2019-13-12_add_register_date.xml"/>
+
 </databaseChangeLog>
