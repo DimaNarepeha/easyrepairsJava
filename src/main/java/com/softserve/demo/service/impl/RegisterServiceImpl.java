@@ -22,17 +22,20 @@ public class RegisterServiceImpl implements RegisterService {
     private final UserRepository userRepository;
     private final CustomerRepository customerRepository;
     private final ProviderRepository providerRepository;
-
+    private final CustomerMapper customerMapper;
     private static final String USERNAME_EXISTS = "This username already exist";
     private static final String EMAIL_EXISTS = "This email already used";
     private static final String OK = "Everything is fine";
 
-    public RegisterServiceImpl(final CustomerRepository customerRepository,
+    public RegisterServiceImpl(
+                                final CustomerMapper customerMapper,
+                                final CustomerRepository customerRepository,
                                final UserRepository userRepository,
                                final ProviderRepository providerRepository) {
         this.userRepository = userRepository;
         this.customerRepository = customerRepository;
         this.providerRepository = providerRepository;
+        this.customerMapper = customerMapper;
     }
 
     @Override
@@ -47,7 +50,7 @@ public class RegisterServiceImpl implements RegisterService {
         }
         userRepository.save(user);
         user = userRepository.findByUsername(user.getUsername());
-        Customer customer = CustomerMapper.INSTANCE.CustomerDTOToCustomer(customerDTO);
+        Customer customer = customerMapper.CustomerDTOToCustomer(customerDTO);
         customer.setUser(user);
         customerRepository.save(customer);
         return OK;
