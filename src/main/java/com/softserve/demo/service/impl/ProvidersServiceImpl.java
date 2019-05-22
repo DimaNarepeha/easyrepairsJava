@@ -25,11 +25,12 @@ import java.util.List;
 public class ProvidersServiceImpl implements ProvidersService {
 
     private final ProviderRepository providerRepository;
-
     private final UserRepository userRepository;
+    private final ProviderMapper providerMapper;
 
-    public ProvidersServiceImpl(ProviderRepository providerRepository, UserRepository userRepository) {
+    public ProvidersServiceImpl(ProviderRepository providerRepository,ProviderMapper providerMapper, UserRepository userRepository) {
         this.providerRepository = providerRepository;
+        this.providerMapper = providerMapper;
         this.userRepository = userRepository;
     }
 
@@ -45,20 +46,19 @@ public class ProvidersServiceImpl implements ProvidersService {
 
     @Override
     public ProviderDTO save(ProviderDTO providerDTO) {
-        Provider provider = ProviderMapper.INSTANCE.ProviderDTOToProvider(providerDTO);
+        Provider provider = providerMapper.ProviderDTOToProvider(providerDTO);
         provider.setUser(userRepository.findById(1));
         Date uDate = new java.util.Date();
         java.sql.Date sDate = new java.sql.Date(uDate.getTime());
         provider.setLastUpdate(sDate);
         provider.setImage("nophoto.png");
         providerRepository.save(provider);
-        ProviderDTO newProviderDTO = ProviderMapper.INSTANCE.ProviderToProviderDTO(provider);
-        return newProviderDTO;
+        return providerMapper.ProviderToProviderDTO(provider);
     }
 
     @Override
     public ProviderDTO update(Integer id, ProviderDTO providerDTO) {
-        Provider provider = ProviderMapper.INSTANCE.ProviderDTOToProvider(providerDTO);
+        Provider provider = providerMapper.ProviderDTOToProvider(providerDTO);
         Provider newProvider = providerRepository.findById(id).get();
         Date uDate = new java.util.Date();
         java.sql.Date sDate = new java.sql.Date(uDate.getTime());
@@ -66,8 +66,7 @@ public class ProvidersServiceImpl implements ProvidersService {
         newProvider.setName(provider.getName());
         newProvider.setEmail(provider.getEmail());
         newProvider.setDescription(provider.getDescription());
-        ProviderDTO newProviderDTO = ProviderMapper.INSTANCE.ProviderToProviderDTO(newProvider);
-        return newProviderDTO;
+        return providerMapper.ProviderToProviderDTO(newProvider);
 
     }
 
@@ -87,8 +86,6 @@ public class ProvidersServiceImpl implements ProvidersService {
 
     @Override
     public Page<Provider> getServiceProvidersByPage(int page) {
-        Page<Provider> serviceProviders =
-                providerRepository.findAll(PageRequest.of(page,4));
-        return serviceProviders;
+        return providerRepository.findAll(PageRequest.of(page,4));
     }
 }
