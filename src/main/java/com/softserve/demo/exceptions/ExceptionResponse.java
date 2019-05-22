@@ -1,12 +1,16 @@
 package com.softserve.demo.exceptions;
 
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
+@Getter
 public class ExceptionResponse {
 
-   LocalDateTime time;
-   String message;
-   String details;
+    private LocalDateTime time;
+    private String message;
+    private String details;
+
 
     public ExceptionResponse(String message, String details) {
         this.message = message;

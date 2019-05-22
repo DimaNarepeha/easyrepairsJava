@@ -4,6 +4,7 @@
 package com.softserve.demo.service.impl;
 
 import com.softserve.demo.service.EmailService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import javax.mail.internet.MimeMessage;
  * @author Dmytro Narepekha
  */
 @Service
+@Slf4j
 public class EmailServiceImpl implements EmailService {
 
 
@@ -61,8 +63,7 @@ public class EmailServiceImpl implements EmailService {
             helper.setText(getMailTemplateWithText(text), true);
             emailSender.send(message);
         } catch (MessagingException e) {
-            //TODO add logging here
-            e.printStackTrace();
+            log.error("Unable to send email!", e);
             return false;
         }
         return true;

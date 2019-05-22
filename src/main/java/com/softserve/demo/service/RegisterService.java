@@ -4,7 +4,7 @@ import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.dto.ProviderDTO;
 
 public interface RegisterService {
-    String createCustomer(CustomerDTO customerDTO);
+    CustomerDTO createCustomer(CustomerDTO customerDTO);
 
-    String createProvider(ProviderDTO providerDTO);
+    ProviderDTO createProvider(ProviderDTO providerDTO);
 }
