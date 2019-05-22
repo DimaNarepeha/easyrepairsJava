@@ -91,7 +91,7 @@ public class ProvidersController {
             @RequestParam("imageFile") MultipartFile file
     ) {
         fileStorageService.storeFile(file);
-        providersService.addImageToProviderds(id, file.getOriginalFilename());
+        providersService.addImageToProviders(id, file.getOriginalFilename());
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 

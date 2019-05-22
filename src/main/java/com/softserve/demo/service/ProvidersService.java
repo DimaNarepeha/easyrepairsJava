@@ -19,7 +19,7 @@ public interface ProvidersService {
 
     ProviderDTO update (Integer id, ProviderDTO providerDTO, LocationDTO locationDTO);
 
-    void addImageToProviderds (Integer id, String fileName);
+    void addImageToProviders (Integer id, String fileName);
 
     Page<Provider> getServiceProvidersByPage(int page);
 
