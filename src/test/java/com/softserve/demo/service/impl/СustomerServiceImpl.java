@@ -12,22 +12,24 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class СustomerServiceImpl {
-
-    @Spy
-    @InjectMocks
-    CustomerServiceImpl customerService;
     @Mock
     CustomerRepository customerRepository;
+
+    @InjectMocks
+    CustomerServiceImpl customerService;
+
     @Mock
     CustomerDTO customer;
 
     @Test(expected = NotFoundException.class)
-    public void givenMockedServiceWhenDeleteInvokedThenNotFoundExceptionIsThrown() {
+    public void givenFindMethodMockedWhenDeleteInvokedThenNotFoundExceptionIsThrown() {
+        Mockito.when(customerRepository.findById(1)).thenThrow(NotFoundException.class);
        customerService.deleteCustomer(1);
     }
 
     @Test(expected = NotFoundException.class)
-    public void givenMockedServiceExistsMethodMockedWhenUpdateInvokedThenNotFoundExceptionIsThrown() {
+    public void givenFindMethodMockedWhenUpdateInvokedThenNotFoundExceptionIsThrown() {
+        Mockito.when(customerRepository.findById(1)).thenThrow(NotFoundException.class);
        customerService.updateCustomer(1,customer);
 
     }
