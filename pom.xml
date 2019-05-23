@@ -51,7 +51,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--mapper-->
+        <!--providerInfoMapper-->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-jdk8</artifactId>
