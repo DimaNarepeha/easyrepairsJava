@@ -1,15 +1,14 @@
 package com.softserve.demo.dto;
 
-import com.softserve.demo.model.Service;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.ToString;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@ToString
 @Getter
 @Setter
 public class ServiceProviderInfoDTO {
@@ -19,10 +18,11 @@ public class ServiceProviderInfoDTO {
     private String image;
     private Date registrationDate;
     private List<String> services = new ArrayList<>();
-    private String  city;
+    private String city;
     private double raiting;
     private long countComment;
 
-    public ServiceProviderInfoDTO(){}
+    public ServiceProviderInfoDTO() {
+    }
 
 }
