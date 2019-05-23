@@ -1,11 +1,12 @@
 package com.softserve.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Calendar;
 
 @Getter
 @Setter
@@ -24,15 +25,15 @@ public class Feedback {
     @Column(name = "rating")
     private Double rating;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date")
-    private Date createdDate;
+    private Calendar createdDate;
 
-//    @JoinColumn(name = "addressed_from")
-@Column(name = "addressed_from")
-    private Integer addressedFrom;
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "addressed_from")
+    private User addressedFrom;
 
-   /// @ManyToOne
-   // @JoinColumn(name = "addressed_to")
-   @Column(name = "addressed_to")
+    @Column(name = "addressed_to")
     private Integer addressedTo;
 }
