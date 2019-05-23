@@ -1,21 +1,19 @@
 package com.softserve.demo.service;
 
+import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.model.Location;
-import org.springframework.data.domain.Page;
+
 
 import java.util.List;
 
 public interface LocationService {
-    
-    void createLocation(Location location);
 
-    void updateLocation(Location location);
+    Location findById(Integer id);
 
-    List<Location> getAllLocations();
+    List<Location> findAll();
 
-    void deleteLocation(Integer id);
+    Location save(Location location);
 
-    Location getLocationById(Integer id);
+    void delete(Integer id);
 
-    Page<Location> getLocationsByPage(int page);
 }

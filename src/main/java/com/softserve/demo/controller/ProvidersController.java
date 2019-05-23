@@ -1,5 +1,7 @@
 package com.softserve.demo.controller;
 
+import com.softserve.demo.dto.LocationDTO;
+import com.softserve.demo.dto.ProviderAndLocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
 import com.softserve.demo.model.ProviderStatus;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("service-providers")
-@CrossOrigin("*")
+@CrossOrigin
 public class ProvidersController {
 
     private final ProvidersService providersService;
@@ -37,14 +39,30 @@ public class ProvidersController {
         this.fileStorageService = fileStorageService;
     }
 
+    private ProviderDTO getProviderDTO(ProviderAndLocationDTO providerAndLocationDTO) {
+        ProviderDTO providerDTO = new ProviderDTO();
+        providerDTO.setId(providerAndLocationDTO.getIdProvider());
+        providerDTO.setName(providerAndLocationDTO.getName());
+        providerDTO.setEmail(providerAndLocationDTO.getEmail());
+        providerDTO.setDescription(providerAndLocationDTO.getDescription());
+        LocationDTO locationDTO = new LocationDTO();
+        locationDTO.setCountry(providerAndLocationDTO.getCountry());
+        locationDTO.setCity(providerAndLocationDTO.getCity());
+        locationDTO.setRegion(providerAndLocationDTO.getRegion());
+        providerDTO.setLocation(locationDTO);
+        return providerDTO;
+    }
+
     @PostMapping("save")
-    public ResponseEntity<?> saveServiceProvider(@RequestBody ProviderDTO providerDTO) {
-        return new ResponseEntity<>(providersService.save(providerDTO), HttpStatus.OK);
+    public ResponseEntity<?> saveServiceProvider(@RequestBody ProviderAndLocationDTO providerAndLocationDTO) {
+        ProviderDTO providerDTO = getProviderDTO(providerAndLocationDTO);
+        return new ResponseEntity<>(providersService.save(providerDTO,providerDTO.getLocation()), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateServiceProviders(@PathVariable("id") Integer id, @RequestBody ProviderDTO providerDTO) {
-        return new ResponseEntity<>(providersService.update(id, providerDTO), HttpStatus.OK);
+    public ResponseEntity<?> updateServiceProviders(@PathVariable("id")Integer id, @RequestBody ProviderAndLocationDTO providerAndLocationDTO) {
+        ProviderDTO providerDTO = getProviderDTO(providerAndLocationDTO);
+        return new ResponseEntity<>(providersService.update(id,providerDTO,providerDTO.getLocation()), HttpStatus.OK);
     }
 
     @GetMapping("find-all")
@@ -74,7 +92,7 @@ public class ProvidersController {
             @RequestParam("imageFile") MultipartFile file
     ) {
         fileStorageService.storeFile(file);
-        providersService.addImageToProviderds(id, file.getOriginalFilename());
+        providersService.addImageToProviders(id, file.getOriginalFilename());
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 

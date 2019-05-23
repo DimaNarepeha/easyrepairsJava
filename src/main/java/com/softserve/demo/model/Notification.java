@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,8 +19,8 @@ public class Notification {
     private String header;
     @Column(name = "notification_message")
     private String message;
-    @Column(name = "createdAt")
-    private String time;
+    @Column(name = "created_at")
+    private LocalDateTime time;
     @Column(name = "seen")
     private Boolean seen; // if user have already read this notification
 }

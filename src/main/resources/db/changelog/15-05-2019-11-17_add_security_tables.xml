@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Volodymyr">
+        <createTable tableName="oauth_client_details">
+            <column name="client_id" type="varchar(256)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="resource_ids" type="varchar(256)"/>
+            <column name="client_secret" type="varchar(256)"/>
+            <column name="scope" type="varchar(256)"/>
+            <column name="authorized_grant_types" type="varchar(256)"/>
+            <column name="web_server_redirect_uri" type="varchar(256)"/>
+            <column name="authorities" type="varchar(256)"/>
+            <column name="access_token_validity" type="integer"/>
+            <column name="refresh_token_validity" type="integer"/>
+            <column name="additional_information" type="varchar(4096)"/>
+            <column name="autoapprove" type="varchar(256)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="Volodymyr">
+        <createTable tableName="oauth_access_token">
+            <column name="token_id" type="varchar(256)"/>
+            <column name="token" type="LONGVARBINARY"/>
+            <column name="authentication_id" type="VARCHAR(256)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_name" type="VARCHAR(256)"/>
+            <column name="client_id" type="VARCHAR(256)"/>
+            <column name="authentication" type="LONGVARBINARY"/>
+            <column name="refresh_token" type="VARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="Volodymyr">
+        <createTable tableName="oauth_refresh_token">
+            <column name="token_id" type="varchar(256)"/>
+            <column name="token" type="LONGVARBINARY"/>
+            <column name="authentication" type="LONGVARBINARY"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="Volodymyr">
+        <insert tableName="oauth_client_details">
+            <column name="client_id" value="junior-client"/>
+            <column name="resource_ids" value="resource_id"/>
+            <column name="client_secret" value="$2a$08$lXHoomHZTXuw3AcBag05IeXfEsmGCgUhXJ2tZjIBavoQ8NJzh8lw."/>
+            <column name="scope" value="read,write,trust"/>
+            <column name="authorized_grant_types" value="authorization_code,implicit,refresh_token,password"/>
+            <column name="web_server_redirect_uri" />
+            <column name="authorities" value="ADMIN, PROVIDER, CUSTOMER"/>
+            <column name="access_token_validity" value="10800"/>
+            <column name="refresh_token_validity" value="250000"/>
+            <column name="additional_information"/>
+            <column name="autoapprove"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

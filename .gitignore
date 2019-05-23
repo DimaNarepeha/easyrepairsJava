@@ -34,8 +34,7 @@ HELP.md
 # Log file
 *.log
 
-#Properties
-*.properties
+
 
 # BlueJ files
 *.ctxt
@@ -48,3 +47,5 @@ HELP.md
 *.zip
 *.tar.gz
 *.rar
+
+*.properties

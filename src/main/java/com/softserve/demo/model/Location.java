@@ -1,6 +1,7 @@
 package com.softserve.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -33,6 +34,6 @@ public class Location {
     private List<Offer> offers;
 
     @JsonBackReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "location", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "location", cascade = CascadeType.MERGE)
     private List<Provider> providers;
 }

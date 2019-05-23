@@ -157,7 +157,7 @@
             <column name="login" type="VARCHAR(45)">
                 <constraints nullable="false"/>
             </column>
-            <column name="password" type="VARCHAR(45)">
+            <column name="password" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -166,4 +166,3 @@
         <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="location"/>
     </changeSet>
 </databaseChangeLog>
-

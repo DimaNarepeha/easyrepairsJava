@@ -16,5 +16,7 @@ public interface ProviderRepository extends JpaRepository<Provider, Integer> {
     boolean existsByEmail(String email);
     <T> List<Provider> findAll(Specification<T> approved);
     List<Provider> findAllByStatus(ProviderStatus status);
+    Provider getByEmail(String email);
+
 }
 

@@ -17,7 +17,7 @@
     </changeSet>
     <changeSet id="4" author="Oleksandr">
         <addColumn tableName="customer">
-            <column name="last_update" type="date"/>
+            <column name="last_update" type="datetime"/>
         </addColumn>
     </changeSet>
     <changeSet id="5" author="Oleksandr">
