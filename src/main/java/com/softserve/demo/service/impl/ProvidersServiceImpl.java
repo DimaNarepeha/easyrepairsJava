@@ -107,7 +107,7 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public void addImageToProviders(Integer id, String fileName) {
+     public void addImageToProviders(Integer id, String fileName) {
         Provider provider =
                 providerRepository.findById(id).get();
         provider.setImage(fileName);
