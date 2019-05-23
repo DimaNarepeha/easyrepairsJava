@@ -4,6 +4,7 @@ import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.dto.ProviderAndLocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
+import com.softserve.demo.model.ProviderStatus;
 import com.softserve.demo.service.FilesStorageService;
 import com.softserve.demo.service.ProvidersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,5 +115,10 @@ public class ProvidersController {
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "inline; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
+    }
+
+    @GetMapping("find-all/status")
+    public Page<?> getServiceProviderByStatus (@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "4") int numberOfProvidersOnPage, @RequestParam(defaultValue = "NOTAPPROVED") String status) {
+        return providersService.getServiceProvidersByStatus(page,numberOfProvidersOnPage,ProviderStatus.valueOf(status));
     }
 }

@@ -1,11 +1,11 @@
 package com.softserve.demo.service.impl;
 
-
 import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Location;
 import com.softserve.demo.model.Provider;
+import com.softserve.demo.model.ProviderStatus;
 import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
@@ -13,15 +13,18 @@ import com.softserve.demo.service.ProvidersService;
 import com.softserve.demo.util.LocationMapper;
 import com.softserve.demo.util.Photo;
 import com.softserve.demo.util.ProviderMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
 
 /**
  * Created by Illia Chenchak
@@ -75,6 +78,7 @@ public class ProvidersServiceImpl implements ProvidersService {
         provider.setLastUpdate(localDateTime);
         provider.setImage(Photo.defaultPhoto);
         providerRepository.save(provider);
+
         ProviderDTO newProviderDTO = providerMapper.ProviderToProviderDTO(provider);
         return newProviderDTO;
     }
@@ -97,8 +101,8 @@ public class ProvidersServiceImpl implements ProvidersService {
         provider.setLastUpdate(localDateTime);
         ProviderDTO newProviderDTO = providerMapper.ProviderToProviderDTO(newProvider);
         return newProviderDTO;
-    }
 
+    }
 
     @Override
     public void delete(Integer id) {
@@ -115,9 +119,24 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
+    public <T> List<Provider> findAll(Specification<T> approved) {
+        return providerRepository.findAll(approved);
+    }
+
+    @Override
+    public List<Provider> findAllByStatus(ProviderStatus status) {
+        return providerRepository.findAllByStatus(status);
+    }
+
+    @Override
     public Page<Provider> getServiceProvidersByPage(int page) {
         Page<Provider> serviceProviders =
                 providerRepository.findAll(PageRequest.of(page, 4));
         return serviceProviders;
+    }
+
+    @Override
+    public Page<?> getServiceProvidersByStatus(int page, int numberOfProvidersOnPage, ProviderStatus status) {
+        return providerRepository.findByStatus(status, PageRequest.of(page, numberOfProvidersOnPage));
     }
 }

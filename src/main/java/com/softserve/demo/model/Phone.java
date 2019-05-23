@@ -1,5 +1,6 @@
 package com.softserve.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,6 +24,7 @@ public class Phone {
     @Column(name = "phone_type")
     private String phoneType;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
