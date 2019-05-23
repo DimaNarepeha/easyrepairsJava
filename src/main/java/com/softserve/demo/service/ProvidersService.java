@@ -3,6 +3,7 @@ package com.softserve.demo.service;
 import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
+import com.softserve.demo.model.ProviderStatus;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -23,4 +24,7 @@ public interface ProvidersService {
 
     Page<Provider> getServiceProvidersByPage(int page);
 
+    Page<?> getServiceProvidersByStatus(int page, int numberOfProvidersOnPage , ProviderStatus status);
+
+    ProviderDTO updateStatus(Integer id, String status);
 }
