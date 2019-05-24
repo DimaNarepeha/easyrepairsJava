@@ -9,11 +9,11 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ProviderCriteriaMapper {
 
-    ProviderCriteriaDTO ProviderCriteriaToProviderCriteriaDTO(ProviderCriteria providerCriteria);
+    ProviderCriteriaDTO providerCriteriaToProviderCriteriaDTO(ProviderCriteria providerCriteria);
 
-    ProviderCriteria ProviderCriteriaDTOToProviderCriteria(ProviderCriteriaDTO providerCriteriaDTO);
+    ProviderCriteria providerCriteriaDTOToProviderCriteria(ProviderCriteriaDTO providerCriteriaDTO);
 
-    List<ProviderCriteriaDTO> ProviderCriteriasToProviderCriteriaDTOs(List<ProviderCriteria> providerCriterias);
+    List<ProviderCriteriaDTO> providerCriteriasToProviderCriteriaDTOs(List<ProviderCriteria> providerCriterias);
 }
 
 
