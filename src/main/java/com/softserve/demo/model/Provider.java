@@ -36,6 +36,9 @@ public class Provider {
     @Column(name = "path_to_photo")
     private String image;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ProviderStatus status;
 
     @CreationTimestamp
     @Column(name = "registration_date")
@@ -44,10 +47,6 @@ public class Provider {
     @UpdateTimestamp
     @Column(name = "last_update")
     private LocalDateTime lastUpdate;
-
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private ProviderStatus status;
 
     @Column(name = "raiting")
     private double raiting;

@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("service-providers")
-@CrossOrigin
+@CrossOrigin ("*")
 public class ProvidersController {
 
     private final ProvidersService providersService;
@@ -118,7 +118,13 @@ public class ProvidersController {
     }
 
     @GetMapping("find-all/status")
-    public Page<?> getServiceProviderByStatus (@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "4") int numberOfProvidersOnPage, @RequestParam(defaultValue = "NOTAPPROVED") String status) {
-        return providersService.getServiceProvidersByStatus(page,numberOfProvidersOnPage,ProviderStatus.valueOf(status));
+    public Page<?> getServiceProviderByStatus (@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "4")
+            int numberOfProvidersOnPage, @RequestParam(defaultValue = "NOTAPPROVED") String status) {
+        return providersService.getServiceProvidersByStatus(page,numberOfProvidersOnPage, ProviderStatus.valueOf(status));
+    }
+
+    @PutMapping("update-status/{id}")
+    public ResponseEntity<?> updateServiceProvidersStatus(@PathVariable("id") Integer id, @RequestBody String status) {
+        return new ResponseEntity<>(providersService.updateStatus(id,status), HttpStatus.OK);
     }
 }

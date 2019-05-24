@@ -24,13 +24,13 @@ public class NotificationController {
     @GetMapping(path = "/get/{userId}")
     public List<NotificationDTO> getNotifications(@PathVariable final Integer userId) {
         List<Notification> notifications = notificationService.getNotificationsByUserId(userId);
-        return notificationMapper.NotificationsToNotificationDTOs(notifications);
+        return notificationMapper.notificationsToNotificationDTOs(notifications);
     }
 
     @PostMapping(path = "/add/{userId}")
     public NotificationDTO notifyUserById(@PathVariable final Integer userId,
                                           @RequestBody final NotificationDTO notificationDTO) {
-        notificationService.notifyByUserId(userId, notificationMapper.NotificationDTOToNotification(notificationDTO));
+        notificationService.notifyByUserId(userId, notificationMapper.notificationDTOToNotification(notificationDTO));
         return notificationDTO;
     }
 }

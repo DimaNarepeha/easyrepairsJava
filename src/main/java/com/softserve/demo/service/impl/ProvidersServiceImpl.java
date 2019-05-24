@@ -15,7 +15,6 @@ import com.softserve.demo.util.Photo;
 import com.softserve.demo.util.ProviderMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -138,5 +137,14 @@ public class ProvidersServiceImpl implements ProvidersService {
     @Override
     public Page<?> getServiceProvidersByStatus(int page, int numberOfProvidersOnPage, ProviderStatus status) {
         return providerRepository.findByStatus(status, PageRequest.of(page, numberOfProvidersOnPage));
+    }
+
+    @Override
+    public ProviderDTO updateStatus(Integer id, String status) {
+        Provider provider = providerRepository.findById(id).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
+        System.out.println("here we go!!!!!");
+        provider.setStatus(ProviderStatus.valueOf(status));
+        providerRepository.save(provider);
+        return providerMapper.ProviderToProviderDTO(provider);
     }
 }

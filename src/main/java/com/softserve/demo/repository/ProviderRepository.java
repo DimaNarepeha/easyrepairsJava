@@ -12,7 +12,8 @@ import java.util.List;
 
 @Repository
 public interface ProviderRepository extends JpaRepository<Provider, Integer> {
-    Page<Provider> findByStatus(ProviderStatus status,Pageable pageable);
+
+    Page<Provider> findByStatus(ProviderStatus status, Pageable pageable);
     boolean existsByEmail(String email);
     <T> List<Provider> findAll(Specification<T> approved);
     List<Provider> findAllByStatus(ProviderStatus status);
