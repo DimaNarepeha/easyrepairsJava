@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
-import java.time.LocalDateTime;
+import javax.validation.constraints.Email;
+import java.sql.Date;
 import java.util.List;
 
 @Getter
@@ -15,6 +15,7 @@ import java.util.List;
 public class ProviderDTO {
     private Integer id;
     private String name;
+    @Email
     private String email;
     private String description;
     private String image;
