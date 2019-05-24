@@ -49,8 +49,7 @@ public class LandingPageController {
 
     @PostMapping("filter")
     public ResponseEntity<?> filter(@RequestBody ProviderCriteriaDTO criteria) {
-        System.out.println(filter.findByListServices(providerCriteriaMapper.ProviderCriteriaDTOToProviderCriteria(criteria)).toString());
-        return new ResponseEntity<>(filter.findByListServices(providerCriteriaMapper.ProviderCriteriaDTOToProviderCriteria(criteria)), HttpStatus.OK);
+          return new ResponseEntity<>(filter.findByListServices(providerCriteriaMapper.providerCriteriaDTOToProviderCriteria(criteria)), HttpStatus.OK);
     }
 
 
