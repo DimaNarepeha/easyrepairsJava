@@ -6,10 +6,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +36,17 @@ public class Provider {
     @Column(name = "path_to_photo")
     private String image;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ProviderStatus status;
+
     @CreationTimestamp
     @Column(name = "registration_date")
     private LocalDateTime registrationDate;
 
+    @UpdateTimestamp
     @Column(name = "last_update")
-    private Date lastUpdate;
+    private LocalDateTime lastUpdate;
 
 
 
@@ -63,7 +67,8 @@ public class Provider {
     )
     private List<Service> services = new ArrayList<>();
 
-    @ManyToOne
+    @JsonManagedReference
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "location_id")
     private Location location;
 
