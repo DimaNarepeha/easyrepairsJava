@@ -1,0 +1,11 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<div style="background-color:#222222;text-align: center;font-size: 30px;">
+    <span style="color:#FFFFFF">easy</span>
+    <span style="color:#F5F549">REPAIRS</span>
+</div>
+<p>Hello, <span th:text="${username}"></span>!</p>
+<p>Here is your verification link! If you did not tried to register on our website, ignore this message!</p>
+<a class="button" th:href="${activationLink}">Verify!</a>
+</body>
+</html>

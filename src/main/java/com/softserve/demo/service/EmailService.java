@@ -3,6 +3,8 @@
  */
 package com.softserve.demo.service;
 
+import com.softserve.demo.model.User;
+
 /**
  * Simple email service
  * to send emails for your purpose.
@@ -20,4 +22,14 @@ public interface EmailService {
      * @return true if no exception occurred
      */
     boolean sendEmailTo(String addressedTo, String subject, String text);
+
+    /**
+     * This method sends verification email
+     * to the provided user.
+     *
+     * @param user receiver of the letter
+     * @return true if no exception occurred
+     */
+    boolean sendVerificationEmailTo(User user);
+
 }
