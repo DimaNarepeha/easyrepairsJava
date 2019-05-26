@@ -68,7 +68,7 @@ public class RegisterServiceImpl implements RegisterService {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new AlreadyExistException(USERNAME_EXISTS);
         }
-        if (customerRepository.existsByEmail(customerDTO.getEmail()) && providerRepository.existsByEmail(customerDTO.getEmail())) {
+        if (customerRepository.existsByEmail(customerDTO.getEmail()) || providerRepository.existsByEmail(customerDTO.getEmail())) {
             throw new AlreadyExistException(EMAIL_EXISTS);
         }
         Set<Role> roles = new HashSet<>();
@@ -95,7 +95,7 @@ public class RegisterServiceImpl implements RegisterService {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new AlreadyExistException(USERNAME_EXISTS);
         }
-        if (customerRepository.existsByEmail(providerDTO.getEmail()) && providerRepository.existsByEmail(providerDTO.getEmail())) {
+        if (customerRepository.existsByEmail(providerDTO.getEmail()) || providerRepository.existsByEmail(providerDTO.getEmail())) {
             throw new AlreadyExistException(EMAIL_EXISTS);
         }
         user.setPassword(passwordEncoder.encode(providerDTO.getUserDTO().getPassword()));
