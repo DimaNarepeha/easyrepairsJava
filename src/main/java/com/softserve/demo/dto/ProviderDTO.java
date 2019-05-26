@@ -6,7 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.Email;
-import java.sql.Date;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -20,7 +21,7 @@ public class ProviderDTO {
     private String description;
     private String image;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Date lastUpdate;
+    private LocalDateTime lastUpdate;
     private UserDTO userDTO;
     private List<OrderDTO> ordersDTO;
     private List<ServiceDTO> servicesDTO;

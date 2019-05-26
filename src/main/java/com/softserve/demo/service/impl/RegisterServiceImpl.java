@@ -73,12 +73,12 @@ public class RegisterServiceImpl implements RegisterService {
         log.info(user.getPassword());
         userRepository.save(user);
         user = userRepository.findByUsername(user.getUsername());
-        Customer customer = customerMapper.CustomerDTOToCustomer(customerDTO);
+        Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setUser(user);
         log.info(customer.toString());
         customerRepository.save(customer);
         log.info(customer.toString());
-        return customerMapper.CustomerToCustomerDTO(customerRepository.findByEmail(customer.getEmail()));
+        return customerMapper.customerToCustomerDTO(customerRepository.findByEmail(customer.getEmail()));
     }
 
     @Override
@@ -97,9 +97,9 @@ public class RegisterServiceImpl implements RegisterService {
         user.setRoles(roles);
         userRepository.save(user);
         user = userRepository.findByUsername(user.getUsername());
-        Provider provider = providerMapper.ProviderDTOToProvider(providerDTO);
+        Provider provider = providerMapper.providerDTOToProvider(providerDTO);
         provider.setUser(user);
         providerRepository.save(provider);
-        return providerMapper.ProviderToProviderDTO(providerRepository.getByEmail(provider.getEmail()));
+        return providerMapper.providerToProviderDTO(providerRepository.getByEmail(provider.getEmail()));
     }
 }
