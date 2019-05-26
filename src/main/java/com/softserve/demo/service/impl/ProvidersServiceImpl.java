@@ -130,7 +130,6 @@ public class ProvidersServiceImpl implements ProvidersService {
     @Override
     public ProviderDTO updateStatus(Integer id, String status) {
         Provider provider = providerRepository.findById(id).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
-        System.out.println("here we go!!!!!");
         provider.setStatus(ProviderStatus.valueOf(status));
         providerRepository.save(provider);
         return providerMapper.ProviderToProviderDTO(provider);
