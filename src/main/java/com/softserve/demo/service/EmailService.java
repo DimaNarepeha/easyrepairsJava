@@ -19,17 +19,15 @@ public interface EmailService {
      * @param addressedTo receiver of the letter
      * @param subject     subject of the letter
      * @param text        the letter text itself
-     * @return true if no exception occurred
      */
-    boolean sendEmailTo(String addressedTo, String subject, String text);
+    void sendEmailTo(String addressedTo, String subject, String text);
 
     /**
      * This method sends verification email
      * to the provided user.
      *
      * @param user receiver of the letter
-     * @return true if no exception occurred
      */
-    boolean sendVerificationEmailTo(User user);
+    void sendVerificationEmailTo(User user);
 
 }

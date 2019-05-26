@@ -15,6 +15,8 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Implementation of email service.
@@ -39,6 +41,11 @@ public class EmailServiceImpl implements EmailService {
      */
     @Value("${hostlink}")
     private String HOSTLINK;
+    /**
+     * This executor service helps us to not wait for smtp server to response
+     * and just rely on separate thread to do this.
+     */
+    private ExecutorService singleThreadExecutor;
 
     /**
      * constructor which inserts emailSender while initializing.
@@ -49,6 +56,7 @@ public class EmailServiceImpl implements EmailService {
     public EmailServiceImpl(final JavaMailSender emailSender, final TemplateEngine templateEngine) {
         this.emailSender = emailSender;
         this.templateEngine = templateEngine;
+        this.singleThreadExecutor = Executors.newSingleThreadExecutor();
     }
 
 
@@ -84,9 +92,8 @@ public class EmailServiceImpl implements EmailService {
      * @param addressedTo       address of the receiver
      * @param subject           of the letter
      * @param generatedTemplate template of the body of the letter
-     * @return boolean if no exceptions occurred
      */
-    private boolean sendEmailWithTemplate(final String addressedTo, final String subject, final String generatedTemplate) {
+    private void sendEmailWithTemplate(final String addressedTo, final String subject, final String generatedTemplate) {
         try {
             MimeMessage message = emailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -96,9 +103,7 @@ public class EmailServiceImpl implements EmailService {
             emailSender.send(message);
         } catch (MessagingException e) {
             log.error("Unable to send email!", e);
-            return false;
         }
-        return true;
     }
 
     /**
@@ -108,11 +113,11 @@ public class EmailServiceImpl implements EmailService {
      * @param addressedTo receiver of the letter
      * @param subject     subject of the letter
      * @param text        the letter text itself
-     * @return true if no exception occurred
      */
     @Override
-    public boolean sendEmailTo(final String addressedTo, final String subject, final String text) {
-        return sendEmailWithTemplate(addressedTo, subject, getMailTemplateWithText(text));
+    public void sendEmailTo(final String addressedTo, final String subject, final String text) {
+        singleThreadExecutor
+                .submit(() -> sendEmailWithTemplate(addressedTo, subject, getMailTemplateWithText(text)));
     }
 
     /**
@@ -120,11 +125,11 @@ public class EmailServiceImpl implements EmailService {
      * to the provided address.
      *
      * @param user from which all information is gathered
-     * @return true if no exception occurred
      */
     @Override
-    public boolean sendVerificationEmailTo(final User user) {
-        return sendEmailWithTemplate(user.getEmail(), "Activation code", getVerificationTemplate(user));
+    public void sendVerificationEmailTo(final User user) {
+        singleThreadExecutor
+                .submit(() -> sendEmailWithTemplate(user.getEmail(), "Activation code", getVerificationTemplate(user)));
     }
 
 
