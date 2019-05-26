@@ -59,7 +59,7 @@ public class EmailServiceImpl implements EmailService {
      * @return html mail message
      */
     private String getVerificationTemplate(final User user) {
-        String activationLink = HOSTLINK + "/" + user.getActivationCode();
+        String activationLink = HOSTLINK + "/register/verify/" + user.getActivationCode();
         Context context = new Context();
         context.setVariable("username", user.getUsername());
         context.setVariable("activationLink", activationLink);

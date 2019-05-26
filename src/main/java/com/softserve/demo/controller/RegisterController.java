@@ -19,6 +19,15 @@ public class RegisterController {
         this.registerService = registerService;
     }
 
+    @GetMapping("verify/{activationCode}")
+    public String verifyUserEmail(@PathVariable String activationCode) {
+        if (registerService.verifyUser(activationCode)) {
+            return "Successfully verified!";
+        } else {
+            return "Failed to verify! Maybe your code has expired or it is already used :(";
+        }
+    }
+
     @PostMapping("customer")
     @ResponseStatus(HttpStatus.CREATED)
     public CustomerDTO createCustomer(@RequestBody final CustomerDTO customerDTO) {
