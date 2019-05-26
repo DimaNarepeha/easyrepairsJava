@@ -2,6 +2,7 @@ package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.dto.ProviderDTO;
+import com.softserve.demo.exceptions.FailedToVerifyException;
 import com.softserve.demo.service.RegisterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class RegisterController {
         if (registerService.verifyUser(activationCode)) {
             return "Successfully verified!";
         } else {
-            return "Failed to verify! Maybe your code has expired or it is already used :(";
+            throw new FailedToVerifyException("Failed to verify! Maybe your code has expired or it is already used :(");
         }
     }
 
