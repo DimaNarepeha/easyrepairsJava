@@ -38,7 +38,7 @@ public class EmailServiceImpl implements EmailService {
      * Address of our host to be inserted in email messages.
      */
     @Value("${hostlink}")
-    private static String HOSTLINK;
+    private String HOSTLINK;
 
     /**
      * constructor which inserts emailSender while initializing.
