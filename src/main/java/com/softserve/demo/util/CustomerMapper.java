@@ -10,24 +10,12 @@ import org.mapstruct.Mappings;
 public interface CustomerMapper {
 
     @Mappings({
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "firstName", source = "firstName"),
-            @Mapping(target = "lastName", source = "lastName"),
-            @Mapping(target = "email", source = "email"),
-            @Mapping(target = "image", source = "image"),
-            @Mapping(target = "updated", source = "updated"),
             @Mapping(target = "userDTO", source = "user")
     })
-    CustomerDTO CustomerToCustomerDTO(Customer customer);
+    CustomerDTO customerToCustomerDTO(Customer customer);
 
     @Mappings({
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "firstName", source = "firstName"),
-            @Mapping(target = "lastName", source = "lastName"),
-            @Mapping(target = "email", source = "email"),
-            @Mapping(target = "image", source = "image"),
-            @Mapping(target = "updated", source = "updated"),
             @Mapping(target = "user", source = "userDTO")
     })
-    Customer CustomerDTOToCustomer(CustomerDTO customerDTO);
+    Customer customerDTOToCustomer(CustomerDTO customerDTO);
 }

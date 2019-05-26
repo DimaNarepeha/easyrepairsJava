@@ -10,12 +10,12 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel="spring")
+@Mapper(componentModel = "spring")
 public interface NotificationMapper {
     @Mapping(source = "time", target = "time")
-    NotificationDTO NotificationToNotificationDTO(Notification notification);
+    NotificationDTO notificationToNotificationDTO(Notification notification);
 
-    Notification NotificationDTOToNotification(NotificationDTO notificationDTO);
+    Notification notificationDTOToNotification(NotificationDTO notificationDTO);
 
-    List<NotificationDTO> NotificationsToNotificationDTOs(List<Notification> notifications);
+    List<NotificationDTO> notificationsToNotificationDTOs(List<Notification> notifications);
 }
