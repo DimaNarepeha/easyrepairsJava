@@ -9,11 +9,11 @@ import java.util.List;
 @Mapper(componentModel="spring")
 public interface OfferMapper {
 
-    OfferDTO OfferToOfferDTO(Offer offer);
+    OfferDTO offerToOfferDTO(Offer offer);
 
-    Offer OfferDTOToOffer(OfferDTO offerDTO);
+    Offer offerDTOToOffer(OfferDTO offerDTO);
 
-    List<OfferDTO> OffersToOfferDTOs(List<Offer> offers);
+    List<OfferDTO> offersToOfferDTOs(List<Offer> offers);
 
-    List<Offer> OfferDTOsToOffer(List<OfferDTO> offers);
+    List<Offer> offerDTOsToOffer(List<OfferDTO> offers);
 }

@@ -48,11 +48,6 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
     }
 
     @Override
-    public Page<Service> getServicesByPage(int page) {
-        return servicesRepository.findAll(new PageRequest(page, 4));
-    }
-
-    @Override
     public List<Service> getAllByOffer(Offer offer) {
         return servicesRepository.getAllByOffers(offer);
     }

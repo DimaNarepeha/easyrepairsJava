@@ -13,7 +13,6 @@ import com.softserve.demo.service.ProvidersService;
 import com.softserve.demo.util.LocationMapper;
 import com.softserve.demo.util.Photo;
 import com.softserve.demo.util.ProviderMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -61,7 +60,7 @@ public class ProvidersServiceImpl implements ProvidersService {
     @Override
     public ProviderDTO save(ProviderDTO providerDTO, LocationDTO locationDTO) {
         Provider provider = providerMapper.ProviderDTOToProvider(providerDTO);
-        Location location1 = locationMapper.LocationDTOToLocation(locationDTO);
+        Location location1 = locationMapper.locationDTOToLocation(locationDTO);
         provider.setUser(userRepository.findById(1));
 
         Location currentLoc = locationRepository.findLocationByCityAndCountry(location1.getCity(), location1.getCountry(), location1.getRegion());
@@ -83,7 +82,7 @@ public class ProvidersServiceImpl implements ProvidersService {
     public ProviderDTO update(Integer id, ProviderDTO providerDTO, LocationDTO locationDTO) {
         Provider provider = providerMapper.ProviderDTOToProvider(providerDTO);
         Provider newProvider = providerRepository.findById(id).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
-        Location location1 = locationMapper.LocationDTOToLocation(locationDTO);
+        Location location1 = locationMapper.locationDTOToLocation(locationDTO);
         Location newLoc = locationRepository.findLocationByCityAndCountry(location1.getCity(), location1.getCountry(), location1.getRegion());
         if (newLoc == null) {
             locationRepository.save(location1);

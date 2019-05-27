@@ -9,11 +9,11 @@ import java.util.List;
 @Mapper(componentModel="spring")
 public interface ServiceMapper {
 
-    ServiceDTO ServiceToServiceDTO(Service service);
+    ServiceDTO serviceToServiceDTO(Service service);
 
-    Service ServiceDTOToService(ServiceDTO serviceDTO);
+    Service serviceDTOToService(ServiceDTO serviceDTO);
 
-    List<ServiceDTO> ServicesToServiceDTOs(List<Service> services);
+    List<ServiceDTO> servicesToServiceDTOs(List<Service> services);
 
-    List<Service> ServiceDTOsToService(List<ServiceDTO> services);
+    List<Service> serviceDTOsToService(List<ServiceDTO> services);
 }

@@ -73,18 +73,18 @@ public class OfferController {
     }
 
     private Offer convertToOffer(OfferDTO offerDTO) {
-        Offer offer = offerMapper.OfferDTOToOffer(offerDTO);
-        offer.setLocation(locationMapper.LocationDTOToLocation(offerDTO.getLocationDTO()));
+        Offer offer = offerMapper.offerDTOToOffer(offerDTO);
+        offer.setLocation(locationMapper.locationDTOToLocation(offerDTO.getLocationDTO()));
         offer.setCustomer(customerMapper.CustomerDTOToCustomer(offerDTO.getCustomerDTO()));
-        offer.setServices(serviceMapper.ServiceDTOsToService(offerDTO.getServiceDTOs()));
+        offer.setServices(serviceMapper.serviceDTOsToService(offerDTO.getServiceDTOs()));
         return offer;
     }
 
     private OfferDTO convertToOfferDTO(Offer offer) {
-        OfferDTO offerDTO = offerMapper.OfferToOfferDTO(offer);
-        offerDTO.setLocationDTO(locationMapper.LocationToLocationDTO(locationService.getLocationByOffer(offer)));
+        OfferDTO offerDTO = offerMapper.offerToOfferDTO(offer);
+        offerDTO.setLocationDTO(locationMapper.locationToLocationDTO(locationService.getLocationByOffer(offer)));
         offerDTO.setCustomerDTO(customerMapper.CustomerToCustomerDTO(customerService.getCustomerByOffer(offer)));
-        offerDTO.setServiceDTOs(serviceMapper.ServicesToServiceDTOs(serviceFromProviders.getAllByOffer(offer)));
+        offerDTO.setServiceDTOs(serviceMapper.servicesToServiceDTOs(serviceFromProviders.getAllByOffer(offer)));
         return offerDTO;
     }
 }

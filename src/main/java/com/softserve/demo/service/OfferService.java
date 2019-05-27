@@ -1,7 +1,6 @@
 package com.softserve.demo.service;
 
 import com.softserve.demo.model.Offer;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 

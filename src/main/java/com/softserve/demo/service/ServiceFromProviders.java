@@ -18,7 +18,5 @@ public interface ServiceFromProviders {
 
     Service getServiceById(Integer id);
 
-    Page<Service> getServicesByPage(int page);
-
     List<Service> getAllByOffer(Offer offer);
 }

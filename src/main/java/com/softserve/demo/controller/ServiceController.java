@@ -1,7 +1,6 @@
 package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.ServiceDTO;
-import com.softserve.demo.model.Service;
 import com.softserve.demo.service.ServiceFromProviders;
 import com.softserve.demo.util.ServiceMapper;
 import org.springframework.http.HttpStatus;
@@ -23,13 +22,13 @@ public class ServiceController {
 
     @PostMapping("create")
     public ResponseEntity<?> createService(@RequestBody ServiceDTO serviceDTO) {
-        serviceFromProviders.createService(serviceMapper.ServiceDTOToService(serviceDTO));
+        serviceFromProviders.createService(serviceMapper.serviceDTOToService(serviceDTO));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("get-all")
     public ResponseEntity<?> getAllServices() {
-        return new ResponseEntity<>(serviceMapper.ServicesToServiceDTOs(
+        return new ResponseEntity<>(serviceMapper.servicesToServiceDTOs(
                 serviceFromProviders.getAllServices()), HttpStatus.OK);
     }
 
