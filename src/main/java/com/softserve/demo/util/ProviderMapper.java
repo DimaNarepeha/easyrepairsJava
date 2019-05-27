@@ -10,32 +10,19 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface ProviderMapper {
     @Mappings({
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "name", source = "name"),
-            @Mapping(target = "email", source = "email"),
-            @Mapping(target = "description", source = "description"),
-            @Mapping(target = "image", source = "image"),
-            @Mapping(target = "lastUpdate", source = "lastUpdate"),
             @Mapping(target = "userDTO", source = "user"),
 //            @Mapping(target = "ordersDTO", source = "orders"),
 //            @Mapping(target = "servicesDTO", source = "services"),
             @Mapping(target = "location", source = "location")
             //TODO: create mapping for orders, services, locations
     })
-    ProviderDTO ProviderToProviderDTO(Provider provider);
+    ProviderDTO providerToProviderDTO(Provider provider);
 
     @Mappings({
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "name", source = "name"),
-            @Mapping(target = "email", source = "email"),
-            @Mapping(target = "description", source = "description"),
-            @Mapping(target = "image", source = "image"),
-            @Mapping(target = "lastUpdate", source = "lastUpdate"),
             @Mapping(target = "user", source = "userDTO"),
 //            @Mapping(target = "orders", source = "ordersDTO"),
 //            @Mapping(target = "services", source = "servicesDTO"),
-            @Mapping(target = "location", source = "location")
             //TODO: create mapping for orders, services
     })
-    Provider ProviderDTOToProvider(ProviderDTO providerDTO);
+    Provider providerDTOToProvider(ProviderDTO providerDTO);
 }

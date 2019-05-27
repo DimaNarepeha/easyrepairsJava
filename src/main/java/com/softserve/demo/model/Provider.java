@@ -36,6 +36,9 @@ public class Provider {
     @Column(name = "path_to_photo")
     private String image;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ProviderStatus status;
 
     @CreationTimestamp
     @Column(name = "registration_date")
