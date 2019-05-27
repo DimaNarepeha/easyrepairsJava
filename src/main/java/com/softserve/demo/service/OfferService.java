@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OfferService {
 
-    void createOffer(Offer offer);
+    Offer createOffer(Offer offer);
 
     List<Offer> getAllOffers();
 

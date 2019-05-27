@@ -3,7 +3,6 @@ package com.softserve.demo.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -11,7 +10,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
 public class OfferDTO {
     private Integer id;
     private String description;

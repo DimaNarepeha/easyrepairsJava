@@ -1,90 +1,48 @@
 package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.OfferDTO;
-import com.softserve.demo.model.Offer;
-import com.softserve.demo.service.CustomerService;
-import com.softserve.demo.service.LocationService;
 import com.softserve.demo.service.OfferService;
-import com.softserve.demo.service.ServiceFromProviders;
-import com.softserve.demo.util.CustomerMapper;
-import com.softserve.demo.util.LocationMapper;
 import com.softserve.demo.util.OfferMapper;
-import com.softserve.demo.util.ServiceMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("offers")
+@Slf4j
 public class OfferController {
 
     private final OfferService offerService;
-    private final LocationService locationService;
-    private final CustomerService customerService;
-    private final ServiceFromProviders serviceFromProviders;
     private final OfferMapper offerMapper;
-    private final LocationMapper locationMapper;
-    private final CustomerMapper customerMapper;
-    private final ServiceMapper serviceMapper;
 
-    public OfferController(OfferService offerService, LocationService locationService,
-                           CustomerService customerService, ServiceFromProviders serviceFromProviders,
-                           OfferMapper offerMapper, LocationMapper locationMapper,
-                           CustomerMapper customerMapper, ServiceMapper serviceMapper) {
-
+    public OfferController(OfferService offerService, OfferMapper offerMapper) {
         this.offerService = offerService;
-        this.locationService = locationService;
-        this.customerService = customerService;
-        this.serviceFromProviders = serviceFromProviders;
         this.offerMapper = offerMapper;
-        this.locationMapper = locationMapper;
-        this.customerMapper = customerMapper;
-        this.serviceMapper = serviceMapper;
     }
 
-    @PostMapping("create")
-    public ResponseEntity<?> createOffer(@RequestBody @Valid OfferDTO offerDTO) {
-        offerService.createOffer(convertToOffer(offerDTO));
-        return new ResponseEntity<>(offerDTO, HttpStatus.CREATED);
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public OfferDTO createOffer(@RequestBody @Valid OfferDTO offerDTO) {
+        return offerMapper.offerToOfferDTO(
+                offerService.createOffer(offerMapper.offerDTOToOffer(offerDTO)));
     }
 
-    @GetMapping("get-all")
-    public ResponseEntity<?> getAllOffers() {
-        return new ResponseEntity<>(
-                offerService.getAllOffers().stream().map(
-                        this::convertToOfferDTO).collect(Collectors.toList()), HttpStatus.OK);
+    @GetMapping
+    public List<OfferDTO> getAllOffers() {
+        return offerMapper.offersToOfferDTOs(offerService.getAllOffers());
     }
 
-    @GetMapping("get-all-by-customer/{id}")
-    public ResponseEntity<?> getOffersByCustomer(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(
-                offerService.getOffersByCustomerId(id).stream().map(
-                        this::convertToOfferDTO).collect(Collectors.toList()), HttpStatus.OK);
+    @GetMapping("customer/{id}")
+    public List<OfferDTO> getOffersByCustomer(@PathVariable("id") Integer id) {
+        return offerMapper.offersToOfferDTOs(offerService.getOffersByCustomerId(id));
     }
 
-    @DeleteMapping("delete/{id}")
-    public ResponseEntity<?> deleteOfferById(@PathVariable("id") Integer id) {
+    @DeleteMapping("/{id}")
+    public void deleteOfferById(@PathVariable("id") Integer id) {
         offerService.deleteOffer(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    private Offer convertToOffer(OfferDTO offerDTO) {
-        Offer offer = offerMapper.offerDTOToOffer(offerDTO);
-        offer.setLocation(locationMapper.locationDTOToLocation(offerDTO.getLocationDTO()));
-        offer.setCustomer(customerMapper.CustomerDTOToCustomer(offerDTO.getCustomerDTO()));
-        offer.setServices(serviceMapper.serviceDTOsToService(offerDTO.getServiceDTOs()));
-        return offer;
-    }
-
-    private OfferDTO convertToOfferDTO(Offer offer) {
-        OfferDTO offerDTO = offerMapper.offerToOfferDTO(offer);
-        offerDTO.setLocationDTO(locationMapper.locationToLocationDTO(locationService.getLocationByOffer(offer)));
-        offerDTO.setCustomerDTO(customerMapper.CustomerToCustomerDTO(customerService.getCustomerByOffer(offer)));
-        offerDTO.setServiceDTOs(serviceMapper.servicesToServiceDTOs(serviceFromProviders.getAllByOffer(offer)));
-        return offerDTO;
     }
 }

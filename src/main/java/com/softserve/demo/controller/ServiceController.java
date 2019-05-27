@@ -3,13 +3,18 @@ package com.softserve.demo.controller;
 import com.softserve.demo.dto.ServiceDTO;
 import com.softserve.demo.service.ServiceFromProviders;
 import com.softserve.demo.util.ServiceMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("services")
+@Slf4j
 public class ServiceController {
 
     private final ServiceFromProviders serviceFromProviders;
@@ -20,21 +25,8 @@ public class ServiceController {
         this.serviceMapper = serviceMapper;
     }
 
-    @PostMapping("create")
-    public ResponseEntity<?> createService(@RequestBody ServiceDTO serviceDTO) {
-        serviceFromProviders.createService(serviceMapper.serviceDTOToService(serviceDTO));
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @GetMapping("get-all")
-    public ResponseEntity<?> getAllServices() {
-        return new ResponseEntity<>(serviceMapper.servicesToServiceDTOs(
-                serviceFromProviders.getAllServices()), HttpStatus.OK);
-    }
-
-    @DeleteMapping("delete/{id}")
-    public ResponseEntity<?> deleteServiceById(@PathVariable("id") Integer id) {
-        serviceFromProviders.deleteService(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @GetMapping
+    public List<ServiceDTO> getAllServices() {
+        return serviceMapper.servicesToServiceDTOs(serviceFromProviders.getAllServices());
     }
 }
