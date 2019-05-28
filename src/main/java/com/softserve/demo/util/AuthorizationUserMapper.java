@@ -10,19 +10,7 @@ import org.mapstruct.Mappings;
 public interface AuthorizationUserMapper {
 
     @Mappings({
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "userLogin", source = "username"),
-            @Mapping(target = "roles", source = "roles"),
-            @Mapping(target = "image", source = "image")
-
+            @Mapping(target = "userLogin", source = "username")
     })
     AuthorizationUserDTO userToAuthorizationUserDTO(User user);
-
-    @Mappings({
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "username", source = "userLogin"),
-            @Mapping(target = "roles", source = "roles"),
-            @Mapping(target = "image", source = "image")
-    })
-    User AuthorizationUserDTOToUser(AuthorizationUserDTO authorizationUserDTO);
 }

@@ -34,7 +34,8 @@ public class UserServiceImpl implements UserDetailsService, AuthorizationUserSer
             user = userRepository.findByEmail(username).orElseThrow(() ->
                     new UsernameNotFoundException("Invalid username or password."));
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority(user));
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+                getAuthority(user));
     }
 
     private Set<? extends GrantedAuthority> getAuthority(User user) {

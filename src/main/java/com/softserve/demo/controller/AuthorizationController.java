@@ -19,8 +19,8 @@ public class AuthorizationController {
     private final AuthorizationUserService authorizationUserService;
 
     @Autowired
-    public AuthorizationController(AuthorizationUserService userService) {
-        this.authorizationUserService = userService;
+    public AuthorizationController(AuthorizationUserService authorizationUserService) {
+        this.authorizationUserService = authorizationUserService;
     }
 
     @GetMapping()
