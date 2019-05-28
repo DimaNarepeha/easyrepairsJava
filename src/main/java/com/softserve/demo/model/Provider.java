@@ -1,7 +1,6 @@
 package com.softserve.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +35,9 @@ public class Provider {
     @Column(name = "path_to_photo")
     private String image;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ProviderStatus status;
 
     @CreationTimestamp
     @Column(name = "registration_date")
