@@ -1,3 +1,6 @@
+/*
+ *Open source 2019
+ */
 package com.softserve.demo.exceptions;
 
 /**
@@ -6,8 +9,8 @@ package com.softserve.demo.exceptions;
  *
  * @author Dmytro Narepekha
  */
-public class FailedToVerifyException extends RuntimeException {
-    public FailedToVerifyException(String message) {
+public class VerificationFailedException extends RuntimeException {
+    public VerificationFailedException(String message) {
         super(message);
     }
 }

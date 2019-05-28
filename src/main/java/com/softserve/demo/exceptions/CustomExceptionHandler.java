@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class CustomExceptionHandler
         extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({NotFoundException.class, FailedToVerifyException.class})
+    @ExceptionHandler({NotFoundException.class, VerificationFailedException.class})
     public ResponseEntity<?> handleNotFoundException(Exception e, WebRequest req) {
         ExceptionResponse exResponse = new ExceptionResponse(e.getMessage(), req.getDescription(false));
         log.warn("Not found", e);

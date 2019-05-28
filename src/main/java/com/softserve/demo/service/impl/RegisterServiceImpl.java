@@ -3,6 +3,7 @@ package com.softserve.demo.service.impl;
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.exceptions.AlreadyExistException;
+import com.softserve.demo.exceptions.VerificationFailedException;
 import com.softserve.demo.model.Customer;
 import com.softserve.demo.model.Provider;
 import com.softserve.demo.model.Role;
@@ -20,7 +21,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -127,7 +127,7 @@ public class RegisterServiceImpl implements RegisterService {
     public boolean verifyUser(String activationCode) {
         Optional<User> optionalUser = userRepository.findByActivationCode(activationCode);
         if (!optionalUser.isPresent()) {
-            return false;
+            throw new VerificationFailedException("Failed to verify! Maybe your code has expired or it is already used :(");
         }
         User user = optionalUser.get();
         user.setActivated(true);

@@ -9,14 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Implementation of email service.
@@ -37,15 +36,14 @@ public class EmailServiceImpl implements EmailService {
      */
     private final TemplateEngine templateEngine;
     /**
+     * Constant subject for verification email.
+     */
+    private static final String SUBJECT_ACTIVATION_CODE = "Activation code";
+    /**
      * Address of our host to be inserted in email messages.
      */
     @Value("${hostlink}")
     private String HOSTLINK;
-    /**
-     * This executor service helps us to not wait for smtp server to response
-     * and just rely on separate thread to do this.
-     */
-    private ExecutorService singleThreadExecutor;
 
     /**
      * constructor which inserts emailSender while initializing.
@@ -56,7 +54,6 @@ public class EmailServiceImpl implements EmailService {
     public EmailServiceImpl(final JavaMailSender emailSender, final TemplateEngine templateEngine) {
         this.emailSender = emailSender;
         this.templateEngine = templateEngine;
-        this.singleThreadExecutor = Executors.newSingleThreadExecutor();
     }
 
 
@@ -115,9 +112,9 @@ public class EmailServiceImpl implements EmailService {
      * @param text        the letter text itself
      */
     @Override
+    @Async
     public void sendEmailTo(final String addressedTo, final String subject, final String text) {
-        singleThreadExecutor
-                .submit(() -> sendEmailWithTemplate(addressedTo, subject, getMailTemplateWithText(text)));
+        sendEmailWithTemplate(addressedTo, subject, getMailTemplateWithText(text));
     }
 
     /**
@@ -127,10 +124,8 @@ public class EmailServiceImpl implements EmailService {
      * @param user from which all information is gathered
      */
     @Override
+    @Async
     public void sendVerificationEmailTo(final User user) {
-        singleThreadExecutor
-                .submit(() -> sendEmailWithTemplate(user.getEmail(), "Activation code", getVerificationTemplate(user)));
+        sendEmailWithTemplate(user.getEmail(), SUBJECT_ACTIVATION_CODE, getVerificationTemplate(user));
     }
-
-
 }
