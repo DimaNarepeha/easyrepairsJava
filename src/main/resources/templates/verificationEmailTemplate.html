@@ -1,0 +1,70 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+        .btn-success {
+            color: #fff;
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+
+        .ml-1 {
+            margin-left: .25rem !important;
+        }
+
+        .btn-group-lg > .btn, .btn-lg {
+            padding: .5rem 1rem;
+            font-size: 1.25rem;
+            line-height: 1.5;
+            border-radius: .3rem;
+        }
+        .btn:not(:disabled):not(.disabled) {
+            cursor: pointer;
+        }
+        a:not([href]):not([tabindex]):hover {
+            color: inherit;
+            text-decoration: none;
+        }
+        .btn:focus, .btn:hover {
+            text-decoration: none;
+        }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            text-align: left;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div style="background-color:#222222;text-align: center;font-size: 30px;">
+    <span style="color:#FFFFFF">easy</span>
+    <span style="color:#F5F549">REPAIRS</span>
+</div>
+<p>Hello, <span th:text="${username}"></span>!</p>
+<p>Here is your verification link! If you did not tried to register on our website, ignore this message!</p>
+<a th:href="${activationLink}" class="btn btn-lg btn-success text-light ml-1" role="button">Verify!</a>
+
+</body>
+</html>
