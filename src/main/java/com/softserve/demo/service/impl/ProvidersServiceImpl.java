@@ -61,13 +61,13 @@ public class ProvidersServiceImpl implements ProvidersService {
     @Override
     public ProviderDTO save(ProviderDTO providerDTO, LocationDTO locationDTO) {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
-        Location location1 = locationMapper.LocationDTOToLocation(locationDTO);
+        Location location = locationMapper.locationDTOToLocation(locationDTO);
         provider.setUser(userRepository.findById(1));
 
-        Location currentLoc = locationRepository.findLocationByCityAndCountry(location1.getCity(), location1.getCountry(), location1.getRegion());
+        Location currentLoc = locationRepository.findLocationByCityAndCountry(location.getCity(), location.getCountry(), location.getRegion());
         if (currentLoc == null) {
-            locationRepository.save(location1);
-            provider.setLocation(location1);
+            locationRepository.save(location);
+            provider.setLocation(location);
         } else {
             provider.setLocation(currentLoc);
         }
@@ -83,7 +83,7 @@ public class ProvidersServiceImpl implements ProvidersService {
     public ProviderDTO update(Integer id, ProviderDTO providerDTO, LocationDTO locationDTO) {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
         Provider newProvider = providerRepository.findById(id).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
-        Location location1 = locationMapper.LocationDTOToLocation(locationDTO);
+        Location location1 = locationMapper.locationDTOToLocation(locationDTO);
         Location newLoc = locationRepository.findLocationByCityAndCountry(location1.getCity(), location1.getCountry(), location1.getRegion());
         if (newLoc == null) {
             locationRepository.save(location1);

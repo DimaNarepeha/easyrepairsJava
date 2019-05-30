@@ -1,6 +1,5 @@
 package com.softserve.demo.service;
 
-import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.model.Location;
 
 import java.util.List;
