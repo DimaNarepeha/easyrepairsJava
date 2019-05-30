@@ -2,6 +2,7 @@ package com.softserve.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,10 +10,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.List;
 
-@Getter
-@Setter
-@Entity
-@ToString
+@Data
 @Table(name = "location")
 public class Location {
     @Column(name = "id")
