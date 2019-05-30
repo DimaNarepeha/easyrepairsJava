@@ -3,6 +3,7 @@ package com.softserve.demo.service.impl;
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Customer;
+import com.softserve.demo.model.Offer;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.CustomerService;
@@ -29,7 +30,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void createCustomer(CustomerDTO customerDTO) {
-        Customer customer = customerMapper.CustomerDTOToCustomer(customerDTO);
+        Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setUser(userRepository.findById(1));
         customerRepository.save(customer);
     }
@@ -37,15 +38,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO updateCustomer(Integer id, CustomerDTO customerDTO) {
         Customer customerFromDatabase = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
-        Customer customer = customerMapper.CustomerDTOToCustomer(customerDTO);
+        Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customerRepository.save(customer);
-        return customerMapper.CustomerToCustomerDTO(customer);
+        return customerMapper.customerToCustomerDTO(customer);
     }
 
     @Override
     public List<CustomerDTO> getAllCustomers() {
         return customerRepository.findAll().stream().map(
-                customerMapper::CustomerToCustomerDTO).collect(Collectors.toList());
+                customerMapper::customerToCustomerDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -53,18 +54,18 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
 
         customerRepository.deleteById(id);
-        return customerMapper.CustomerToCustomerDTO(customer);
+        return customerMapper.customerToCustomerDTO(customer);
     }
 
     @Override
     public CustomerDTO getCustomerById(Integer id) {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
-        return customerMapper.CustomerToCustomerDTO(customer);
+        return customerMapper.customerToCustomerDTO(customer);
     }
 
     public Page<CustomerDTO> getCustomersByPage(Pageable pageable) {
         return customerRepository.findAll(pageable)
-                .map(customerMapper::CustomerToCustomerDTO);
+                .map(customerMapper::customerToCustomerDTO);
     }
 
     @Override
@@ -73,5 +74,11 @@ public class CustomerServiceImpl implements CustomerService {
                 customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
         customerEntity.setImage(fileName);
         customerRepository.save(customerEntity);
+    }
+
+    @Override
+    public Customer getCustomerByOffer(Offer offer) {
+        return customerRepository.findById(
+                offer.getCustomer().getId()).orElseThrow(() -> new NotFoundException("Customer not found"));
     }
 }

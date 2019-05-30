@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Illia Chenhak">
+        <insert tableName="location">
+            <column name="city" value="Львів"/>
+            <column name="country" value="Україна"/>
+            <column name="region" value="Львівська область"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2" author="Illia Chenchak">
+        <insert tableName="service_provider">
+            <column name="name" value="Provider #1"/>
+            <column name="email" value="service@gmail.com"/>
+            <column name="description" value="This character description generator will generate
+                a fairly random description of a belonging to a random race. However,
+                some aspects of the descriptions will remain the same, this is
+                to keep the general structure the same, while still randomizing the important details."/>
+            <column name="user_id" value="3"/>
+            <column name="path_to_photo" value="1.png"/>
+            <column name="location_id" value="1"/>
+            <column name="status" value="NOTAPPROVED"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="3" author="Illia Chenchak">
+        <insert tableName="service_provider">
+            <column name="name" value="Provider #2"/>
+            <column name="email" value="service2@gmail.com"/>
+            <column name="description" value="This character description generator will generate
+                a fairly random description of a belonging to a random race. However,
+                some aspects of the descriptions will remain the same, this is
+                to keep the general structure the same, while still randomizing the important details."/>
+            <column name="user_id" value="3"/>
+            <column name="path_to_photo" value="Screenshot_2.png"/>
+            <column name="location_id" value="1"/>
+            <column name="status" value="NOTAPPROVED"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="4" author="Illia Chenchak">
+        <insert tableName="service_provider">
+            <column name="name" value="Provider #3"/>
+            <column name="email" value="service3@gmail.com"/>
+            <column name="description" value="This character description generator will generate
+                a fairly random description of a belonging to a random race. However,
+                some aspects of the descriptions will remain the same, this is
+                to keep the general structure the same, while still randomizing the important details."/>
+            <column name="user_id" value="3"/>
+            <column name="path_to_photo" value="Screenshot_2.png"/>
+            <column name="location_id" value="1"/>
+            <column name="status" value="NOTAPPROVED"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="5" author="Illia Chenchak">
+        <insert tableName="service_provider">
+            <column name="name" value="Provider #4"/>
+            <column name="email" value="service4@gmail.com"/>
+            <column name="description" value="This character description generator will generate
+                a fairly random description of a belonging to a random race. However,
+                some aspects of the descriptions will remain the same, this is
+                to keep the general structure the same, while still randomizing the important details."/>
+            <column name="user_id" value="3"/>
+            <column name="path_to_photo" value="nophoto.png"/>
+            <column name="location_id" value="1"/>
+            <column name="status" value="NOTAPPROVED"/>
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="6" author="Illia Chenchak">
+        <insert tableName="service_provider">
+            <column name="name" value="Provider #5"/>
+            <column name="email" value="service5@gmail.com"/>
+            <column name="description" value="This character description generator will generate
+                a fairly random description of a belonging to a random race. However,
+                some aspects of the descriptions will remain the same, this is
+                to keep the general structure the same, while still randomizing the important details."/>
+            <column name="user_id" value="3"/>
+            <column name="path_to_photo" value="nophoto.png"/>
+            <column name="location_id" value="1"/>
+            <column name="status" value="NOTAPPROVED"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="7" author="Illia Chenchak">
+        <modifyDataType tableName="service_provider" columnName="last_update" newDataType="DATETIME"/>
+    </changeSet>
+
+</databaseChangeLog>

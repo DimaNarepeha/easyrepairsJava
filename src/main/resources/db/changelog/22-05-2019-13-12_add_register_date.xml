@@ -13,9 +13,4 @@
             <column name="registration_date" type="DATETIME"/>
         </addColumn>
     </changeSet>
-    <changeSet id="2" author="Oleksandr">
-        <addColumn tableName="user_role">
-            <column name="roles" type="varchar(20)"/>
-        </addColumn>
-    </changeSet>
 </databaseChangeLog>
