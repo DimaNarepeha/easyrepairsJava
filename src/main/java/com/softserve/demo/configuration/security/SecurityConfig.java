@@ -56,6 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api-docs/**").permitAll()
                 .antMatchers("/oauth/token").permitAll()
                 .antMatchers("/user").permitAll();
+
+
     }
 
     @Bean

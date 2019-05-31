@@ -82,7 +82,7 @@ public class RegisterServiceImpl implements RegisterService {
         log.info(user.getPassword());
         sendVerificationCode(user);
         userRepository.save(user);
-        user = userRepository.findByUsername(user.getUsername());
+        user = userRepository.findByUsername(user.getUsername()).get();
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setUser(user);
         log.info(customer.toString());
@@ -108,7 +108,7 @@ public class RegisterServiceImpl implements RegisterService {
         user.setEmail(providerDTO.getEmail());
         sendVerificationCode(user);
         userRepository.save(user);
-        user = userRepository.findByUsername(user.getUsername());
+        user = userRepository.findByUsername(user.getUsername()).get();
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
         provider.setUser(user);
         providerRepository.save(provider);

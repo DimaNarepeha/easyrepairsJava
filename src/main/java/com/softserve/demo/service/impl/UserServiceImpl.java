@@ -29,11 +29,10 @@ public class UserServiceImpl implements UserDetailsService, AuthorizationUserSer
     }
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            user = userRepository.findByEmail(username).orElseThrow(() ->
-                    new UsernameNotFoundException("Invalid username or password."));
-        }
+        User user = userRepository.findByUsername(username)
+                .orElseGet(() -> userRepository.findByEmail(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("Invalid username")));
+
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 getAuthority(user));
     }
@@ -44,8 +43,7 @@ public class UserServiceImpl implements UserDetailsService, AuthorizationUserSer
 
     @Override
     public AuthorizationUserDTO getUser(String username) {
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username).get();
         return authorizationUserMapper.userToAuthorizationUserDTO(user);
     }
-
 }
