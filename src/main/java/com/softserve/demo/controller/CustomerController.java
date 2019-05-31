@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @CrossOrigin("*")
 @RestController
@@ -98,8 +99,9 @@ public class CustomerController {
                     .getServletContext()
                     .getMimeType(
                             resource.getFile().getAbsolutePath());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            contentType = "application/octet-stream";
+
         }
 
         if (contentType == null) {
