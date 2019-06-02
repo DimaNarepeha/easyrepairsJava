@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface ChatRepository extends JpaRepository<Chat, Integer> {
-    @Query("SELECT chat from Chat chat where chat.messageTo.id = :id")
-    List<Chat> findAllBySenderAndGetterId(@Param("id") Integer id);
+    @Query("SELECT chat FROM Chat chat WHERE chat.messageTo.id = :id")
+    List<Chat> findAllBySenderAndGetterId(@Param("id")Integer id);
 
 
 }

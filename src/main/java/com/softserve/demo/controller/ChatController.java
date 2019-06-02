@@ -23,7 +23,15 @@ public class ChatController {
             @RequestBody ChatDTO chat) {
         log.info(chat.toString());
         chatService.saveMessage(chat);
-       chatService.getMessagesBySenderAndGetter(1).forEach((Chat c)->log.info(c.toString()));
+       //chatService.getMessagesBySenderAndGetter(1).forEach((Chat c)->log.info(c.toString()));
         return new ResponseEntity<>("Finally!!!!",HttpStatus.OK);
     }
+
+    @GetMapping
+    public ResponseEntity<?> getCustomer(){
+
+        return new ResponseEntity<>(chatService.getMessagesBySenderAndGetter(1),HttpStatus.OK);
+    }
+
+
 }

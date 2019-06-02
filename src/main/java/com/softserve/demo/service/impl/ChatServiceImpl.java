@@ -30,8 +30,8 @@ public class ChatServiceImpl implements ChatService {
 
         Chat chatE = new Chat();
         chatE.setMessage(chat.getMessage());
-        chatE.setMessageFrom(customerRepository.findById(chat.getMessageFrom()).orElseThrow(()->new NotFoundException("ds")));
-        chatE.setMessageTo(providerRepository.findById(chat.getMessageTo()).orElseThrow(()->new NotFoundException("ds")));
+        chatE.setMessageFrom(customerRepository.findById(chat.getMessageFrom()).get());
+        chatE.setMessageTo(providerRepository.findById(chat.getMessageTo()).get());
         chatRepository.save(chatE);
     }
 }
