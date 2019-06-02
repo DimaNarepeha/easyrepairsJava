@@ -8,7 +8,7 @@ import java.util.List;
 public interface ChatService {
 
 
-    List<Chat>  getMessagesBySenderAndGetter(Integer id);
+    List<Chat>  getMessagesBySenderAndGetter(Integer customerId,Integer providerId);
 
     void saveMessage(ChatDTO chat);
 

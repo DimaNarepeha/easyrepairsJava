@@ -29,8 +29,7 @@ public class ChatController {
 
     @GetMapping
     public ResponseEntity<?> getCustomer(){
-
-        return new ResponseEntity<>(chatService.getMessagesBySenderAndGetter(1),HttpStatus.OK);
+        return new ResponseEntity<>(chatService.getMessagesBySenderAndGetter(7,1),HttpStatus.OK);
     }
 
 

@@ -8,13 +8,16 @@
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="message_from" type="INT">
+            <column name="customer_id" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="message_to" type="INT">
+            <column name="provider_id" type="INT">
                 <constraints nullable="false"/>
             </column>
             <column name="message" type="VARCHAR(111)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sent_by" type="int">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -23,7 +26,7 @@
 
     <changeSet id="2" author="Oleksandr">
         <addForeignKeyConstraint baseTableName="chat"
-                                 baseColumnNames="message_from"
+                                 baseColumnNames="customer_id"
                                  constraintName="chat_customer"
                                  referencedTableName="customer"
                                  referencedColumnNames="id"
@@ -32,7 +35,7 @@
     </changeSet>
     <changeSet id="3" author="Oleksandr">
         <addForeignKeyConstraint baseTableName="chat"
-                                 baseColumnNames="message_to"
+                                 baseColumnNames="provider_id"
                                  constraintName="chat_provider"
                                  referencedTableName="service_provider"
                                  referencedColumnNames="id"

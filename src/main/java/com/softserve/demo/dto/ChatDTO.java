@@ -12,6 +12,6 @@ public class ChatDTO {
    private  Integer messageTo;
    private Integer messageFrom;
   private  String message;
-
+private Integer sentBy;
 
 }

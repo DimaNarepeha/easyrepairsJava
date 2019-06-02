@@ -20,18 +20,20 @@ public class ChatServiceImpl implements ChatService {
 @Autowired
     ProviderRepository providerRepository;
     @Override
-    public List<Chat> getMessagesBySenderAndGetter(Integer id) {
-        return chatRepository.findAllBySenderAndGetterId(id);
+    public List<Chat> getMessagesBySenderAndGetter(Integer customerId,Integer providerId) {
+        return chatRepository.findAllBySenderAndGetterId(customerId,providerId);
     }
 
 
     @Override
     public void saveMessage(ChatDTO chat) {
-
         Chat chatE = new Chat();
         chatE.setMessage(chat.getMessage());
-        chatE.setMessageFrom(customerRepository.findById(chat.getMessageFrom()).get());
-        chatE.setMessageTo(providerRepository.findById(chat.getMessageTo()).get());
+        chatE.setCustomerId(customerRepository.findById(chat.getMessageFrom()).get());
+        chatE.setProviderId(providerRepository.findById(chat.getMessageTo()).get());
+        chatE.setSentBy(chat.getSentBy());
         chatRepository.save(chatE);
     }
+
+
 }

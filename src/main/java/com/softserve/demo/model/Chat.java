@@ -17,11 +17,14 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "message_from")
-    private Customer messageFrom;
+    @JoinColumn(name = "customer_id")
+    private Customer customerId;
     @ManyToOne
-    @JoinColumn(name = "message_to")
-    private Provider messageTo;
+    @JoinColumn(name = "provider_id")
+    private Provider providerId;
 
     private String message;
+
+    @Column(name = "sent_by")
+    private Integer sentBy;
 }
