@@ -1,7 +1,6 @@
 package com.softserve.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -29,6 +28,7 @@ public class Order {
     @Column(name = "price")
     private Double price;
 
+    @JsonBackReference(value="order-movement")
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "offer_id", referencedColumnName = "id")
     private Offer offer;

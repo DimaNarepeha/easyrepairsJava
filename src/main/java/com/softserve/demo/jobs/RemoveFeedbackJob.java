@@ -21,10 +21,10 @@ public class RemoveFeedbackJob {
         this.feedbackService = feedbackService;
     }
 
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 60000)
     public void checkEndDateInFeedBack() {
         feedbackService.findAll().stream().forEach(feedback -> {
-            if (feedback.getEndDate().isBefore(LocalDateTime.now())){
+            if ((feedback.getUpdateDate() == null) && (feedback.getEndDate().isBefore(LocalDateTime.now()))){
                 feedbackService.delete(feedback.getId());
             }
         });

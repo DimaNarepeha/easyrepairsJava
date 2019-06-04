@@ -1,18 +1,21 @@
 package com.softserve.demo.service;
 
+import com.softserve.demo.dto.FeedbackDTO;
 import com.softserve.demo.model.Feedback;
 
 import java.util.List;
 
 public interface FeedbackService {
 
-    Feedback save (Feedback feedback);
+    FeedbackDTO save (FeedbackDTO feedbackDTO);
 
-    Feedback update (Feedback feedback);
+    FeedbackDTO update (FeedbackDTO feedbackDTO);
 
-    Feedback findById (Integer id);
+    FeedbackDTO findById (Integer id);
 
-    List<Feedback> findAll ();
+    List<FeedbackDTO> findAll ();
 
     void delete (Integer id);
+
+    List<FeedbackDTO> findFeedbackByUserId (Integer id);
 }

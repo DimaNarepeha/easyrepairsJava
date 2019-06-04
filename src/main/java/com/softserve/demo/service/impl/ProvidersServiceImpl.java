@@ -1,7 +1,6 @@
 package com.softserve.demo.service.impl;
 
 
-import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Location;
@@ -12,10 +11,10 @@ import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.ProvidersService;
 import com.softserve.demo.util.LocationMapper;
-import com.softserve.demo.util.Photo;
+import com.softserve.demo.util.Constant;
 import com.softserve.demo.util.ProviderMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,32 +58,32 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public ProviderDTO save(ProviderDTO providerDTO, LocationDTO locationDTO) {
+    public ProviderDTO save(ProviderDTO providerDTO) {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
-        Location location1 = locationMapper.LocationDTOToLocation(locationDTO);
+        Location location = locationMapper.locationDTOToLocation(providerDTO.getLocation());
         provider.setUser(userRepository.findById(1));
 
-        Location currentLoc = locationRepository.findLocationByCityAndCountry(location1.getCity(), location1.getCountry(), location1.getRegion());
+        Location currentLoc = locationRepository.findLocationByCityAndCountryAndRegion(location.getCity(), location.getCountry(), location.getRegion());
         if (currentLoc == null) {
-            locationRepository.save(location1);
-            provider.setLocation(location1);
+            locationRepository.save(location);
+            provider.setLocation(location);
         } else {
             provider.setLocation(currentLoc);
         }
         LocalDateTime localDateTime = LocalDateTime.now();
         provider.setLastUpdate(localDateTime);
-        provider.setImage(Photo.defaultPhoto);
+        provider.setImage(Constant.defaultPhoto);
         providerRepository.save(provider);
         ProviderDTO newProviderDTO = providerMapper.providerToProviderDTO(provider);
         return newProviderDTO;
     }
 
     @Override
-    public ProviderDTO update(Integer id, ProviderDTO providerDTO, LocationDTO locationDTO) {
+    public ProviderDTO update(ProviderDTO providerDTO) {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
-        Provider newProvider = providerRepository.findById(id).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
-        Location location1 = locationMapper.LocationDTOToLocation(locationDTO);
-        Location newLoc = locationRepository.findLocationByCityAndCountry(location1.getCity(), location1.getCountry(), location1.getRegion());
+        Provider newProvider = providerRepository.findById(provider.getId()).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
+        Location location1 = locationMapper.locationDTOToLocation(providerDTO.getLocation());
+        Location newLoc = locationRepository.findLocationByCityAndCountryAndRegion(location1.getCity(), location1.getCountry(), location1.getRegion());
         if (newLoc == null) {
             locationRepository.save(location1);
             newLoc = location1;
@@ -115,15 +114,15 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public Page<Provider> getServiceProvidersByPage(int page) {
-        Page<Provider> serviceProviders =
-                providerRepository.findAll(PageRequest.of(page, 4));
-        return serviceProviders;
+    public Page<ProviderDTO> getServiceProvidersByPage(Pageable pageable) {
+        return providerRepository.findAll(pageable)
+                .map(providerMapper::providerToProviderDTO);
     }
 
     @Override
-    public Page<?> getServiceProvidersByStatus(int page, int numberOfProvidersOnPage, ProviderStatus status) {
-        return providerRepository.findByStatus(status, PageRequest.of(page, numberOfProvidersOnPage));
+    public Page<ProviderDTO> getServiceProvidersByStatus(Pageable pageable, ProviderStatus status) {
+        return providerRepository.findByStatus(status, pageable)
+                .map(providerMapper::providerToProviderDTO);
     }
 
     @Override
@@ -132,5 +131,10 @@ public class ProvidersServiceImpl implements ProvidersService {
         provider.setStatus(ProviderStatus.valueOf(status));
         providerRepository.save(provider);
         return providerMapper.providerToProviderDTO(provider);
+    }
+
+    @Override
+    public ProviderDTO findProvidersByUserId(Integer id) {
+        return providerMapper.providerToProviderDTO(providerRepository.findByUserId(id));
     }
 }

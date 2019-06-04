@@ -10,10 +10,13 @@ import com.softserve.demo.service.ProvidersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,30 +42,15 @@ public class ProvidersController {
         this.fileStorageService = fileStorageService;
     }
 
-    private ProviderDTO getProviderDTO(ProviderAndLocationDTO providerAndLocationDTO) {
-        ProviderDTO providerDTO = new ProviderDTO();
-        providerDTO.setId(providerAndLocationDTO.getIdProvider());
-        providerDTO.setName(providerAndLocationDTO.getName());
-        providerDTO.setEmail(providerAndLocationDTO.getEmail());
-        providerDTO.setDescription(providerAndLocationDTO.getDescription());
-        LocationDTO locationDTO = new LocationDTO();
-        locationDTO.setCountry(providerAndLocationDTO.getCountry());
-        locationDTO.setCity(providerAndLocationDTO.getCity());
-        locationDTO.setRegion(providerAndLocationDTO.getRegion());
-        providerDTO.setLocation(locationDTO);
-        return providerDTO;
-    }
 
     @PostMapping("save")
-    public ResponseEntity<?> saveServiceProvider(@RequestBody ProviderAndLocationDTO providerAndLocationDTO) {
-        ProviderDTO providerDTO = getProviderDTO(providerAndLocationDTO);
-        return new ResponseEntity<>(providersService.save(providerDTO,providerDTO.getLocation()), HttpStatus.OK);
+    public ResponseEntity<?> saveServiceProvider(@RequestBody ProviderDTO providerDTO) {
+        return new ResponseEntity<>(providersService.save(providerDTO), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateServiceProviders(@PathVariable("id")Integer id, @RequestBody ProviderAndLocationDTO providerAndLocationDTO) {
-        ProviderDTO providerDTO = getProviderDTO(providerAndLocationDTO);
-        return new ResponseEntity<>(providersService.update(id,providerDTO,providerDTO.getLocation()), HttpStatus.OK);
+    @PutMapping("/update")
+    public ResponseEntity<?> updateServiceProviders(@RequestBody ProviderDTO providerDTO) {
+        return new ResponseEntity<>(providersService.update(providerDTO), HttpStatus.OK);
     }
 
     @GetMapping("find-all")
@@ -71,8 +59,8 @@ public class ProvidersController {
     }
 
     @GetMapping("find-all/page")
-    public Page<?> getServiceProvidersByPage(@RequestParam(defaultValue = "0") int page) {
-        return providersService.getServiceProvidersByPage(page);
+    public Page<?> getServiceProvidersByPage(@PageableDefault Pageable pageable) {
+        return providersService.getServiceProvidersByPage(pageable);
     }
 
     @DeleteMapping("delete/{id}")
@@ -82,6 +70,7 @@ public class ProvidersController {
     }
 
     @GetMapping("find-by-id/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> findById(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(providersService.findById(id), HttpStatus.OK);
     }
@@ -118,13 +107,20 @@ public class ProvidersController {
     }
 
     @GetMapping("find-all/status")
-    public Page<?> getServiceProviderByStatus (@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "4")
-            int numberOfProvidersOnPage, @RequestParam(defaultValue = "NOTAPPROVED") String status) {
-        return providersService.getServiceProvidersByStatus(page,numberOfProvidersOnPage, ProviderStatus.valueOf(status));
+    public Page<?> getServiceProviderByStatus (@PageableDefault Pageable pageable,
+                                               @RequestParam(defaultValue = "NOTAPPROVED") String status) {
+        return providersService.getServiceProvidersByStatus(pageable, ProviderStatus.valueOf(status));
     }
 
     @PutMapping("update-status/{id}")
     public ResponseEntity<?> updateServiceProvidersStatus(@PathVariable("id") Integer id, @RequestBody String status) {
         return new ResponseEntity<>(providersService.updateStatus(id,status), HttpStatus.OK);
     }
+
+    @GetMapping("find-by-userId/{id}")
+    public ResponseEntity<?> findProviderByUserId(@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(providersService.findProvidersByUserId(id), HttpStatus.OK);
+    }
+
+
 }

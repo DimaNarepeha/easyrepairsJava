@@ -20,4 +20,7 @@
     <include file="db/changelog/22-05-2019-18-34_insert_customers.xml"/>
     <include file="db/changelog/22-05-2019-18-12_insert_notification_data.xml"/>
     <include file="db/changelog/28-05-2019-15-45_alter_table_feedback.xml"/>
+    <include file="db/changelog/22-05-2019-15-32_modify_date_to_datetime.xml"/>
+    <include file="db/changelog/24-05-2019-12-03_add_verification_email_columns.xml"/>
+    <include file="db/changelog/04-06-2019-15-56_alter_table_feedback.xml"/>
 </databaseChangeLog>

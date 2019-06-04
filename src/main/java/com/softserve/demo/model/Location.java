@@ -3,14 +3,12 @@ package com.softserve.demo.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
+@Entity
 @Table(name = "location")
 public class Location {
     @Column(name = "id")
@@ -27,6 +25,7 @@ public class Location {
     @Column(name = "city")
     private String city;
 
+    @JsonBackReference(value="location-movement")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location", cascade = CascadeType.REMOVE)
     private List<Offer> offers;
 
