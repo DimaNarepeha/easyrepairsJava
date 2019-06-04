@@ -1,10 +1,8 @@
 package com.softserve.demo.service.impl;
 
-import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.model.Location;
 import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.service.LocationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,8 +41,4 @@ public class LocationServiceImpl implements LocationService {
     public void delete(Integer id) {
         locationRepository.delete(locationRepository.findById(id).get());
     }
-
-
-
-
 }

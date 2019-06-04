@@ -1,6 +1,5 @@
 package com.softserve.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +23,7 @@ public class Service {
     @Column(name = "service_name")
     private String serviceName;
 
+    @JsonManagedReference
     @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
     private List<Offer> offers = new ArrayList<>();
 

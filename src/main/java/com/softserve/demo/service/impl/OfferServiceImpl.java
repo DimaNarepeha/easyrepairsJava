@@ -1,11 +1,10 @@
 package com.softserve.demo.service.impl;
 
+import com.softserve.demo.model.Location;
 import com.softserve.demo.model.Offer;
+import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.OfferRepository;
 import com.softserve.demo.service.OfferService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,26 +12,26 @@ import java.util.List;
 @Service
 public class OfferServiceImpl implements OfferService {
 
-    @Autowired
-    OfferRepository offerRepository;
+    private OfferRepository offerRepository;
+    private LocationRepository locationRepository;
 
-    @Override
-    public void createOffer(Offer offer) {
-        offerRepository.save(offer);
+    public OfferServiceImpl(OfferRepository offerRepository, LocationRepository locationRepository) {
+        this.offerRepository = offerRepository;
+        this.locationRepository = locationRepository;
     }
 
     @Override
-    public Offer updateOffer(Integer id, Offer offer) {
-        if (offerRepository.existsById(id)) {
-            Offer offerFromDB = offerRepository.getOne(id);
-            offerFromDB.setCustomer(offer.getCustomer());
-            offerFromDB.setStartDate(offer.getStartDate());
-            offerFromDB.setDescription(offer.getDescription());
-            offerFromDB.setLocation(offer.getLocation());
-            offerRepository.save(offerFromDB);
-            return offerRepository.getOne(id);
+    public Offer createOffer(Offer offer) {
+        Location location = offer.getLocation();
+        Location locationFromDB = locationRepository.findLocationByCityAndCountry(
+                location.getCity(), location.getCountry(), location.getRegion());
+        if (locationFromDB == null) {
+            locationRepository.save(location);
+            return offerRepository.save(offer);
+        } else {
+            offer.getLocation().setId(locationFromDB.getId());
+            return offerRepository.save(offer);
         }
-        return null;
     }
 
     @Override
@@ -41,25 +40,12 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public Offer deleteOffer(Integer id) {
-        if (offerRepository.existsById(id)) {
-            Offer offerFromDB = offerRepository.getOne(id);
-            offerRepository.deleteById(id);
-            return offerFromDB;
-        }
-        return null;
+    public void deleteOffer(Integer id) {
+        offerRepository.deleteById(id);
     }
 
     @Override
-    public Offer getOfferById(Integer id) {
-        if (offerRepository.existsById(id)) {
-            return offerRepository.getOne(id);
-        }
-        return null;
-    }
-
-    @Override
-    public Page<Offer> getOffersByPage(int page) {
-        return offerRepository.findAll(new PageRequest(page, 4));
+    public List<Offer> getOffersByCustomerId(Integer id) {
+        return offerRepository.findAllByCustomerId(id);
     }
 }
