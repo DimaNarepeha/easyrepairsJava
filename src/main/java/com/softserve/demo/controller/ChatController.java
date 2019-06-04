@@ -31,6 +31,9 @@ public class ChatController {
     public ResponseEntity<?> getCustomer(){
         return new ResponseEntity<>(chatService.getMessagesBySenderAndGetter(7,1),HttpStatus.OK);
     }
-
+    @RequestMapping(value = "/getMessages", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<?> getMessages(){
+        return new ResponseEntity<>(chatService.getAllMessages(7,1),HttpStatus.OK);
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.softserve.demo.service.impl;
 
 import com.softserve.demo.dto.ChatDTO;
+import com.softserve.demo.dto.MessageDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Chat;
 import com.softserve.demo.repository.ChatRepository;
@@ -35,5 +36,10 @@ public class ChatServiceImpl implements ChatService {
         chatRepository.save(chatE);
     }
 
-
+    @Override
+    public MessageDTO getAllMessages(Integer customerId,Integer providerId) {
+        MessageDTO messageDTO = new MessageDTO();
+         messageDTO.setMessages(chatRepository.getMessages(customerId,providerId));
+         return messageDTO;
+    }
 }
