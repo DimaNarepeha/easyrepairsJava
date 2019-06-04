@@ -8,6 +8,7 @@ import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +25,17 @@ public class Offer {
     private Integer id;
 
     @UpdateTimestamp
-    @Column(name = "start_date")
-    private LocalDateTime startDate;
+    @Column(name = "create_date")
+    private LocalDateTime createDate;
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "start_date")
+    private LocalDate startDate;
+
+    @Column(name = "end_date")
+    private LocalDate endDate;
 
     @JsonBackReference(value="customer-movement")
     @ManyToOne
