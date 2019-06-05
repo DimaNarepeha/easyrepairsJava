@@ -5,13 +5,14 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 public class EmailDTO {
     @Email
     String addressedTo;
-    @Max(30)
     String subject;
+    @NotNull
     String text;
 }

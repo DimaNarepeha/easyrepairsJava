@@ -4,6 +4,7 @@ import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Customer;
 import com.softserve.demo.model.User;
+import com.softserve.demo.model.Offer;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.CustomerService;
@@ -75,5 +76,11 @@ public class CustomerServiceImpl implements CustomerService {
         User user = userRepository.findById(customerEntity.getId());
         user.setImage(fileName);
         customerRepository.save(customerEntity);
+    }
+
+    @Override
+    public Customer getCustomerByOffer(Offer offer) {
+        return customerRepository.findById(
+                offer.getCustomer().getId()).orElseThrow(() -> new NotFoundException("Customer not found"));
     }
 }

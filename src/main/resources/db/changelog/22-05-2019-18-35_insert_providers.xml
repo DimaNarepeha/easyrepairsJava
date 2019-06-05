@@ -25,6 +25,8 @@
             <column name="description" value="Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/22-05-2019-18-35_insert_providers.xml::2::Oleksandr:
      Reason: liquibase.exception.DatabaseException:"/>
             <column name="user_id" value="20001"/>
+            <column name="status" value="NOTAPPROVED"/>
+            <column name="raiting" value="4"/>
         </insert>
     </changeSet>
 
@@ -49,6 +51,8 @@
             <column name="description" value="Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/22-05-2019-18-35_insert_providers.xml::2::Oleksandr:
      Reason: liquibase.exception.DatabaseException:"/>
             <column name="user_id" value="20002"/>
+            <column name="status" value="NOTAPPROVED"/>
+            <column name="raiting" value="4"/>
         </insert>
     </changeSet>
     <changeSet id="5" author="Oleksandr">
@@ -71,6 +75,8 @@
             <column name="description" value="Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/22-05-2019-18-35_insert_providers.xml::2::Oleksandr:
      Reason: liquibase.exception.DatabaseException:"/>
             <column name="user_id" value="20003"/>
+            <column name="status" value="NOTAPPROVED"/>
+            <column name="raiting" value="4"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

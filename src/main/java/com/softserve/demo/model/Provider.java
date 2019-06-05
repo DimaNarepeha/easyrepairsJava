@@ -5,8 +5,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,6 +33,9 @@ public class Provider {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private ProviderStatus status;
+
+    @Column(name = "raiting")
+    private double raiting;
 
     @CreationTimestamp
     @Column(name = "registration_date")

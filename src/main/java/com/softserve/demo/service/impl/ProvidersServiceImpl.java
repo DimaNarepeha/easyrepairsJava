@@ -17,6 +17,8 @@ import com.softserve.demo.util.Photo;
 import com.softserve.demo.util.ProviderMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,13 +64,13 @@ public class ProvidersServiceImpl implements ProvidersService {
     @Override
     public ProviderDTO save(ProviderDTO providerDTO, LocationDTO locationDTO) {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
-        Location location1 = locationMapper.LocationDTOToLocation(locationDTO);
-        provider.setUser(userRepository.findById(1));// TODO: NEED TO FIX THIS
+        Location location = locationMapper.locationDTOToLocation(locationDTO);
+        provider.setUser(userRepository.findById(1));
 
-        Location currentLoc = locationRepository.findLocationByCityAndCountry(location1.getCity(), location1.getCountry(), location1.getRegion());
+        Location currentLoc = locationRepository.findLocationByCityAndCountry(location.getCity(), location.getCountry(), location.getRegion());
         if (currentLoc == null) {
-            locationRepository.save(location1);
-            provider.setLocation(location1);
+            locationRepository.save(location);
+            provider.setLocation(location);
         } else {
             provider.setLocation(currentLoc);
         }
@@ -84,7 +86,7 @@ public class ProvidersServiceImpl implements ProvidersService {
     public ProviderDTO update(Integer id, ProviderDTO providerDTO, LocationDTO locationDTO) {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
         Provider newProvider = providerRepository.findById(id).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
-        Location location1 = locationMapper.LocationDTOToLocation(locationDTO);
+        Location location1 = locationMapper.locationDTOToLocation(locationDTO);
         Location newLoc = locationRepository.findLocationByCityAndCountry(location1.getCity(), location1.getCountry(), location1.getRegion());
         if (newLoc == null) {
             locationRepository.save(location1);
@@ -132,5 +134,11 @@ public class ProvidersServiceImpl implements ProvidersService {
         provider.setStatus(ProviderStatus.valueOf(status));
         providerRepository.save(provider);
         return providerMapper.providerToProviderDTO(provider);
+    }
+
+    @Override
+    public <T> Page<Provider> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy) {
+        return providerRepository.findAll(approved, PageRequest.of(page, numberOfProvidersOnPage, Sort.by(sortBy).descending()));
+
     }
 }
