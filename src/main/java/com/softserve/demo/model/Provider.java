@@ -40,6 +40,9 @@ public class Provider {
     @Enumerated(EnumType.STRING)
     private ProviderStatus status;
 
+    @Column(name = "raiting")
+    private double raiting;
+
     @CreationTimestamp
     @Column(name = "registration_date")
     private LocalDateTime registrationDate;
