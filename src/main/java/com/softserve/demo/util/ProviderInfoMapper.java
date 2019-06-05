@@ -11,7 +11,7 @@ public interface ProviderInfoMapper {
             @Mapping(target = "id", source = "entity.id")
             @Mapping(target = "name", source = "entity.name")
             @Mapping(target = "city", source = "entity.location.city")
-            @Mapping(target = "image", source = "entity.image")
+            @Mapping(target = "image", source = "entity.user.image")
             @Mapping(target = "description", source = "entity.description")
             @Mapping(target = "registrationDate", source = "entity.registrationDate")
             @Mapping(target = "services", expression = "java(entity.getServices().stream().map(urEntity -> urEntity.getServiceName()).collect(java.util.stream.Collectors.toList()))")

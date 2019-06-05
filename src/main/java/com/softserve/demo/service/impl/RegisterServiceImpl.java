@@ -124,12 +124,9 @@ public class RegisterServiceImpl implements RegisterService {
      */
     @Override
     @Transactional
-    public boolean verifyUser(String activationCode) {
-        Optional<User> optionalUser = userRepository.findByActivationCode(activationCode);
-        if (!optionalUser.isPresent()) {
-            throw new VerificationFailedException("Failed to verify! Maybe your code has expired or it is already used :(");
-        }
-        User user = optionalUser.get();
+    public boolean verifyUser(final String activationCode) {
+        User user = userRepository.findByActivationCode(activationCode)
+                .orElseThrow(() -> new VerificationFailedException("Failed to verify! Your activation code is already used!"));
         user.setActivated(true);
         user.setActivationCode(null);
         return true;
@@ -143,9 +140,8 @@ public class RegisterServiceImpl implements RegisterService {
      */
     @Override
     @Transactional
-    public User sendVerificationCode(User user) {
-        String code = UUID.randomUUID().toString();
-        user.setActivationCode(code);
+    public User sendVerificationCode(final User user) {
+        user.setActivationCode(UUID.randomUUID().toString());
         emailService.sendVerificationEmailTo(user);
         return user;
     }

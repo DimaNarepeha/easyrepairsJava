@@ -17,7 +17,7 @@ public class ProviderInfoDTO {
     private String description;
     private String image;
     private LocalDateTime registrationDate;
-    private List<String> services = new ArrayList<>();
+    private List<String> services;
     private String city;
     private double raiting;
     private long countComment;

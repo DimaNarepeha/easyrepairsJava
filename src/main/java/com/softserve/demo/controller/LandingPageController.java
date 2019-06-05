@@ -27,8 +27,8 @@ public class LandingPageController {
     }
 
     @GetMapping("top-four-comment")
-    public ResponseEntity<List<FeedbackGeneralDTO>> getTopFourComment() {
-        return new ResponseEntity<>(feedbackService.findTop4ByCreatedDateBefore(LocalDateTime.now()), HttpStatus.OK);
+    public List<FeedbackGeneralDTO> getTopFourComment() {
+        return feedbackService.findTop4ByCreatedDateBefore(LocalDateTime.now());
     }
 
     @GetMapping("providers/search-param")
