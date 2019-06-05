@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Oleksandr">
+        <insert tableName="usr">
+            <column name="id" value="20001"/>
+            <column name="login" value="provider1"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="1.jpg"/>
+            <column name="email" value="provider1@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="20001"/>
+            <column name="roles" value="PROVIDER"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2" author="Oleksandr">
+        <insert tableName="service_provider">
+            <column name="id" value="20002"/>
+            <column name="name" value="provider #1"/>
+            <column name="description" value="Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/22-05-2019-18-35_insert_providers.xml::2::Oleksandr:
+     Reason: liquibase.exception.DatabaseException:"/>
+            <column name="user_id" value="20001"/>
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="3" author="Oleksandr">
+        <insert tableName="usr">
+            <column name="id" value="20002"/>
+            <column name="login" value="provider2"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="1.jpg"/>
+            <column name="email" value="provider2@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="20002"/>
+            <column name="roles" value="PROVIDER"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="4" author="Oleksandr">
+        <insert tableName="service_provider">
+            <column name="name" value="provider #2"/>
+            <column name="description" value="Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/22-05-2019-18-35_insert_providers.xml::2::Oleksandr:
+     Reason: liquibase.exception.DatabaseException:"/>
+            <column name="user_id" value="20002"/>
+        </insert>
+    </changeSet>
+    <changeSet id="5" author="Oleksandr">
+        <insert tableName="usr">
+            <column name="id" value="20003"/>
+            <column name="login" value="provider3"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="1.jpg"/>
+            <column name="email" value="provider3@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="20003"/>
+            <column name="roles" value="PROVIDER"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="6" author="Oleksandr">
+        <insert tableName="service_provider">
+            <column name="name" value="provider #3"/>
+            <column name="description" value="Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/22-05-2019-18-35_insert_providers.xml::2::Oleksandr:
+     Reason: liquibase.exception.DatabaseException:"/>
+            <column name="user_id" value="20003"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

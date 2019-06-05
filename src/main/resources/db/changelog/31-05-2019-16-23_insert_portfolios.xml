@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Oleksandr">
+        <insert tableName="portfolio">
+            <column name="id" value="20002"/>
+            <column name="provider_id" value="20002"/>
+            <column name="last_update" value="2019-05-22 18:06:33"/>
+        </insert>
+        <insert tableName="portfolio">
+            <column name="id" value="20003"/>
+            <column name="provider_id" value="20003"/>
+            <column name="last_update" value="2018-04-09 20:47:00"/>
+        </insert>
+        <insert tableName="portfolio">
+            <column name="id" value="20004"/>
+            <column name="provider_id" value="20004"/>
+            <column name="last_update" value="2017-06-01 14:16:01"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2" author="Oleksandr">
+    <insert tableName="post">
+        <column name="id" value="20001"/>
+        <column name="header" value="The first object"/>
+        <column name="main_photo" value="nophoto.png"/>
+        <column name="main_description" value="Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+            richardson ad squid. 3 wolf
+            moon
+            officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+            wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et."/>
+        <column name="portfolio_id" value="20002"/>
+        <column name="created_date" value="2019-01-01 16:16:09"/>
+    </insert>
+    <insert tableName="post">
+        <column name="id" value="20002"/>
+        <column name="header" value="The second object"/>
+        <column name="main_photo" value="nophoto.png"/>
+        <column name="main_description" value="Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+            richardson ad squid. 3 wolf
+            moon
+            officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+            wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et."/>
+        <column name="portfolio_id" value="20002"/>
+        <column name="created_date" value="2018-01-01 16:16:09"/>
+    </insert>
+    <insert tableName="post">
+        <column name="id" value="20003"/>
+        <column name="header" value="The third object"/>
+        <column name="main_photo" value="nophoto.png"/>
+        <column name="main_description" value="Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+            richardson ad squid. 3 wolf
+            moon
+            officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+            wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et."/>
+        <column name="portfolio_id" value="20002"/>
+        <column name="created_date" value="2018-01-01 16:16:09"/>
+    </insert>
+    <insert tableName="post">
+        <column name="id" value="20004"/>
+        <column name="header" value="The first object"/>
+        <column name="main_photo" value="nophoto.png"/>
+        <column name="main_description" value="Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+            richardson ad squid. 3 wolf
+            moon
+            officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+            wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et."/>
+        <column name="portfolio_id" value="20003"/>
+        <column name="created_date" value="2014-01-01 16:16:09"/>
+    </insert>
+</changeSet>
+
+    <changeSet id="3" author="Oleksandr">
+        <insert tableName="info_for_post">
+            <column name="id" value="20001"/>
+            <column name="post_id" value="20001"/>
+            <column name="description" value="sunt aliqua put a bird on it squid single-origin coffee"/>
+            <column name="photo" value="nophoto.png"/>
+        </insert>
+        <insert tableName="info_for_post">
+            <column name="id" value="20002"/>
+            <column name="post_id" value="20002"/>
+            <column name="description" value="sunt aliqua put a bird on it squid single-origin coffee"/>
+        </insert>
+        <insert tableName="info_for_post">
+            <column name="id" value="20003"/>
+            <column name="post_id" value="20001"/>
+            <column name="photo" value="nophoto.png"/>
+        </insert>
+        <insert tableName="info_for_post">
+            <column name="id" value="20004"/>
+            <column name="post_id" value="20001"/>
+            <column name="photo" value="nophoto.png"/>
+            <column name="description" value="sunt aliqua put a bird on it squid single-origin coffee"/>
+        </insert>
+        <insert tableName="info_for_post">
+            <column name="id" value="20005"/>
+            <column name="post_id" value="20002"/>
+            <column name="photo" value="nophoto.png"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

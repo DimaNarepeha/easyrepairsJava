@@ -26,14 +26,8 @@ public class Provider {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "description")
     private String description;
-
-    @Column(name = "path_to_photo")
-    private String image;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)

@@ -22,7 +22,7 @@ public class CustomExceptionHandler
     @ExceptionHandler(AlreadyExistException.class)
     public ResponseEntity<?> handleAlreadyExistException(Exception e, WebRequest req) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(e.getMessage(), req.getDescription(false));
-        log.warn(e.getMessage() + "already exist");
+        log.warn("Already exist {}",e.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 }
