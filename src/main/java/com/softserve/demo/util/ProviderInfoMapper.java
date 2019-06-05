@@ -14,7 +14,7 @@ public interface ProviderInfoMapper {
             @Mapping(target = "image", source = "entity.image")
             @Mapping(target = "description", source = "entity.description")
             @Mapping(target = "registrationDate", source = "entity.registrationDate")
-            @Mapping(target = "services", expression = "java(entity.getServices().stream().convertToDTOs(urEntity -> urEntity.getServiceName()).collect(java.util.stream.Collectors.toList()))")
+            @Mapping(target = "services", expression = "java(entity.getServices().stream().map(urEntity -> urEntity.getServiceName()).collect(java.util.stream.Collectors.toList()))")
             @Mapping(target = "raiting", source = "entity.raiting")
             @Mapping(target = "countComment", expression = "java( entity.getUser().getFeedbackTo().size())")
             @Mapping(target = "countContract", expression = "java( entity.getOrders().size())")
@@ -32,7 +32,7 @@ public interface ProviderInfoMapper {
     Provider convertToEntity(ProviderInfoDTO dto);
 
     @IterableMapping(qualifiedByName = "toDto")
-    List<ProviderInfoDTO> convertToDTOs(List<Provider> children);
+    List<ProviderInfoDTO> map(List<Provider> children);
 }
 
 

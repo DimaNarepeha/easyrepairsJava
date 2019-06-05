@@ -58,7 +58,7 @@ public class ProviderFilter {
                         .and(ProviderSpecification.greaterThanOrEqualToRating(searchCriteria.getMinRating()))
                         .and(ProviderSpecification.buildIsMemberServices(searchCriteria.getCheckedServices())),
                 page, numberOfProvidersOnPage, searchCriteria.getSortBy());
-        List<ProviderInfoDTO> providerInfoDTOS = providerMapper.convertToDTOs(entityPage.getContent());
+        List<ProviderInfoDTO> providerInfoDTOS = providerMapper.map(entityPage.getContent());
         return new PageImpl<>(providerInfoDTOS, PageRequest.of(page, numberOfProvidersOnPage), entityPage.getTotalElements());
     }
 }
