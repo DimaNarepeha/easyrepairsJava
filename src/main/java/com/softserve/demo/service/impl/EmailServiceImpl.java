@@ -99,7 +99,7 @@ public class EmailServiceImpl implements EmailService {
             helper.setText(generatedTemplate, true);
             emailSender.send(message);
         } catch (MessagingException e) {
-            log.error("Unable to send email!", e);
+            log.error("Unable to send email to [{}]!", addressedTo, e);
         }
     }
 
