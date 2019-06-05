@@ -11,7 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProviderRepository extends JpaRepository<Provider, Integer> {
     Page<Provider> findByStatus(ProviderStatus status, Pageable pageable);
-    boolean existsByEmail(String email);
-    Provider getByEmail(String email);
     <T> Page<Provider> findAll(Specification<T> approved, Pageable pageable);
 }

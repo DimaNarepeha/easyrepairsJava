@@ -95,6 +95,7 @@
                                  referencedColumnNames="id"
                                  onUpdate="CASCADE"
                                  onDelete="CASCADE"/>
+        <dropForeignKeyConstraint baseTableName="orders" constraintName="order_offer" />
     </changeSet>
     <changeSet id="12" author="Oleksandr">
         <createTable tableName="provider_service">

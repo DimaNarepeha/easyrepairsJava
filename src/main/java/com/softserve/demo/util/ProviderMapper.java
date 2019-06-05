@@ -11,6 +11,8 @@ import org.mapstruct.factory.Mappers;
 public interface ProviderMapper {
     @Mappings({
             @Mapping(target = "userDTO", source = "user"),
+            @Mapping(target = "email", source = "user.email"),
+            @Mapping(target = "image", source = "user.image"),
 //            @Mapping(target = "ordersDTO", source = "orders"),
 //            @Mapping(target = "servicesDTO", source = "services"),
             @Mapping(target = "location", source = "location")
@@ -20,6 +22,8 @@ public interface ProviderMapper {
 
     @Mappings({
             @Mapping(target = "user", source = "userDTO"),
+            @Mapping(target = "user.email", source = "email"),
+            @Mapping(target = "user.image", source = "image"),
 //            @Mapping(target = "orders", source = "ordersDTO"),
 //            @Mapping(target = "services", source = "servicesDTO"),
             //TODO: create mapping for orders, services
