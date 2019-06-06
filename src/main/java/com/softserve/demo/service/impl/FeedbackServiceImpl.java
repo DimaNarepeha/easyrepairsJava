@@ -8,12 +8,10 @@ import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.FeedbackService;
 import com.softserve.demo.util.FeedbackGeneralMapper;
 import com.softserve.demo.util.FeedbackMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,10 +45,6 @@ public class FeedbackServiceImpl implements FeedbackService {
         feedback.setAddressedFrom(userRepository.findById(feedback.getAddressedFrom().getId()));
         feedback.setAddressedTo(userRepository.findById(feedback.getAddressedTo().getId()));
         feedback.setCreatedDate(LocalDateTime.now());
-        feedback.setEndDate(LocalDateTime.now().plusMinutes(10));
-        feedback.setUpdateDate(null);
-        feedback.setUserTo(feedback.getAddressedTo().getUsername() + ", " + feedback.getAddressedTo().getEmail());
-        feedback.setUserFrom(feedback.getAddressedFrom().getUsername() + ", " + feedback.getAddressedFrom().getEmail());
         feedbackRepository.save(feedback);
         return feedbackMapper.feedbackToFeedbackDTO(feedback);
     }
@@ -59,8 +53,6 @@ public class FeedbackServiceImpl implements FeedbackService {
     public FeedbackDTO update(FeedbackDTO feedbackDTO) {
         Feedback feedback = feedbackMapper.feedbackDTOToFeedback(feedbackDTO);
         Feedback newFeedback = feedbackRepository.findById(feedback.getId()).get();
-        newFeedback.setAddressedFrom(feedback.getAddressedFrom());
-        newFeedback.setAddressedTo(feedback.getAddressedTo());
         newFeedback.setUpdateDate(LocalDateTime.now());
         newFeedback.setComment(feedback.getComment());
         newFeedback.setRating(feedback.getRating());

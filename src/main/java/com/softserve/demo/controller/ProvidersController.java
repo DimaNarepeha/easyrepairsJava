@@ -40,6 +40,7 @@ public class ProvidersController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ProviderDTO updateServiceProviders(@RequestBody ProviderDTO providerDTO) {
         return providersService.update(providerDTO);
     }
