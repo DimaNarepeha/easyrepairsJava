@@ -5,6 +5,7 @@ import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
 import com.softserve.demo.model.ProviderStatus;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
@@ -27,4 +28,7 @@ public interface ProvidersService {
     Page<?> getServiceProvidersByStatus(int page, int numberOfProvidersOnPage , ProviderStatus status);
 
     ProviderDTO updateStatus(Integer id, String status);
+
+    <T> Page<Provider> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy);
+
 }

@@ -17,7 +17,7 @@ public interface NotificationService {
 
     void notifyByUserId(Integer id, Notification notification);
 
-    List<Notification> getNotificationsByUserId(Integer id);
+    List<Notification> getNotificationsByUserId(Integer userId);
 
     /**
      * Set notification as seen by user.
