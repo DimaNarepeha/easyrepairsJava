@@ -64,6 +64,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.customerToCustomerDTO(customer);
     }
 
+    @Override
     public Page<CustomerDTO> getCustomersByPage(Pageable pageable) {
         return customerRepository.findAll(pageable)
                 .map(customerMapper::customerToCustomerDTO);
@@ -82,5 +83,12 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer getCustomerByOffer(Offer offer) {
         return customerRepository.findById(
                 offer.getCustomer().getId()).orElseThrow(() -> new NotFoundException("Customer not found"));
+    }
+
+    @Override
+    public CustomerDTO getCustomerByUserId(Integer id) {
+        Customer customer = customerRepository.getCustomerByUser_Id(id).orElseThrow(() ->
+                new NotFoundException("Customer not found"));
+        return customerMapper.customerToCustomerDTO(customer);
     }
 }

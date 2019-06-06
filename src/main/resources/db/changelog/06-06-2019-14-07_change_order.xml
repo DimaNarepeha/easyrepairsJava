@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="" author="Andrii">
+        <addColumn tableName="order">
+            <column name="customer_id" type="INT"></column>
+        </addColumn>
+        <addColumn tableName="order">
+            <column name="create_date" type="DATATIME"></column>
+        </addColumn>
+        <addColumn tableName="order">
+            <column name="start_date" type="DATE"></column>
+        </addColumn>
+        <addColumn tableName="order">
+            <column name="end_date" type="DATE"></column>
+        </addColumn>
+        <addColumn tableName="order">
+            <column name="extra_info" type="VARCHAR(1000)"></column>
+        </addColumn>
+        <addColumn tableName="order">
+            <column name="location_id" type="INT"></column>
+        </addColumn>
+        <addColumn tableName="order">
+            <column name="time_requirement" type="VARCHAR"></column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

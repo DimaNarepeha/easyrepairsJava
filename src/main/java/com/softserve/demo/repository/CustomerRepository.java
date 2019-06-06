@@ -5,7 +5,9 @@ import com.softserve.demo.model.Offer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
-    Customer getCustomerByOffers(Offer offer);
+    Optional<Customer> getCustomerByUser_Id(Integer id);
 }
