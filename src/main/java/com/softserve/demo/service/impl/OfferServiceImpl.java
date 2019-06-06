@@ -23,7 +23,7 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public Offer createOffer(Offer offer) {
         Location location = offer.getLocation();
-        Location locationFromDB = locationRepository.findLocationByCityAndCountry(
+        Location locationFromDB = locationRepository.findLocationByCityAndCountryAndRegion(
                 location.getCity(), location.getCountry(), location.getRegion());
         if (locationFromDB == null) {
             locationRepository.save(location);
