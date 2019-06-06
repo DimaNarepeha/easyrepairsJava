@@ -18,17 +18,17 @@ public class RegisterController {
     private final RegisterService registerService;
     private static final String SUCCESSFULLY_VERIFIED = "Successfully verified!";
 
-    private ObjectMapper JSONMapper;
+    private ObjectMapper JsonMapper;
 
     public RegisterController(final RegisterService registerService, final ObjectMapper jsonMapper) {
         this.registerService = registerService;
-        JSONMapper = jsonMapper;
+        JsonMapper = jsonMapper;
     }
 
     @GetMapping("verify/{activationCode}")
-    public ObjectNode verifyUserEmail(@PathVariable String activationCode) {
+    public ObjectNode verifyUserEmail(@PathVariable final String activationCode) {
         registerService.verifyUser(activationCode);
-        ObjectNode jsonResponse = JSONMapper.createObjectNode();
+        ObjectNode jsonResponse = JsonMapper.createObjectNode();
         jsonResponse.put("message", SUCCESSFULLY_VERIFIED);
         return jsonResponse;
     }

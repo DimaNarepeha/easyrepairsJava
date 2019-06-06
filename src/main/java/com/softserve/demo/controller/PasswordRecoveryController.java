@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PasswordRecoveryController {
 
+    private static final String SUCCESSFULLY_SENT = "Successfully sent!";
+
     private final RecoveryPasswordService recoveryPasswordService;
 
     public PasswordRecoveryController(RecoveryPasswordService recoveryPasswordService) {
@@ -17,6 +19,6 @@ public class PasswordRecoveryController {
     @PostMapping("/recovery")
     public String sendEmailTo(@RequestParam final String email) {
         recoveryPasswordService.passwordRecovery(email);
-        return "Successfully sent!";
+        return SUCCESSFULLY_SENT;
     }
 }

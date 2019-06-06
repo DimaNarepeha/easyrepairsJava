@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Hanuliak">
+        <insert tableName="usr">
+            <column name="id" value="20004"/>
+            <column name="login" value="Vasya Pupkin"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="man1.jpg"/>
+            <column name="email" value="vasyapupkin@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="20004"/>
+            <column name="roles" value="PROVIDER"/>
+        </insert>
+    </changeSet>
+    <changeSet id="2" author="Hanuliak">
+        <insert tableName="service_provider">
+            <column name="id" value="20005"/>
+            <column name="name" value="Vasya Pupkin"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="user_id" value="20004"/>
+            <column name="status" value="APPROVED"/>
+            <column name="location_id" value="1"/>
+            <column name="registration_date" value="2019-02-12 12:12:12"/>
+            <column name="raiting" value="4.3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="3" author="Hanuliak">
+        <insert tableName="usr">
+            <column name="id" value="20005"/>
+            <column name="login" value="Handyman Service"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="man2.jpg"/>
+            <column name="email" value="handyman@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="20005"/>
+            <column name="roles" value="PROVIDER"/>
+        </insert>
+    </changeSet>
+    <changeSet id="4" author="Hanuliak">
+        <insert tableName="service_provider">
+            <column name="id" value="20006"/>
+            <column name="name" value="Handyman Service"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="user_id" value="20005"/>
+            <column name="status" value="APPROVED"/>
+            <column name="location_id" value="1"/>
+            <column name="registration_date" value="2019-03-11 10:12:02"/>
+            <column name="raiting" value="2.1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="5" author="Hanuliak">
+        <insert tableName="usr">
+            <column name="id" value="20006"/>
+            <column name="login" value="Remont-BUD"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="man3.jpg"/>
+            <column name="email" value="remontbud@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="20006"/>
+            <column name="roles" value="PROVIDER"/>
+        </insert>
+    </changeSet>
+    <changeSet id="6" author="Hanuliak">
+        <insert tableName="service_provider">
+            <column name="id" value="20007"/>
+            <column name="name" value="Remont-BUD"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="user_id" value="20006"/>
+            <column name="status" value="APPROVED"/>
+            <column name="location_id" value="1"/>
+            <column name="registration_date" value="2019-03-11 10:12:02"/>
+            <column name="raiting" value="3.5"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="7" author="Hanuliak">
+        <insert tableName="usr">
+            <column name="id" value="20007"/>
+            <column name="login" value="Fixic Remont"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="man4.jpg"/>
+            <column name="email" value="fixic@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="20007"/>
+            <column name="roles" value="PROVIDER"/>
+        </insert>
+    </changeSet>
+    <changeSet id="8" author="Hanuliak">
+        <insert tableName="service_provider">
+            <column name="id" value="20008"/>
+            <column name="name" value="Fixic Remont"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="user_id" value="20007"/>
+            <column name="status" value="APPROVED"/>
+            <column name="location_id" value="1"/>
+            <column name="registration_date" value="2019-02-01 10:12:02"/>
+            <column name="raiting" value="3.2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="9" author="Hanuliak">
+        <insert tableName="usr">
+            <column name="id" value="20008"/>
+            <column name="login" value="Remont Dream Team "/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="man4.jpg"/>
+            <column name="email" value="dreamteam@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="20008"/>
+            <column name="roles" value="PROVIDER"/>
+        </insert>
+    </changeSet>
+    <changeSet id="10" author="Hanuliak">
+        <insert tableName="service_provider">
+            <column name="id" value="20009"/>
+            <column name="name" value="Remont Dream Team"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="user_id" value="20008"/>
+            <column name="status" value="APPROVED"/>
+            <column name="location_id" value="1"/>
+            <column name="registration_date" value="2019-05-01 12:12:02"/>
+            <column name="raiting" value="5.0"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="11" author="Hanuliak">
+        <insert tableName="usr">
+            <column name="id" value="20009"/>
+            <column name="login" value="Olena Designer"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="man5.jpg"/>
+            <column name="email" value="olena@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="20009"/>
+            <column name="roles" value="PROVIDER"/>
+        </insert>
+    </changeSet>
+    <changeSet id="12" author="Hanuliak">
+        <insert tableName="service_provider">
+            <column name="id" value="20010"/>
+            <column name="name" value="Olena Designer"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="user_id" value="20009"/>
+            <column name="status" value="APPROVED"/>
+            <column name="location_id" value="1"/>
+            <column name="registration_date" value="2019-04-04 12:12:02"/>
+            <column name="raiting" value="3.2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="13" author="Hanuliak">
+        <insert tableName="usr">
+            <column name="id" value="20010"/>
+            <column name="login" value="Petro Petrencko"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="man6.jpg"/>
+            <column name="email" value="olena@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="20010"/>
+            <column name="roles" value="PROVIDER"/>
+        </insert>
+    </changeSet>
+    <changeSet id="14" author="Hanuliak">
+        <insert tableName="service_provider">
+            <column name="id" value="20011"/>
+            <column name="name" value="Petro Petrenkco"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="user_id" value="20010"/>
+            <column name="status" value="APPROVED"/>
+            <column name="location_id" value="1"/>
+            <column name="registration_date" value="2019-04-24 15:02:02"/>
+            <column name="raiting" value="4.1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="15" author="Hanuliak">
+        <insert tableName="usr">
+            <column name="id" value="20011"/>
+            <column name="login" value="Master Lamaster"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="man7.jpg"/>
+            <column name="email" value="olena@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="20011"/>
+            <column name="roles" value="PROVIDER"/>
+        </insert>
+    </changeSet>
+    <changeSet id="16" author="Hanuliak">
+        <insert tableName="service_provider">
+            <column name="id" value="20012"/>
+            <column name="name" value="Master Lamaster"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="user_id" value="20011"/>
+            <column name="status" value="APPROVED"/>
+            <column name="location_id" value="1"/>
+            <column name="registration_date" value="2019-06-05 15:02:02"/>
+            <column name="raiting" value="4.8"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

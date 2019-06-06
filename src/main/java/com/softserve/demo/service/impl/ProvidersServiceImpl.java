@@ -7,6 +7,7 @@ import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Location;
 import com.softserve.demo.model.Provider;
 import com.softserve.demo.model.ProviderStatus;
+import com.softserve.demo.model.User;
 import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
@@ -16,6 +17,8 @@ import com.softserve.demo.util.Photo;
 import com.softserve.demo.util.ProviderMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,29 +64,29 @@ public class ProvidersServiceImpl implements ProvidersService {
     @Override
     public ProviderDTO save(ProviderDTO providerDTO, LocationDTO locationDTO) {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
-        Location location1 = locationMapper.LocationDTOToLocation(locationDTO);
+        Location location = locationMapper.locationDTOToLocation(locationDTO);
         provider.setUser(userRepository.findById(1));
 
-        Location currentLoc = locationRepository.findLocationByCityAndCountry(location1.getCity(), location1.getCountry(), location1.getRegion());
+        Location currentLoc = locationRepository.findLocationByCityAndCountry(location.getCity(), location.getCountry(), location.getRegion());
         if (currentLoc == null) {
-            locationRepository.save(location1);
-            provider.setLocation(location1);
+            locationRepository.save(location);
+            provider.setLocation(location);
         } else {
             provider.setLocation(currentLoc);
         }
         LocalDateTime localDateTime = LocalDateTime.now();
         provider.setLastUpdate(localDateTime);
-        provider.setImage(Photo.defaultPhoto);
+        User user = userRepository.findById(provider.getId());
+        user.setImage(Photo.defaultPhoto);
         providerRepository.save(provider);
-        ProviderDTO newProviderDTO = providerMapper.providerToProviderDTO(provider);
-        return newProviderDTO;
+        return providerMapper.providerToProviderDTO(provider);
     }
 
     @Override
     public ProviderDTO update(Integer id, ProviderDTO providerDTO, LocationDTO locationDTO) {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
         Provider newProvider = providerRepository.findById(id).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
-        Location location1 = locationMapper.LocationDTOToLocation(locationDTO);
+        Location location1 = locationMapper.locationDTOToLocation(locationDTO);
         Location newLoc = locationRepository.findLocationByCityAndCountry(location1.getCity(), location1.getCountry(), location1.getRegion());
         if (newLoc == null) {
             locationRepository.save(location1);
@@ -91,12 +94,12 @@ public class ProvidersServiceImpl implements ProvidersService {
         }
         newProvider.setLocation(newLoc);
         newProvider.setName(provider.getName());
-        newProvider.setEmail(provider.getEmail());
+        User user = userRepository.findById(provider.getId());
+        user.setEmail(providerDTO.getEmail());
         newProvider.setDescription(provider.getDescription());
         LocalDateTime localDateTime = LocalDateTime.now();
         provider.setLastUpdate(localDateTime);
-        ProviderDTO newProviderDTO = providerMapper.providerToProviderDTO(newProvider);
-        return newProviderDTO;
+        return providerMapper.providerToProviderDTO(newProvider);
     }
 
 
@@ -110,15 +113,14 @@ public class ProvidersServiceImpl implements ProvidersService {
     public void addImageToProviders(Integer id, String fileName) {
         Provider provider =
                 providerRepository.findById(id).get();
-        provider.setImage(fileName);
+        User user = userRepository.findById(provider.getUser().getId());
+        user.setImage(fileName);
         providerRepository.save(provider);
     }
 
     @Override
     public Page<Provider> getServiceProvidersByPage(int page) {
-        Page<Provider> serviceProviders =
-                providerRepository.findAll(PageRequest.of(page, 4));
-        return serviceProviders;
+        return providerRepository.findAll(PageRequest.of(page, 4));
     }
 
     @Override
@@ -132,5 +134,11 @@ public class ProvidersServiceImpl implements ProvidersService {
         provider.setStatus(ProviderStatus.valueOf(status));
         providerRepository.save(provider);
         return providerMapper.providerToProviderDTO(provider);
+    }
+
+    @Override
+    public <T> Page<Provider> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy) {
+        return providerRepository.findAll(approved, PageRequest.of(page, numberOfProvidersOnPage, Sort.by(sortBy).descending()));
+
     }
 }

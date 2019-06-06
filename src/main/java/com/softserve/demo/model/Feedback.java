@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -25,7 +26,7 @@ public class Feedback {
     private Double rating;
 
     @Column(name = "created_date")
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     @ManyToOne
     @JoinColumn(name = "addressed_from")

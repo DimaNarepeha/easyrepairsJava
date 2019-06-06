@@ -18,13 +18,14 @@ public class AuthorizationUserServiceImpl implements AuthorizationUserService {
 
     private static final int ATTEMPT_THRESHOLD = 5;
     private static final int BLOCK_TIME = 2;
+    private static final int TIME_THRESH_HOLD = 1;
+    private static final int BLOCK_TIME_IN_SECONDS = 120;
     private static final int DEFAULT_ATTEMPT_VALUE = 0;
     private static final int ONE_ATTEMPT = 1;
     private static final String BLOCK_MSG_MINUTES = "Your account blocked for %d minutes";
     private static final String BLOCK_MSG_SECONDS = "Your account blocked for %d seconds";
     private static final String WRONG_CREDENTIALS_MSG = "Wrong login or password!!!";
     private static final LocalDateTime DEFAULT_TIME_VALUE = null;
-    private static final int BLOCK_TIME_IN_SECONDS = 120;
 
     private final UserRepository userRepository;
     private final AuthorizationUserMapper authorizationUserMapper;
@@ -67,7 +68,7 @@ public class AuthorizationUserServiceImpl implements AuthorizationUserService {
 
     @Override
     public String getWaitTime(Duration duration) {
-        if (Math.abs(duration.toMinutes()) == 1) {
+        if (Math.abs(duration.toMinutes()) == TIME_THRESH_HOLD) {
             return String.format(BLOCK_MSG_SECONDS, BLOCK_TIME_IN_SECONDS - Math.abs(duration.getSeconds()));
         }
         return String.format(BLOCK_MSG_MINUTES, BLOCK_TIME - Math.abs(duration.toMinutes()));

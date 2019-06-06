@@ -15,10 +15,20 @@
     <include file="db/changelog/19-05-2019-17-10_alter_table_location_and_offer.xml"/>
     <include file="db/changelog/21-05-2019-16-12_insert_column_image.xml"/>
     <include file="db/changelog/22-05-2019-13-17_insert_user_data.xml"/>
-    <include file="db/changelog/17-05-2019-13-36_insert_providers_and_fix_field_lastUpdate.xml"/>
+    <include file="db/changelog/17-05-2019-13-36_fix_field_lastUpdate.xml"/>
     <include file="db/changelog/22-05-2019-13-12_add_register_date.xml"/>
-    <include file="db/changelog/22-05-2019-18-34_insert_customers.xml"/>
     <include file="db/changelog/22-05-2019-18-12_insert_notification_data.xml"/>
+    <include file="db/changelog/05-06-2019-13-24_migrate_email_to_user.xml"/>
+    <include file="db/changelog/22-05-2019-18-34_insert_customers.xml"/>
+    <include file="db/changelog/22-05-2019-18-35_insert_providers.xml"/>
+    <include file="db/changelog/28-05-2019-18-00_add_tables_for_portfolio.xml"/>
+    <include file="db/changelog/31-05-2019-16-23_insert_portfolios.xml"/>
+    <include file="db/changelog/22-05-2019-15-32_modify_date_to_datetime.xml"/>
     <include file="db/changelog/24-05-2019-12-03_add_verification_email_columns.xml"/>
     <include file="db/changelog/02-06-2019-19-38_add_attempts_columns.xml"/>
+    <include file="db/changelog/05-06-2019-19-40_insert_services.xml"/>
+    <include file="db/changelog/05-06-2019-20-40_insert_locations.xml"/>
+    <include file="db/changelog/05-06-2019-19-50_insert_approved_providers.xml"/>
+    <include file="db/changelog/05-06-2019-20-50_insert_providers_services.xml"/>
+
 </databaseChangeLog>

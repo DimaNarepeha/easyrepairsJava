@@ -40,9 +40,7 @@ public class PasswordRecoveryServiceImpl implements RecoveryPasswordService {
         String newPassword = generateNewPassword();
         emailService.sendEmailTo(userDB.getEmail(), SUBJECT,
                 String.format(MSG_TEXT, userDB.getUsername(), newPassword));
-
         userDB.setPassword(passwordEncoder.encode(newPassword));
-        userRepository.save(userDB);
     }
 
     private String generateNewPassword() {

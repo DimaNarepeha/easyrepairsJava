@@ -64,7 +64,7 @@ public class EmailServiceImpl implements EmailService {
      * @return html mail message
      */
     private String getVerificationTemplate(final User user) {
-        String activationLink = HOSTLINK + "/register/verify/" + user.getActivationCode();
+        String activationLink = HOSTLINK + "/login/verify/" + user.getActivationCode();
         Context context = new Context();
         context.setVariable("username", user.getUsername());
         context.setVariable("activationLink", activationLink);
@@ -99,7 +99,7 @@ public class EmailServiceImpl implements EmailService {
             helper.setText(generatedTemplate, true);
             emailSender.send(message);
         } catch (MessagingException e) {
-            log.error("Unable to send email!", e);
+            log.error("Unable to send email to [{}]!", addressedTo, e);
         }
     }
 
