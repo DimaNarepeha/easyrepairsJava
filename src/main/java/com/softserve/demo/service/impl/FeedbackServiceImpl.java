@@ -1,10 +1,12 @@
 package com.softserve.demo.service.impl;
 
 import com.softserve.demo.dto.FeedbackDTO;
+import com.softserve.demo.dto.FeedbackGeneralDTO;
 import com.softserve.demo.model.Feedback;
 import com.softserve.demo.repository.FeedbackRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.FeedbackService;
+import com.softserve.demo.util.FeedbackGeneralMapper;
 import com.softserve.demo.util.FeedbackMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,10 +30,13 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     private final UserRepository userRepository;
 
-    public FeedbackServiceImpl(FeedbackRepository feedbackRepository, FeedbackMapper feedbackMapper, UserRepository userRepository) {
+    private final FeedbackGeneralMapper feedbackGeneralMapper;
+
+    public FeedbackServiceImpl(FeedbackRepository feedbackRepository, FeedbackMapper feedbackMapper, UserRepository userRepository, FeedbackGeneralMapper feedbackGeneralMapper) {
         this.feedbackRepository = feedbackRepository;
         this.feedbackMapper = feedbackMapper;
         this.userRepository = userRepository;
+        this.feedbackGeneralMapper = feedbackGeneralMapper;
     }
 
 
@@ -86,4 +91,10 @@ public class FeedbackServiceImpl implements FeedbackService {
         return feedbackRepository.findFeedbackByUserId(id).stream().map(
                 feedbackMapper::feedbackToFeedbackDTO).collect(Collectors.toList());
     }
+
+    @Override
+    public List<FeedbackGeneralDTO> findTop4ByCreatedDateBefore(LocalDateTime createdDate) {
+        return feedbackGeneralMapper.map(feedbackRepository.findTop4ByCreatedDateBefore(createdDate));
+    }
+
 }

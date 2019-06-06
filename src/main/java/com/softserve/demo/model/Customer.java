@@ -28,12 +28,6 @@ public class Customer {
     @Column(name = "lastname")
     private String lastName;
 
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "path_to_photo")
-    private String image;
-
     @UpdateTimestamp
     @Column(name = "last_update")
     private LocalDateTime updated;

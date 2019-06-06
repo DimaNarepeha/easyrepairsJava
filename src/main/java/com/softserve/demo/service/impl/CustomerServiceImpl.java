@@ -3,6 +3,7 @@ package com.softserve.demo.service.impl;
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Customer;
+import com.softserve.demo.model.User;
 import com.softserve.demo.model.Offer;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.repository.UserRepository;
@@ -72,7 +73,8 @@ public class CustomerServiceImpl implements CustomerService {
     public void addImageToCustomer(Integer id, String fileName) {
         Customer customerEntity =
                 customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
-        customerEntity.setImage(fileName);
+        User user = userRepository.findById(customerEntity.getId());
+        user.setImage(fileName);
         customerRepository.save(customerEntity);
     }
 

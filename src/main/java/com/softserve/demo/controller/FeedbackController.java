@@ -2,10 +2,10 @@ package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.FeedbackDTO;
 import com.softserve.demo.service.FeedbackService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by Illia Chenchak
@@ -23,36 +23,40 @@ public class FeedbackController {
     }
 
     @GetMapping("find-all")
-    public ResponseEntity<?> findAll() {
-        return new ResponseEntity<>(feedbackService.findAll(), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public List<FeedbackDTO> findAll() {
+        return feedbackService.findAll();
     }
 
     @PostMapping("save")
-    public ResponseEntity<?> saveFeedback(@RequestBody FeedbackDTO feedbackDTO) {
-        return new ResponseEntity<>(feedbackService.save(feedbackDTO), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public FeedbackDTO saveFeedback(@RequestBody FeedbackDTO feedbackDTO) {
+        return feedbackService.save(feedbackDTO);
     }
 
     @PutMapping("update")
-    public ResponseEntity<?> updateFeedback(@RequestBody FeedbackDTO feedbackDTO) {
-        return new ResponseEntity<>(feedbackService.update(feedbackDTO), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public FeedbackDTO updateFeedback(@RequestBody FeedbackDTO feedbackDTO) {
+        return feedbackService.update(feedbackDTO);
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<?> deleteFeedback(@PathVariable("id") Integer id) {
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteFeedback(@PathVariable("id") Integer id) {
         feedbackService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("find-by-id/{id}")
-    public ResponseEntity<?> findById(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(feedbackService.findById(id), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public FeedbackDTO findById(@PathVariable("id") Integer id) {
+        return feedbackService.findById(id);
     }
 
     @GetMapping("find-by-user-id/{id}")
-    public ResponseEntity<?> findFeedbackByUserId (@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(feedbackService.findFeedbackByUserId(id), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public List<FeedbackDTO> findFeedbackByUserId(@PathVariable("id") Integer id) {
+        return feedbackService.findFeedbackByUserId(id);
     }
-
 
 
 }

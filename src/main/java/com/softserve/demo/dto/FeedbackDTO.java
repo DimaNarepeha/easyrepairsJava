@@ -1,19 +1,11 @@
 package com.softserve.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.softserve.demo.model.User;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-/**
- * Created by Illia Chenchak
- */
-@Getter
-@Setter
-@ToString
+@Data
 public class FeedbackDTO {
 
     private Integer id;

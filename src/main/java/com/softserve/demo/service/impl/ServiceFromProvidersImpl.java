@@ -19,4 +19,7 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
     public List<Service> getAllServices() {
         return servicesRepository.findAll();
     }
+
+    @Override
+    public Service getServiceById(Integer id) { return servicesRepository.getOne(id); }
 }
