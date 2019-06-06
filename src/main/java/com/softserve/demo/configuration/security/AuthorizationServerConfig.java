@@ -1,11 +1,8 @@
 package com.softserve.demo.configuration.security;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -19,19 +16,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     private static final String SIGNING_KEY = "as466kf";
 
-    private final AuthenticationManager authenticationManager;
-
     private final JdbcTemplate jdbcTemplate;
-
     private final TokenStore tokenStore;
+    private final CustomAuthenticationProvider customAuthenticationProvider;
 
-    private final UserDetailsService userDetailsService;
-
-    public AuthorizationServerConfig(@Qualifier("userService") UserDetailsService userDetailsService,
-                                     AuthenticationManager authenticationManager, JdbcTemplate jdbcTemplate,
-                                     TokenStore tokenStore) {
-        this.userDetailsService = userDetailsService;
-        this.authenticationManager = authenticationManager;
+    public AuthorizationServerConfig(CustomAuthenticationProvider customAuthenticationProvider,
+                                     JdbcTemplate jdbcTemplate, TokenStore tokenStore) {
+        this.customAuthenticationProvider = customAuthenticationProvider;
         this.jdbcTemplate = jdbcTemplate;
         this.tokenStore = tokenStore;
     }
@@ -52,7 +43,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints.tokenStore(tokenStore)
                 .accessTokenConverter(accessTokenConverter())
-                .authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService);
+                .authenticationManager(customAuthenticationProvider);
     }
 }
