@@ -46,10 +46,8 @@ public class FeedbackServiceImpl implements FeedbackService {
         feedback.setRating(0.);
         feedback.setAddressedFrom(userRepository.findById(feedback.getAddressedFrom().getId()));
         feedback.setAddressedTo(userRepository.findById(feedback.getAddressedTo().getId()));
-        LocalDateTime today = LocalDateTime.now();
-        feedback.setCreatedDate(today);
-        LocalDateTime endDate = today.plusMinutes(10);
-        feedback.setEndDate(endDate);
+        feedback.setCreatedDate(LocalDateTime.now());
+        feedback.setEndDate(LocalDateTime.now().plusMinutes(10));
         feedback.setUpdateDate(null);
         feedback.setUserTo(feedback.getAddressedTo().getUsername() + ", " + feedback.getAddressedTo().getEmail());
         feedback.setUserFrom(feedback.getAddressedFrom().getUsername() + ", " + feedback.getAddressedFrom().getEmail());

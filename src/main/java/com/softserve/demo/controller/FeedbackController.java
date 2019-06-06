@@ -23,37 +23,32 @@ public class FeedbackController {
     }
 
     @GetMapping("find-all")
-    @ResponseStatus(HttpStatus.OK)
     public List<FeedbackDTO> findAll() {
         return feedbackService.findAll();
     }
 
     @PostMapping("save")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public FeedbackDTO saveFeedback(@RequestBody FeedbackDTO feedbackDTO) {
         return feedbackService.save(feedbackDTO);
     }
 
     @PutMapping("update")
-    @ResponseStatus(HttpStatus.OK)
     public FeedbackDTO updateFeedback(@RequestBody FeedbackDTO feedbackDTO) {
         return feedbackService.update(feedbackDTO);
     }
 
     @DeleteMapping("delete/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public void deleteFeedback(@PathVariable("id") Integer id) {
         feedbackService.delete(id);
     }
 
     @GetMapping("find-by-id/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public FeedbackDTO findById(@PathVariable("id") Integer id) {
         return feedbackService.findById(id);
     }
 
     @GetMapping("find-by-user-id/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public List<FeedbackDTO> findFeedbackByUserId(@PathVariable("id") Integer id) {
         return feedbackService.findFeedbackByUserId(id);
     }

@@ -117,7 +117,7 @@ public class ProvidersServiceImpl implements ProvidersService {
 
     @Override
     public Page<ProviderDTO> getServiceProvidersByPage(Pageable pageable) {
-        return providerRepository.findAll(pageable)
+        return providerRepository.findByStatus(ProviderStatus.APPROVED,pageable)
                 .map(providerMapper::providerToProviderDTO);
     }
 

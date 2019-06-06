@@ -24,4 +24,6 @@ public class ProviderDTO {
     private List<ServiceDTO> servicesDTO;
     private LocationDTO location;
     private double raiting;
+    private List<String> services;
+    private long countComment;
 }

@@ -34,31 +34,27 @@ public class ProvidersController {
 
 
     @PostMapping("save")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public ProviderDTO saveServiceProvider(@RequestBody ProviderDTO providerDTO) {
         return providersService.save(providerDTO);
     }
 
     @PutMapping("/update")
-    @ResponseStatus(HttpStatus.OK)
     public ProviderDTO updateServiceProviders(@RequestBody ProviderDTO providerDTO) {
         return providersService.update(providerDTO);
     }
 
     @GetMapping("find-all")
-    @ResponseStatus(HttpStatus.OK)
     public List<ProviderDTO> findAll() {
         return providersService.findAll();
     }
 
     @GetMapping("find-all/page")
-    @ResponseStatus(HttpStatus.OK)
     public Page<?> getServiceProvidersByPage(@PageableDefault Pageable pageable) {
         return providersService.getServiceProvidersByPage(pageable);
     }
 
     @DeleteMapping("delete/{id}")
-    @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public void deleteServiceProvidersResponse(@PathVariable("id") Integer id) {
         providersService.delete(id);
@@ -66,7 +62,6 @@ public class ProvidersController {
 
     @GetMapping("find-by-id/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN','CUSTOMER','PROVIDER')")
-    @ResponseStatus(HttpStatus.OK)
     public ProviderDTO findById(@PathVariable("id") Integer id) {
         return providersService.findById(id);
     }
@@ -83,20 +78,17 @@ public class ProvidersController {
 
 
     @GetMapping("find-all/status")
-    @ResponseStatus(HttpStatus.OK)
     public Page<?> getServiceProviderByStatus(@PageableDefault Pageable pageable,
                                               @RequestParam(defaultValue = "NOTAPPROVED") String status) {
         return providersService.getServiceProvidersByStatus(pageable, ProviderStatus.valueOf(status));
     }
 
     @PutMapping("update-status/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public ProviderDTO updateServiceProvidersStatus(@PathVariable("id") Integer id, @RequestBody String status) {
         return providersService.updateStatus(id, status);
     }
 
     @GetMapping("find-by-userId/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public ProviderDTO findProviderByUserId(@PathVariable("id") Integer id) {
         return providersService.findProvidersByUserId(id);
     }
