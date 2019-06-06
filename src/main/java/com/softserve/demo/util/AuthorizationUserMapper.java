@@ -9,4 +9,7 @@ import org.mapstruct.Mapping;
 public interface AuthorizationUserMapper {
     @Mapping(target = "userLogin", source = "username")
     AuthorizationUserDTO userToAuthorizationUserDTO(User user);
+
+    @Mapping(target = "username", source = "userLogin")
+    User authorizationUserDTOToUser(AuthorizationUserDTO authorizationUserDTO);
 }
