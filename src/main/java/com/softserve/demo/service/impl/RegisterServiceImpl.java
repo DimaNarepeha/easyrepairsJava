@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -66,53 +65,40 @@ public class RegisterServiceImpl implements RegisterService {
     @Transactional
     public CustomerDTO createCustomer(final CustomerDTO customerDTO) {
         User user = userMapper.userDTOToUser(customerDTO.getUserDTO());
-        if (userRepository.existsByUsername(user.getUsername())) {
-            throw new AlreadyExistException(USERNAME_EXISTS);
-        }
-        if (customerRepository.existsByEmail(customerDTO.getEmail()) || providerRepository.existsByEmail(customerDTO.getEmail())) {
-            throw new AlreadyExistException(EMAIL_EXISTS);
-        }
-
-
-        Set<Role> roles = new HashSet<>();
-        roles.add(Role.CUSTOMER);
-        user.setEmail(customerDTO.getEmail());
-        user.setRoles(roles);
-        user.setPassword(passwordEncoder.encode(customerDTO.getUserDTO().getPassword()));
+        user = userRepository.save(createUser(user,Role.CUSTOMER));
         log.info(user.getPassword());
         sendVerificationCode(user);
-        userRepository.save(user);
-        user = userRepository.findByUsername(user.getUsername());
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setUser(user);
-        log.info(customer.toString());
-        customerRepository.save(customer);
-        log.info(customer.toString());
-        return customerMapper.customerToCustomerDTO(customerRepository.findByEmail(customer.getEmail()));
+        return customerMapper.customerToCustomerDTO(customerRepository.save(customer));
     }
 
     @Override
     @Transactional
     public ProviderDTO createProvider(final ProviderDTO providerDTO) {
         User user = userMapper.userDTOToUser(providerDTO.getUserDTO());
-        if (userRepository.existsByUsername(user.getUsername())) {
-            throw new AlreadyExistException(USERNAME_EXISTS);
-        }
-        if (customerRepository.existsByEmail(providerDTO.getEmail()) || providerRepository.existsByEmail(providerDTO.getEmail())) {
-            throw new AlreadyExistException(EMAIL_EXISTS);
-        }
-        user.setPassword(passwordEncoder.encode(providerDTO.getUserDTO().getPassword()));
-        Set<Role> roles = new HashSet<>();
-        roles.add(Role.PROVIDER);
-        user.setRoles(roles);
-        user.setEmail(providerDTO.getEmail());
+        user = userRepository.save(createUser(user,Role.PROVIDER));
         sendVerificationCode(user);
-        userRepository.save(user);
-        user = userRepository.findByUsername(user.getUsername());
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
         provider.setUser(user);
-        providerRepository.save(provider);
-        return providerMapper.providerToProviderDTO(providerRepository.getByEmail(provider.getEmail()));
+        return providerMapper.providerToProviderDTO(providerRepository.save(provider));
+    }
+
+    private User createUser(User user, Role role) {
+        validateForEmailAndUsername(user.getEmail(),user.getUsername());
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        user.setRoles(roles);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return user;
+    }
+    private void validateForEmailAndUsername(String email, String username) {
+        if (userRepository.existsByUsername(username)) {
+            throw new AlreadyExistException(USERNAME_EXISTS);
+        }
+        if (userRepository.existsByEmail(email)) {
+            throw new AlreadyExistException(EMAIL_EXISTS);
+        }
     }
 
     /**
@@ -124,12 +110,9 @@ public class RegisterServiceImpl implements RegisterService {
      */
     @Override
     @Transactional
-    public boolean verifyUser(String activationCode) {
-        Optional<User> optionalUser = userRepository.findByActivationCode(activationCode);
-        if (!optionalUser.isPresent()) {
-            throw new VerificationFailedException("Failed to verify! Maybe your code has expired or it is already used :(");
-        }
-        User user = optionalUser.get();
+    public boolean verifyUser(final String activationCode) {
+        User user = userRepository.findByActivationCode(activationCode)
+                .orElseThrow(() -> new VerificationFailedException("Failed to verify! Your activation code is already used!"));
         user.setActivated(true);
         user.setActivationCode(null);
         return true;
@@ -143,9 +126,8 @@ public class RegisterServiceImpl implements RegisterService {
      */
     @Override
     @Transactional
-    public User sendVerificationCode(User user) {
-        String code = UUID.randomUUID().toString();
-        user.setActivationCode(code);
+    public User sendVerificationCode(final User user) {
+        user.setActivationCode(UUID.randomUUID().toString());
         emailService.sendVerificationEmailTo(user);
         return user;
     }

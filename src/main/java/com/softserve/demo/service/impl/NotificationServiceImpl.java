@@ -25,6 +25,10 @@ import java.util.List;
 @Transactional
 @Slf4j
 public class NotificationServiceImpl implements NotificationService {
+
+    private static final String USER_NOTIFIED = "User with id [%s] was notified!";
+    private static final String USER_NOT_FOUND = "User with id [%s] was not found!";
+    private static final String NOTIFICATION_NOT_FOUND = "Notification with id [%s] was not found";
     private final UserRepository userRepository;
     private final NotificationRepository notificationRepository;
 
@@ -35,21 +39,21 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void notifyByUserId(final Integer id, final Notification notification) {
-        User userToNotify = userRepository.findById(id);
+    public void notifyByUserId(final Integer userId, final Notification notification) {
+        User userToNotify = userRepository.findById(userId);
         if (userToNotify == null) {
-            throw new NotFoundException("User was not found!");
+            throw new NotFoundException(String.format(USER_NOT_FOUND, userId));
         }
         Notification persistedNotification = notificationRepository.save(notification);
         userToNotify.getNotifications().add(persistedNotification);
-        log.debug("User with id " + id + " was notified");
+        log.debug(String.format(USER_NOTIFIED, userId));
     }
 
     @Override
-    public List<Notification> getNotificationsByUserId(final Integer id) {
-        User user = userRepository.findById(id);
+    public List<Notification> getNotificationsByUserId(final Integer userId) {
+        User user = userRepository.findById(userId);
         if (user == null) {
-            throw new NotFoundException("User was not found!");
+            throw new NotFoundException(String.format(USER_NOT_FOUND, userId));
         }
         return user.getNotifications();
     }
@@ -62,7 +66,8 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public void setNotificationSeen(final Integer notificationId) {
         Notification notification = notificationRepository
-                .findById(notificationId).orElseThrow(() -> new NotFoundException("Notification was not found"));
+                .findById(notificationId)
+                .orElseThrow(() -> new NotFoundException(String.format(NOTIFICATION_NOT_FOUND, notificationId)));
         notification.setSeen(true);
     }
 }

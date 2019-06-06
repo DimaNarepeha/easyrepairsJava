@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Oleksandr">
+        <dropColumn tableName="service_provider" columnName="email"/>
+    </changeSet>
+    <changeSet id="2" author="Oleksandr">
+        <dropColumn tableName="customer" columnName="email"/>
+    </changeSet>
+        <changeSet id="4" author="Oleksandr">
+        <dropColumn tableName="customer" columnName="path_to_photo"/>
+    </changeSet>
+    <changeSet id="5" author="Oleksandr">
+        <dropColumn tableName="service_provider" columnName="path_to_photo"/>
+    </changeSet>
+</databaseChangeLog>

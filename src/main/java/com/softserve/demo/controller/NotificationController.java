@@ -4,6 +4,7 @@ import com.softserve.demo.dto.NotificationDTO;
 import com.softserve.demo.model.Notification;
 import com.softserve.demo.service.NotificationService;
 import com.softserve.demo.util.NotificationMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,5 +33,11 @@ public class NotificationController {
                                           @RequestBody final NotificationDTO notificationDTO) {
         notificationService.notifyByUserId(userId, notificationMapper.notificationDTOToNotification(notificationDTO));
         return notificationDTO;
+    }
+
+    @PutMapping(path = "/{notificationId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void setNotificationAsSeen(@PathVariable final Integer notificationId) {
+        notificationService.setNotificationSeen(notificationId);
     }
 }

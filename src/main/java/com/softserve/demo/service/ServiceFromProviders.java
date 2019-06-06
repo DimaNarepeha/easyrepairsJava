@@ -7,4 +7,6 @@ import java.util.List;
 public interface ServiceFromProviders {
 
     List<Service> getAllServices();
+
+    Service getServiceById(Integer id);
 }

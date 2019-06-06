@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Oleksandr">
+        <createTable tableName="portfolio">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="provider_id" type="INT">>
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_update" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Oleksandr">
+        <createTable tableName="post">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="header" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="main_photo" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="main_description" type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="portfolio_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="Oleksandr">
+        <createTable tableName="info_for_post">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="photo" type="VARCHAR(200)"/>
+            <column name="description" type="VARCHAR(1000)"/>
+            <column name="post_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="portfolio"
+                                 baseColumnNames="provider_id"
+                                 constraintName="portfolio_provider"
+                                 referencedTableName="service_provider"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet id="5" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="post"
+                                 baseColumnNames="portfolio_id"
+                                 constraintName="post_portfolio"
+                                 referencedTableName="portfolio"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet id="6" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="info_for_post"
+                                 baseColumnNames="post_id"
+                                 constraintName="info_post"
+                                 referencedTableName="post"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+</databaseChangeLog>
