@@ -60,9 +60,10 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     @Transactional
     public CustomerDTO createCustomer(final CustomerDTO customerDTO) {
-        User user = userRepository.save(createUser(customerMapper.customerDTOToUser(customerDTO),Role.CUSTOMER));
+        User user = userRepository.save(createUser(customerMapper.customerDTOToUser(customerDTO), Role.CUSTOMER));
         log.info(user.getPassword());
         sendVerificationCode(user);
+
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setUser(user);
         return customerMapper.customerToCustomerDTO(customerRepository.save(customer));
@@ -71,7 +72,7 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     @Transactional
     public ProviderDTO createProvider(final ProviderDTO providerDTO) {
-        User user = userRepository.save(createUser(providerMapper.providerDTOToUser(providerDTO),Role.PROVIDER));
+        User user = userRepository.save(createUser(providerMapper.providerDTOToUser(providerDTO), Role.PROVIDER));
         sendVerificationCode(user);
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
         provider.setUser(user);
@@ -79,13 +80,14 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     private User createUser(User user, Role role) {
-        validateForEmailAndUsername(user.getEmail(),user.getUsername());
+        validateForEmailAndUsername(user.getEmail(), user.getUsername());
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return user;
     }
+
     private void validateForEmailAndUsername(String email, String username) {
         if (userRepository.existsByUsername(username)) {
             throw new AlreadyExistException(USERNAME_EXISTS);
