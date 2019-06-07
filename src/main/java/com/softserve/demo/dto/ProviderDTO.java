@@ -22,7 +22,7 @@ public class ProviderDTO {
     private LocalDateTime registrationDate;
     private UserDTO userDTO;
     private List<OrderDTO> ordersDTO;
-    private List<String> services;
+    private List<ServiceDTO> services;
     private LocationDTO location;
     private double raiting;
     private long countComment;

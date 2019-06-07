@@ -17,7 +17,7 @@ public interface ProviderMapper {
             @Mapping(target = "image", source = "user.image"),
             @Mapping(target = "location", source = "location"),
             @Mapping(target = "countComment", expression = "java( provider.getUser().getFeedbackTo().size())"),
-            @Mapping(target = "servicesDTO", source = "services"),
+            @Mapping(target = "services", source = "services"),
             @Mapping(target = "feedbacks", expression = "java( provider.getUser().getFeedbackTo())")
     })
     ProviderDTO providerToProviderDTO(Provider provider);
@@ -26,7 +26,7 @@ public interface ProviderMapper {
             @Mapping(target = "user", source = "userDTO"),
             @Mapping(target = "user.email", source = "email"),
             @Mapping(target = "user.image", source = "image"),
-            @Mapping(target = "services",source = "servicesDTO")
+            @Mapping(target = "services",source = "services")
     })
     Provider providerDTOToProvider(ProviderDTO providerDTO);
 
