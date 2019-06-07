@@ -1,5 +1,6 @@
 package com.softserve.demo.service;
 
+import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
 import com.softserve.demo.model.ProviderStatus;
@@ -33,5 +34,6 @@ public interface ProvidersService {
 
     <T> Page<Provider> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy);
 
+    ProviderDTO findByName(String name);
 
 }
