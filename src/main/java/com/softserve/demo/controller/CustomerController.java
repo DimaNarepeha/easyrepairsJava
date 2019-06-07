@@ -49,7 +49,6 @@ public class CustomerController {
         );
     }
 
-
     @GetMapping("list")
     public Page<CustomerDTO> getCustomersByPage(@PageableDefault Pageable pageable) {
         return customerService.getCustomersByPage(pageable);

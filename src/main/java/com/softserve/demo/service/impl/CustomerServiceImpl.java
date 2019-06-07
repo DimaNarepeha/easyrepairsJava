@@ -64,6 +64,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.customerToCustomerDTO(customer);
     }
 
+    @Override
     public Page<CustomerDTO> getCustomersByPage(Pageable pageable) {
         return customerRepository.findAll(pageable)
                 .map(customerMapper::customerToCustomerDTO);

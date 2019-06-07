@@ -8,6 +8,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ProviderRepository extends JpaRepository<Provider, Integer> {
 
@@ -16,4 +18,5 @@ public interface ProviderRepository extends JpaRepository<Provider, Integer> {
     Provider findByUserId(Integer id);
 
     <T> Page<Provider> findAll(Specification<T> approved, Pageable pageable);
+    Optional<Provider> findByName(String name);
 }
