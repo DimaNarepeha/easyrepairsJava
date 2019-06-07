@@ -141,4 +141,10 @@ public class ProvidersServiceImpl implements ProvidersService {
         return providerRepository.findAll(approved, PageRequest.of(page, numberOfProvidersOnPage, Sort.by(sortBy).descending()));
 
     }
+
+    @Override
+    public ProviderDTO findByName(String name) {
+        Provider provider = providerRepository.findByName(name).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
+        return providerMapper.providerToProviderDTO(provider);
+    }
 }

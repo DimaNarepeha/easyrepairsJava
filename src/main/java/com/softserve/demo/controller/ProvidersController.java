@@ -127,4 +127,9 @@ public class ProvidersController {
     public ResponseEntity<?> updateServiceProvidersStatus(@PathVariable("id") Integer id, @RequestBody String status) {
         return new ResponseEntity<>(providersService.updateStatus(id,status), HttpStatus.OK);
     }
+
+    @GetMapping("by/{name}")
+    public ResponseEntity<?> findByName(@PathVariable("name") String name) {
+        return new ResponseEntity<>(providersService.findByName(name), HttpStatus.OK);
+    }
 }

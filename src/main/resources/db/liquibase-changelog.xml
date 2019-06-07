@@ -31,4 +31,5 @@
     <include file="db/changelog/05-06-2019-19-50_insert_approved_providers.xml"/>
     <include file="db/changelog/05-06-2019-20-50_insert_providers_services.xml"/>
     <include file="db/changelog/01-06-2019-23-00_add_column_to_offers.xml"/>
+    <include file="db/changelog/07-06-2019-03-17_change_order.xml"/>
 </databaseChangeLog>

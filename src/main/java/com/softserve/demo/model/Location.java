@@ -35,4 +35,8 @@ public class Location {
     @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location", cascade = CascadeType.MERGE)
     private List<Provider> providers;
+
+    @JsonBackReference(value="location-movement")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "location", cascade = CascadeType.REMOVE)
+    private List<Order> orders;
 }

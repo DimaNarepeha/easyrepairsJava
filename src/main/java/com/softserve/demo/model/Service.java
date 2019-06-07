@@ -31,4 +31,7 @@ public class Service {
     @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
     private List<Provider> providers = new ArrayList<>();
 
+    @JsonManagedReference
+    @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
+    private List<Order> orders = new ArrayList<>();
 }
