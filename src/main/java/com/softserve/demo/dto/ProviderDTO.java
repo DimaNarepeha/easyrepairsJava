@@ -1,6 +1,7 @@
 package com.softserve.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.softserve.demo.model.Feedback;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -24,6 +25,6 @@ public class ProviderDTO {
     private List<ServiceDTO> servicesDTO;
     private LocationDTO location;
     private double raiting;
-    private List<String> services;
     private long countComment;
+    private List<Feedback> feedbacks;
 }

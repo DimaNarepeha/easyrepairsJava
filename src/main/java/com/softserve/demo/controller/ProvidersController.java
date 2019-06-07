@@ -40,7 +40,7 @@ public class ProvidersController {
     }
 
     @PutMapping("/update")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','PROVIDER')")
     public ProviderDTO updateServiceProviders(@RequestBody ProviderDTO providerDTO) {
         return providersService.update(providerDTO);
     }
@@ -51,6 +51,7 @@ public class ProvidersController {
     }
 
     @GetMapping("find-all/page")
+    @PreAuthorize("hasAnyAuthority('ADMIN','PROVIDER','CUSTOMER')")
     public Page<?> getServiceProvidersByPage(@PageableDefault Pageable pageable) {
         return providersService.getServiceProvidersByPage(pageable);
     }
