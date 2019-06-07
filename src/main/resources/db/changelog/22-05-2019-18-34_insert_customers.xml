@@ -23,11 +23,10 @@
             <column name="firstname" value="Customer #1"/>
             <column name="lastname" value="Customer"/>
             <column name="user_id" value="10001"/>
+            <column name="status" value="ACTIVE"/>
         </insert>
     </changeSet>
-
-
-    <changeSet id="12" author="Oleksandr">
+        <changeSet id="12" author="Oleksandr">
         <insert tableName="usr">
             <column name="id" value="10002"/>
             <column name="login" value="customer2"/>
@@ -45,6 +44,7 @@
             <column name="firstname" value="Customer #2"/>
             <column name="lastname" value="Customer2"/>
             <column name="user_id" value="10002"/>
+            <column name="status" value="ACTIVE"/>
         </insert>
     </changeSet>
 
@@ -66,6 +66,8 @@
             <column name="firstname" value="Customer #3"/>
             <column name="lastname" value="Customer3"/>
             <column name="user_id" value="10003"/>
+            <column name="status" value="ACTIVE"/>
+
         </insert>
     </changeSet>
 
@@ -87,6 +89,8 @@
             <column name="firstname" value="Customer #4"/>
             <column name="lastname" value="Customer4"/>
             <column name="user_id" value="10004"/>
+            <column name="status" value="ACTIVE"/>
+
         </insert>
     </changeSet>
 
@@ -108,6 +112,7 @@
             <column name="firstname" value="Customer #5"/>
             <column name="lastname" value="Customer5"/>
             <column name="user_id" value="10005"/>
+            <column name="status" value="ACTIVE"/>
         </insert>
     </changeSet>
 
@@ -129,6 +134,7 @@
             <column name="firstname" value="Customer #6"/>
             <column name="lastname" value="Customer6"/>
             <column name="user_id" value="10006"/>
+            <column name="status" value="ACTIVE"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

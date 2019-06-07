@@ -1,6 +1,7 @@
 package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.ProviderDTO;
+import com.softserve.demo.filter.ProviderFilter;
 import com.softserve.demo.model.ProviderStatus;
 import com.softserve.demo.service.FilesStorageService;
 import com.softserve.demo.service.ProvidersService;
@@ -25,11 +26,13 @@ public class ProvidersController {
     private final ProvidersService providersService;
 
     private final FilesStorageService fileStorageService;
+    private final ProviderFilter providerFilter;
 
 
-    public ProvidersController(ProvidersService providersService, FilesStorageService fileStorageService) {
+    public ProvidersController(ProvidersService providersService, FilesStorageService fileStorageService, ProviderFilter providerFilter) {
         this.providersService = providersService;
         this.fileStorageService = fileStorageService;
+        this.providerFilter = providerFilter;
     }
 
 
@@ -87,6 +90,17 @@ public class ProvidersController {
     public Page<?> getServiceProviderByStatus(@PageableDefault Pageable pageable,
                                               @RequestParam(defaultValue = "NOTAPPROVED") String status) {
         return providersService.getServiceProvidersByStatus(pageable, ProviderStatus.valueOf(status));
+    }
+
+    @GetMapping("find-all/searchByName")
+    @ResponseStatus(HttpStatus.OK)
+
+    public Page<ProviderDTO> getServiceProviderByName(@RequestParam(defaultValue = "0") int page,
+                                                                       @RequestParam int numberOfProvidersOnPage,
+                                                                       @RequestParam(defaultValue = "NOTAPPROVED") String status,
+                                                                       @RequestParam String searchName) {
+        return providerFilter.nameLike(page, numberOfProvidersOnPage, searchName, ProviderStatus.valueOf(status));
+
     }
 
     @PutMapping("update-status/{id}")

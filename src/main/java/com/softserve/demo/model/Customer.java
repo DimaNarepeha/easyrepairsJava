@@ -28,6 +28,10 @@ public class Customer {
     @Column(name = "lastname")
     private String lastName;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private CustomerStatus status;
+
     @UpdateTimestamp
     @Column(name = "last_update")
     private LocalDateTime updated;

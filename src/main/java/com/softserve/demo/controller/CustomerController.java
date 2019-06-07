@@ -1,6 +1,9 @@
 package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.CustomerDTO;
+import com.softserve.demo.filter.ProviderFilter;
+import com.softserve.demo.model.CustomerStatus;
+import com.softserve.demo.model.ProviderStatus;
 import com.softserve.demo.service.CustomerService;
 import com.softserve.demo.service.FilesStorageService;
 import org.springframework.core.io.Resource;
@@ -22,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 public class CustomerController {
     private final CustomerService customerService;
     private final FilesStorageService fileStorageService;
-
 
     public CustomerController(final CustomerService customerService, final FilesStorageService fileStorageService) {
         this.customerService = customerService;
@@ -116,6 +118,13 @@ public class CustomerController {
     @GetMapping("find-by-userId/{id}")
     public ResponseEntity<?> findCustomerByUserId(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(customerService.findCustomerByUserId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("status")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<?> getServiceCustomersByStatus(@PageableDefault Pageable pageable,
+                                               @RequestParam(defaultValue = "ACTIVE") String status) {
+        return customerService.getCustomersByStatus(pageable, CustomerStatus.valueOf(status));
     }
 
 }

@@ -144,4 +144,10 @@ public class ProvidersServiceImpl implements ProvidersService {
     public <T> Page<Provider> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy) {
         return providerRepository.findAll(approved, PageRequest.of(page, numberOfProvidersOnPage, Sort.by(sortBy).descending()));
     }
+
+//    @Override
+//    public Page<ProviderDTO> getServiceProvidersByStatusGroupByName(Pageable pageable, ProviderStatus status, String searchName) {
+//        return providerRepository.findByStatusOrderBySearchName(status,pageable,searchName).map(providerMapper::providerToProviderDTO);
+//    }
+
 }

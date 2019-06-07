@@ -3,6 +3,7 @@ package com.softserve.demo.service.impl;
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Customer;
+import com.softserve.demo.model.CustomerStatus;
 import com.softserve.demo.model.User;
 import com.softserve.demo.model.Offer;
 import com.softserve.demo.repository.CustomerRepository;
@@ -87,5 +88,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO findCustomerByUserId(Integer id) {
         return customerMapper.customerToCustomerDTO(customerRepository.findCustomerByUserId(id));
+    }
+
+    @Override
+    public Page<CustomerDTO> getCustomersByStatus(Pageable pageable, CustomerStatus status) {
+        return customerRepository.findByStatus(status,pageable).map(customerMapper::customerToCustomerDTO);
     }
 }

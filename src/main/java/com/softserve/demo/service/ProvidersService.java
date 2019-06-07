@@ -33,5 +33,5 @@ public interface ProvidersService {
 
     <T> Page<Provider> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy);
 
-
+//    Page<ProviderDTO> getServiceProvidersByStatusGroupByName(Pageable pageable, ProviderStatus valueOf, String searchName);
 }
