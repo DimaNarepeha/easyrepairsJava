@@ -8,18 +8,29 @@ import com.softserve.demo.repository.ChatRepository;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.service.ChatService;
+import com.softserve.demo.util.ChatMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class ChatServiceImpl implements ChatService {
-    @Autowired
+    private final
     ChatRepository chatRepository;
-@Autowired
-    CustomerRepository customerRepository;
-@Autowired
-    ProviderRepository providerRepository;
+private final
+CustomerRepository customerRepository;
+private final
+ProviderRepository providerRepository;
+private final ChatMapper chatMapper;
+
+    @Autowired
+    public ChatServiceImpl(ChatRepository chatRepository, CustomerRepository customerRepository, ProviderRepository providerRepository, ChatMapper chatMapper) {
+        this.chatRepository = chatRepository;
+        this.customerRepository = customerRepository;
+        this.providerRepository = providerRepository;
+        this.chatMapper = chatMapper;
+    }
+
     @Override
     public List<Chat> getMessagesBySenderAndGetter(Integer customerId,Integer providerId) {
         return chatRepository.findAllBySenderAndGetterId(customerId,providerId);
@@ -28,11 +39,12 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public void saveMessage(ChatDTO chat) {
-        Chat chatE = new Chat();
-        chatE.setMessage(chat.getMessage());
+        /*Chat chatE = new Chat();
+        chatE.setMessage(chat.getMessage());*/
+        Chat chatE = chatMapper.chatDTOToChat(chat);
         chatE.setCustomerId(customerRepository.findById(chat.getMessageFrom()).get());
         chatE.setProviderId(providerRepository.findById(chat.getMessageTo()).get());
-        chatE.setSentBy(chat.getSentBy());
+        //chatE.setSentBy(chat.getSentBy());
         chatRepository.save(chatE);
     }
 

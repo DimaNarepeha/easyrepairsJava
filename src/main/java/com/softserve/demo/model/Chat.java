@@ -3,8 +3,10 @@ package com.softserve.demo.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @ToString
 @Getter
@@ -27,4 +29,8 @@ public class Chat {
 
     @Column(name = "sent_by")
     private Integer sentBy;
+
+    @UpdateTimestamp
+    @Column(name = "sending_time")
+    private LocalDateTime sendingTime;
 }

@@ -20,6 +20,7 @@
             <column name="sent_by" type="int">
                 <constraints nullable="false"/>
             </column>
+            <column name="sending_time" type="datetime"/>
         </createTable>
     </changeSet>
 

@@ -19,17 +19,18 @@ public class ChatController {
 
 
     @PostMapping
-    public ResponseEntity<?> createCustomer(
+    public ResponseEntity<?> typeMessage(
             @RequestBody ChatDTO chat) {
         log.info(chat.toString());
         chatService.saveMessage(chat);
        //chatService.getMessagesBySenderAndGetter(1).forEach((Chat c)->log.info(c.toString()));
-        return new ResponseEntity<>("Finally!!!!",HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<?> getCustomer(){
-        return new ResponseEntity<>(chatService.getMessagesBySenderAndGetter(7,1),HttpStatus.OK);
+    @RequestMapping(value = "/{customerId}/{providerId}", method=RequestMethod.GET)
+    public ResponseEntity<?> getCustomer(@PathVariable("customerId") Integer customerId,
+                                         @PathVariable("providerId") Integer providerId){
+        return new ResponseEntity<>(chatService.getMessagesBySenderAndGetter( customerId,providerId),HttpStatus.OK);
     }
     @RequestMapping(value = "/getMessages", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> getMessages(){
