@@ -28,7 +28,7 @@ public class OrderDTO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     @NotNull
-    private ProviderDTO providerDTO;
+    private ProviderDTOorder providerDTO;
     @NotNull
     private CustomerDTO customerDTO;
     @NotNull

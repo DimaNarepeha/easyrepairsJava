@@ -49,12 +49,6 @@ public class CustomerController {
         );
     }
 
-    @GetMapping("user/{id}")
-    public ResponseEntity<?> getCustomerByUserId(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(customerService.getCustomerByUserId(id), HttpStatus.OK);
-    }
-
-
     @GetMapping("list")
     public Page<CustomerDTO> getCustomersByPage(@PageableDefault Pageable pageable) {
         return customerService.getCustomersByPage(pageable);

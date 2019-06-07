@@ -94,10 +94,8 @@ public class ProvidersController {
         return providersService.findProvidersByUserId(id);
     }
 
-
-
     @GetMapping("by/{name}")
-    public ResponseEntity<?> findByName(@PathVariable("name") String name) {
-        return new ResponseEntity<>(providersService.findByName(name), HttpStatus.OK);
+    public ProviderDTO findByName(@PathVariable("name") String name) {
+        return providersService.findByName(name);
     }
 }

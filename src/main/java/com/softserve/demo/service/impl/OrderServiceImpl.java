@@ -23,7 +23,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order createOrder(Order order) {
         Location location = order.getLocation();
-        Location locationFromDB = locationRepository.findLocationByCityAndCountry(
+        Location locationFromDB = locationRepository.findLocationByCityAndCountryAndRegion(
                 location.getCity(), location.getCountry(), location.getRegion());
         if (locationFromDB == null) {
             locationRepository.save(location);
