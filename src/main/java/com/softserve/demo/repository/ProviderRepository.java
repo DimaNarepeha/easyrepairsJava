@@ -10,6 +10,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProviderRepository extends JpaRepository<Provider, Integer> {
+
     Page<Provider> findByStatus(ProviderStatus status, Pageable pageable);
+
+    Provider findByUserId(Integer id);
+
     <T> Page<Provider> findAll(Specification<T> approved, Pageable pageable);
 }
