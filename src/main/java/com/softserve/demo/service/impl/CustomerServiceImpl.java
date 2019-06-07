@@ -86,9 +86,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO getCustomerByUserId(Integer id) {
-        Customer customer = customerRepository.getCustomerByUser_Id(id).orElseThrow(() ->
-                new NotFoundException("Customer not found"));
-        return customerMapper.customerToCustomerDTO(customer);
+    public CustomerDTO findCustomerByUserId(Integer id) {
+        return customerMapper.customerToCustomerDTO(customerRepository.findCustomerByUserId(id));
     }
 }

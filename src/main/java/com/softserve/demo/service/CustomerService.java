@@ -26,5 +26,5 @@ public interface CustomerService {
 
     Customer getCustomerByOffer(Offer offer);
 
-    CustomerDTO getCustomerByUserId(Integer id);
+    CustomerDTO findCustomerByUserId (Integer id);
 }

@@ -118,4 +118,9 @@ public class CustomerController {
                 .body(resource);
     }
 
+    @GetMapping("find-by-userId/{id}")
+    public ResponseEntity<?> findCustomerByUserId(@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(customerService.findCustomerByUserId(id), HttpStatus.OK);
+    }
+
 }
