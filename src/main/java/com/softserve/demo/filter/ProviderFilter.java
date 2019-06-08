@@ -6,7 +6,7 @@ import com.softserve.demo.model.Provider;
 import com.softserve.demo.model.search.ProviderCriteria;
 import com.softserve.demo.service.impl.ProvidersServiceImpl;
 import com.softserve.demo.service.impl.ServiceFromProvidersImpl;
-import com.softserve.demo.util.ProviderInfoMapper;
+import com.softserve.demo.util.mappers.ProviderInfoMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;

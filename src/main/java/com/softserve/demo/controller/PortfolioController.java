@@ -1,6 +1,7 @@
 package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.PortfolioDTO;
+import com.softserve.demo.dto.PostDTO;
 import com.softserve.demo.service.PortfolioService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,8 @@ public class PortfolioController {
         return portfolioService.findById(id);
     }
 
-
-
-
+    @GetMapping("/post/{id}")
+    public PostDTO getPost(@PathVariable Integer id){
+        return portfolioService.findPostById(id);
+    }
 }

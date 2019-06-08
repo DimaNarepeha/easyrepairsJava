@@ -3,12 +3,10 @@ package com.softserve.demo.service.impl;
 import com.softserve.demo.dto.FeedbackGeneralDTO;
 import com.softserve.demo.repository.FeedbackRepository;
 import com.softserve.demo.service.FeedbackService;
-import com.softserve.demo.util.FeedbackGeneralMapper;
+import com.softserve.demo.util.mappers.FeedbackGeneralMapper;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.List;
 
 @Service

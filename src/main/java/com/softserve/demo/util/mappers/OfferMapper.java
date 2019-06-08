@@ -1,4 +1,4 @@
-package com.softserve.demo.util;
+package com.softserve.demo.util.mappers;
 
 import com.softserve.demo.dto.OfferDTO;
 import com.softserve.demo.model.Offer;

@@ -1,13 +1,13 @@
 package com.softserve.demo.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
+@Data
 @Entity
-@Getter
-@Setter
 @Table(name = "info_for_post")
 public class PostInfo {
     @Column(name = "id")
@@ -15,8 +15,8 @@ public class PostInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", referencedColumnName = "id")
     private Post post;
 
     @Column(name = "description")

@@ -8,7 +8,7 @@ import com.softserve.demo.model.Offer;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.CustomerService;
-import com.softserve.demo.util.CustomerMapper;
+import com.softserve.demo.util.mappers.CustomerMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
