@@ -19,7 +19,4 @@ public class FeedbackDTO {
     private LocalDateTime endDate;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateDate;
-    private String userTo;
-    private String userFrom;
-
 }

@@ -24,11 +24,15 @@ public class Location {
     @Column(name = "city")
     private String city;
 
-    @JsonBackReference(value = "location-movement")
+    @JsonBackReference(value = "location-offer")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location", cascade = CascadeType.REMOVE)
     private List<Offer> offers;
 
-    @JsonBackReference
+    @JsonBackReference(value = "provider-location")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location", cascade = CascadeType.MERGE)
     private List<Provider> providers;
+
+    @JsonBackReference(value = "location-order")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "location", cascade = CascadeType.REMOVE)
+    private List<Order> orders;
 }

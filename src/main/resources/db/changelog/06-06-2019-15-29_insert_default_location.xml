@@ -12,9 +12,4 @@
            <column name="region" value=""/>
        </insert>
    </changeSet>
-
-    <changeSet id="2" author="Illia Checnhak">
-        <addDefaultValue tableName="service_provider" columnName="location_id" defaultValue="1001"/>
-    </changeSet>
-
 </databaseChangeLog>

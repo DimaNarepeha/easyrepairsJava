@@ -1,7 +1,7 @@
 /*
  *Open source 2019
  */
-package com.softserve.demo.util;
+package com.softserve.demo.util.mappers;
 
 import com.softserve.demo.dto.NotificationDTO;
 import com.softserve.demo.model.Notification;
