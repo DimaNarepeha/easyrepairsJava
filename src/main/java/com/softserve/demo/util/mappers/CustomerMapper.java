@@ -1,4 +1,4 @@
-package com.softserve.demo.util;
+package com.softserve.demo.util.mappers;
 
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.model.Customer;

@@ -1,26 +1,28 @@
-package com.softserve.demo.util;
+package com.softserve.demo.util.mappers;
 
-import com.softserve.demo.dto.OfferDTO;
-import com.softserve.demo.model.Offer;
+import com.softserve.demo.dto.OrderDTO;
+import com.softserve.demo.model.Order;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface OfferMapper {
+public interface OrderMapper {
 
+    @Mapping(target = "providerDTO", source = "provider")
     @Mapping(target = "customerDTO", source = "customer")
     @Mapping(target = "serviceDTOs", source = "services")
     @Mapping(target = "locationDTO", source = "location")
-    OfferDTO offerToOfferDTO(Offer offer);
+    OrderDTO orderToOrderDTO(Order order);
 
+    @Mapping(target = "provider", source = "providerDTO")
     @Mapping(target = "customer", source = "customerDTO")
     @Mapping(target = "services", source = "serviceDTOs")
     @Mapping(target = "location", source = "locationDTO")
-    Offer offerDTOToOffer(OfferDTO offerDTO);
+    Order orderDTOToOrder(OrderDTO orderDTO);
 
-    List<OfferDTO> offersToOfferDTOs(List<Offer> offers);
+    List<OrderDTO> ordersToOrderDTOs(List<Order> orders);
 
-    List<Offer> offerDTOsToOffer(List<OfferDTO> offerDTOs);
+    List<Order> orderDTOsToOrder(List<OrderDTO> orderDTOs);
 }

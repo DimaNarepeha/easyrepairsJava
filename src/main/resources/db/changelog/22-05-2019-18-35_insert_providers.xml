@@ -20,7 +20,7 @@
 
     <changeSet id="2" author="Oleksandr">
         <insert tableName="service_provider">
-            <column name="id" value="20002"/>
+            <column name="id" value="20001"/>
             <column name="name" value="provider #1"/>
             <column name="description" value="Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/22-05-2019-18-35_insert_providers.xml::2::Oleksandr:
      Reason: liquibase.exception.DatabaseException:"/>
@@ -48,6 +48,7 @@
 
     <changeSet id="4" author="Oleksandr">
         <insert tableName="service_provider">
+            <column name="id" value="20002"/>
             <column name="name" value="provider #2"/>
             <column name="description" value="Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/22-05-2019-18-35_insert_providers.xml::2::Oleksandr:
      Reason: liquibase.exception.DatabaseException:"/>
@@ -73,6 +74,7 @@
 
     <changeSet id="6" author="Oleksandr">
         <insert tableName="service_provider">
+            <column name="id" value="20003"/>
             <column name="name" value="provider #3"/>
             <column name="description" value="Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/22-05-2019-18-35_insert_providers.xml::2::Oleksandr:
      Reason: liquibase.exception.DatabaseException:"/>
