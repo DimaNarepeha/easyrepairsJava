@@ -1,15 +1,16 @@
 package com.softserve.demo.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
 @Entity
-@Getter
-@Setter
 @Table(name = "post")
 public class Post {
     @Column(name = "id")
@@ -17,10 +18,11 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolio_id", referencedColumnName = "id")
     private Portfolio portfolio;
 
+    @CreationTimestamp
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 

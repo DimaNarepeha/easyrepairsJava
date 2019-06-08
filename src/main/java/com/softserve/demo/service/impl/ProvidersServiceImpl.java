@@ -1,6 +1,7 @@
 package com.softserve.demo.service.impl;
 
 
+import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Location;
@@ -11,9 +12,9 @@ import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.ProvidersService;
-import com.softserve.demo.util.LocationMapper;
+import com.softserve.demo.util.mappers.LocationMapper;
+import com.softserve.demo.util.mappers.ProviderMapper;
 import com.softserve.demo.util.Constant;
-import com.softserve.demo.util.ProviderMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;

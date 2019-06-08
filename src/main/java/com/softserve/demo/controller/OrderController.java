@@ -2,7 +2,7 @@ package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.OrderDTO;
 import com.softserve.demo.service.OrderService;
-import com.softserve.demo.util.OrderMapper;
+import com.softserve.demo.util.mappers.OrderMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

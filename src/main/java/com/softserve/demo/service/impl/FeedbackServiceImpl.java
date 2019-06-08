@@ -6,8 +6,8 @@ import com.softserve.demo.model.Feedback;
 import com.softserve.demo.repository.FeedbackRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.FeedbackService;
-import com.softserve.demo.util.FeedbackGeneralMapper;
-import com.softserve.demo.util.FeedbackMapper;
+import com.softserve.demo.util.mappers.FeedbackGeneralMapper;
+import com.softserve.demo.util.mappers.FeedbackMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
