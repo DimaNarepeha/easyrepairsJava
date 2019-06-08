@@ -27,6 +27,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-02-12 12:12:12"/>
             <column name="raiting" value="4.3"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -53,6 +54,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-03-11 10:12:02"/>
             <column name="raiting" value="2.1"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -79,6 +81,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-03-11 10:12:02"/>
             <column name="raiting" value="3.5"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -105,6 +108,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-02-01 10:12:02"/>
             <column name="raiting" value="3.2"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -131,6 +135,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-05-01 12:12:02"/>
             <column name="raiting" value="5.0"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -157,6 +162,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-04-04 12:12:02"/>
             <column name="raiting" value="3.2"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -183,6 +189,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-04-24 15:02:02"/>
             <column name="raiting" value="4.1"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -209,6 +216,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-06-05 15:02:02"/>
             <column name="raiting" value="4.8"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 

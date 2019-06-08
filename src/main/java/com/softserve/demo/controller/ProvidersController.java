@@ -14,9 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-/**
- * Created by Illia Chenchak
- */
+
 @RestController
 @RequestMapping("service-providers")
 @CrossOrigin("*")
@@ -40,7 +38,7 @@ public class ProvidersController {
     }
 
     @PutMapping("/update")
-    @PreAuthorize("hasAnyAuthority('ADMIN','PROVIDER')")
+//    @PreAuthorize("hasAnyAuthority('ADMIN','PROVIDER')")
     public ProviderDTO updateServiceProviders(@RequestBody ProviderDTO providerDTO) {
         return providersService.update(providerDTO);
     }
@@ -51,7 +49,7 @@ public class ProvidersController {
     }
 
     @GetMapping("find-all/page")
-    @PreAuthorize("hasAnyAuthority('ADMIN','PROVIDER','CUSTOMER')")
+//    @PreAuthorize("hasAnyAuthority('ADMIN','PROVIDER','CUSTOMER')")
     public Page<?> getServiceProvidersByPage(@PageableDefault Pageable pageable) {
         return providersService.getServiceProvidersByPage(pageable);
     }
