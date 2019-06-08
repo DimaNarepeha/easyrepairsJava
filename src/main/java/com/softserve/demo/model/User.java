@@ -38,11 +38,11 @@ public class User {
     @Column(name = "last_fail")
     private LocalDateTime lastFail;
 
-    @JsonBackReference(value = "adr_from")
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "addressedFrom")
     private List<Feedback> feedbackFrom = new ArrayList<>();
 
-    @JsonBackReference(value = "adr_to")
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "addressedTo", cascade = CascadeType.REMOVE)
     private List<Feedback> feedbackTo = new ArrayList<>();
 

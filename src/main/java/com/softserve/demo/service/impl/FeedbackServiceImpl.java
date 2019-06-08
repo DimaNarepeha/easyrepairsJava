@@ -15,9 +15,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Illia Chenchak
- */
 @Service
 @Transactional
 public class FeedbackServiceImpl implements FeedbackService {

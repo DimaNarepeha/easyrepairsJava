@@ -39,18 +39,18 @@ public class FeedbackController {
     }
 
     @DeleteMapping("delete/{id}")
-    public void deleteFeedback(@PathVariable("id") Integer id) {
-        feedbackService.delete(id);
+    public void deleteFeedback(@PathVariable("id") Integer idFeedback) {
+        feedbackService.delete(idFeedback);
     }
 
     @GetMapping("find-by-id/{id}")
-    public FeedbackDTO findById(@PathVariable("id") Integer id) {
-        return feedbackService.findById(id);
+    public FeedbackDTO findById(@PathVariable("id") Integer idFeedback) {
+        return feedbackService.findById(idFeedback);
     }
 
     @GetMapping("find-by-user-id/{id}")
-    public List<FeedbackDTO> findFeedbackByUserId(@PathVariable("id") Integer id) {
-        return feedbackService.findFeedbackByUserId(id);
+    public List<FeedbackDTO> findFeedbackByUserId(@PathVariable("id") Integer idFeedback) {
+        return feedbackService.findFeedbackByUserId(idFeedback);
     }
 
 

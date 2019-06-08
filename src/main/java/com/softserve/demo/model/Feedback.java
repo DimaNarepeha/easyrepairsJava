@@ -1,7 +1,5 @@
 package com.softserve.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
@@ -44,14 +42,5 @@ public class Feedback {
     @Column(name = "update_date")
     private LocalDateTime updateDate;
 
-    @Column(name = "available")
-    private Boolean availabel;
 
-    @JsonManagedReference
-    @Column(name = "user_to")
-    private String userTo;
-
-    @JsonManagedReference
-    @Column(name = "user_from")
-    private String userFrom;
 }

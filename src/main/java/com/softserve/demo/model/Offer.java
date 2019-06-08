@@ -41,13 +41,13 @@ public class Offer {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @JsonManagedReference(value="location-movement")
+    @JsonManagedReference(value="location-offer")
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference(value = "service_offer")
     @JoinTable(
             name = "offer_service",
             joinColumns = {@JoinColumn(name = "offer_id")},

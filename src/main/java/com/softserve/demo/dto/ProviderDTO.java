@@ -24,7 +24,7 @@ public class ProviderDTO {
     private List<OrderDTO> ordersDTO;
     private List<ServiceDTO> services;
     private LocationDTO location;
-    private double raiting;
+    private double rating;
     private long countComment;
     private List<Feedback> feedbacks;
 }

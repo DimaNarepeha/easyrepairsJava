@@ -27,9 +27,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Illia Chenchak
- */
 
 @Service
 @Transactional
@@ -117,7 +114,7 @@ public class ProvidersServiceImpl implements ProvidersService {
 
     @Override
     public Page<ProviderDTO> getServiceProvidersByPage(Pageable pageable) {
-        return providerRepository.findByStatus(ProviderStatus.APPROVED,pageable)
+        return providerRepository.findByStatus(ProviderStatus.APPROVED, pageable)
                 .map(providerMapper::providerToProviderDTO);
     }
 
