@@ -43,8 +43,6 @@ public class RegisterServiceImpl implements RegisterService {
     private static final String USERNAME_EXISTS = "This username already exist";
     private static final String EMAIL_EXISTS = "This email already used";
 
-
-
     public RegisterServiceImpl(
             final PasswordEncoder passwordEncoder,
             final CustomerMapper customerMapper,
