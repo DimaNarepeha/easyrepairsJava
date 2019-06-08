@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 @CrossOrigin("*")
 @RestController
@@ -62,12 +61,11 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping
     public ResponseEntity<?> updateCustomer(
-            @PathVariable("id") Integer id,
             @RequestBody CustomerDTO customer
     ) {
-        CustomerDTO customerUpdated = customerService.updateCustomer(id, customer);
+        CustomerDTO customerUpdated = customerService.updateCustomer(customer);
 
         return new ResponseEntity<>(customerUpdated, HttpStatus.OK);
     }
@@ -91,28 +89,19 @@ public class CustomerController {
     ) {
 
         Resource resource = fileStorageService.loadFile(name);
+        String contentType = fileStorageService.getContentType(servletRequest,resource,name);
 
-        String contentType = null;
-
-        try {
-            contentType = servletRequest
-                    .getServletContext()
-                    .getMimeType(
-                            resource.getFile().getAbsolutePath());
-        } catch (IOException e) {
-            contentType = "application/octet-stream";
-
-        }
-
-        if (contentType == null) {
-            contentType = "application/octet-stream";
-        }
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "inline; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
+    }
+
+    @GetMapping("find-by-userId/{id}")
+    public ResponseEntity<?> findCustomerByUserId(@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(customerService.findCustomerByUserId(id), HttpStatus.OK);
     }
 
 }

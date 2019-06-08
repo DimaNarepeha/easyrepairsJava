@@ -3,6 +3,7 @@ package com.softserve.demo.service.impl;
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Customer;
+import com.softserve.demo.model.User;
 import com.softserve.demo.model.Offer;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.repository.UserRepository;
@@ -36,8 +37,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO updateCustomer(Integer id, CustomerDTO customerDTO) {
-        Customer customerFromDatabase = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
+    public CustomerDTO updateCustomer( CustomerDTO customerDTO) {
+        Customer customerFromDatabase = customerRepository.findById(customerDTO.getId()).orElseThrow(() -> new NotFoundException("Customer not found"));
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customerRepository.save(customer);
         return customerMapper.customerToCustomerDTO(customer);
@@ -72,7 +73,7 @@ public class CustomerServiceImpl implements CustomerService {
     public void addImageToCustomer(Integer id, String fileName) {
         Customer customerEntity =
                 customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
-        customerEntity.setImage(fileName);
+      customerEntity.getUser().setImage(fileName);
         customerRepository.save(customerEntity);
     }
 
@@ -80,5 +81,10 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer getCustomerByOffer(Offer offer) {
         return customerRepository.findById(
                 offer.getCustomer().getId()).orElseThrow(() -> new NotFoundException("Customer not found"));
+    }
+
+    @Override
+    public CustomerDTO findCustomerByUserId(Integer id) {
+        return customerMapper.customerToCustomerDTO(customerRepository.findCustomerByUserId(id));
     }
 }

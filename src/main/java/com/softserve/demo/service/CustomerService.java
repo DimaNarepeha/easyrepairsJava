@@ -12,7 +12,7 @@ import java.util.List;
 public interface CustomerService {
     void createCustomer(CustomerDTO customer);
 
-    CustomerDTO updateCustomer(Integer id, CustomerDTO customer);
+    CustomerDTO updateCustomer( CustomerDTO customer);
 
     List<CustomerDTO> getAllCustomers();
 
@@ -25,4 +25,6 @@ public interface CustomerService {
     void addImageToCustomer(Integer id, String fileName);
 
     Customer getCustomerByOffer(Offer offer);
+
+    CustomerDTO findCustomerByUserId (Integer id);
 }

@@ -4,73 +4,131 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+    <changeSet id="11" author="Oleksandr">
+        <insert tableName="usr">
+            <column name="id" value="10001"/>
+            <column name="login" value="customer1"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="man1.jpg"/>
+            <column name="email" value="customer1@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="10001"/>
+            <column name="roles" value="CUSTOMER"/>
+        </insert>
+    </changeSet>
+
     <changeSet id="1" author="Nastya ">
         <insert tableName="customer">
             <column name="firstname" value="Customer #1"/>
             <column name="lastname" value="Customer"/>
-            <column name="email" value="customer@gmail.com"/>
-            <column name="user_id" value="1"/>
-            <column name="path_to_photo" value="1.jpg"/>
+            <column name="user_id" value="10001"/>
         </insert>
     </changeSet>
 
+
+    <changeSet id="12" author="Oleksandr">
+        <insert tableName="usr">
+            <column name="id" value="10002"/>
+            <column name="login" value="customer2"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="man2.jpg"/>
+            <column name="email" value="customer2@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="10002"/>
+            <column name="roles" value="CUSTOMER"/>
+        </insert>
+    </changeSet>
     <changeSet id="2" author="Nastya ">
         <insert tableName="customer">
             <column name="firstname" value="Customer #2"/>
             <column name="lastname" value="Customer2"/>
-            <column name="email" value="customer2@gmail.com"/>
-            <column name="user_id" value="1"/>
-            <column name="path_to_photo" value="1.jpg"/>
+            <column name="user_id" value="10002"/>
         </insert>
     </changeSet>
 
+    <changeSet id="13" author="Oleksandr">
+        <insert tableName="usr">
+            <column name="id" value="10003"/>
+            <column name="login" value="customer3"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="man3.jpg"/>
+            <column name="email" value="customer3@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="10003"/>
+            <column name="roles" value="CUSTOMER"/>
+        </insert>
+    </changeSet>
     <changeSet id="3" author="Nastya ">
         <insert tableName="customer">
             <column name="firstname" value="Customer #3"/>
             <column name="lastname" value="Customer3"/>
-            <column name="email" value="customer3@gmail.com"/>
-            <column name="user_id" value="1"/>
-            <column name="path_to_photo" value="1.jpg"/>
+            <column name="user_id" value="10003"/>
         </insert>
     </changeSet>
 
+    <changeSet id="14" author="Oleksandr">
+        <insert tableName="usr">
+            <column name="id" value="10004"/>
+            <column name="login" value="customer4"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="man4.jpg"/>
+            <column name="email" value="customer4@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="10004"/>
+            <column name="roles" value="CUSTOMER"/>
+        </insert>
+    </changeSet>
     <changeSet id="4" author="Nastya ">
         <insert tableName="customer">
             <column name="firstname" value="Customer #4"/>
             <column name="lastname" value="Customer4"/>
-            <column name="email" value="customer4@gmail.com"/>
-            <column name="user_id" value="1"/>
-            <column name="path_to_photo" value="1.jpg"/>
+            <column name="user_id" value="10004"/>
         </insert>
     </changeSet>
 
+    <changeSet id="15" author="Oleksandr">
+        <insert tableName="usr">
+            <column name="id" value="10005"/>
+            <column name="login" value="customer5"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="man5.jpg"/>
+            <column name="email" value="customer5@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="10005"/>
+            <column name="roles" value="CUSTOMER"/>
+        </insert>
+    </changeSet>
     <changeSet id="5" author="Nastya ">
         <insert tableName="customer">
             <column name="firstname" value="Customer #5"/>
             <column name="lastname" value="Customer5"/>
-            <column name="email" value="customer5@gmail.com"/>
-            <column name="user_id" value="1"/>
-            <column name="path_to_photo" value="1.jpg"/>
+            <column name="user_id" value="10005"/>
         </insert>
     </changeSet>
 
+    <changeSet id="16" author="Oleksandr">
+        <insert tableName="usr">
+            <column name="id" value="10006"/>
+            <column name="login" value="customer6"/>
+            <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
+            <column name="image" value="man6.jpg"/>
+            <column name="email" value="customer6@gmail.com"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="10006"/>
+            <column name="roles" value="CUSTOMER"/>
+        </insert>
+    </changeSet>
     <changeSet id="6" author="Nastya ">
         <insert tableName="customer">
             <column name="firstname" value="Customer #6"/>
             <column name="lastname" value="Customer6"/>
-            <column name="email" value="customer6@gmail.com"/>
-            <column name="user_id" value="1"/>
-            <column name="path_to_photo" value="1.jpg"/>
-        </insert>
-    </changeSet>
-
-    <changeSet id="7" author="Nastya ">
-        <insert tableName="customer">
-            <column name="firstname" value="Customer #7"/>
-            <column name="lastname" value="Customer7"/>
-            <column name="email" value="customer7@gmail.com"/>
-            <column name="user_id" value="1"/>
-            <column name="path_to_photo" value="1.jpg"/>
+            <column name="user_id" value="10006"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

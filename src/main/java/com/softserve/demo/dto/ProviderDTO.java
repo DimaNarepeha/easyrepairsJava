@@ -1,18 +1,13 @@
 package com.softserve.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import javax.validation.constraints.Email;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class ProviderDTO {
     private Integer id;
     private String name;
@@ -20,10 +15,15 @@ public class ProviderDTO {
     private String email;
     private String description;
     private String image;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastUpdate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime registrationDate;
     private UserDTO userDTO;
     private List<OrderDTO> ordersDTO;
     private List<ServiceDTO> servicesDTO;
     private LocationDTO location;
+    private double raiting;
+    private List<String> services;
+    private long countComment;
 }
