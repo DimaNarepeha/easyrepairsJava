@@ -14,9 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-/**
- * Created by Illia Chenchak
- */
+
 @RestController
 @RequestMapping("service-providers")
 @CrossOrigin("*")
@@ -40,7 +38,6 @@ public class ProvidersController {
     }
 
     @PutMapping("/update")
-    @PreAuthorize("hasAnyAuthority('ADMIN','PROVIDER')")
     public ProviderDTO updateServiceProviders(@RequestBody ProviderDTO providerDTO) {
         return providersService.update(providerDTO);
     }
@@ -51,31 +48,28 @@ public class ProvidersController {
     }
 
     @GetMapping("find-all/page")
-    @PreAuthorize("hasAnyAuthority('ADMIN','PROVIDER','CUSTOMER')")
     public Page<?> getServiceProvidersByPage(@PageableDefault Pageable pageable) {
         return providersService.getServiceProvidersByPage(pageable);
     }
 
     @DeleteMapping("delete/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public void deleteServiceProvidersResponse(@PathVariable("id") Integer id) {
-        providersService.delete(id);
+    public void deleteServiceProvidersResponse(@PathVariable("id") Integer idProvider) {
+        providersService.delete(idProvider);
     }
 
     @GetMapping("find-by-id/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','CUSTOMER','PROVIDER')")
-    public ProviderDTO findById(@PathVariable("id") Integer id) {
-        return providersService.findById(id);
+    public ProviderDTO findById(@PathVariable("id") Integer idProvider) {
+        return providersService.findById(idProvider);
     }
 
     @PostMapping("{userId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void uploadImage(
-            @PathVariable("userId") Integer id,
+            @PathVariable("userId") Integer idUser,
             @RequestParam("imageFile") MultipartFile file
     ) {
         fileStorageService.storeFile(file);
-        providersService.addImageToProviders(id, file.getOriginalFilename());
+        providersService.addImageToProviders(idUser, file.getOriginalFilename());
     }
 
 
@@ -86,17 +80,17 @@ public class ProvidersController {
     }
 
     @PutMapping("update-status/{id}")
-    public ProviderDTO updateServiceProvidersStatus(@PathVariable("id") Integer id, @RequestBody String status) {
-        return providersService.updateStatus(id, status);
+    public ProviderDTO updateServiceProvidersStatus(@PathVariable("id") Integer idProvider, @RequestBody String status) {
+        return providersService.updateStatus(idProvider, status);
     }
 
     @GetMapping("find-by-userId/{id}")
-    public ProviderDTO findProviderByUserId(@PathVariable("id") Integer id) {
-        return providersService.findProvidersByUserId(id);
+    public ProviderDTO findProviderByUserId(@PathVariable("id") Integer idUser) {
+        return providersService.findProvidersByUserId(idUser);
     }
 
     @GetMapping("by/{name}")
-    public ProviderDTO findByName(@PathVariable("name") String name) {
-        return providersService.findByName(name);
+    public ProviderDTO findByName(@PathVariable("name") String providerName) {
+        return providersService.findByName(providerName);
     }
 }
