@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Andrii">
+        <addColumn tableName="orders">
+            <column name="customer_id" type="INT"/>
+        </addColumn>
+        <addColumn tableName="orders">
+            <column name="create_date" type="DATETIME"/>
+        </addColumn>
+        <addColumn tableName="orders">
+            <column name="start_date" type="DATE"/>
+        </addColumn>
+        <addColumn tableName="orders">
+            <column name="end_date" type="DATE"/>
+        </addColumn>
+        <addColumn tableName="orders">
+            <column name="extra_details" type="VARCHAR(1000)"/>
+        </addColumn>
+        <addColumn tableName="orders">
+            <column name="location_id" type="INT"/>
+        </addColumn>
+        <addColumn tableName="orders">
+            <column name="time_requirement" type="VARCHAR(30)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2" author="Andrii">
+        <dropColumn tableName="orders" columnName="finish_date"/>
+        <modifyDataType tableName="orders" columnName="price" newDataType="VARCHAR(1000)"/>
+    </changeSet>
+    <changeSet id="3" author="Andrii">
+        <dropColumn tableName="orders" columnName="offer_id"/>
+    </changeSet>
+    <changeSet id="4" author="Andrii">
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="customer_id" constraintName="order_customer"
+                                 referencedTableName="customer"
+                                 referencedColumnNames="id" onUpdate="CASCADE" onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet id="5" author="Andrii">
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="location_id" constraintName="order_location"
+                                 referencedTableName="location"
+                                 referencedColumnNames="id" onDelete="SET NULL" onUpdate="CASCADE"/>
+    </changeSet>
+    <changeSet id="6" author="Andrii">
+        <createTable tableName="order_service">
+            <column name="order_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="service_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="Andrii">
+        <addForeignKeyConstraint baseTableName="order_service" baseColumnNames="order_id"
+                                 constraintName="order_service_orders"
+                                 referencedTableName="orders"
+                                 referencedColumnNames="id" onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+    <changeSet id="8" author="Andrii">
+        <addForeignKeyConstraint baseTableName="order_service" baseColumnNames="service_id"
+                                 constraintName="order_service_services"
+                                 referencedTableName="services"
+                                 referencedColumnNames="id" onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+    <changeSet id="9" author="Andrii">
+        <addColumn tableName="orders">
+            <column name="customer_approved" type="VARCHAR(30)"/>
+        </addColumn>
+        <addColumn tableName="orders">
+            <column name="provider_approved" type="VARCHAR(30)"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

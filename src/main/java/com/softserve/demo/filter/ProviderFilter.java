@@ -22,7 +22,9 @@ public class ProviderFilter {
 
     private final ProviderInfoMapper providerMapper;
     private final ProvidersServiceImpl providersService;
-    private final ServiceFromProvidersImpl serviceFromProviders;
+    private final ServiceFromProvidersImpl serviceFromProviders;//[1,2,3,4]
+    public static final int ONE = 1;
+    public static final int TWO = 2;
 
     public ProviderFilter(ProvidersServiceImpl providersService, ProviderInfoMapper providerMapper, ServiceFromProvidersImpl serviceFromProviders) {
         this.providersService = providersService;
@@ -31,11 +33,9 @@ public class ProviderFilter {
     }
 
     private List<com.softserve.demo.model.Service> getCheckedServices(String checkedServicesId) {
-        int one = 1;
-        int two = 2;
         List<com.softserve.demo.model.Service> services = new ArrayList<>();
-        if (checkedServicesId != null && checkedServicesId.length() > two) {
-            String s = checkedServicesId.substring(one, checkedServicesId.length() - one);
+        if (checkedServicesId != null && checkedServicesId.length() > TWO) {
+            String s = checkedServicesId.substring(ONE, checkedServicesId.length() - ONE);
             for (String serviceId : s.split(",")) {
                 services.add(serviceFromProviders.getServiceById((Integer.parseInt(serviceId))));
             }

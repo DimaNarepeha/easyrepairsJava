@@ -1,12 +1,15 @@
 package com.softserve.demo.model;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,22 +22,55 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "finish_date")
-    private Date finishDate;
-
     @Column(name = "description")
     private String description;
 
-    @Column(name = "price")
-    private Double price;
+    @Column(name = "extra_details")
+    private String extraDetails;
 
-    @JsonBackReference(value="order-movement")
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "offer_id", referencedColumnName = "id")
-    private Offer offer;
+    @Column(name = "price")
+    private String price;
+
+    @CreationTimestamp
+    @Column(name = "create_date")
+    private LocalDateTime createDate;
+
+    @Column(name = "start_date")
+    private LocalDate startDate;
+
+    @Column(name = "end_date")
+    private LocalDate endDate;
+
+    @Column(name = "time_requirement")
+    private String timeRequirement;
+
+    @Column(name = "customer_approved")
+    private String customerApproved;
+
+    @Column(name = "provider_approved")
+    private String providerApproved;
 
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "provider_id")
     private Provider provider;
+
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @JsonManagedReference(value="location-movement")
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonManagedReference
+    @JoinTable(
+            name = "order_service",
+            joinColumns = {@JoinColumn(name = "order_id")},
+            inverseJoinColumns = {@JoinColumn(name = "service_id")}
+    )
+    private List<Service> services;
 }

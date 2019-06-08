@@ -31,7 +31,7 @@ public class ProviderSpecification {
     public static Specification<Provider> isCountry(String country) {
         return (root, query, criteriaBuilder) ->
                 (country == null) ? null
-                        : criteriaBuilder.equal(root.get("location").get("region"), country);
+                        : criteriaBuilder.equal(root.get("location").get("country"), country);
     }
 
     public static Specification<Provider> greaterThanOrEqualToRating(int minRating) {

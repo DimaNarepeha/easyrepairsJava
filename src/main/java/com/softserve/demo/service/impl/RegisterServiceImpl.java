@@ -6,6 +6,7 @@ import com.softserve.demo.exceptions.AlreadyExistException;
 import com.softserve.demo.exceptions.VerificationFailedException;
 import com.softserve.demo.model.*;
 import com.softserve.demo.repository.CustomerRepository;
+import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.EmailService;
@@ -13,11 +14,14 @@ import com.softserve.demo.service.PortfolioService;
 import com.softserve.demo.service.RegisterService;
 import com.softserve.demo.util.mappers.CustomerMapper;
 import com.softserve.demo.util.mappers.ProviderMapper;
+import com.softserve.demo.util.Constant;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -34,9 +38,11 @@ public class RegisterServiceImpl implements RegisterService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final PortfolioService portfolioService;
+    private final LocationRepository locationRepository;
 
     private static final String USERNAME_EXISTS = "This username already exist";
     private static final String EMAIL_EXISTS = "This email already used";
+
 
 
     public RegisterServiceImpl(
@@ -46,7 +52,9 @@ public class RegisterServiceImpl implements RegisterService {
             final CustomerRepository customerRepository,
             final UserRepository userRepository,
             final ProviderRepository providerRepository,
-            final EmailService emailService, PortfolioService portfolioService) {
+            final EmailService emailService,
+            final PortfolioService portfolioService,
+            final LocationRepository locationRepository) {
         this.passwordEncoder = passwordEncoder;
         this.providerMapper = providerMapper;
         this.userRepository = userRepository;
@@ -55,14 +63,16 @@ public class RegisterServiceImpl implements RegisterService {
         this.customerMapper = customerMapper;
         this.emailService = emailService;
         this.portfolioService = portfolioService;
+        this.locationRepository = locationRepository;
     }
 
     @Override
     @Transactional
     public CustomerDTO createCustomer(final CustomerDTO customerDTO) {
-        User user = userRepository.save(createUser(customerMapper.customerDTOToUser(customerDTO),Role.CUSTOMER));
+        User user = userRepository.save(createUser(customerMapper.customerDTOToUser(customerDTO), Role.CUSTOMER));
         log.info(user.getPassword());
         sendVerificationCode(user);
+
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setUser(user);
         return customerMapper.customerToCustomerDTO(customerRepository.save(customer));
@@ -71,9 +81,10 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     @Transactional
     public ProviderDTO createProvider(final ProviderDTO providerDTO) {
-        User user = userRepository.save(createUser(providerMapper.providerDTOToUser(providerDTO),Role.PROVIDER));
+        User user = userRepository.save(createUser(providerMapper.providerDTOToUser(providerDTO), Role.PROVIDER));
         sendVerificationCode(user);
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
+        provider.setLocation(locationRepository.findById(Constant.DEFAULT_LOCATION).get());
         provider.setUser(user);
         provider = providerRepository.save(provider);
         portfolioService.createEmptyPortfolio(provider);
@@ -81,13 +92,15 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     private User createUser(User user, Role role) {
-        validateForEmailAndUsername(user.getEmail(),user.getUsername());
+        validateForEmailAndUsername(user.getEmail(), user.getUsername());
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);
+        user.setImage(Constant.defaultPhoto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return user;
     }
+
     private void validateForEmailAndUsername(String email, String username) {
         if (userRepository.existsByUsername(username)) {
             throw new AlreadyExistException(USERNAME_EXISTS);

@@ -1,13 +1,13 @@
 package com.softserve.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -33,12 +33,18 @@ public class User {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+    @Column(name = "attempts")
+    private Integer attempts;
+    @Column(name = "last_fail")
+    private LocalDateTime lastFail;
 
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "addressedFrom")
-    private List<Feedback> feedbackFrom;
+    private List<Feedback> feedbackFrom = new ArrayList<>();
 
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "addressedTo", cascade = CascadeType.REMOVE)
-    private List<Feedback> feedbackTo;
+    private List<Feedback> feedbackTo = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Phone> phones;

@@ -49,7 +49,6 @@ public class CustomerController {
         );
     }
 
-
     @GetMapping("list")
     public Page<CustomerDTO> getCustomersByPage(@PageableDefault Pageable pageable) {
         return customerService.getCustomersByPage(pageable);
@@ -111,6 +110,11 @@ public class CustomerController {
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "inline; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
+    }
+
+    @GetMapping("find-by-userId/{id}")
+    public ResponseEntity<?> findCustomerByUserId(@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(customerService.findCustomerByUserId(id), HttpStatus.OK);
     }
 
 }

@@ -1,24 +1,17 @@
 package com.softserve.demo.controller;
 
-import com.softserve.demo.dto.LocationDTO;
-import com.softserve.demo.dto.ProviderAndLocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
-import com.softserve.demo.model.Provider;
 import com.softserve.demo.model.ProviderStatus;
 import com.softserve.demo.service.FilesStorageService;
 import com.softserve.demo.service.ProvidersService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("service-providers")
-@CrossOrigin ("*")
+@CrossOrigin("*")
 public class ProvidersController {
 
     private final ProvidersService providersService;
@@ -39,92 +32,71 @@ public class ProvidersController {
         this.fileStorageService = fileStorageService;
     }
 
-    private ProviderDTO getProviderDTO(ProviderAndLocationDTO providerAndLocationDTO) {
-        ProviderDTO providerDTO = new ProviderDTO();
-        providerDTO.setId(providerAndLocationDTO.getIdProvider());
-        providerDTO.setName(providerAndLocationDTO.getName());
-        providerDTO.setEmail(providerAndLocationDTO.getEmail());
-        providerDTO.setDescription(providerAndLocationDTO.getDescription());
-        LocationDTO locationDTO = new LocationDTO();
-        locationDTO.setCountry(providerAndLocationDTO.getCountry());
-        locationDTO.setCity(providerAndLocationDTO.getCity());
-        locationDTO.setRegion(providerAndLocationDTO.getRegion());
-        providerDTO.setLocation(locationDTO);
-        return providerDTO;
-    }
 
     @PostMapping("save")
-    public ResponseEntity<?> saveServiceProvider(@RequestBody ProviderAndLocationDTO providerAndLocationDTO) {
-        ProviderDTO providerDTO = getProviderDTO(providerAndLocationDTO);
-        return new ResponseEntity<>(providersService.save(providerDTO,providerDTO.getLocation()), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProviderDTO saveServiceProvider(@RequestBody ProviderDTO providerDTO) {
+        return providersService.save(providerDTO);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateServiceProviders(@PathVariable("id")Integer id, @RequestBody ProviderAndLocationDTO providerAndLocationDTO) {
-        ProviderDTO providerDTO = getProviderDTO(providerAndLocationDTO);
-        return new ResponseEntity<>(providersService.update(id,providerDTO,providerDTO.getLocation()), HttpStatus.OK);
+    @PutMapping("/update")
+    @PreAuthorize("hasAnyAuthority('ADMIN','PROVIDER')")
+    public ProviderDTO updateServiceProviders(@RequestBody ProviderDTO providerDTO) {
+        return providersService.update(providerDTO);
     }
 
     @GetMapping("find-all")
-    public ResponseEntity<?> findAll() {
-        return new ResponseEntity<>(providersService.findAll(), HttpStatus.OK);
+    public List<ProviderDTO> findAll() {
+        return providersService.findAll();
     }
 
     @GetMapping("find-all/page")
-    public Page<?> getServiceProvidersByPage(@RequestParam(defaultValue = "0") int page) {
-        return providersService.getServiceProvidersByPage(page);
+    @PreAuthorize("hasAnyAuthority('ADMIN','PROVIDER','CUSTOMER')")
+    public Page<?> getServiceProvidersByPage(@PageableDefault Pageable pageable) {
+        return providersService.getServiceProvidersByPage(pageable);
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<?> deleteServiceProvidersResponse(@PathVariable("id") Integer id) {
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public void deleteServiceProvidersResponse(@PathVariable("id") Integer id) {
         providersService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("find-by-id/{id}")
-    public ResponseEntity<?> findById(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(providersService.findById(id), HttpStatus.OK);
+    @PreAuthorize("hasAnyAuthority('ADMIN','CUSTOMER','PROVIDER')")
+    public ProviderDTO findById(@PathVariable("id") Integer id) {
+        return providersService.findById(id);
     }
 
     @PostMapping("{userId}")
-    public ResponseEntity<?> uploadImage(
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void uploadImage(
             @PathVariable("userId") Integer id,
             @RequestParam("imageFile") MultipartFile file
     ) {
         fileStorageService.storeFile(file);
         providersService.addImageToProviders(id, file.getOriginalFilename());
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/image/{imageName}")
-    public ResponseEntity<?> getImageForProviders(@PathVariable("imageName") String name,
-                                                  HttpServletRequest servletRequest) {
-        Resource resource = fileStorageService.loadFile(name);
-        String contentType = null;
-        try {
-            contentType = servletRequest
-                    .getServletContext()
-                    .getMimeType(
-                            resource.getFile().getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
-            contentType = "application/octet-stream";
-        }
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "inline; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
-    }
 
     @GetMapping("find-all/status")
-    public Page<?> getServiceProviderByStatus (@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "4")
-            int numberOfProvidersOnPage, @RequestParam(defaultValue = "NOTAPPROVED") String status) {
-        return providersService.getServiceProvidersByStatus(page,numberOfProvidersOnPage, ProviderStatus.valueOf(status));
+    public Page<?> getServiceProviderByStatus(@PageableDefault Pageable pageable,
+                                              @RequestParam(defaultValue = "NOTAPPROVED") String status) {
+        return providersService.getServiceProvidersByStatus(pageable, ProviderStatus.valueOf(status));
     }
 
     @PutMapping("update-status/{id}")
-    public ResponseEntity<?> updateServiceProvidersStatus(@PathVariable("id") Integer id, @RequestBody String status) {
-        return new ResponseEntity<>(providersService.updateStatus(id,status), HttpStatus.OK);
+    public ProviderDTO updateServiceProvidersStatus(@PathVariable("id") Integer id, @RequestBody String status) {
+        return providersService.updateStatus(id, status);
+    }
+
+    @GetMapping("find-by-userId/{id}")
+    public ProviderDTO findProviderByUserId(@PathVariable("id") Integer id) {
+        return providersService.findProvidersByUserId(id);
+    }
+
+    @GetMapping("by/{name}")
+    public ProviderDTO findByName(@PathVariable("name") String name) {
+        return providersService.findByName(name);
     }
 }

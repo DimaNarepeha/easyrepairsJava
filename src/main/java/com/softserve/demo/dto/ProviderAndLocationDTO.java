@@ -1,15 +1,8 @@
 package com.softserve.demo.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-/**
- * Created by Illia Chenchak
- */
-@Getter
-@Setter
-@ToString
+@Data
 public class ProviderAndLocationDTO {
     private Integer idProvider;
     private String name;
