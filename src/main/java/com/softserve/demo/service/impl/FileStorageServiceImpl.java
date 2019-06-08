@@ -77,6 +77,7 @@ public class FileStorageServiceImpl implements FilesStorageService {
 
     @Override
     public String getContentType(HttpServletRequest servletRequest, Resource resource, String name) {
+
         String contentType = null;
 
         try {
