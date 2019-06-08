@@ -18,5 +18,6 @@ public interface ProviderRepository extends JpaRepository<Provider, Integer> {
     Provider findByUserId(Integer id);
 
     <T> Page<Provider> findAll(Specification<T> approved, Pageable pageable);
+
     Optional<Provider> findByName(String name);
 }
