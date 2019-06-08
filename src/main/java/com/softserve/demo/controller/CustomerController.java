@@ -29,12 +29,6 @@ public class CustomerController {
         this.fileStorageService = fileStorageService;
     }
 
-    @PostMapping
-    public ResponseEntity<?> createCustomer(
-            @RequestBody CustomerDTO customer) {
-        customerService.createCustomer(customer);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
 
     @GetMapping
     public ResponseEntity<?> getAllCustomers() {

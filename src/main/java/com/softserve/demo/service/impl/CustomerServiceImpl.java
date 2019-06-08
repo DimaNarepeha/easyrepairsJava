@@ -19,25 +19,17 @@ import java.util.stream.Collectors;
 @Service
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
-    private final UserRepository userRepository;
-
     private final CustomerMapper customerMapper;
 
     public CustomerServiceImpl(CustomerMapper customerMapper, CustomerRepository customerRepository, UserRepository userRepository) {
         this.customerRepository = customerRepository;
-        this.userRepository = userRepository;
         this.customerMapper = customerMapper;
     }
 
-    @Override
-    public void createCustomer(CustomerDTO customerDTO) {
-        Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
-        customer.setUser(userRepository.findById(1));
-        customerRepository.save(customer);
-    }
+
 
     @Override
-    public CustomerDTO updateCustomer( CustomerDTO customerDTO) {
+    public CustomerDTO updateCustomer(CustomerDTO customerDTO) {
         Customer customerFromDatabase = customerRepository.findById(customerDTO.getId()).orElseThrow(() -> new NotFoundException("Customer not found"));
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customerRepository.save(customer);
@@ -51,11 +43,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO deleteCustomer(Integer id) {
+    public void deleteCustomer(Integer id) {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
-
         customerRepository.deleteById(id);
-        return customerMapper.customerToCustomerDTO(customer);
     }
 
     @Override
