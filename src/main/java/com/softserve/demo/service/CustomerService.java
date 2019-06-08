@@ -2,6 +2,7 @@ package com.softserve.demo.service;
 
 
 import com.softserve.demo.dto.CustomerDTO;
+import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Customer;
 import com.softserve.demo.model.CustomerStatus;
 import com.softserve.demo.model.Offer;
@@ -30,4 +31,7 @@ public interface CustomerService {
     CustomerDTO findCustomerByUserId (Integer id);
 
     Page<CustomerDTO> getCustomersByStatus(Pageable pageable, CustomerStatus status);
+
+    CustomerDTO updateStatus(Integer id, String status);
+
 }

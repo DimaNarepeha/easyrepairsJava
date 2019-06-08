@@ -37,7 +37,7 @@ public class OfferController {
     }
 
     @GetMapping("customer/{id}")
-    public List<OfferDTO> getOffersByCustomer(@PathVariable("id") Integer id) {
+    public List<OfferDTO> getOffersByCustomerId(@PathVariable("id") Integer id) {
         return offerMapper.offersToOfferDTOs(offerService.getOffersByCustomerId(id));
     }
 

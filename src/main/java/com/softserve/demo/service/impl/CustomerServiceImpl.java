@@ -1,11 +1,9 @@
 package com.softserve.demo.service.impl;
 
 import com.softserve.demo.dto.CustomerDTO;
+import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.exceptions.NotFoundException;
-import com.softserve.demo.model.Customer;
-import com.softserve.demo.model.CustomerStatus;
-import com.softserve.demo.model.User;
-import com.softserve.demo.model.Offer;
+import com.softserve.demo.model.*;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.CustomerService;
@@ -65,6 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.customerToCustomerDTO(customer);
     }
 
+    @Override
     public Page<CustomerDTO> getCustomersByPage(Pageable pageable) {
         return customerRepository.findAll(pageable)
                 .map(customerMapper::customerToCustomerDTO);
@@ -93,5 +92,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Page<CustomerDTO> getCustomersByStatus(Pageable pageable, CustomerStatus status) {
         return customerRepository.findByStatus(status,pageable).map(customerMapper::customerToCustomerDTO);
+    }
+
+    @Override
+    public CustomerDTO updateStatus(Integer id, String status) {
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer not found"));
+        customer.setStatus(CustomerStatus.valueOf(status));
+        customerRepository.save(customer);
+        return customerMapper.customerToCustomerDTO(customer);
     }
 }

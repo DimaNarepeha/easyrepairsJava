@@ -117,13 +117,13 @@ public class ProvidersServiceImpl implements ProvidersService {
 
     @Override
     public Page<ProviderDTO> getServiceProvidersByPage(Pageable pageable) {
-        return providerRepository.findAll(pageable)
+        return providerRepository.findByStatus(ProviderStatus.APPROVED,pageable)
                 .map(providerMapper::providerToProviderDTO);
     }
 
     @Override
-    public Page<ProviderDTO> getServiceProvidersByStatus(Pageable pageable, ProviderStatus status) {
-        return providerRepository.findByStatus(status, pageable)
+    public Page<ProviderDTO> getServiceProvidersByStatus(int page , int numberOfProvidersOnPage, ProviderStatus status) {
+        return providerRepository.findByStatus(status, PageRequest.of(page, numberOfProvidersOnPage))
                 .map(providerMapper::providerToProviderDTO);
     }
 
@@ -145,9 +145,9 @@ public class ProvidersServiceImpl implements ProvidersService {
         return providerRepository.findAll(approved, PageRequest.of(page, numberOfProvidersOnPage, Sort.by(sortBy).descending()));
     }
 
-//    @Override
-//    public Page<ProviderDTO> getServiceProvidersByStatusGroupByName(Pageable pageable, ProviderStatus status, String searchName) {
-//        return providerRepository.findByStatusOrderBySearchName(status,pageable,searchName).map(providerMapper::providerToProviderDTO);
-//    }
-
+    @Override
+    public ProviderDTO findByName(String name) {
+        Provider provider = providerRepository.findByName(name).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
+        return providerMapper.providerToProviderDTO(provider);
+    }
 }

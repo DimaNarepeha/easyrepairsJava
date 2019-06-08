@@ -11,18 +11,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProviderRepository extends JpaRepository<Provider, Integer> {
 
     Page<Provider> findByStatus(ProviderStatus status, Pageable pageable);
 
-//    @Query("SELECT * from customer where off.customer.id = :id")
-//    List<Offer> findAllByCustomerId(@Param("id") Integer id);
-////    Page<Provider> findByStatusOrderBySeachName(ProviderStatus status, Pageable pageable);
-
     Provider findByUserId(Integer id);
 
     <T> Page<Provider> findAll(Specification<T> approved, Pageable pageable);
+
+    Optional<Provider> findByName(String name);
 }

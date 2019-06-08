@@ -28,10 +28,9 @@ public class OfferServiceImpl implements OfferService {
         if (locationFromDB == null) {
             locationRepository.save(location);
             return offerRepository.save(offer);
-        } else {
-            offer.getLocation().setId(locationFromDB.getId());
-            return offerRepository.save(offer);
         }
+        offer.setLocation(locationFromDB);
+        return offerRepository.save(offer);
     }
 
     @Override

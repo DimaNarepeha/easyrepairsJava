@@ -1,6 +1,7 @@
 package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.CustomerDTO;
+import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.filter.ProviderFilter;
 import com.softserve.demo.model.CustomerStatus;
 import com.softserve.demo.model.ProviderStatus;
@@ -50,7 +51,6 @@ public class CustomerController {
                 customerService.getCustomerById(id), HttpStatus.OK
         );
     }
-
 
     @GetMapping("list")
     public Page<CustomerDTO> getCustomersByPage(@PageableDefault Pageable pageable) {
@@ -122,9 +122,14 @@ public class CustomerController {
 
     @GetMapping("status")
     @ResponseStatus(HttpStatus.OK)
-    public Page<?> getServiceCustomersByStatus(@PageableDefault Pageable pageable,
+    public Page<?> getCustomersByStatus(@PageableDefault Pageable pageable,
                                                @RequestParam(defaultValue = "ACTIVE") String status) {
         return customerService.getCustomersByStatus(pageable, CustomerStatus.valueOf(status));
+    }
+
+    @PutMapping("update-status/{id}")
+    public CustomerDTO updateCustonersStatus(@PathVariable("id") Integer id, @RequestBody String status) {
+        return customerService.updateStatus(id, status);
     }
 
 }
