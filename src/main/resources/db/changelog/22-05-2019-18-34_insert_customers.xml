@@ -9,7 +9,7 @@
             <column name="id" value="10001"/>
             <column name="login" value="customer1"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
-            <column name="image" value="1.jpg"/>
+            <column name="image" value="man1.jpg"/>
             <column name="email" value="customer1@gmail.com"/>
         </insert>
         <insert tableName="user_role">
@@ -32,7 +32,7 @@
             <column name="id" value="10002"/>
             <column name="login" value="customer2"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
-            <column name="image" value="1.jpg"/>
+            <column name="image" value="man2.jpg"/>
             <column name="email" value="customer2@gmail.com"/>
         </insert>
         <insert tableName="user_role">
@@ -53,7 +53,7 @@
             <column name="id" value="10003"/>
             <column name="login" value="customer3"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
-            <column name="image" value="1.jpg"/>
+            <column name="image" value="man3.jpg"/>
             <column name="email" value="customer3@gmail.com"/>
         </insert>
         <insert tableName="user_role">
@@ -74,7 +74,7 @@
             <column name="id" value="10004"/>
             <column name="login" value="customer4"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
-            <column name="image" value="1.jpg"/>
+            <column name="image" value="man4.jpg"/>
             <column name="email" value="customer4@gmail.com"/>
         </insert>
         <insert tableName="user_role">
@@ -95,7 +95,7 @@
             <column name="id" value="10005"/>
             <column name="login" value="customer5"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
-            <column name="image" value="1.jpg"/>
+            <column name="image" value="man5.jpg"/>
             <column name="email" value="customer5@gmail.com"/>
         </insert>
         <insert tableName="user_role">
@@ -116,7 +116,7 @@
             <column name="id" value="10006"/>
             <column name="login" value="customer6"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
-            <column name="image" value="1.jpg"/>
+            <column name="image" value="man6.jpg"/>
             <column name="email" value="customer6@gmail.com"/>
         </insert>
         <insert tableName="user_role">

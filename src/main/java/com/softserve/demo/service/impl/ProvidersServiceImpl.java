@@ -11,9 +11,9 @@ import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.ProvidersService;
-import com.softserve.demo.util.LocationMapper;
+import com.softserve.demo.util.mappers.LocationMapper;
+import com.softserve.demo.util.mappers.ProviderMapper;
 import com.softserve.demo.util.Constant;
-import com.softserve.demo.util.ProviderMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
@@ -27,9 +27,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Illia Chenchak
- */
 
 @Service
 @Transactional
@@ -60,8 +57,8 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public ProviderDTO findById(Integer id) {
-        Provider provider = providerRepository.findById(id).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
+    public ProviderDTO findById(Integer idProvider) {
+        Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
         return providerMapper.providerToProviderDTO(provider);
     }
 
@@ -101,15 +98,15 @@ public class ProvidersServiceImpl implements ProvidersService {
 
 
     @Override
-    public void delete(Integer id) {
-        Provider provider = providerRepository.findById(id).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
+    public void delete(Integer idProvider) {
+        Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
         providerRepository.delete(provider);
     }
 
     @Override
-    public void addImageToProviders(Integer id, String fileName) {
+    public void addImageToProviders(Integer idProvider, String fileName) {
         Provider provider =
-                providerRepository.findById(id).get();
+                providerRepository.findById(idProvider).get();
         User user = userRepository.findById(provider.getUser().getId());
         user.setImage(fileName);
         providerRepository.save(provider);
@@ -117,7 +114,7 @@ public class ProvidersServiceImpl implements ProvidersService {
 
     @Override
     public Page<ProviderDTO> getServiceProvidersByPage(Pageable pageable) {
-        return providerRepository.findByStatus(ProviderStatus.APPROVED,pageable)
+        return providerRepository.findByStatus(ProviderStatus.APPROVED, pageable)
                 .map(providerMapper::providerToProviderDTO);
     }
 
@@ -128,16 +125,16 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public ProviderDTO updateStatus(Integer id, String status) {
-        Provider provider = providerRepository.findById(id).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
+    public ProviderDTO updateStatus(Integer idProvider, String status) {
+        Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
         provider.setStatus(ProviderStatus.valueOf(status));
         providerRepository.save(provider);
         return providerMapper.providerToProviderDTO(provider);
     }
 
     @Override
-    public ProviderDTO findProvidersByUserId(Integer id) {
-        return providerMapper.providerToProviderDTO(providerRepository.findByUserId(id));
+    public ProviderDTO findProvidersByUserId(Integer idUser) {
+        return providerMapper.providerToProviderDTO(providerRepository.findByUserId(idUser));
     }
 
     @Override

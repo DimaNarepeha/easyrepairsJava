@@ -17,6 +17,7 @@
             <column name="roles" value="PROVIDER"/>
         </insert>
     </changeSet>
+
     <changeSet id="2" author="Hanuliak">
         <insert tableName="service_provider">
             <column name="id" value="20005"/>
@@ -27,6 +28,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-02-12 12:12:12"/>
             <column name="raiting" value="4.3"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -53,6 +55,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-03-11 10:12:02"/>
             <column name="raiting" value="2.1"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -79,6 +82,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-03-11 10:12:02"/>
             <column name="raiting" value="3.5"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -105,6 +109,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-02-01 10:12:02"/>
             <column name="raiting" value="3.2"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -131,6 +136,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-05-01 12:12:02"/>
             <column name="raiting" value="5.0"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -157,6 +163,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-04-04 12:12:02"/>
             <column name="raiting" value="3.2"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -183,6 +190,7 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-04-24 15:02:02"/>
             <column name="raiting" value="4.1"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -209,6 +217,49 @@
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-06-05 15:02:02"/>
             <column name="raiting" value="4.8"/>
+            <column name="location_id" value="1"/>
+        </insert>
+    </changeSet>
+    <changeSet id="111" author="Oleksandr">
+        <insert tableName="portfolio">
+            <column name="id" value="21"/>
+            <column name="provider_id" value="20005"/>
+            <column name="last_update" value="2019-05-22 18:06:33"/>
+        </insert>
+        <insert tableName="portfolio">
+            <column name="id" value="22"/>
+            <column name="provider_id" value="20006"/>
+            <column name="last_update" value="2018-04-09 20:47:00"/>
+        </insert>
+        <insert tableName="portfolio">
+            <column name="id" value="23"/>
+            <column name="provider_id" value="20007"/>
+            <column name="last_update" value="2017-06-01 14:16:01"/>
+        </insert>
+        <insert tableName="portfolio">
+            <column name="id" value="24"/>
+            <column name="provider_id" value="20008"/>
+            <column name="last_update" value="2017-06-01 14:16:01"/>
+        </insert>
+        <insert tableName="portfolio">
+            <column name="id" value="25"/>
+            <column name="provider_id" value="20009"/>
+            <column name="last_update" value="2017-06-01 14:16:01"/>
+        </insert>
+        <insert tableName="portfolio">
+            <column name="id" value="26"/>
+            <column name="provider_id" value="20010"/>
+            <column name="last_update" value="2017-06-01 14:16:01"/>
+        </insert>
+        <insert tableName="portfolio">
+            <column name="id" value="27"/>
+            <column name="provider_id" value="20011"/>
+            <column name="last_update" value="2017-06-01 14:16:01"/>
+        </insert>
+        <insert tableName="portfolio">
+            <column name="id" value="28"/>
+            <column name="provider_id" value="20012"/>
+            <column name="last_update" value="2017-06-01 14:16:01"/>
         </insert>
     </changeSet>
 

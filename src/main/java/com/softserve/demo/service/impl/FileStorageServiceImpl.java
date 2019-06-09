@@ -6,6 +6,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -72,5 +73,27 @@ public class FileStorageServiceImpl implements FilesStorageService {
         }
 
         return null;
+    }
+
+    @Override
+    public String getContentType(HttpServletRequest servletRequest, Resource resource, String name) {
+
+        String contentType = null;
+
+        try {
+            contentType = servletRequest
+                    .getServletContext()
+                    .getMimeType(
+                            resource.getFile().getAbsolutePath());
+        } catch (IOException e) {
+            contentType = "application/octet-stream";
+
+        }
+
+        if (contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        return contentType;
     }
 }

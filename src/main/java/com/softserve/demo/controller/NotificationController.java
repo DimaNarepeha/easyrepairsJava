@@ -3,7 +3,7 @@ package com.softserve.demo.controller;
 import com.softserve.demo.dto.NotificationDTO;
 import com.softserve.demo.model.Notification;
 import com.softserve.demo.service.NotificationService;
-import com.softserve.demo.util.NotificationMapper;
+import com.softserve.demo.util.mappers.NotificationMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
