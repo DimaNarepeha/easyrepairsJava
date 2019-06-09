@@ -14,16 +14,18 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("message")
 public class ChatController {
-    @Autowired
-    ChatService chatService;
+    private final ChatService chatService;
 
+    @Autowired
+    public ChatController(ChatService chatService) {
+        this.chatService = chatService;
+    }
 
     @PostMapping
     public ResponseEntity<?> typeMessage(
             @RequestBody ChatDTO chat) {
         log.info(chat.toString());
         chatService.saveMessage(chat);
-       //chatService.getMessagesBySenderAndGetter(1).forEach((Chat c)->log.info(c.toString()));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -32,9 +34,6 @@ public class ChatController {
                                          @PathVariable("providerId") Integer providerId){
         return new ResponseEntity<>(chatService.getMessagesBySenderAndGetter( customerId,providerId),HttpStatus.OK);
     }
-    @RequestMapping(value = "/getMessages", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<?> getMessages(){
-        return new ResponseEntity<>(chatService.getAllMessages(7,1),HttpStatus.OK);
-    }
+
 
 }

@@ -13,5 +13,4 @@ public interface ChatService {
 
     void saveMessage(ChatDTO chat);
 
-    MessageDTO getAllMessages(Integer customerId, Integer providerId);
 }
