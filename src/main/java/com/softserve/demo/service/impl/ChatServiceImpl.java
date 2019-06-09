@@ -31,9 +31,9 @@ public class ChatServiceImpl implements ChatService {
 
 
     @Override
-    public void saveMessage(ChatDTO chat) {
-        Chat chatE = chatMapper.chatDTOToChat(chat);
-        chatRepository.save(chatE);
+    public void saveMessage(ChatDTO chatDTO) {
+        Chat chat = chatMapper.chatDTOToChat(chatDTO);
+        chatRepository.save(chat);
     }
 
 }
