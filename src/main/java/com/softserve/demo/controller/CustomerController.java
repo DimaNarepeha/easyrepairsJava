@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -70,7 +71,9 @@ public class CustomerController {
         customerService.addImageToCustomer(id, file.getOriginalFilename());
     }
 
+
     @GetMapping("image/{imageName}")
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<?> getImage(
             @PathVariable("imageName") String name,
             final HttpServletRequest servletRequest

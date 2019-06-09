@@ -10,8 +10,12 @@ import java.util.Date;
 
 @Controller
 public class WebSocketController {
+    private final SimpMessagingTemplate template;
+
     @Autowired
-    private  SimpMessagingTemplate template;
+    public WebSocketController(SimpMessagingTemplate template) {
+        this.template = template;
+    }
 
     @MessageMapping("/send/message")
     public void onReceivedMessage(String message){
