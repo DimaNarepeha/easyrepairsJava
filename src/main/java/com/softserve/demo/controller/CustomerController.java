@@ -73,7 +73,6 @@ public class CustomerController {
 
 
     @GetMapping("image/{imageName}")
-    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<?> getImage(
             @PathVariable("imageName") String name,
             final HttpServletRequest servletRequest
