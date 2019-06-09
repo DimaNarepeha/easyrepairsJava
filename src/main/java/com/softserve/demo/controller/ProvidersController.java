@@ -88,9 +88,4 @@ public class ProvidersController {
     public ProviderDTO findProviderByUserId(@PathVariable("id") Integer idUser) {
         return providersService.findProvidersByUserId(idUser);
     }
-
-    @GetMapping("by/{name}")
-    public ProviderDTO findByName(@PathVariable("name") String providerName) {
-        return providersService.findByName(providerName);
-    }
 }

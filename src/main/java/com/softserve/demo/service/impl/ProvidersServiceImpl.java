@@ -1,7 +1,6 @@
 package com.softserve.demo.service.impl;
 
 
-import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Location;
@@ -141,11 +140,5 @@ public class ProvidersServiceImpl implements ProvidersService {
     @Override
     public <T> Page<Provider> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy) {
         return providerRepository.findAll(approved, PageRequest.of(page, numberOfProvidersOnPage, Sort.by(sortBy).descending()));
-    }
-
-    @Override
-    public ProviderDTO findByName(String providerName) {
-        Provider provider = providerRepository.findByName(providerName).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
-        return providerMapper.providerToProviderDTO(provider);
     }
 }
