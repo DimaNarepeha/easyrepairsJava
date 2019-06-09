@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @Slf4j
 @CrossOrigin("*")
 @RestController
@@ -22,17 +25,16 @@ public class ChatController {
     }
 
     @PostMapping
-    public ResponseEntity<?> typeMessage(
+    public void typeMessage(
             @RequestBody ChatDTO chat) {
         log.info(chat.toString());
         chatService.saveMessage(chat);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{customerId}/{providerId}", method=RequestMethod.GET)
-    public ResponseEntity<?> getCustomer(@PathVariable("customerId") Integer customerId,
-                                         @PathVariable("providerId") Integer providerId){
-        return new ResponseEntity<>(chatService.getMessagesBySenderAndGetter( customerId,providerId),HttpStatus.OK);
+    public List<Chat> getCustomer(@PathVariable("customerId") Integer customerId,
+                                  @PathVariable("providerId") Integer providerId){
+        return chatService.getMessagesBySenderAndGetter( customerId,providerId);
     }
 
 
