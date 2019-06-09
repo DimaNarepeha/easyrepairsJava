@@ -10,9 +10,8 @@ import java.util.List;
 
 @Repository
 public interface ChatRepository extends JpaRepository<Chat, Integer> {
-    @Query("SELECT chat FROM Chat chat WHERE chat.customerId.id = :customerId AND chat.providerId.id = :providerId " +
+    @Query("SELECT chat FROM Chat chat WHERE chat.customer.id = :customerId AND chat.provider.id = :providerId " +
             "order by chat.sendingTime DESC" )
     List<Chat> findAllBySenderAndGetterId(@Param("customerId")Integer customerId,@Param("providerId")Integer providerId);
-    @Query("SELECT chat.message FROM Chat chat WHERE chat.customerId.id = :customerId AND chat.providerId.id = :providerId ")
-List<String> getMessages(@Param("customerId")Integer customerId,@Param("providerId")Integer providerId);
+
  }

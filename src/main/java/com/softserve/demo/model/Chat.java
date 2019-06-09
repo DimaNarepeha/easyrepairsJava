@@ -20,10 +20,10 @@ public class Chat {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customerId;
+    private Customer customer;
     @ManyToOne
     @JoinColumn(name = "provider_id")
-    private Provider providerId;
+    private Provider provider;
 
     private String message;
 
