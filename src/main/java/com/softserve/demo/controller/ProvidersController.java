@@ -45,7 +45,6 @@ public class ProvidersController {
     }
 
     @GetMapping("find-all")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'CUSTOMER', 'PROVIDER')")
     public List<ProviderDTO> findAll() {
         return providersService.findAll();
     }
