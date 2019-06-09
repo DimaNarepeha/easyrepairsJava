@@ -34,7 +34,7 @@ public class OrderController {
     @PutMapping
     public OrderDTO updateOrder(@RequestBody @Valid OrderDTO orderDTO) {
         return orderMapper.orderToOrderDTO(
-                orderService.createOrder(orderMapper.orderDTOToOrder(orderDTO)));
+                orderService.updateOrder(orderMapper.orderDTOToOrder(orderDTO)));
     }
 
     @GetMapping

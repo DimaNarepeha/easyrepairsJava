@@ -47,6 +47,14 @@ public class OrderServiceImpl implements OrderService {
     public Order updateOrder(Order order) {
         orderRepository.findById(order.getId()).orElseThrow(() ->
                 new NotFoundException(String.format("Order with id: [%d] not found", order.getId())));
+        Location location = order.getLocation();
+        Location locationFromDB = locationRepository.findLocationByCityAndCountryAndRegion(
+                location.getCity(), location.getCountry(), location.getRegion());
+        if (locationFromDB == null) {
+            locationRepository.save(location);
+            return orderRepository.save(order);
+        }
+        order.setLocation(locationFromDB);
         return orderRepository.save(order);
     }
 
