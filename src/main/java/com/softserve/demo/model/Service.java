@@ -23,12 +23,14 @@ public class Service {
     @Column(name = "service_name")
     private String serviceName;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "service_offer")
     @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
     private List<Offer> offers = new ArrayList<>();
 
-    @JsonManagedReference
     @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
     private List<Provider> providers = new ArrayList<>();
 
+    @JsonManagedReference(value = "service_order")
+    @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
+    private List<Order> orders = new ArrayList<>();
 }

@@ -4,22 +4,24 @@ import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.exceptions.AlreadyExistException;
 import com.softserve.demo.exceptions.VerificationFailedException;
-import com.softserve.demo.model.Customer;
-import com.softserve.demo.model.Provider;
-import com.softserve.demo.model.Role;
-import com.softserve.demo.model.User;
+import com.softserve.demo.model.*;
 import com.softserve.demo.repository.CustomerRepository;
+import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.EmailService;
+import com.softserve.demo.service.PortfolioService;
 import com.softserve.demo.service.RegisterService;
-import com.softserve.demo.util.CustomerMapper;
-import com.softserve.demo.util.ProviderMapper;
+import com.softserve.demo.util.mappers.CustomerMapper;
+import com.softserve.demo.util.mappers.ProviderMapper;
+import com.softserve.demo.util.Constant;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -35,10 +37,11 @@ public class RegisterServiceImpl implements RegisterService {
     private final ProviderMapper providerMapper;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final PortfolioService portfolioService;
+    private final LocationRepository locationRepository;
 
     private static final String USERNAME_EXISTS = "This username already exist";
     private static final String EMAIL_EXISTS = "This email already used";
-
 
     public RegisterServiceImpl(
             final PasswordEncoder passwordEncoder,
@@ -47,7 +50,9 @@ public class RegisterServiceImpl implements RegisterService {
             final CustomerRepository customerRepository,
             final UserRepository userRepository,
             final ProviderRepository providerRepository,
-            final EmailService emailService) {
+            final EmailService emailService,
+            final PortfolioService portfolioService,
+            final LocationRepository locationRepository) {
         this.passwordEncoder = passwordEncoder;
         this.providerMapper = providerMapper;
         this.userRepository = userRepository;
@@ -55,6 +60,8 @@ public class RegisterServiceImpl implements RegisterService {
         this.providerRepository = providerRepository;
         this.customerMapper = customerMapper;
         this.emailService = emailService;
+        this.portfolioService = portfolioService;
+        this.locationRepository = locationRepository;
     }
 
     @Override
@@ -75,8 +82,11 @@ public class RegisterServiceImpl implements RegisterService {
         User user = userRepository.save(createUser(providerMapper.providerDTOToUser(providerDTO), Role.PROVIDER));
         sendVerificationCode(user);
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
+        provider.setLocation(locationRepository.findById(Constant.DEFAULT_LOCATION).get());
         provider.setUser(user);
-        return providerMapper.providerToProviderDTO(providerRepository.save(provider));
+        provider = providerRepository.save(provider);
+        portfolioService.createEmptyPortfolio(provider);
+        return providerMapper.providerToProviderDTO(provider);
     }
 
     private User createUser(User user, Role role) {
@@ -84,6 +94,7 @@ public class RegisterServiceImpl implements RegisterService {
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);
+        user.setImage(Constant.defaultPhoto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return user;
     }

@@ -29,12 +29,6 @@ public class CustomerController {
         this.fileStorageService = fileStorageService;
     }
 
-    @PostMapping
-    public ResponseEntity<?> createCustomer(
-            @RequestBody CustomerDTO customer) {
-        customerService.createCustomer(customer);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
 
     @GetMapping
     public ResponseEntity<?> getAllCustomers() {
@@ -49,7 +43,6 @@ public class CustomerController {
         );
     }
 
-
     @GetMapping("list")
     public Page<CustomerDTO> getCustomersByPage(@PageableDefault Pageable pageable) {
         return customerService.getCustomersByPage(pageable);
@@ -61,12 +54,11 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping
     public ResponseEntity<?> updateCustomer(
-            @PathVariable("id") Integer id,
             @RequestBody CustomerDTO customer
     ) {
-        CustomerDTO customerUpdated = customerService.updateCustomer(id, customer);
+        CustomerDTO customerUpdated = customerService.updateCustomer(customer);
 
         return new ResponseEntity<>(customerUpdated, HttpStatus.OK);
     }
@@ -90,21 +82,8 @@ public class CustomerController {
     ) {
 
         Resource resource = fileStorageService.loadFile(name);
+        String contentType = fileStorageService.getContentType(servletRequest,resource,name);
 
-        String contentType = null;
-
-        try {
-            contentType = servletRequest
-                    .getServletContext()
-                    .getMimeType(
-                            resource.getFile().getAbsolutePath());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (contentType == null) {
-            contentType = "application/octet-stream";
-        }
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))

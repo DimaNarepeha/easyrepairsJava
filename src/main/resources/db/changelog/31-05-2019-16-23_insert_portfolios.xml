@@ -7,18 +7,18 @@
 
     <changeSet id="1" author="Oleksandr">
         <insert tableName="portfolio">
+            <column name="id" value="20001"/>
+            <column name="provider_id" value="20001"/>
+            <column name="last_update" value="2019-05-22 18:06:33"/>
+        </insert>
+        <insert tableName="portfolio">
             <column name="id" value="20002"/>
             <column name="provider_id" value="20002"/>
-            <column name="last_update" value="2019-05-22 18:06:33"/>
+            <column name="last_update" value="2018-04-09 20:47:00"/>
         </insert>
         <insert tableName="portfolio">
             <column name="id" value="20003"/>
             <column name="provider_id" value="20003"/>
-            <column name="last_update" value="2018-04-09 20:47:00"/>
-        </insert>
-        <insert tableName="portfolio">
-            <column name="id" value="20004"/>
-            <column name="provider_id" value="20004"/>
             <column name="last_update" value="2017-06-01 14:16:01"/>
         </insert>
     </changeSet>

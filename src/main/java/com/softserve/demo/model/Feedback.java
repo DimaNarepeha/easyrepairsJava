@@ -42,12 +42,5 @@ public class Feedback {
     @Column(name = "update_date")
     private LocalDateTime updateDate;
 
-    @Column(name = "available")
-    private Boolean availabel;
 
-    @Column(name = "user_to")
-    private String userTo;
-
-    @Column(name = "user_from")
-    private String userFrom;
 }
