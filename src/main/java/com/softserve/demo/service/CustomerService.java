@@ -2,6 +2,7 @@ package com.softserve.demo.service;
 
 
 import com.softserve.demo.dto.CustomerDTO;
+import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Customer;
 import com.softserve.demo.model.CustomerStatus;
 import com.softserve.demo.model.Offer;
@@ -36,5 +37,7 @@ public interface CustomerService {
     CustomerDTO updateStatus(Integer id, String status);
 
     <T> Page<Customer> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy);
+
+     void addFavourite(Integer id, ProviderDTO providerDTO);
 
 }

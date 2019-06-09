@@ -5,12 +5,8 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet author="Serhii " id="1">
         <createTable tableName="favourite">
-            <column name="customer_id" type="INT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="provider_id" type="INT">
-                <constraints nullable="false"/>
-            </column>
+            <column name="customer_id" type="INT"/>
+            <column name="provider_id" type="INT"/>
         </createTable>
     </changeSet>
 
@@ -25,7 +21,7 @@
                                  onDelete="CASCADE"/>
     </changeSet>
     <changeSet id="3" author="Serhii">
-        <addForeignKeyConstraint baseTableName="chat"
+        <addForeignKeyConstraint baseTableName="favourite"
                                  baseColumnNames="provider_id"
                                  constraintName="favourite_service_provider"
                                  referencedTableName="service_provider"
@@ -33,4 +29,6 @@
                                  onUpdate="CASCADE"
                                  onDelete="CASCADE"/>
     </changeSet>
+
+
 </databaseChangeLog>

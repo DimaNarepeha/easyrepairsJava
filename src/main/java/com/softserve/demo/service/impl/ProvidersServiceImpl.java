@@ -12,9 +12,8 @@ import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.ProvidersService;
-import com.softserve.demo.util.ProviderMapper;
 import com.softserve.demo.util.mappers.LocationMapper;
-import com.softserve.demo.util.mappers.ProviderInfoMapper;
+import com.softserve.demo.util.mappers.ProviderMapper;
 import com.softserve.demo.util.Constant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -121,8 +120,8 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public Page<ProviderDTO> getServiceProvidersByStatus(int page , int numberOfProvidersOnPage, ProviderStatus status) {
-        return providerRepository.findByStatus(status, PageRequest.of(page, numberOfProvidersOnPage))
+    public Page<ProviderDTO> getServiceProvidersByStatus(int page, int numberOfProvidersOnPage, ProviderStatus status) {
+        return providerRepository.findByStatus(status, new PageRequest(page,numberOfProvidersOnPage))
                 .map(providerMapper::providerToProviderDTO);
     }
 

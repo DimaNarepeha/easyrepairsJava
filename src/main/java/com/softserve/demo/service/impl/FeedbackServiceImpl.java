@@ -69,6 +69,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public void delete(Integer idFeedback) {
+
         feedbackRepository.delete(feedbackRepository.findById(idFeedback).get());
     }
 

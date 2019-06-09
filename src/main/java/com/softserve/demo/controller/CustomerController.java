@@ -29,9 +29,10 @@ public class CustomerController {
     private final FilesStorageService fileStorageService;
     private final CustomerFilter customerFilter;
 
-    public CustomerController(final CustomerService customerService, final FilesStorageService fileStorageService, final CustomerFilter customerFilter) {
-        this.customerFilter = customerFilter;
+
+    public CustomerController(final CustomerService customerService, final FilesStorageService fileStorageService,final CustomerFilter customerFilter) {
         this.customerService = customerService;
+        this.customerFilter = customerFilter;
         this.fileStorageService = fileStorageService;
     }
 
@@ -62,6 +63,7 @@ public class CustomerController {
 
     @PutMapping
     public ResponseEntity<?> updateCustomer(
+            @PathVariable("id") Integer id,
             @RequestBody CustomerDTO customer
     ) {
         CustomerDTO customerUpdated = customerService.updateCustomer(customer);
@@ -88,7 +90,7 @@ public class CustomerController {
     ) {
 
         Resource resource = fileStorageService.loadFile(name);
-        String contentType = fileStorageService.getContentType(servletRequest, resource, name);
+        String contentType = fileStorageService.getContentType(servletRequest,resource,name);
 
 
         return ResponseEntity.ok()
@@ -111,26 +113,26 @@ public class CustomerController {
     }
 
     @PutMapping("update-status/{id}")
-    public CustomerDTO updateCustonersStatus(@PathVariable("id") Integer id, @RequestBody String status) {
+    public CustomerDTO updateCustomerStatus(@PathVariable("id") Integer id, @RequestBody String status) {
         return customerService.updateStatus(id, status);
     }
 
     @GetMapping("status/searchByFirstName")
     @ResponseStatus(HttpStatus.OK)
     public Page<?> getCustomersByFirstName(@RequestParam(defaultValue = "0") int page,
-                                           @RequestParam int numberOfProvidersOnPage,
+                                           @RequestParam int pageSize,
                                            @RequestParam(defaultValue = "ACTIVE") String status,
                                            @RequestParam String firstName) {
-        return customerFilter.firstNameLike(page,numberOfProvidersOnPage, firstName, CustomerStatus.valueOf(status));
+        return customerFilter.firstNameLike(page,pageSize, firstName, CustomerStatus.valueOf(status));
     }
 
     @GetMapping("status/searchByLastName")
     @ResponseStatus(HttpStatus.OK)
     public Page<?> getCustomersByLastName(@RequestParam(defaultValue = "0") int page,
-                                           @RequestParam int numberOfProvidersOnPage,
+                                           @RequestParam int pageSize,
                                            @RequestParam(defaultValue = "ACTIVE") String status,
                                            @RequestParam String lastName) {
-        return customerFilter.lastNameLike(page,numberOfProvidersOnPage, lastName, CustomerStatus.valueOf(status));
+        return customerFilter.lastNameLike(page,pageSize, lastName, CustomerStatus.valueOf(status));
     }
 
 

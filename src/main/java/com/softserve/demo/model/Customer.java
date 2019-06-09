@@ -49,6 +49,9 @@ public class Customer {
     private List<Offer> offers;
 
     @JsonBackReference(value = "order_customer")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer",cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.REMOVE)
     private List<Order> orders;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.REMOVE)
+    private List<Provider> favourite;
 }
