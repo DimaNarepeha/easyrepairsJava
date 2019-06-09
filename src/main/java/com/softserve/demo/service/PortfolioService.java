@@ -6,7 +6,7 @@ import com.softserve.demo.model.Portfolio;
 import com.softserve.demo.model.Provider;
 
 public interface PortfolioService {
-    PortfolioDTO findByProviderId(Integer id);
+    PortfolioDTO findById(Integer id);
 
     Portfolio createEmptyPortfolio(Provider provider);
 
@@ -19,4 +19,6 @@ public interface PortfolioService {
     PostDTO createPost(PostDTO postDTO);
 
     void deletePost(Integer postId);
+
+    PortfolioDTO findByProviderId(Integer providerId);
 }

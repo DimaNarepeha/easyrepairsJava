@@ -34,6 +34,4 @@ public interface ProvidersService {
 
     <T> Page<Provider> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy);
 
-    ProviderDTO findByName(String name);
-
 }

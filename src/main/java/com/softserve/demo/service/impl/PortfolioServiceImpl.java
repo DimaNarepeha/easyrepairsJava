@@ -35,8 +35,8 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public PortfolioDTO findByProviderId(Integer id) {
-        return convertPortfolioToPortfolioDTO(portfolioRepository.findByProviderId(id));
+    public PortfolioDTO findById(Integer id) {
+        return convertPortfolioToPortfolioDTO(portfolioRepository.findById(id).get());
     }
 
     @Override
@@ -69,10 +69,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     @Override
     public PostDTO createPost(PostDTO postDTO) {
-        Post post = new Post();
-        post.setMainDescription(postDTO.getMainDescription());
-        post.setHeader(postDTO.getHeader());
-        post.setMainPhoto(postDTO.getMainPhoto());
+        Post post = postMapper.postDTOToPost(postDTO);
         Portfolio portfolio = portfolioRepository.findById(postDTO.getPortfolioId()).get();
         portfolio.setLastUpdate(LocalDateTime.now());
         post.setPortfolio(portfolio);
@@ -82,6 +79,11 @@ public class PortfolioServiceImpl implements PortfolioService {
     @Override
     public void deletePost(Integer postId) {
         postRepository.deleteById(postId);
+    }
+
+    @Override
+    public PortfolioDTO findByProviderId(Integer providerId) {
+        return portfolioMapper.portfolioToPortfolioDTO(portfolioRepository.findByProviderId(providerId));
     }
 
     private PortfolioDTO convertPortfolioToPortfolioDTO(Portfolio portfolio){

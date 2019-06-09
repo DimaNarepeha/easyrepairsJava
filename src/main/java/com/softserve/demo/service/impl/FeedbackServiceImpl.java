@@ -15,9 +15,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Illia Chenchak
- */
 @Service
 @Transactional
 public class FeedbackServiceImpl implements FeedbackService {
@@ -60,8 +57,8 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public FeedbackDTO findById(Integer id) {
-        return feedbackMapper.feedbackToFeedbackDTO(feedbackRepository.findById(id).get());
+    public FeedbackDTO findById(Integer idFeedback) {
+        return feedbackMapper.feedbackToFeedbackDTO(feedbackRepository.findById(idFeedback).get());
     }
 
     @Override
@@ -71,14 +68,14 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer idFeedback) {
 
-        feedbackRepository.delete(feedbackRepository.findById(id).get());
+        feedbackRepository.delete(feedbackRepository.findById(idFeedback).get());
     }
 
     @Override
-    public List<FeedbackDTO> findFeedbackByUserId(Integer id) {
-        return feedbackRepository.findFeedbackByUserId(id).stream().map(
+    public List<FeedbackDTO> findFeedbackByUserId(Integer idUser) {
+        return feedbackRepository.findFeedbackByUserId(idUser).stream().map(
                 feedbackMapper::feedbackToFeedbackDTO).collect(Collectors.toList());
     }
 
