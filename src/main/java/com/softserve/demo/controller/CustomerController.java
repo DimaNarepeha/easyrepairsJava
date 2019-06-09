@@ -2,6 +2,7 @@ package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.dto.ProviderDTO;
+import com.softserve.demo.filter.CustomerFilter;
 import com.softserve.demo.filter.ProviderFilter;
 import com.softserve.demo.model.CustomerStatus;
 import com.softserve.demo.model.ProviderStatus;
@@ -26,18 +27,14 @@ import javax.servlet.http.HttpServletRequest;
 public class CustomerController {
     private final CustomerService customerService;
     private final FilesStorageService fileStorageService;
+    private final CustomerFilter customerFilter;
 
-    public CustomerController(final CustomerService customerService, final FilesStorageService fileStorageService) {
+    public CustomerController(final CustomerService customerService, final FilesStorageService fileStorageService, final CustomerFilter customerFilter) {
+        this.customerFilter = customerFilter;
         this.customerService = customerService;
         this.fileStorageService = fileStorageService;
     }
 
-    @PostMapping
-    public ResponseEntity<?> createCustomer(
-            @RequestBody CustomerDTO customer) {
-        customerService.createCustomer(customer);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
 
     @GetMapping
     public ResponseEntity<?> getAllCustomers() {
@@ -63,12 +60,11 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping
     public ResponseEntity<?> updateCustomer(
-            @PathVariable("id") Integer id,
             @RequestBody CustomerDTO customer
     ) {
-        CustomerDTO customerUpdated = customerService.updateCustomer(id, customer);
+        CustomerDTO customerUpdated = customerService.updateCustomer(customer);
 
         return new ResponseEntity<>(customerUpdated, HttpStatus.OK);
     }
@@ -92,21 +88,8 @@ public class CustomerController {
     ) {
 
         Resource resource = fileStorageService.loadFile(name);
+        String contentType = fileStorageService.getContentType(servletRequest, resource, name);
 
-        String contentType = null;
-
-        try {
-            contentType = servletRequest
-                    .getServletContext()
-                    .getMimeType(
-                            resource.getFile().getAbsolutePath());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (contentType == null) {
-            contentType = "application/octet-stream";
-        }
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
@@ -123,7 +106,7 @@ public class CustomerController {
     @GetMapping("status")
     @ResponseStatus(HttpStatus.OK)
     public Page<?> getCustomersByStatus(@PageableDefault Pageable pageable,
-                                               @RequestParam(defaultValue = "ACTIVE") String status) {
+                                        @RequestParam(defaultValue = "ACTIVE") String status) {
         return customerService.getCustomersByStatus(pageable, CustomerStatus.valueOf(status));
     }
 
@@ -131,5 +114,24 @@ public class CustomerController {
     public CustomerDTO updateCustonersStatus(@PathVariable("id") Integer id, @RequestBody String status) {
         return customerService.updateStatus(id, status);
     }
+
+    @GetMapping("status/searchByFirstName")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<?> getCustomersByFirstName(@RequestParam(defaultValue = "0") int page,
+                                           @RequestParam int numberOfProvidersOnPage,
+                                           @RequestParam(defaultValue = "ACTIVE") String status,
+                                           @RequestParam String firstName) {
+        return customerFilter.firstNameLike(page,numberOfProvidersOnPage, firstName, CustomerStatus.valueOf(status));
+    }
+
+    @GetMapping("status/searchByLastName")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<?> getCustomersByLastName(@RequestParam(defaultValue = "0") int page,
+                                           @RequestParam int numberOfProvidersOnPage,
+                                           @RequestParam(defaultValue = "ACTIVE") String status,
+                                           @RequestParam String lastName) {
+        return customerFilter.lastNameLike(page,numberOfProvidersOnPage, lastName, CustomerStatus.valueOf(status));
+    }
+
 
 }

@@ -2,23 +2,24 @@ package com.softserve.demo.service;
 
 
 import com.softserve.demo.dto.CustomerDTO;
-import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Customer;
 import com.softserve.demo.model.CustomerStatus;
 import com.softserve.demo.model.Offer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public interface CustomerService {
-    void createCustomer(CustomerDTO customer);
 
-    CustomerDTO updateCustomer(Integer id, CustomerDTO customer);
+
+    CustomerDTO updateCustomer( CustomerDTO customer);
 
     List<CustomerDTO> getAllCustomers();
 
-    CustomerDTO deleteCustomer(Integer id);
+    void deleteCustomer(Integer id);
 
     CustomerDTO getCustomerById(Integer id);
 
@@ -33,5 +34,7 @@ public interface CustomerService {
     Page<CustomerDTO> getCustomersByStatus(Pageable pageable, CustomerStatus status);
 
     CustomerDTO updateStatus(Integer id, String status);
+
+    <T> Page<Customer> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy);
 
 }

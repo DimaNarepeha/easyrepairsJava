@@ -8,8 +8,7 @@ import com.softserve.demo.model.ProviderStatus;
 import com.softserve.demo.model.search.ProviderCriteria;
 import com.softserve.demo.service.impl.ProvidersServiceImpl;
 import com.softserve.demo.service.impl.ServiceFromProvidersImpl;
-import com.softserve.demo.util.ProviderInfoMapper;
-import com.softserve.demo.util.ProviderMapper;
+import com.softserve.demo.util.mappers.ProviderInfoMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -23,18 +22,16 @@ import java.util.Map;
 @Service
 public class ProviderFilter {
 
-    private final ProviderInfoMapper providerInfoMapper;
-    private final ProviderMapper providerMapper;
+    private final ProviderInfoMapper providerMapper;
     private final ProvidersServiceImpl providersService;
-    private final ServiceFromProvidersImpl serviceFromProviders;//[1,2,3,4]
-    public static final int ONE = 1;
-    public static final int TWO = 2;
+    private final ServiceFromProvidersImpl serviceFromProviders;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
 
-    public ProviderFilter(ProviderMapper providerMapper ,ProvidersServiceImpl providersService, ProviderInfoMapper providerInfoMapper, ServiceFromProvidersImpl serviceFromProviders) {
+    public ProviderFilter(ProvidersServiceImpl providersService, ProviderInfoMapper providerInfoMapper, ServiceFromProvidersImpl serviceFromProviders) {
         this.providersService = providersService;
-        this.providerInfoMapper = providerInfoMapper;
+        this.providerMapper = providerInfoMapper;
         this.serviceFromProviders = serviceFromProviders;
-        this.providerMapper = providerMapper;
     }
 
     private List<com.softserve.demo.model.Service> getCheckedServices(String checkedServicesId) {
@@ -63,16 +60,16 @@ public class ProviderFilter {
                         .and(ProviderSpecification.greaterThanOrEqualToRating(searchCriteria.getMinRating()))
                         .and(ProviderSpecification.buildIsMemberServices(searchCriteria.getCheckedServices())),
                 page, numberOfProvidersOnPage, searchCriteria.getSortBy());
-        List<ProviderInfoDTO> providerInfoDTOS = providerInfoMapper.map(entityPage.getContent());
+        List<ProviderInfoDTO> providerInfoDTOS = providerMapper.map(entityPage.getContent());
         return new PageImpl<>(providerInfoDTOS, PageRequest.of(page, numberOfProvidersOnPage), entityPage.getTotalElements());
     }
 
-    public Page<ProviderDTO> nameLike(int page, int numberOfProvidersOnPage, String searchName, ProviderStatus status) {
+    public Page<ProviderInfoDTO> nameLike(int page, int numberOfProvidersOnPage, String searchName, ProviderStatus status) {
         Page<Provider> entityPage = providersService.findAll(Specification.where(ProviderSpecification.isStatus(status))
                         .and(ProviderSpecification.likeName(searchName)),
                 page, numberOfProvidersOnPage, "name");
-        List<ProviderDTO> providerDTO =providerMapper.providerToProviderDTO(entityPage.getContent());
-        return new PageImpl<>(providerDTO, PageRequest.of(page, numberOfProvidersOnPage), entityPage.getTotalElements());
+        List<ProviderInfoDTO> providerDTO =providerMapper.map(entityPage.getContent());
+        return new PageImpl<ProviderInfoDTO>(providerDTO, PageRequest.of(page, numberOfProvidersOnPage), entityPage.getTotalElements());
     }
 
 }

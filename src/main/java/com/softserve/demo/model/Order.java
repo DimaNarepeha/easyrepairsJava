@@ -50,23 +50,23 @@ public class Order {
     @Column(name = "provider_approved")
     private String providerApproved;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "order_provider")
     @ManyToOne
     @JoinColumn(name = "provider_id")
     private Provider provider;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "order_customer")
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @JsonManagedReference(value="location-movement")
+    @JsonManagedReference(value="location-order")
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference(value = "service_order")
     @JoinTable(
             name = "order_service",
             joinColumns = {@JoinColumn(name = "order_id")},

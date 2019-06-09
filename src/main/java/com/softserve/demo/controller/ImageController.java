@@ -28,16 +28,8 @@ public class ImageController {
     public ResponseEntity<?> getImageForProviders(@PathVariable("imageName") String name,
                                                   HttpServletRequest servletRequest) {
         Resource resource = fileStorageService.loadFile(name);
-        String contentType = null;
-        try {
-            contentType = servletRequest
-                    .getServletContext()
-                    .getMimeType(
-                            resource.getFile().getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
-            contentType = "application/octet-stream";
-        }
+        String contentType = fileStorageService.getContentType(servletRequest,resource,name);
+
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION,
