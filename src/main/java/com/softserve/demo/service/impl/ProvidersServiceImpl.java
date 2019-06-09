@@ -11,15 +11,14 @@ import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.ProvidersService;
+import com.softserve.demo.util.Constant;
 import com.softserve.demo.util.mappers.LocationMapper;
 import com.softserve.demo.util.mappers.ProviderMapper;
-import com.softserve.demo.util.Constant;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +31,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class ProvidersServiceImpl implements ProvidersService {
 
+    private static final String PROVIDER_NOT_FOUND = "Provider with id [%s] was not found!";
+
     private final ProviderRepository providerRepository;
     private final UserRepository userRepository;
     private final ProviderMapper providerMapper;
@@ -39,7 +40,9 @@ public class ProvidersServiceImpl implements ProvidersService {
     private final LocationMapper locationMapper;
 
 
-    public ProvidersServiceImpl(ProviderRepository providerRepository, UserRepository userRepository, LocationRepository locationRepository, ProviderMapper providerMapper, LocationMapper locationMapper) {
+    public ProvidersServiceImpl(final ProviderRepository providerRepository, final UserRepository userRepository,
+                                final LocationRepository locationRepository, final ProviderMapper providerMapper,
+                                final LocationMapper locationMapper) {
         this.providerRepository = providerRepository;
         this.providerMapper = providerMapper;
         this.userRepository = userRepository;
@@ -47,7 +50,7 @@ public class ProvidersServiceImpl implements ProvidersService {
         this.locationMapper = locationMapper;
     }
 
-    private Location setOrSaveLocation(Location location) {
+    private Location setOrSaveLocation(final Location location) {
         Location newLoc = locationRepository.findLocationByCityAndCountryAndRegion(location.getCity(), location.getCountry(), location.getRegion());
         if (newLoc == null) {
             locationRepository.save(location);
@@ -57,8 +60,8 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public ProviderDTO findById(Integer idProvider) {
-        Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
+    public ProviderDTO findById(final Integer idProvider) {
+        Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
         return providerMapper.providerToProviderDTO(provider);
     }
 
@@ -69,7 +72,7 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public ProviderDTO save(ProviderDTO providerDTO) {
+    public ProviderDTO save(final ProviderDTO providerDTO) {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
         Location location = locationMapper.locationDTOToLocation(providerDTO.getLocation());
         provider.setLocation(setOrSaveLocation(location));
@@ -82,63 +85,66 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public ProviderDTO update(ProviderDTO providerDTO) {
+    public ProviderDTO update(final ProviderDTO providerDTO) {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
         Provider newProvider = providerRepository.findById(provider.getId()).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
         Location location = locationMapper.locationDTOToLocation(providerDTO.getLocation());
         newProvider.setLocation(setOrSaveLocation(location));
         newProvider.setName(provider.getName());
-        User user = userRepository.findById(provider.getId());
+        User user = userRepository.findById(provider.getUser().getId());
         user.setEmail(providerDTO.getEmail());
         newProvider.setDescription(provider.getDescription());
         LocalDateTime localDateTime = LocalDateTime.now();
-        provider.setLastUpdate(localDateTime);
+        newProvider.setLastUpdate(localDateTime);
+        newProvider.setStatus(ProviderStatus.MODIFIED);
         return providerMapper.providerToProviderDTO(newProvider);
     }
 
 
     @Override
-    public void delete(Integer idProvider) {
-        Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
+    public void delete(final Integer idProvider) {
+        Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
         providerRepository.delete(provider);
     }
 
     @Override
-    public void addImageToProviders(Integer idProvider, String fileName) {
+    public void addImageToProviders(final Integer idProvider, final String fileName) {
         Provider provider =
-                providerRepository.findById(idProvider).get();
+                providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
+        ;
         User user = userRepository.findById(provider.getUser().getId());
         user.setImage(fileName);
         providerRepository.save(provider);
     }
 
     @Override
-    public Page<ProviderDTO> getServiceProvidersByPage(Pageable pageable) {
+    public Page<ProviderDTO> getServiceProvidersByPage(final Pageable pageable) {
         return providerRepository.findByStatus(ProviderStatus.APPROVED, pageable)
                 .map(providerMapper::providerToProviderDTO);
     }
 
     @Override
-    public Page<ProviderDTO> getServiceProvidersByStatus(Pageable pageable, ProviderStatus status) {
+    public Page<ProviderDTO> getServiceProvidersByStatus(final Pageable pageable, final ProviderStatus status) {
         return providerRepository.findByStatus(status, pageable)
                 .map(providerMapper::providerToProviderDTO);
     }
 
     @Override
-    public ProviderDTO updateStatus(Integer idProvider, String status) {
-        Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
+    public ProviderDTO updateStatus(final Integer idProvider, final String status) {
+        Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
         provider.setStatus(ProviderStatus.valueOf(status));
         providerRepository.save(provider);
         return providerMapper.providerToProviderDTO(provider);
     }
 
     @Override
-    public ProviderDTO findProvidersByUserId(Integer idUser) {
+    public ProviderDTO findProvidersByUserId(final Integer idUser) {
         return providerMapper.providerToProviderDTO(providerRepository.findByUserId(idUser));
     }
 
     @Override
-    public <T> Page<Provider> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy) {
+    public <T> Page<Provider> findAll(final Specification<T> approved, final int page, final int numberOfProvidersOnPage,
+                                      final String sortBy) {
         return providerRepository.findAll(approved, PageRequest.of(page, numberOfProvidersOnPage, Sort.by(sortBy).descending()));
     }
 }

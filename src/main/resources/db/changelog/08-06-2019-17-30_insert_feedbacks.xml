@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="1" author="Illia Chenchak">
+        <insert tableName="feedback">
+            <column name="addressed_from" value="10001"/>
+            <column name="addressed_to" value="20009"/>
+            <column name="created_date" value="2019-06-08 14:14:04"/>
+            <column name="update_date" value="2019-06-08 15:14:04"/>
+            <column name="rating" value="5"/>
+            <column name="comment" value="Good job! Nice service! I like this providers! Reccomend!"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2" author="Illia Chenchak">
+        <insert tableName="feedback">
+            <column name="addressed_from" value="10002"/>
+            <column name="addressed_to" value="20009"/>
+            <column name="created_date" value="2019-06-08 14:14:04"/>
+            <column name="update_date" value="2019-06-08 15:14:04"/>
+            <column name="rating" value="2"/>
+            <column name="comment" value="Baaaaaaad! Worser then other"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="3" author="Illia Chenchak">
+        <insert tableName="feedback">
+            <column name="addressed_from" value="10003"/>
+            <column name="addressed_to" value="20009"/>
+            <column name="created_date" value="2019-06-08 14:14:04"/>
+            <column name="update_date" value="2019-06-08 15:14:04"/>
+            <column name="rating" value="5"/>
+            <column name="comment" value="Good job! Nice service! I like this providers! Reccomend!"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
