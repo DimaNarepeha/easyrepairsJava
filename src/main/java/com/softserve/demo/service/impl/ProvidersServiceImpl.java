@@ -91,11 +91,12 @@ public class ProvidersServiceImpl implements ProvidersService {
         Location location = locationMapper.locationDTOToLocation(providerDTO.getLocation());
         newProvider.setLocation(setOrSaveLocation(location));
         newProvider.setName(provider.getName());
-        User user = userRepository.findById(provider.getId());
+        User user = userRepository.findById(provider.getUser().getId());
         user.setEmail(providerDTO.getEmail());
         newProvider.setDescription(provider.getDescription());
         LocalDateTime localDateTime = LocalDateTime.now();
-        provider.setLastUpdate(localDateTime);
+        newProvider.setLastUpdate(localDateTime);
+        newProvider.setStatus(ProviderStatus.MODIFIED);
         return providerMapper.providerToProviderDTO(newProvider);
     }
 
