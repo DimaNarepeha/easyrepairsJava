@@ -110,7 +110,8 @@ public class ProvidersServiceImpl implements ProvidersService {
     @Override
     public void addImageToProviders(final Integer idProvider, final String fileName) {
         Provider provider =
-                providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));;
+                providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
+        ;
         User user = userRepository.findById(provider.getUser().getId());
         user.setImage(fileName);
         providerRepository.save(provider);
@@ -145,11 +146,5 @@ public class ProvidersServiceImpl implements ProvidersService {
     public <T> Page<Provider> findAll(final Specification<T> approved, final int page, final int numberOfProvidersOnPage,
                                       final String sortBy) {
         return providerRepository.findAll(approved, PageRequest.of(page, numberOfProvidersOnPage, Sort.by(sortBy).descending()));
-    }
-
-    @Override
-    public ProviderDTO findByName(final String providerName) {
-        Provider provider = providerRepository.findByName(providerName).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND)));
-        return providerMapper.providerToProviderDTO(provider);
     }
 }
