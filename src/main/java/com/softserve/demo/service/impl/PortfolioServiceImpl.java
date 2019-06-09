@@ -3,6 +3,7 @@ package com.softserve.demo.service.impl;
 import com.softserve.demo.dto.PortfolioDTO;
 import com.softserve.demo.dto.PostDTO;
 import com.softserve.demo.model.Portfolio;
+import com.softserve.demo.model.Post;
 import com.softserve.demo.model.Provider;
 import com.softserve.demo.repository.PortfolioRepository;
 import com.softserve.demo.repository.PostRepository;
@@ -13,6 +14,8 @@ import com.softserve.demo.util.mappers.PostMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 @Service
 @Slf4j
@@ -32,7 +35,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public PortfolioDTO findById(Integer id) {
+    public PortfolioDTO findByProviderId(Integer id) {
         return convertPortfolioToPortfolioDTO(portfolioRepository.findByProviderId(id));
     }
 
@@ -46,6 +49,39 @@ public class PortfolioServiceImpl implements PortfolioService {
     @Override
     public PostDTO findPostById(Integer id) {
         return postMapper.postToPostDTO(postRepository.findById(id).get());
+    }
+
+    @Override
+    public void addImageToPost(Integer id, String originalFilename) {
+        Post post = postRepository.findById(id).get();
+        post.setMainPhoto(originalFilename);
+    }
+
+    @Override
+    public PostDTO updatePost(PostDTO postDTO, Integer id) {
+        Post post = postRepository.findById(id).get();
+        Portfolio portfolio = portfolioRepository.findById(postDTO.getPortfolioId()).get();
+        portfolio.setLastUpdate(LocalDateTime.now());
+        post.setHeader(postDTO.getHeader());
+        post.setMainDescription(postDTO.getMainDescription());
+        return postDTO;
+    }
+
+    @Override
+    public PostDTO createPost(PostDTO postDTO) {
+        Post post = new Post();
+        post.setMainDescription(postDTO.getMainDescription());
+        post.setHeader(postDTO.getHeader());
+        post.setMainPhoto(postDTO.getMainPhoto());
+        Portfolio portfolio = portfolioRepository.findById(postDTO.getPortfolioId()).get();
+        portfolio.setLastUpdate(LocalDateTime.now());
+        post.setPortfolio(portfolio);
+        return postMapper.postToPostDTO(postRepository.save(post));
+    }
+
+    @Override
+    public void deletePost(Integer postId) {
+        postRepository.deleteById(postId);
     }
 
     private PortfolioDTO convertPortfolioToPortfolioDTO(Portfolio portfolio){

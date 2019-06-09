@@ -35,7 +35,6 @@ public class ImageController {
                     .getMimeType(
                             resource.getFile().getAbsolutePath());
         } catch (IOException e) {
-            e.printStackTrace();
             contentType = "application/octet-stream";
         }
         return ResponseEntity.ok()
