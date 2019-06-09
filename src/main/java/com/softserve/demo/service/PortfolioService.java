@@ -11,4 +11,14 @@ public interface PortfolioService {
     Portfolio createEmptyPortfolio(Provider provider);
 
     PostDTO findPostById(Integer id);
+
+    void addImageToPost(Integer id, String originalFilename);
+
+    PostDTO updatePost(PostDTO postDTO, Integer id);
+
+    PostDTO createPost(PostDTO postDTO);
+
+    void deletePost(Integer postId);
+
+    PortfolioDTO findByProviderId(Integer providerId);
 }
