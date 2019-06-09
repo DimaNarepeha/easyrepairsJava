@@ -5,11 +5,15 @@ import com.softserve.demo.model.Offer;
 import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.OfferRepository;
 import com.softserve.demo.service.OfferService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
+@Transactional
 public class OfferServiceImpl implements OfferService {
 
     private OfferRepository offerRepository;

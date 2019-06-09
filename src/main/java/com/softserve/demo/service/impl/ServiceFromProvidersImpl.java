@@ -21,5 +21,7 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
     }
 
     @Override
-    public Service getServiceById(Integer id) { return servicesRepository.getOne(id); }
+    public Service getServiceById(Integer id) {
+        return servicesRepository.getOne(id);
+    }
 }

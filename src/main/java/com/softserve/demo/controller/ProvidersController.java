@@ -62,7 +62,7 @@ public class ProvidersController {
     }
 
     @GetMapping("find-by-id/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','CUSTOMER','PROVIDER')")
+//    @PreAuthorize("hasAnyAuthority('ADMIN','CUSTOMER','PROVIDER')")
     public ProviderDTO findById(@PathVariable("id") Integer id) {
         return providersService.findById(id);
     }
@@ -92,10 +92,5 @@ public class ProvidersController {
     @GetMapping("find-by-userId/{id}")
     public ProviderDTO findProviderByUserId(@PathVariable("id") Integer id) {
         return providersService.findProvidersByUserId(id);
-    }
-
-    @GetMapping("by/{name}")
-    public ProviderDTO findByName(@PathVariable("name") String name) {
-        return providersService.findByName(name);
     }
 }

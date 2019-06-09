@@ -15,6 +15,7 @@ import java.util.List;
 @ToString
 public class OrderDTO {
     private Integer id;
+    @NotNull
     private String description;
     private String extraDetails;
     private String price;
