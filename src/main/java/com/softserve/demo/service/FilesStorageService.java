@@ -9,6 +9,5 @@ public interface FilesStorageService {
     String getContentType(HttpServletRequest servletRequest,Resource resource, String name);
     String storeFile(MultipartFile file);
     Resource loadFile(String fileName);
-
 }
 

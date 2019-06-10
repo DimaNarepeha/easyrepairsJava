@@ -109,6 +109,8 @@ public class RegisterServiceImpl implements RegisterService {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
         provider.setLocation(locationRepository.findById(Constant.DEFAULT_LOCATION).get());
         provider.setUser(user);
+        provider.setRaiting(1);
+        provider.setStatus(ProviderStatus.NOTAPPROVED);
         provider = providerRepository.save(provider);
         portfolioService.createEmptyPortfolio(provider);
         sendWelcomeUserNotification(user.getId());
