@@ -32,28 +32,33 @@ public class CustomerController {
 
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<CustomerDTO> getAllCustomers() {
         return customerService.getAllCustomers();
     }
 
     @GetMapping("{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CustomerDTO getCustomerById(@PathVariable("id") Integer id) {
         return customerService.getCustomerById(id);
 
     }
 
     @GetMapping("list")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Page<CustomerDTO> getCustomersByPage(@PageableDefault Pageable pageable) {
         return customerService.getCustomersByPage(pageable);
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteCustomerById(@PathVariable("id") Integer id) {
         customerService.deleteCustomer(id);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CustomerDTO updateCustomer(
             @RequestBody CustomerDTO customer
     ) {

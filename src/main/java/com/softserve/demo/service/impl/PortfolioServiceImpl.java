@@ -28,7 +28,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
 
-    public PortfolioServiceImpl(PortfolioRepository portfolioRepository, PortfolioMapper portfolioMapper, UserRepository userRepository, PostRepository postRepository, PostMapper postMapper) {
+    public PortfolioServiceImpl(PortfolioRepository portfolioRepository, PortfolioMapper portfolioMapper, PostRepository postRepository, PostMapper postMapper) {
         this.portfolioRepository = portfolioRepository;
         this.portfolioMapper = portfolioMapper;
         this.postRepository = postRepository;

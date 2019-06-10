@@ -17,12 +17,14 @@ public interface FeedbackGeneralMapper {
             @Mapping(target = "rating", source = "entity.rating")
             @Mapping(target = "username", source = "entity.addressedFrom.username")
             @Mapping(target = "image", source = "entity.addressedFrom.image")
+            @Mapping(target = "createdDate", source = "entity.createdDate")
     @Named("toDto")
     FeedbackGeneralDTO convertToDTO(Feedback entity);
 
             @Mapping(target = "id", source = "dto.id")
             @Mapping(target = "comment", source = "dto.comment")
             @Mapping(target = "rating", source = "dto.rating")
+            @Mapping(target = "createdDate", source = "dto.createdDate")
     Feedback convertToEntity(FeedbackGeneralDTO dto);
 
     @IterableMapping(qualifiedByName = "toDto")
