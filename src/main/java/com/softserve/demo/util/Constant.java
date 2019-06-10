@@ -7,6 +7,11 @@ public final class  Constant {
     public final static String defaultPhoto = "nophoto.png";
     public final static Integer FEEDBACK_TIME_OUT = 10;
     public final static Integer DEFAULT_LOCATION = 1001;
+    public final static String ZERO = "0";
+    public final static String FOUR = "4";
+    public final static Integer ONE = 1;
+    public final static Integer TWO = 2;
+    public final static  String COMMA =",";
 
 
 }
