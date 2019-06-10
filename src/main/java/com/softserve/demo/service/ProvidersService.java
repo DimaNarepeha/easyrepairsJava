@@ -1,6 +1,5 @@
 package com.softserve.demo.service;
 
-import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
 import com.softserve.demo.model.ProviderStatus;

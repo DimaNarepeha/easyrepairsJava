@@ -3,7 +3,6 @@ package com.softserve.demo.configuration.security;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.Serializable;
 
 @Component
 public class JwtTokenUtil {
