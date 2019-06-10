@@ -11,7 +11,7 @@
             <column name="login" value="admin"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="1.png"/>
-            <column name="email" value="admin@gmail.com"/>
+            <column name="email" value="pitbullboks@gmail.com"/>
         </insert>
         <insert tableName="usr">
             <column name="id" value="2"/>

@@ -53,7 +53,7 @@
             <column name="scope" value="read,write,trust"/>
             <column name="authorized_grant_types" value="authorization_code,implicit,refresh_token,password"/>
             <column name="web_server_redirect_uri" />
-            <column name="authorities" value="ADMIN, PROVIDER, CUSTOMER"/>
+            <column name="authorities" value="ROLE_ADMIN, ROLE_PROVIDER, ROLE_CUSTOMER"/>
             <column name="access_token_validity" value="10800"/>
             <column name="refresh_token_validity" value="250000"/>
             <column name="additional_information"/>

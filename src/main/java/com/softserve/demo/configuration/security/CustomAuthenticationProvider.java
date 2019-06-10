@@ -20,6 +20,8 @@ import java.time.LocalDateTime;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider, AuthenticationManager {
 
+    private static final int BLOCK_TIME = 3;
+
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
     private final AuthorizationUserService authorizationUserService;
@@ -45,7 +47,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Aut
         }
 
         if (authorizationUserService.checkLastFailTime(user)) {
-            Duration duration = Duration.between(LocalDateTime.now(), user.getLastFail());
+            Duration duration = Duration.between(LocalDateTime.now(), user.getLastFail().plusMinutes(BLOCK_TIME));
             throw new DisabledException(authorizationUserService.getWaitTime(duration));
         }
 

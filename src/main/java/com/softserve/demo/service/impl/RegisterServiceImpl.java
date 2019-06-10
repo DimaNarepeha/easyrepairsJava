@@ -10,18 +10,17 @@ import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.EmailService;
+import com.softserve.demo.service.NotificationService;
 import com.softserve.demo.service.PortfolioService;
 import com.softserve.demo.service.RegisterService;
 import com.softserve.demo.util.mappers.CustomerMapper;
 import com.softserve.demo.util.mappers.ProviderMapper;
 import com.softserve.demo.util.Constant;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -30,6 +29,11 @@ import java.util.UUID;
 @Slf4j
 public class RegisterServiceImpl implements RegisterService {
 
+    private static final String WELCOME = "Welcome!";
+    private static final String SIGNING_UP = "Thank you for signing up!";
+    private static final String HAVE_VERIFIED_YOUR_EMAIL = "You have verified your email!!";
+    private static final String VERIFYING_YOUR_EMAIL = "Thank you for verifying your email!";
+    private static final String FAILED_TO_VERIFY_MESSAGE = "Failed to verify! Your activation code is already used!";
     private final UserRepository userRepository;
     private final CustomerRepository customerRepository;
     private final ProviderRepository providerRepository;
@@ -39,6 +43,7 @@ public class RegisterServiceImpl implements RegisterService {
     private final EmailService emailService;
     private final PortfolioService portfolioService;
     private final LocationRepository locationRepository;
+    private final NotificationService notificationService;
 
     private static final String USERNAME_EXISTS = "This username already exist";
     private static final String EMAIL_EXISTS = "This email already used";
@@ -52,7 +57,8 @@ public class RegisterServiceImpl implements RegisterService {
             final ProviderRepository providerRepository,
             final EmailService emailService,
             final PortfolioService portfolioService,
-            final LocationRepository locationRepository) {
+            final LocationRepository locationRepository,
+            final NotificationService notificationService) {
         this.passwordEncoder = passwordEncoder;
         this.providerMapper = providerMapper;
         this.userRepository = userRepository;
@@ -62,6 +68,24 @@ public class RegisterServiceImpl implements RegisterService {
         this.emailService = emailService;
         this.portfolioService = portfolioService;
         this.locationRepository = locationRepository;
+        this.notificationService = notificationService;
+    }
+
+    /**
+     * Sends default welcome notification for user
+     * that have signed up.
+     *
+     * @param userId Id of user to be notified
+     */
+    private void sendWelcomeUserNotification(final Integer userId) {
+        notifyUser(WELCOME, SIGNING_UP, userId);
+    }
+
+    private void notifyUser(String header, String message, Integer userId) {
+        Notification newNotification = new Notification();
+        newNotification.setHeader(header);
+        newNotification.setMessage(message);
+        notificationService.notifyByUserId(userId, newNotification);
     }
 
     @Override
@@ -73,6 +97,7 @@ public class RegisterServiceImpl implements RegisterService {
 
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setUser(user);
+        sendWelcomeUserNotification(user.getId());
         return customerMapper.customerToCustomerDTO(customerRepository.save(customer));
     }
 
@@ -84,8 +109,11 @@ public class RegisterServiceImpl implements RegisterService {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
         provider.setLocation(locationRepository.findById(Constant.DEFAULT_LOCATION).get());
         provider.setUser(user);
+        provider.setRaiting(1);
+        provider.setStatus(ProviderStatus.NOTAPPROVED);
         provider = providerRepository.save(provider);
         portfolioService.createEmptyPortfolio(provider);
+        sendWelcomeUserNotification(user.getId());
         return providerMapper.providerToProviderDTO(provider);
     }
 
@@ -119,11 +147,13 @@ public class RegisterServiceImpl implements RegisterService {
     @Transactional
     public boolean verifyUser(final String activationCode) {
         User user = userRepository.findByActivationCode(activationCode)
-                .orElseThrow(() -> new VerificationFailedException("Failed to verify! Your activation code is already used!"));
+                .orElseThrow(() -> new VerificationFailedException(FAILED_TO_VERIFY_MESSAGE));
         user.setActivated(true);
         user.setActivationCode(null);
+        notifyUser(HAVE_VERIFIED_YOUR_EMAIL, VERIFYING_YOUR_EMAIL, user.getId());
         return true;
     }
+
 
     /**
      * Sends verification link to the provided user.

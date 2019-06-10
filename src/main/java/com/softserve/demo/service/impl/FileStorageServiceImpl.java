@@ -77,22 +77,7 @@ public class FileStorageServiceImpl implements FilesStorageService {
 
     @Override
     public String getContentType(HttpServletRequest servletRequest, Resource resource, String name) {
-        String contentType = null;
-
-        try {
-            contentType = servletRequest
-                    .getServletContext()
-                    .getMimeType(
-                            resource.getFile().getAbsolutePath());
-        } catch (IOException e) {
-            contentType = "application/octet-stream";
-
-        }
-
-        if (contentType == null) {
-            contentType = "application/octet-stream";
-        }
-
+        String contentType = "application/octet-stream";
         return contentType;
     }
 }

@@ -14,6 +14,8 @@ public interface PostMapper {
     @Named("toDto")
     PostDTO postToPostDTO(Post post);
 
+    @Mapping(target = "portfolio.id", source = "portfolioId")
+    Post postDTOToPost(PostDTO postDTO);
 
     @IterableMapping(qualifiedByName = "toDto")
     List<PostDTO> map(List<Post> posts);

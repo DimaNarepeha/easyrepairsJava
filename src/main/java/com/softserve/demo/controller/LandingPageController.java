@@ -1,6 +1,7 @@
 package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.FeedbackGeneralDTO;
+import com.softserve.demo.dto.ProviderInfoDTO;
 import com.softserve.demo.filter.ProviderFilter;
 import com.softserve.demo.service.impl.FeedbackServiceImpl;
 import com.softserve.demo.util.Constant;
@@ -28,9 +29,9 @@ public class LandingPageController {
     }
 
     @GetMapping("providers/search-param")
-    public Page<?> getProvidersBySearchParam(@RequestParam(defaultValue = Constant.ZERO) int page,
-                                  @RequestParam(defaultValue = Constant.FOUR) int numberOfProvidersOnPage,
-                                  @RequestParam Map<String, String> searchParam) {
+    public Page<ProviderInfoDTO> getProvidersBySearchParam(@RequestParam(defaultValue = Constant.STR_ZERO) int page,
+                                                           @RequestParam(defaultValue = Constant.STR_FOUR) int numberOfProvidersOnPage,
+                                                           @RequestParam Map<String, String> searchParam) {
         return filter.pageFindByCriteria(page, numberOfProvidersOnPage, searchParam);
     }
 }
