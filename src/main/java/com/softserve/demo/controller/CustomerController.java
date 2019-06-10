@@ -16,10 +16,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @CrossOrigin("*")
 @RestController
@@ -38,49 +40,47 @@ public class CustomerController {
 
 
     @GetMapping
-    public ResponseEntity<?> getAllCustomers() {
-        return new ResponseEntity<>(
-                customerService.getAllCustomers(), HttpStatus.OK);
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CUSTOMER')")
+    public List<CustomerDTO> getAllCustomers() {
+        return customerService.getAllCustomers();
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getCustomerById(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(
-                customerService.getCustomerById(id), HttpStatus.OK
-        );
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CUSTOMER')")
+    public CustomerDTO getCustomerById(@PathVariable("id") Integer id) {
+        return customerService.getCustomerById(id);
+
     }
 
     @GetMapping("list")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CUSTOMER')")
     public Page<CustomerDTO> getCustomersByPage(@PageableDefault Pageable pageable) {
         return customerService.getCustomersByPage(pageable);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteCustomerById(@PathVariable("id") Integer id) {
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CUSTOMER')")
+    public void deleteCustomerById(@PathVariable("id") Integer id) {
         customerService.deleteCustomer(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<?> updateCustomer(
-            @PathVariable("id") Integer id,
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CUSTOMER')")
+    public CustomerDTO updateCustomer(
             @RequestBody CustomerDTO customer
     ) {
-        CustomerDTO customerUpdated = customerService.updateCustomer(customer);
-
-        return new ResponseEntity<>(customerUpdated, HttpStatus.OK);
+        return customerService.updateCustomer(customer);
     }
 
     @PostMapping("{id}/image")
-    public ResponseEntity<?> uploadImage(
+    public void uploadImage(
             @PathVariable("id") Integer id,
             @RequestParam("imageFile") MultipartFile file
     ) {
-        System.out.println(file.getOriginalFilename());
 
         fileStorageService.storeFile(file);
         customerService.addImageToCustomer(id, file.getOriginalFilename());
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @GetMapping("image/{imageName}")
@@ -90,9 +90,7 @@ public class CustomerController {
     ) {
 
         Resource resource = fileStorageService.loadFile(name);
-        String contentType = fileStorageService.getContentType(servletRequest,resource,name);
-
-
+        String contentType = fileStorageService.getContentType(servletRequest, resource, name);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION,
@@ -100,12 +98,15 @@ public class CustomerController {
                 .body(resource);
     }
 
+
     @GetMapping("find-by-userId/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CUSTOMER')")
     public CustomerDTO getCustomerByUserId(@PathVariable("id") Integer id) {
         return customerService.getCustomerByUserId(id);
     }
 
     @GetMapping("status")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public Page<?> getCustomersByStatus(@PageableDefault Pageable pageable,
                                         @RequestParam(defaultValue = "ACTIVE") String status) {
@@ -113,11 +114,13 @@ public class CustomerController {
     }
 
     @PutMapping("update-status/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CustomerDTO updateCustomerStatus(@PathVariable("id") Integer id, @RequestBody String status) {
         return customerService.updateStatus(id, status);
     }
 
     @GetMapping("status/searchByFirstName")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public Page<?> getCustomersByFirstName(@RequestParam(defaultValue = "0") int page,
                                            @RequestParam int pageSize,
@@ -127,13 +130,12 @@ public class CustomerController {
     }
 
     @GetMapping("status/searchByLastName")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public Page<?> getCustomersByLastName(@RequestParam(defaultValue = "0") int page,
-                                           @RequestParam int pageSize,
-                                           @RequestParam(defaultValue = "ACTIVE") String status,
-                                           @RequestParam String lastName) {
+                                          @RequestParam int pageSize,
+                                          @RequestParam(defaultValue = "ACTIVE") String status,
+                                          @RequestParam String lastName) {
         return customerFilter.lastNameLike(page,pageSize, lastName, CustomerStatus.valueOf(status));
     }
-
-
 }

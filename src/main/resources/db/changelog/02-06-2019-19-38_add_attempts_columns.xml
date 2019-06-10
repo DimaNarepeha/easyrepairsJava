@@ -12,4 +12,7 @@
             <column name="last_fail" type="datetime"/>
         </addColumn>
     </changeSet>
+    <changeSet id="2" author="Volodymyr">
+        <addDefaultValue tableName="usr" columnName="attempts" defaultValue="0"/>
+    </changeSet>
 </databaseChangeLog>

@@ -5,7 +5,6 @@ import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Customer;
 import com.softserve.demo.model.CustomerStatus;
-import com.softserve.demo.model.Offer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -27,8 +26,6 @@ public interface CustomerService {
     Page<CustomerDTO> getCustomersByPage(Pageable pageable);
 
     void addImageToCustomer(Integer id, String fileName);
-
-    Customer getCustomerByOffer(Offer offer);
 
     CustomerDTO getCustomerByUserId (Integer id);
 

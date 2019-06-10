@@ -37,7 +37,7 @@ public interface ProviderMapper {
             @Mapping(target = "username", source = "userDTO.username"),
             @Mapping(target = "password", source = "userDTO.password"),
             @Mapping(target = "email", source = "email"),
-            @Mapping(target = "image", source = "image")
+            @Mapping(target = "image", source = "image"),
     })
     User providerDTOToUser(ProviderDTO providerDTO);
 

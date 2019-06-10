@@ -34,7 +34,6 @@ public class FavouriteController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> addToFavourite(@PathVariable("customerId") Integer customerId,
                                          @PathVariable("providerId") Integer providerId) {
-        System.out.println("customerId " + customerId + " id " + providerId);
         final boolean[] isTru = new boolean[1];
         customerService.getCustomerById(customerId).getFavourite().forEach(
                 providerDTO -> {
