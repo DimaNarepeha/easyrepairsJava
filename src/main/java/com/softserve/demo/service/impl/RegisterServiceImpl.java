@@ -29,6 +29,11 @@ import java.util.UUID;
 @Slf4j
 public class RegisterServiceImpl implements RegisterService {
 
+    private static final String WELCOME = "Welcome!";
+    private static final String SIGNING_UP = "Thank you for signing up!";
+    private static final String HAVE_VERIFIED_YOUR_EMAIL = "You have verified your email!!";
+    private static final String VERIFYING_YOUR_EMAIL = "Thank you for verifying your email!";
+    private static final String FAILED_TO_VERIFY_MESSAGE = "Failed to verify! Your activation code is already used!";
     private final UserRepository userRepository;
     private final CustomerRepository customerRepository;
     private final ProviderRepository providerRepository;
@@ -73,7 +78,7 @@ public class RegisterServiceImpl implements RegisterService {
      * @param userId Id of user to be notified
      */
     private void sendWelcomeUserNotification(final Integer userId) {
-        notifyUser("Welcome!", "Thank you for signing up!", userId);
+        notifyUser(WELCOME, SIGNING_UP, userId);
     }
 
     private void notifyUser(String header, String message, Integer userId) {
@@ -140,10 +145,10 @@ public class RegisterServiceImpl implements RegisterService {
     @Transactional
     public boolean verifyUser(final String activationCode) {
         User user = userRepository.findByActivationCode(activationCode)
-                .orElseThrow(() -> new VerificationFailedException("Failed to verify! Your activation code is already used!"));
+                .orElseThrow(() -> new VerificationFailedException(FAILED_TO_VERIFY_MESSAGE));
         user.setActivated(true);
         user.setActivationCode(null);
-        notifyUser("You have verified your email!!", "Thank you for verifying your email!", user.getId());
+        notifyUser(HAVE_VERIFIED_YOUR_EMAIL, VERIFYING_YOUR_EMAIL, user.getId());
         return true;
     }
 
