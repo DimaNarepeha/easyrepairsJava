@@ -18,7 +18,10 @@ public class PasswordRecoveryServiceImpl implements RecoveryPasswordService {
     private static final String MSG_TEXT = "Dear, %s! \n " +
             "Your new password is %s \n " +
             "Best regards, EasyRepairs.com";
-    private static final String INVALID_EMAIL_MSG = "User with email: [%s] doesn`t exist";
+    private static final String INVALID_EMAIL_MSG = "User with email: %s doesn`t exist";
+    private static final int STREAM_SIZE = 16;
+    private static final int RANDOM_NUMBER_ORIGIN = 45;
+    private static final int RANDOM_NUMBER_BOUND = 122;
 
     private final UserRepository userRepository;
     private final EmailService emailService;
@@ -44,7 +47,7 @@ public class PasswordRecoveryServiceImpl implements RecoveryPasswordService {
     }
 
     private String generateNewPassword() {
-        return new Random().ints(16, 45, 122).collect(StringBuilder::new,
+        return new Random().ints(STREAM_SIZE, RANDOM_NUMBER_ORIGIN, RANDOM_NUMBER_BOUND).collect(StringBuilder::new,
                 StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
     }
