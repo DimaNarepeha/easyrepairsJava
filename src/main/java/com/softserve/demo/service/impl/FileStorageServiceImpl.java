@@ -16,7 +16,7 @@ import java.nio.file.StandardCopyOption;
 
 
 @Service
-public class FileStorageServiceImpl implements com.softserve.demo.service.FilesStorageService {
+public class FileStorageServiceImpl implements FilesStorageService {
 
 
     private final String PATH = System.getProperty("user.dir");
