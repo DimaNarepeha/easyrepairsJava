@@ -2,7 +2,10 @@ package com.softserve.demo.util.mappers;
 
 import com.softserve.demo.dto.PostDTO;
 import com.softserve.demo.model.Post;
-import org.mapstruct.*;
+import org.mapstruct.IterableMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 import java.util.List;
 

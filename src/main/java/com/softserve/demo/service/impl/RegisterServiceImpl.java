@@ -13,9 +13,9 @@ import com.softserve.demo.service.EmailService;
 import com.softserve.demo.service.NotificationService;
 import com.softserve.demo.service.PortfolioService;
 import com.softserve.demo.service.RegisterService;
+import com.softserve.demo.util.Constant;
 import com.softserve.demo.util.mappers.CustomerMapper;
 import com.softserve.demo.util.mappers.ProviderMapper;
-import com.softserve.demo.util.Constant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,6 +29,11 @@ import java.util.UUID;
 @Slf4j
 public class RegisterServiceImpl implements RegisterService {
 
+    private static final String WELCOME = "Welcome!";
+    private static final String SIGNING_UP = "Thank you for signing up!";
+    private static final String HAVE_VERIFIED_YOUR_EMAIL = "You have verified your email!!";
+    private static final String VERIFYING_YOUR_EMAIL = "Thank you for verifying your email!";
+    private static final String FAILED_TO_VERIFY_MESSAGE = "Failed to verify! Your activation code is already used!";
     private final UserRepository userRepository;
     private final CustomerRepository customerRepository;
     private final ProviderRepository providerRepository;
@@ -72,10 +77,14 @@ public class RegisterServiceImpl implements RegisterService {
      *
      * @param userId Id of user to be notified
      */
-    private void addWelcomeUserNotification(final Integer userId) {
+    private void sendWelcomeUserNotification(final Integer userId) {
+        notifyUser(WELCOME, SIGNING_UP, userId);
+    }
+
+    private void notifyUser(String header, String message, Integer userId) {
         Notification newNotification = new Notification();
-        newNotification.setHeader("Welcome!");
-        newNotification.setMessage("Thank you for singing up!");
+        newNotification.setHeader(header);
+        newNotification.setMessage(message);
         notificationService.notifyByUserId(userId, newNotification);
     }
 
@@ -88,7 +97,7 @@ public class RegisterServiceImpl implements RegisterService {
 
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setUser(user);
-        addWelcomeUserNotification(user.getId());
+        sendWelcomeUserNotification(user.getId());
         return customerMapper.customerToCustomerDTO(customerRepository.save(customer));
     }
 
@@ -100,9 +109,11 @@ public class RegisterServiceImpl implements RegisterService {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
         provider.setLocation(locationRepository.findById(Constant.DEFAULT_LOCATION).get());
         provider.setUser(user);
+        provider.setRaiting(1);
+        provider.setStatus(ProviderStatus.NOTAPPROVED);
         provider = providerRepository.save(provider);
         portfolioService.createEmptyPortfolio(provider);
-        addWelcomeUserNotification(user.getId());
+        sendWelcomeUserNotification(user.getId());
         return providerMapper.providerToProviderDTO(provider);
     }
 
@@ -136,11 +147,13 @@ public class RegisterServiceImpl implements RegisterService {
     @Transactional
     public boolean verifyUser(final String activationCode) {
         User user = userRepository.findByActivationCode(activationCode)
-                .orElseThrow(() -> new VerificationFailedException("Failed to verify! Your activation code is already used!"));
+                .orElseThrow(() -> new VerificationFailedException(FAILED_TO_VERIFY_MESSAGE));
         user.setActivated(true);
         user.setActivationCode(null);
+        notifyUser(HAVE_VERIFIED_YOUR_EMAIL, VERIFYING_YOUR_EMAIL, user.getId());
         return true;
     }
+
 
     /**
      * Sends verification link to the provided user.

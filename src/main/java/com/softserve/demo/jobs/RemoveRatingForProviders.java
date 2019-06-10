@@ -3,8 +3,6 @@ package com.softserve.demo.jobs;
 import com.softserve.demo.model.Feedback;
 import com.softserve.demo.repository.FeedbackRepository;
 import com.softserve.demo.repository.ProviderRepository;
-import com.softserve.demo.service.FeedbackService;
-import com.softserve.demo.service.ProvidersService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +29,7 @@ public class RemoveRatingForProviders {
                 sum += f.getRating();
             }
             if (feedbackRepository.findActiveFeedbackByUserId(provider.getUser().getId()).size() == 0) {
-                provider.setRaiting(1);
+                provider.setRaiting(2);
                 providerRepository.save(provider);
             } else {
                 count = feedbackRepository.findActiveFeedbackByUserId(provider.getUser().getId()).size();

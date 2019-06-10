@@ -1,13 +1,10 @@
 package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.ChatDTO;
-import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.model.Chat;
 import com.softserve.demo.service.ChatService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
