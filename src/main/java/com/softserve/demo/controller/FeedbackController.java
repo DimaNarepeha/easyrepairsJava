@@ -28,31 +28,31 @@ public class FeedbackController {
 
     @PostMapping("save")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER', 'CUSTOMER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
     public FeedbackDTO saveFeedback(@RequestBody FeedbackDTO feedbackDTO) {
         return feedbackService.save(feedbackDTO);
     }
 
     @PutMapping("update")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER', 'CUSTOMER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
     public FeedbackDTO updateFeedback(@RequestBody FeedbackDTO feedbackDTO) {
         return feedbackService.update(feedbackDTO);
     }
 
     @DeleteMapping("delete/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER', 'CUSTOMER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
     public void deleteFeedback(@PathVariable("id") Integer idFeedback) {
         feedbackService.delete(idFeedback);
     }
 
     @GetMapping("find-by-id/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER', 'CUSTOMER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
     public FeedbackDTO findById(@PathVariable("id") Integer idFeedback) {
         return feedbackService.findById(idFeedback);
     }
 
     @GetMapping("find-by-user-id/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER', 'CUSTOMER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
     public List<FeedbackDTO> findFeedbackByUserId(@PathVariable("id") Integer idFeedback) {
         return feedbackService.findFeedbackByUserId(idFeedback);
     }

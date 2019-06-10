@@ -33,13 +33,13 @@ public class ProvidersController {
 
     @PostMapping("save")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER')")
     public ProviderDTO saveServiceProvider(@RequestBody ProviderDTO providerDTO) {
         return providersService.save(providerDTO);
     }
 
     @PutMapping("/update")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER')")
     public ProviderDTO updateServiceProviders(@RequestBody ProviderDTO providerDTO) {
         return providersService.update(providerDTO);
     }
@@ -55,13 +55,13 @@ public class ProvidersController {
     }
 
     @DeleteMapping("delete/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER')")
     public void deleteServiceProvidersResponse(@PathVariable("id") Integer idProvider) {
         providersService.delete(idProvider);
     }
 
     @GetMapping("find-by-id/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'CUSTOMER', 'PROVIDER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
     public ProviderDTO findById(@PathVariable("id") Integer idProvider) {
         return providersService.findById(idProvider);
     }
@@ -78,20 +78,20 @@ public class ProvidersController {
 
 
     @GetMapping("find-all/status")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public Page<?> getServiceProviderByStatus(@PageableDefault Pageable pageable,
                                               @RequestParam(defaultValue = "NOTAPPROVED") String status) {
         return providersService.getServiceProvidersByStatus(pageable, ProviderStatus.valueOf(status));
     }
 
     @PutMapping("update-status/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ProviderDTO updateServiceProvidersStatus(@PathVariable("id") Integer idProvider, @RequestBody String status) {
         return providersService.updateStatus(idProvider, status);
     }
 
     @GetMapping("find-by-userId/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'CUSTOMER', 'PROVIDER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
     public ProviderDTO findProviderByUserId(@PathVariable("id") Integer idUser) {
         return providersService.findProvidersByUserId(idUser);
     }

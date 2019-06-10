@@ -28,36 +28,35 @@ public class PortfolioController {
     }
 
     @GetMapping("{portfolioId}")
-    public PortfolioDTO getPortfolioByProviderId(@PathVariable("portfolioId") Integer portfolioId){
+    public PortfolioDTO getPortfolio(@PathVariable("portfolioId") Integer portfolioId){
         return portfolioService.findById(portfolioId);
     }
 
     @GetMapping("/post/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER')")
     public PostDTO getPost(@PathVariable("id") Integer id){
         return portfolioService.findPostById(id);
     }
 
     @PutMapping("/post/{postId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER')")
     public PostDTO updatePost(@PathVariable("postId") Integer postId, @RequestBody PostDTO postDTO){
         return portfolioService.updatePost(postDTO,postId);
     }
 
     @PostMapping("/post")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER')")
     public PostDTO createPost(@RequestBody PostDTO postDTO){
         return portfolioService.createPost(postDTO);
     }
 
     @DeleteMapping("/post/{postId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER')")
     public void deletePost(@PathVariable("postId") Integer postId){
         portfolioService.deletePost(postId);
     }
 
     @PostMapping("/post/image/{postId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER')")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void uploadImage(
             @PathVariable("postId") Integer id,
