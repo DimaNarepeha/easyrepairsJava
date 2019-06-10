@@ -10,18 +10,17 @@ import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.EmailService;
+import com.softserve.demo.service.NotificationService;
 import com.softserve.demo.service.PortfolioService;
 import com.softserve.demo.service.RegisterService;
 import com.softserve.demo.util.mappers.CustomerMapper;
 import com.softserve.demo.util.mappers.ProviderMapper;
 import com.softserve.demo.util.Constant;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -39,6 +38,7 @@ public class RegisterServiceImpl implements RegisterService {
     private final EmailService emailService;
     private final PortfolioService portfolioService;
     private final LocationRepository locationRepository;
+    private final NotificationService notificationService;
 
     private static final String USERNAME_EXISTS = "This username already exist";
     private static final String EMAIL_EXISTS = "This email already used";
@@ -52,7 +52,8 @@ public class RegisterServiceImpl implements RegisterService {
             final ProviderRepository providerRepository,
             final EmailService emailService,
             final PortfolioService portfolioService,
-            final LocationRepository locationRepository) {
+            final LocationRepository locationRepository,
+            final NotificationService notificationService) {
         this.passwordEncoder = passwordEncoder;
         this.providerMapper = providerMapper;
         this.userRepository = userRepository;
@@ -62,6 +63,7 @@ public class RegisterServiceImpl implements RegisterService {
         this.emailService = emailService;
         this.portfolioService = portfolioService;
         this.locationRepository = locationRepository;
+        this.notificationService = notificationService;
     }
 
     @Override
@@ -73,6 +75,7 @@ public class RegisterServiceImpl implements RegisterService {
 
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setUser(user);
+        addWelcomeUserNotification(user.getId());
         return customerMapper.customerToCustomerDTO(customerRepository.save(customer));
     }
 
@@ -86,6 +89,7 @@ public class RegisterServiceImpl implements RegisterService {
         provider.setUser(user);
         provider = providerRepository.save(provider);
         portfolioService.createEmptyPortfolio(provider);
+        addWelcomeUserNotification(user.getId());
         return providerMapper.providerToProviderDTO(provider);
     }
 
@@ -137,5 +141,18 @@ public class RegisterServiceImpl implements RegisterService {
         user.setActivationCode(UUID.randomUUID().toString());
         emailService.sendVerificationEmailTo(user);
         return user;
+    }
+
+    /**
+     * Sends default welcome notification for user
+     * that have signed up.
+     *
+     * @param userId Id of user to be notified
+     */
+    private void addWelcomeUserNotification(final Integer userId) {
+        Notification newNotification = new Notification();
+        newNotification.setHeader("Welcome!");
+        newNotification.setMessage("Thank you for singing up!");
+        notificationService.notifyByUserId(userId, newNotification);
     }
 }

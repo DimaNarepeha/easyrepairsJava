@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -44,6 +45,7 @@ public class NotificationServiceImpl implements NotificationService {
         if (userToNotify == null) {
             throw new NotFoundException(String.format(USER_NOT_FOUND, userId));
         }
+        notification.setTime(LocalDateTime.now());
         Notification persistedNotification = notificationRepository.save(notification);
         userToNotify.getNotifications().add(persistedNotification);
         log.debug(String.format(USER_NOTIFIED, userId));

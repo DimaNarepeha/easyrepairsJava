@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface NotificationService {
 
-    void notifyByUserId(Integer id, Notification notification);
+    void notifyByUserId(Integer userId, Notification notification);
 
     List<Notification> getNotificationsByUserId(Integer userId);
 
