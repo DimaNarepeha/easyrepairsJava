@@ -17,11 +17,11 @@ import java.util.Optional;
 public class AuthorizationUserServiceImpl implements AuthorizationUserService {
 
     private static final int ATTEMPT_THRESHOLD = 5;
-    private static final int BLOCK_TIME = 2;
+    private static final int BLOCK_TIME_IN_MINUTES = 2;
     private static final int TIME_THRESH_HOLD = 1;
-    private static final int BLOCK_TIME_IN_SECONDS = 120;
     private static final int DEFAULT_ATTEMPT_VALUE = 0;
     private static final int ONE_ATTEMPT = 1;
+    private static final int SECONDS = 60;
     private static final String BLOCK_MSG_MINUTES = "Your account blocked for %d minutes";
     private static final String BLOCK_MSG_SECONDS = "Your account blocked for %d seconds";
     private static final String WRONG_CREDENTIALS_MSG = "Wrong login or password!!!";
@@ -47,7 +47,7 @@ public class AuthorizationUserServiceImpl implements AuthorizationUserService {
         if (userDTO.getAttempts() >= ATTEMPT_THRESHOLD) {
             userDTO.setLastFail(LocalDateTime.now());
             updateUser(userDTO);
-            throw new DisabledException(String.format(BLOCK_MSG_MINUTES, BLOCK_TIME));
+            throw new DisabledException(String.format(BLOCK_MSG_MINUTES, BLOCK_TIME_IN_MINUTES));
         } else {
             userDTO.setLastFail(LocalDateTime.now());
             userDTO.setAttempts(userDTO.getAttempts() + ONE_ATTEMPT);
@@ -61,17 +61,18 @@ public class AuthorizationUserServiceImpl implements AuthorizationUserService {
         LocalDateTime lastFail = userDTO.getLastFail();
         if (lastFail != null) {
             Duration duration = Duration.between(LocalDateTime.now(), lastFail);
-            return Math.abs(duration.toMinutes()) < BLOCK_TIME;
+            return Math.abs(duration.toMinutes()) < BLOCK_TIME_IN_MINUTES;
         }
         return false;
     }
 
     @Override
     public String getWaitTime(Duration duration) {
+        System.out.println(Math.abs(duration.toMinutes()));
         if (Math.abs(duration.toMinutes()) == TIME_THRESH_HOLD) {
-            return String.format(BLOCK_MSG_SECONDS, BLOCK_TIME_IN_SECONDS - Math.abs(duration.getSeconds()));
+            return String.format(BLOCK_MSG_SECONDS, Math.abs(duration.getSeconds() - SECONDS));
         }
-        return String.format(BLOCK_MSG_MINUTES, BLOCK_TIME - Math.abs(duration.toMinutes()));
+        return String.format(BLOCK_MSG_MINUTES, Math.abs(duration.toMinutes()));
     }
 
     @Override
