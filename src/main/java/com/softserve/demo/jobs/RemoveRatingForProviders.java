@@ -3,8 +3,6 @@ package com.softserve.demo.jobs;
 import com.softserve.demo.model.Feedback;
 import com.softserve.demo.repository.FeedbackRepository;
 import com.softserve.demo.repository.ProviderRepository;
-import com.softserve.demo.service.FeedbackService;
-import com.softserve.demo.service.ProvidersService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

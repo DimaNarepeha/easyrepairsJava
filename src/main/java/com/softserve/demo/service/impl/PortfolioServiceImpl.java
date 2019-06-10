@@ -11,15 +11,12 @@ import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.PortfolioService;
 import com.softserve.demo.util.mappers.PortfolioMapper;
 import com.softserve.demo.util.mappers.PostMapper;
-import javafx.geometry.Pos;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+
 
 @Service
 @Slf4j
@@ -90,11 +87,11 @@ public class PortfolioServiceImpl implements PortfolioService {
         return portfolioMapper.portfolioToPortfolioDTO(portfolioRepository.findByProviderId(providerId));
     }
 
-    private PortfolioDTO convertPortfolioToPortfolioDTO(Portfolio portfolio){
+    private PortfolioDTO convertPortfolioToPortfolioDTO(Portfolio portfolio) {
         PortfolioDTO portfolioDTO = portfolioMapper.portfolioToPortfolioDTO(portfolio);
         for (PostDTO postDTO : portfolioDTO.getPostDTOs()) {
             postDTO.setPortfolioId(portfolio.getId());
         }
-        return  portfolioDTO;
+        return portfolioDTO;
     }
 }

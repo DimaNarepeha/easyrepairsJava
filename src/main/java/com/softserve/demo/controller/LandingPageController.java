@@ -5,8 +5,6 @@ import com.softserve.demo.dto.FeedbackGeneralDTO;
 import com.softserve.demo.filter.ProviderFilter;
 import com.softserve.demo.service.impl.FeedbackServiceImpl;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
