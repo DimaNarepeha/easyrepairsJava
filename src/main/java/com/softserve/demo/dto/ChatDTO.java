@@ -11,8 +11,8 @@ import java.util.List;
 @ToString
 public class ChatDTO {
     private Integer id;
-    private  Integer messageTo;
-    private Integer messageFrom;
+    private  Integer customerId;
+    private Integer providerId;
     private  String message;
     private Integer sentBy;
 }
