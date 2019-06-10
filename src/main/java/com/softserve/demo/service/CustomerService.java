@@ -24,7 +24,5 @@ public interface CustomerService {
 
     void addImageToCustomer(Integer id, String fileName);
 
-    Customer getCustomerByOffer(Offer offer);
-
     CustomerDTO findCustomerByUserId (Integer id);
 }
