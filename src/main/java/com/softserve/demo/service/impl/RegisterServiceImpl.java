@@ -72,10 +72,14 @@ public class RegisterServiceImpl implements RegisterService {
      *
      * @param userId Id of user to be notified
      */
-    private void addWelcomeUserNotification(final Integer userId) {
+    private void sendWelcomeUserNotification(final Integer userId) {
+        notifyUser("Welcome!", "Thank you for signing up!", userId);
+    }
+
+    private void notifyUser(String header, String message, Integer userId) {
         Notification newNotification = new Notification();
-        newNotification.setHeader("Welcome!");
-        newNotification.setMessage("Thank you for singing up!");
+        newNotification.setHeader(header);
+        newNotification.setMessage(message);
         notificationService.notifyByUserId(userId, newNotification);
     }
 
@@ -88,7 +92,7 @@ public class RegisterServiceImpl implements RegisterService {
 
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setUser(user);
-        addWelcomeUserNotification(user.getId());
+        sendWelcomeUserNotification(user.getId());
         return customerMapper.customerToCustomerDTO(customerRepository.save(customer));
     }
 
@@ -102,7 +106,7 @@ public class RegisterServiceImpl implements RegisterService {
         provider.setUser(user);
         provider = providerRepository.save(provider);
         portfolioService.createEmptyPortfolio(provider);
-        addWelcomeUserNotification(user.getId());
+        sendWelcomeUserNotification(user.getId());
         return providerMapper.providerToProviderDTO(provider);
     }
 
@@ -139,8 +143,10 @@ public class RegisterServiceImpl implements RegisterService {
                 .orElseThrow(() -> new VerificationFailedException("Failed to verify! Your activation code is already used!"));
         user.setActivated(true);
         user.setActivationCode(null);
+        notifyUser("You have verified your email!!", "Thank you for verifying your email!", user.getId());
         return true;
     }
+
 
     /**
      * Sends verification link to the provided user.
