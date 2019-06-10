@@ -20,13 +20,14 @@
 
     <changeSet id="2" author="Oleksandr">
         <insert tableName="service_provider">
-            <column name="id" value="20002"/>
+            <column name="id" value="20001"/>
             <column name="name" value="provider #1"/>
             <column name="description" value="Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/22-05-2019-18-35_insert_providers.xml::2::Oleksandr:
      Reason: liquibase.exception.DatabaseException:"/>
             <column name="user_id" value="20001"/>
             <column name="status" value="NOTAPPROVED"/>
             <column name="raiting" value="4"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 
@@ -47,12 +48,14 @@
 
     <changeSet id="4" author="Oleksandr">
         <insert tableName="service_provider">
+            <column name="id" value="20002"/>
             <column name="name" value="provider #2"/>
             <column name="description" value="Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/22-05-2019-18-35_insert_providers.xml::2::Oleksandr:
      Reason: liquibase.exception.DatabaseException:"/>
             <column name="user_id" value="20002"/>
             <column name="status" value="NOTAPPROVED"/>
             <column name="raiting" value="4"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
     <changeSet id="5" author="Oleksandr">
@@ -71,12 +74,14 @@
 
     <changeSet id="6" author="Oleksandr">
         <insert tableName="service_provider">
+            <column name="id" value="20003"/>
             <column name="name" value="provider #3"/>
             <column name="description" value="Caused by: liquibase.exception.MigrationFailedException: Migration failed for change set db/changelog/22-05-2019-18-35_insert_providers.xml::2::Oleksandr:
      Reason: liquibase.exception.DatabaseException:"/>
             <column name="user_id" value="20003"/>
             <column name="status" value="NOTAPPROVED"/>
             <column name="raiting" value="4"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

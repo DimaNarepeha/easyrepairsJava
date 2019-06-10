@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 @Component
-public class JwtTokenUtil implements Serializable {
+public class JwtTokenUtil {
 
     private static final String TOKEN_PREFIX = "Bearer ";
     private static final String HEADER_STRING = "Authorization";
@@ -19,5 +19,4 @@ public class JwtTokenUtil implements Serializable {
         }
         return authToken;
     }
-
 }

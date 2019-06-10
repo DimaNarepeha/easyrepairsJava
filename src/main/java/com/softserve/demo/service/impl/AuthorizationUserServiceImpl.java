@@ -4,7 +4,7 @@ import com.softserve.demo.dto.AuthorizationUserDTO;
 import com.softserve.demo.model.User;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.AuthorizationUserService;
-import com.softserve.demo.util.AuthorizationUserMapper;
+import com.softserve.demo.util.mappers.AuthorizationUserMapper;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.stereotype.Service;

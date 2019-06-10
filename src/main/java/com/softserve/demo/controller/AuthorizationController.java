@@ -19,11 +19,8 @@ import java.security.Principal;
 @RestController
 public class AuthorizationController {
 
-
     private final TokenStore tokenStore;
-
     private final JwtTokenUtil jwtTokenUtil;
-
     private final AuthorizationUserService authorizationUserService;
 
     public AuthorizationController(AuthorizationUserService authorizationUserService, TokenStore tokenStore,

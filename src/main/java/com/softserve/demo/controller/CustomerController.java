@@ -11,10 +11,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @CrossOrigin("*")
 @RestController
@@ -29,26 +31,17 @@ public class CustomerController {
         this.fileStorageService = fileStorageService;
     }
 
-    @PostMapping
-    public ResponseEntity<?> createCustomer(
-            @RequestBody CustomerDTO customer) {
-        customerService.createCustomer(customer);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
 
     @GetMapping
-    public ResponseEntity<?> getAllCustomers() {
-        return new ResponseEntity<>(
-                customerService.getAllCustomers(), HttpStatus.OK);
+    public List<CustomerDTO> getAllCustomers() {
+        return customerService.getAllCustomers();
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getCustomerById(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(
-                customerService.getCustomerById(id), HttpStatus.OK
-        );
-    }
+    public CustomerDTO getCustomerById(@PathVariable("id") Integer id) {
+        return customerService.getCustomerById(id);
 
+    }
 
     @GetMapping("list")
     public Page<CustomerDTO> getCustomersByPage(@PageableDefault Pageable pageable) {
@@ -56,32 +49,28 @@ public class CustomerController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteCustomerById(@PathVariable("id") Integer id) {
+    public void deleteCustomerById(@PathVariable("id") Integer id) {
         customerService.deleteCustomer(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<?> updateCustomer(
-            @PathVariable("id") Integer id,
+    @PutMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public CustomerDTO updateCustomer(
             @RequestBody CustomerDTO customer
     ) {
-        CustomerDTO customerUpdated = customerService.updateCustomer(id, customer);
-
-        return new ResponseEntity<>(customerUpdated, HttpStatus.OK);
+        return customerService.updateCustomer(customer);
     }
 
     @PostMapping("{id}/image")
-    public ResponseEntity<?> uploadImage(
+    public void uploadImage(
             @PathVariable("id") Integer id,
             @RequestParam("imageFile") MultipartFile file
     ) {
-        System.out.println(file.getOriginalFilename());
 
         fileStorageService.storeFile(file);
         customerService.addImageToCustomer(id, file.getOriginalFilename());
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
+
 
     @GetMapping("image/{imageName}")
     public ResponseEntity<?> getImage(
@@ -90,22 +79,7 @@ public class CustomerController {
     ) {
 
         Resource resource = fileStorageService.loadFile(name);
-
-        String contentType = null;
-
-        try {
-            contentType = servletRequest
-                    .getServletContext()
-                    .getMimeType(
-                            resource.getFile().getAbsolutePath());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (contentType == null) {
-            contentType = "application/octet-stream";
-        }
-
+        String contentType = fileStorageService.getContentType(servletRequest, resource, name);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION,
@@ -114,8 +88,8 @@ public class CustomerController {
     }
 
     @GetMapping("find-by-userId/{id}")
-    public ResponseEntity<?> findCustomerByUserId(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(customerService.findCustomerByUserId(id), HttpStatus.OK);
+    public CustomerDTO findCustomerByUserId(@PathVariable("id") Integer id) {
+        return customerService.findCustomerByUserId(id);
     }
 
 }

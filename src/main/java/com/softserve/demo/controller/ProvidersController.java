@@ -14,9 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-/**
- * Created by Illia Chenchak
- */
+
 @RestController
 @RequestMapping("service-providers")
 @CrossOrigin("*")
@@ -35,12 +33,13 @@ public class ProvidersController {
 
     @PostMapping("save")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER')")
     public ProviderDTO saveServiceProvider(@RequestBody ProviderDTO providerDTO) {
         return providersService.save(providerDTO);
     }
 
     @PutMapping("/update")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER')")
     public ProviderDTO updateServiceProviders(@RequestBody ProviderDTO providerDTO) {
         return providersService.update(providerDTO);
     }
@@ -56,43 +55,44 @@ public class ProvidersController {
     }
 
     @DeleteMapping("delete/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public void deleteServiceProvidersResponse(@PathVariable("id") Integer id) {
-        providersService.delete(id);
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER')")
+    public void deleteServiceProvidersResponse(@PathVariable("id") Integer idProvider) {
+        providersService.delete(idProvider);
     }
 
     @GetMapping("find-by-id/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','CUSTOMER','PROVIDER')")
-    public ProviderDTO findById(@PathVariable("id") Integer id) {
-        return providersService.findById(id);
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CUSTOMER', 'PROVIDER')")
+    public ProviderDTO findById(@PathVariable("id") Integer idProvider) {
+        return providersService.findById(idProvider);
     }
 
     @PostMapping("{userId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void uploadImage(
-            @PathVariable("userId") Integer id,
+            @PathVariable("userId") Integer idUser,
             @RequestParam("imageFile") MultipartFile file
     ) {
         fileStorageService.storeFile(file);
-        providersService.addImageToProviders(id, file.getOriginalFilename());
+        providersService.addImageToProviders(idUser, file.getOriginalFilename());
     }
 
 
     @GetMapping("find-all/status")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public Page<?> getServiceProviderByStatus(@PageableDefault Pageable pageable,
                                               @RequestParam(defaultValue = "NOTAPPROVED") String status) {
         return providersService.getServiceProvidersByStatus(pageable, ProviderStatus.valueOf(status));
     }
 
     @PutMapping("update-status/{id}")
-    public ProviderDTO updateServiceProvidersStatus(@PathVariable("id") Integer id, @RequestBody String status) {
-        return providersService.updateStatus(id, status);
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ProviderDTO updateServiceProvidersStatus(@PathVariable("id") Integer idProvider, @RequestBody String status) {
+        return providersService.updateStatus(idProvider, status);
     }
 
     @GetMapping("find-by-userId/{id}")
-    public ProviderDTO findProviderByUserId(@PathVariable("id") Integer id) {
-        return providersService.findProvidersByUserId(id);
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CUSTOMER', 'PROVIDER')")
+    public ProviderDTO findProviderByUserId(@PathVariable("id") Integer idUser) {
+        return providersService.findProvidersByUserId(idUser);
     }
-
-
 }

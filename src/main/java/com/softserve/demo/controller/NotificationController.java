@@ -3,8 +3,9 @@ package com.softserve.demo.controller;
 import com.softserve.demo.dto.NotificationDTO;
 import com.softserve.demo.model.Notification;
 import com.softserve.demo.service.NotificationService;
-import com.softserve.demo.util.NotificationMapper;
+import com.softserve.demo.util.mappers.NotificationMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/notification")
+@PreAuthorize("hasAnyAuthority('ADMIN', 'CUSTOMER', 'PROVIDER')")
 public class NotificationController {
     private final NotificationService notificationService;
     private final NotificationMapper notificationMapper;

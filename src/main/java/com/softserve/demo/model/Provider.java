@@ -46,7 +46,7 @@ public class Provider {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @JsonBackReference
+    @JsonBackReference(value = "order_provider")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider", cascade = CascadeType.REMOVE)
     private List<Order> orders;
 
@@ -59,7 +59,7 @@ public class Provider {
     )
     private List<Service> services = new ArrayList<>();
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "provider-location")
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "location_id")
     private Location location;

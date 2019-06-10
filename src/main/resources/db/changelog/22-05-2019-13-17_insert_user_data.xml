@@ -10,21 +10,21 @@
             <column name="id" value="1"/>
             <column name="login" value="admin"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
-            <column name="image" value=""/>
+            <column name="image" value="1.png"/>
             <column name="email" value="pitbullboks@gmail.com"/>
         </insert>
         <insert tableName="usr">
             <column name="id" value="2"/>
             <column name="login" value="customer"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
-            <column name="image" value=""/>
+            <column name="image" value="1.png"/>
             <column name="email" value="customer@gmail.com"/>
         </insert>
         <insert tableName="usr">
             <column name="id" value="3"/>
             <column name="login" value="provider"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
-            <column name="image" value=""/>
+            <column name="image" value="1.png"/>
             <column name="email" value="provider@gmail.com"/>
         </insert>
     </changeSet>
