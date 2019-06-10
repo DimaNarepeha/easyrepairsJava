@@ -66,6 +66,19 @@ public class RegisterServiceImpl implements RegisterService {
         this.notificationService = notificationService;
     }
 
+    /**
+     * Sends default welcome notification for user
+     * that have signed up.
+     *
+     * @param userId Id of user to be notified
+     */
+    private void addWelcomeUserNotification(final Integer userId) {
+        Notification newNotification = new Notification();
+        newNotification.setHeader("Welcome!");
+        newNotification.setMessage("Thank you for singing up!");
+        notificationService.notifyByUserId(userId, newNotification);
+    }
+
     @Override
     @Transactional
     public CustomerDTO createCustomer(final CustomerDTO customerDTO) {
@@ -141,18 +154,5 @@ public class RegisterServiceImpl implements RegisterService {
         user.setActivationCode(UUID.randomUUID().toString());
         emailService.sendVerificationEmailTo(user);
         return user;
-    }
-
-    /**
-     * Sends default welcome notification for user
-     * that have signed up.
-     *
-     * @param userId Id of user to be notified
-     */
-    private void addWelcomeUserNotification(final Integer userId) {
-        Notification newNotification = new Notification();
-        newNotification.setHeader("Welcome!");
-        newNotification.setMessage("Thank you for singing up!");
-        notificationService.notifyByUserId(userId, newNotification);
     }
 }

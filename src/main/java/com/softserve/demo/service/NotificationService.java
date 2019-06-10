@@ -14,7 +14,14 @@ import java.util.List;
  * @author Dmytro Narepekha
  */
 public interface NotificationService {
-
+    /**
+     * Simply notifies user by id.
+     * You don't need to set time.
+     * It will be set inside the method.
+     *
+     * @param userId       id of user to notify
+     * @param notification notification for user
+     */
     void notifyByUserId(Integer userId, Notification notification);
 
     List<Notification> getNotificationsByUserId(Integer userId);
