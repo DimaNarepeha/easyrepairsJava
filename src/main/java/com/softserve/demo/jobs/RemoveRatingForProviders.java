@@ -31,7 +31,7 @@ public class RemoveRatingForProviders {
                 sum += f.getRating();
             }
             if (feedbackRepository.findActiveFeedbackByUserId(provider.getUser().getId()).size() == 0) {
-                provider.setRaiting(1);
+                provider.setRaiting(2);
                 providerRepository.save(provider);
             } else {
                 count = feedbackRepository.findActiveFeedbackByUserId(provider.getUser().getId()).size();
