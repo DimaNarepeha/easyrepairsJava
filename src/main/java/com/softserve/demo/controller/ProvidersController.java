@@ -37,11 +37,13 @@ public class ProvidersController {
 
     @PostMapping("save")
     @ResponseStatus(HttpStatus.CREATED)
+//    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER')")
     public ProviderDTO saveServiceProvider(@RequestBody ProviderDTO providerDTO) {
         return providersService.save(providerDTO);
     }
 
     @PutMapping("/update")
+//    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER')")
     public ProviderDTO updateServiceProviders(@RequestBody ProviderDTO providerDTO) {
         return providersService.update(providerDTO);
     }
@@ -57,11 +59,13 @@ public class ProvidersController {
     }
 
     @DeleteMapping("delete/{id}")
+//    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROVIDER')")
     public void deleteServiceProvidersResponse(@PathVariable("id") Integer idProvider) {
         providersService.delete(idProvider);
     }
 
     @GetMapping("find-by-id/{id}")
+//    @PreAuthorize("hasAnyAuthority('ADMIN', 'CUSTOMER', 'PROVIDER')")
     public ProviderDTO findById(@PathVariable("id") Integer idProvider) {
         return providersService.findById(idProvider);
     }
@@ -78,6 +82,7 @@ public class ProvidersController {
 
 
     @GetMapping("find-all/status")
+//    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public Page<?> getServiceProviderByStatus(@RequestParam(defaultValue = "0") int page,
                                               @RequestParam int numberOfProvidersOnPage,
                                               @RequestParam(defaultValue = "NOTAPPROVED") String status) {
@@ -85,8 +90,8 @@ public class ProvidersController {
     }
 
     @GetMapping("find-all/searchByName")
+//    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-
     public Page<ProviderInfoDTO> getServiceProviderByName(@RequestParam(defaultValue = "0") int page,
                                                           @RequestParam int numberOfProvidersOnPage,
                                                           @RequestParam(defaultValue = "NOTAPPROVED") String status,
@@ -96,17 +101,14 @@ public class ProvidersController {
     }
 
     @PutMapping("update-status/{id}")
+//    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ProviderDTO updateServiceProvidersStatus(@PathVariable("id") Integer idProvider, @RequestBody String status) {
         return providersService.updateStatus(idProvider, status);
     }
 
     @GetMapping("find-by-userId/{id}")
+//    @PreAuthorize("hasAnyAuthority('ADMIN', 'CUSTOMER', 'PROVIDER')")
     public ProviderDTO findProviderByUserId(@PathVariable("id") Integer idUser) {
         return providersService.findProvidersByUserId(idUser);
-    }
-
-    @GetMapping("by/{name}")
-    public ProviderDTO findByName(@PathVariable("name") String providerName) {
-        return providersService.findByName(providerName);
     }
 }

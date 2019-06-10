@@ -101,8 +101,8 @@ public class CustomerController {
     }
 
     @GetMapping("find-by-userId/{id}")
-    public ResponseEntity<?> findCustomerByUserId(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(customerService.findCustomerByUserId(id), HttpStatus.OK);
+    public CustomerDTO getCustomerByUserId(@PathVariable("id") Integer id) {
+        return customerService.getCustomerByUserId(id);
     }
 
     @GetMapping("status")

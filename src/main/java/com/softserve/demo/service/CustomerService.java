@@ -30,7 +30,7 @@ public interface CustomerService {
 
     Customer getCustomerByOffer(Offer offer);
 
-    CustomerDTO findCustomerByUserId (Integer id);
+    CustomerDTO getCustomerByUserId (Integer id);
 
     Page<CustomerDTO> getCustomersByStatus(Pageable pageable, CustomerStatus status);
 
@@ -39,5 +39,7 @@ public interface CustomerService {
     <T> Page<Customer> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy);
 
      void addFavourite(Integer id, ProviderDTO providerDTO);
+
+    void removeById(Integer customerId,Integer favouriteId);
 
 }

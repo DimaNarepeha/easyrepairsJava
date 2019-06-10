@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,8 +79,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO findCustomerByUserId(Integer id) {
-        return customerMapper.customerToCustomerDTO(customerRepository.findCustomerByUserId(id));
+    public CustomerDTO getCustomerByUserId(Integer id) {
+        return customerMapper.customerToCustomerDTO(customerRepository.getCustomerByUserId(id));
     }
 
     @Override
@@ -105,6 +106,26 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository.findCustomerById(id);
         List<Provider> list = customer.getFavourite();
         list.add(providerMapper.providerDTOToProvider(providerDTO));
+        customer.setFavourite(list);
+        customerRepository.save(customer);
+    }
+
+    @Override
+    public void removeById(Integer customerId, Integer favouriteId) {
+        Customer customer = customerRepository.findCustomerById(customerId);
+        List<Provider> list = customer.getFavourite();
+//        List<Provider> newList = list.stream()
+//                .filter(provider -> provider.getId() != favouriteId)
+//                .collect(Collectors.toList());
+        int count = 0;
+        for (Provider provider : list) {
+            count++;
+            if (provider.getId().equals(favouriteId)) {
+                break;
+            }
+        }
+
+        list.remove(count-1);
         customer.setFavourite(list);
         customerRepository.save(customer);
     }
