@@ -100,7 +100,6 @@ public class ProvidersServiceImpl implements ProvidersService {
         return providerMapper.providerToProviderDTO(newProvider);
     }
 
-
     @Override
     public void delete(final Integer idProvider) {
         Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
