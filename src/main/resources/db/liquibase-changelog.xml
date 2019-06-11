@@ -40,5 +40,6 @@
     <include file="db/changelog/06-06-2019-15-29_insert_default_location.xml"/>
     <include file="db/changelog/08-06-2019-17-30_insert_feedbacks.xml"/>
     <include file="db/changelog/10-06-2019-15-50_insert_portfolio_new.xml"/>
+    <include file="db/changelog/10-06-2019-21-01_insert_default_feedbacks.xml"/>
 
 </databaseChangeLog>
