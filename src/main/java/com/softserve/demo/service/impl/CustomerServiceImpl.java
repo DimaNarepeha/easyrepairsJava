@@ -116,15 +116,14 @@ public class CustomerServiceImpl implements CustomerService {
     public void removeById(Integer customerId, Integer favouriteId) {
         Customer customer = customerRepository.findCustomerById(customerId);
         List<Provider> list = customer.getFavourite();
-        int count = 0;
+        int numberOfFavouriteProvider = 0;
         for (Provider provider : list) {
-            count++;
+            numberOfFavouriteProvider++;
             if (provider.getId().equals(favouriteId)) {
                 break;
             }
         }
-
-        list.remove(count-1);
+        list.remove(numberOfFavouriteProvider-1);
         customer.setFavourite(list);
         customerRepository.save(customer);
     }
