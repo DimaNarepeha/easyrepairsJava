@@ -13,7 +13,7 @@ public interface AuthorizationUserService {
 
     boolean checkLastFailTime(AuthorizationUserDTO userDTO);
 
-    void setDefaultAttempt(AuthorizationUserDTO user);
+    void setDefaultAttemptValue(AuthorizationUserDTO user);
 
     String getWaitTime(Duration duration);
 }
