@@ -36,7 +36,7 @@ public class Offer {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    @JsonBackReference(value="customer-movement")
+    @JsonManagedReference(value="offer_customer")
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
