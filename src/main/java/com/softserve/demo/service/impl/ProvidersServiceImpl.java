@@ -111,7 +111,6 @@ public class ProvidersServiceImpl implements ProvidersService {
     public void addImageToProviders(final Integer idProvider, final String fileName) {
         Provider provider =
                 providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
-        ;
         User user = userRepository.findById(provider.getUser().getId());
         user.setImage(fileName);
         providerRepository.save(provider);
