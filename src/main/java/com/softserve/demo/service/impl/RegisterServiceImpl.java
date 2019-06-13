@@ -122,7 +122,7 @@ public class RegisterServiceImpl implements RegisterService {
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);
-        user.setImage(Constant.defaultPhoto);
+        user.setImage(Constant.DEFAULT_PHOTO);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return user;
     }

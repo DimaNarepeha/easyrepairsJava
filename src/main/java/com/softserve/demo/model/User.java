@@ -1,6 +1,8 @@
 package com.softserve.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -38,11 +40,11 @@ public class User {
     @Column(name = "last_fail")
     private LocalDateTime lastFail;
 
-    @JsonIgnore
+    @JsonBackReference(value = "a_f")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "addressedFrom")
     private List<Feedback> feedbackFrom = new ArrayList<>();
 
-    @JsonIgnore
+    @JsonBackReference(value = "a_t")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "addressedTo", cascade = CascadeType.REMOVE)
     private List<Feedback> feedbackTo = new ArrayList<>();
 

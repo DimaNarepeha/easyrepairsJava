@@ -1,7 +1,8 @@
 package com.softserve.demo.model;
 
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
-import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -26,12 +27,12 @@ public class Feedback {
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    @JsonIgnore
+    @JsonManagedReference(value = "a_f")
     @ManyToOne
     @JoinColumn(name = "addressed_from")
     private User addressedFrom;
 
-    @JsonIgnore
+    @JsonManagedReference(value = "a_t")
     @ManyToOne
     @JoinColumn(name = "addressed_to")
     private User addressedTo;
