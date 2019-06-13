@@ -13,7 +13,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/notification")
-@PreAuthorize("hasAnyAuthority('ADMIN', 'CUSTOMER', 'PROVIDER')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
 public class NotificationController {
     private final NotificationService notificationService;
     private final NotificationMapper notificationMapper;
