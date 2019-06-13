@@ -33,4 +33,13 @@ public class Chat {
     @UpdateTimestamp
     @Column(name = "sending_time")
     private LocalDateTime sendingTime;
+
+    @OneToOne
+    @JoinColumn(name = "message_to", referencedColumnName = "id")
+    private User messageTo;
+
+    @OneToOne
+    @JoinColumn(name = "message_from", referencedColumnName = "id")
+    private User messageFrom;
+
 }

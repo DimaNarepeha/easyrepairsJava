@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="liquibase-docs" id="dropForeignKeyConstraint-example">
+        <dropForeignKeyConstraint baseTableName="chat" constraintName="chat_customer"/>
+    </changeSet>
+
+    <changeSet author="liquibase-docs" id="dropForeignKeyConstraint-example1">
+        <dropForeignKeyConstraint baseTableName="chat" constraintName="chat_provider"/>
+    </changeSet>
+    <changeSet author="liquibase-docs" id="renameColumn-example">
+        <renameColumn
+                      columnDataType="int"
+                      newColumnName="message_to"
+                      oldColumnName="customer_id"
+                      schemaName="easyrepairs"
+                      tableName="chat"/>
+    </changeSet>
+    <changeSet author="liquibase-docs" id="renameColumn-example1">
+        <renameColumn
+                      columnDataType="int"
+                      newColumnName="message_from"
+                      oldColumnName="provider_id"
+                      schemaName="easyrepairs"
+                      tableName="chat"/>
+    </changeSet>
+    <changeSet id="2" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="chat"
+                                 baseColumnNames="message_to"
+                                 constraintName="chat_message_to"
+                                 referencedTableName="usr"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet id="3" author="Oleksandr">
+        <addForeignKeyConstraint baseTableName="chat"
+                                 baseColumnNames="message_from"
+                                 constraintName="chat_message_from"
+                                 referencedTableName="usr"
+                                 referencedColumnNames="id"
+                                 onUpdate="CASCADE"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -22,8 +23,9 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<Chat> getMessagesBySenderAndGetter(Integer customerId, Integer providerId) {
-        return chatRepository.findAllBySenderAndGetterId(customerId, providerId);
+    public List<ChatDTO> getMessagesBySenderAndGetter(Integer customerId, Integer providerId) {
+        return chatRepository.findAllBySenderAndGetterId(customerId, providerId).stream().map(
+                chatMapper::chatToChatDTO).collect(Collectors.toList());
     }
 
     @Override

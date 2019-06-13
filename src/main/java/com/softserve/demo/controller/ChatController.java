@@ -29,7 +29,7 @@ public class ChatController {
     }
 
     @RequestMapping(value = "/{customerId}/{providerId}", method=RequestMethod.GET)
-    public List<Chat> getCustomer(@PathVariable("customerId") Integer customerId,
+    public List<ChatDTO> getCustomer(@PathVariable("customerId") Integer customerId,
                                   @PathVariable("providerId") Integer providerId){
         return chatService.getMessagesBySenderAndGetter( customerId,providerId);
     }
