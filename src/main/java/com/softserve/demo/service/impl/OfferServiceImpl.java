@@ -26,14 +26,7 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public Offer createOffer(Offer offer) {
-        Location location = offer.getLocation();
-        Location locationFromDB = locationRepository.findLocationByCityAndCountryAndRegion(
-                location.getCity(), location.getCountry(), location.getRegion());
-        if (locationFromDB == null) {
-            locationRepository.save(location);
-            return offerRepository.save(offer);
-        }
-        offer.setLocation(locationFromDB);
+        offer.setLocation(saveLocation(offer.getLocation()));
         return offerRepository.save(offer);
     }
 
@@ -50,5 +43,15 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public List<Offer> getOffersByCustomerId(Integer id) {
         return offerRepository.findAllByCustomerId(id);
+    }
+
+    private Location saveLocation(final Location location) {
+        Location locationFromDB = locationRepository.findLocationByCityAndCountryAndRegion(
+                location.getCity(), location.getCountry(), location.getRegion());
+
+        if (locationFromDB == null) {
+            return locationRepository.save(location);
+        }
+        return locationFromDB;
     }
 }

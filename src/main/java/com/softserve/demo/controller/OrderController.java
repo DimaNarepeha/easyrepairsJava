@@ -34,7 +34,9 @@ public class OrderController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER', 'ROLE_CUSTOMER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') " +
+            "or (hasRole('ROLE_PROVIDER') and principal.username == #orderDTO.providerDTO.userDTO.username) " +
+            "or hasRole('ROLE_CUSTOMER') and principal.username == #orderDTO.customerDTO.userDTO.username")
     public OrderDTO updateOrder(@RequestBody @Valid OrderDTO orderDTO) {
         return orderMapper.orderToOrderDTO(
                 orderService.updateOrder(orderMapper.orderDTOToOrder(orderDTO)));

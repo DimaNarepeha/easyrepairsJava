@@ -1,6 +1,7 @@
 package com.softserve.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.softserve.demo.util.validators.OrderDateCheck;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@OrderDateCheck
 public class OrderDTO {
 
     private Integer id;
@@ -41,7 +43,7 @@ public class OrderDTO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     @NotNull
-    private ProviderDTOorder providerDTO;
+    private ProviderOrderDTO providerDTO;
     @NotNull
     private CustomerDTO customerDTO;
     @NotNull

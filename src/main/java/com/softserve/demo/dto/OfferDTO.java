@@ -1,6 +1,7 @@
 package com.softserve.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.softserve.demo.util.validators.OfferDatesCheck;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@OfferDatesCheck
 public class OfferDTO {
 
     private Integer id;

@@ -1,6 +1,5 @@
 package com.softserve.demo.dto;
 
-import com.softserve.demo.model.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,9 +7,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ProviderDTOorder {
+public class ProviderOrderDTO {
     private Integer id;
     private String name;
     private String description;
-    private User user;
+    private UserDTO userDTO;
 }
