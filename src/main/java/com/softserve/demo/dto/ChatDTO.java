@@ -13,7 +13,7 @@ public class ChatDTO {
     private Integer providerId;
     private  String message;
     private Integer sentBy;
-    private  Integer messageTo;
-    private Integer messageFrom;
+    private  UserDTO messageTo;
+    private UserDTO messageFrom;
     private Boolean isRead;
 }
