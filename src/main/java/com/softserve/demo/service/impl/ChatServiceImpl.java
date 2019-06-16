@@ -34,4 +34,22 @@ public class ChatServiceImpl implements ChatService {
         chatRepository.save(chat);
     }
 
+    @Override
+    public List<ChatDTO> getUnreadMessages(Integer customerId, Integer providerId) {
+        return chatRepository.findUnreadMessages(customerId, providerId).stream().map(
+                chatMapper::chatToChatDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public void readMessages(Integer customerId, Integer providerId) {
+        List<Chat>toRead = chatRepository.findUnreadMessages(customerId, providerId);
+        toRead.forEach((Chat c) ->{c.setIsRead(true);chatRepository.save(c);});
+
+    }
+
+    @Override
+    public List<ChatDTO> getUreadMessagesForUser(Integer messageTo) {
+        return chatRepository.findUnreadMessagesForUser(messageTo).stream().map(
+                chatMapper::chatToChatDTO).collect(Collectors.toList());
+    }
 }

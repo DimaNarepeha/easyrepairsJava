@@ -9,5 +9,10 @@ public interface ChatService {
 
     List<ChatDTO>  getMessagesBySenderAndGetter(Integer customerId,Integer providerId);
     void saveMessage(ChatDTO chat);
+    List<ChatDTO> getUnreadMessages(Integer customerId,Integer providerId);
+
+    void readMessages(Integer customerId,Integer providerId);
+
+    List<ChatDTO> getUreadMessagesForUser(Integer messageTo);
 
 }

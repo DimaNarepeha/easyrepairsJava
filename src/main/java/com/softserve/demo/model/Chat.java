@@ -3,6 +3,7 @@ package com.softserve.demo.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -30,7 +31,7 @@ public class Chat {
     @Column(name = "sent_by")
     private Integer sentBy;
 
-    @UpdateTimestamp
+    @CreationTimestamp
     @Column(name = "sending_time")
     private LocalDateTime sendingTime;
 
@@ -41,5 +42,9 @@ public class Chat {
     @OneToOne
     @JoinColumn(name = "message_from", referencedColumnName = "id")
     private User messageFrom;
+
+    @Column(name = "is_read", columnDefinition = "boolean default false")
+    private Boolean isRead;
+
 
 }

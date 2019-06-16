@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface ChatMapper {
+    @Mapping(target = "sentBy", source = "sentBy")
     @Mapping(target = "messageTo", source = "messageTo.id")
     @Mapping(target = "messageFrom", source = "messageFrom.id")
 
@@ -14,6 +15,8 @@ public interface ChatMapper {
             @Mapping(target = "providerId", source = "provider.id")
     ChatDTO chatToChatDTO(Chat chat);
 
+
+    @Mapping(target = "sentBy", source = "sentBy")
     @Mapping(target = "messageTo.id", source = "messageTo")
     @Mapping(target = "messageFrom.id", source = "messageFrom")
             @Mapping(target = "customer.id", source = "customerId")

@@ -15,4 +15,5 @@ public class ChatDTO {
     private Integer sentBy;
     private  Integer messageTo;
     private Integer messageFrom;
+    private Boolean isRead;
 }

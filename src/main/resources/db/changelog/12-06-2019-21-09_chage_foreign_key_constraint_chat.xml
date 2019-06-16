@@ -6,10 +6,24 @@
         <dropForeignKeyConstraint baseTableName="chat" constraintName="chat_customer"/>
     </changeSet>
 
-    <changeSet author="liquibase-docs" id="dropForeignKeyConstraint-example1">
+    <changeSet author="Nastya" id="dropForeignKeyConstraint-example1">
         <dropForeignKeyConstraint baseTableName="chat" constraintName="chat_provider"/>
+
     </changeSet>
-    <changeSet author="liquibase-docs" id="renameColumn-example">
+    <changeSet author="liquibase-docs" id="dropForeignKeyConstraint-example2">
+    <addColumn tableName="chat">
+        <column name="is_read" type="boolean" />
+
+    </addColumn>
+    </changeSet>
+    <!--<changeSet author="liquibase-docs" id="dropForeignKeyConstraint-example3">-->
+        <!--<addDefaultValue-->
+                         <!--columnDataType="boolean"-->
+                         <!--columnName="is_read"-->
+                         <!--defaultValueBoolean="false"-->
+                         <!--tableName="chat"/>-->
+    <!--</changeSet>-->
+    <changeSet author="Nastya" id="renameColumn-example">
         <renameColumn
                       columnDataType="int"
                       newColumnName="message_to"
