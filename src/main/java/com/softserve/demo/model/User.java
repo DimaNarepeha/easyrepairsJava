@@ -40,11 +40,11 @@ public class User {
     @Column(name = "last_fail")
     private LocalDateTime lastFail;
 
-    @JsonBackReference(value = "a_f")
+    @JsonManagedReference(value = "a_f")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "addressedFrom")
     private List<Feedback> feedbackFrom = new ArrayList<>();
 
-    @JsonBackReference(value = "a_t")
+    @JsonManagedReference(value = "a_t")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "addressedTo", cascade = CascadeType.REMOVE)
     private List<Feedback> feedbackTo = new ArrayList<>();
 
@@ -54,4 +54,5 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable
     private List<Notification> notifications;
+
 }

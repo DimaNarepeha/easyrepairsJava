@@ -64,4 +64,11 @@ public class Provider {
     @JoinColumn(name = "location_id")
     private Location location;
 
+    @Override
+    public String toString() {
+        return "Provider{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'';
+    }
 }

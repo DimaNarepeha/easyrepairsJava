@@ -1,6 +1,7 @@
 package com.softserve.demo.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,12 +28,12 @@ public class Feedback {
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    @JsonManagedReference(value = "a_f")
+    @JsonBackReference(value = "a_f")
     @ManyToOne
     @JoinColumn(name = "addressed_from")
     private User addressedFrom;
 
-    @JsonManagedReference(value = "a_t")
+    @JsonBackReference(value = "a_t")
     @ManyToOne
     @JoinColumn(name = "addressed_to")
     private User addressedTo;
@@ -42,6 +43,5 @@ public class Feedback {
 
     @Column(name = "update_date")
     private LocalDateTime updateDate;
-
 
 }
