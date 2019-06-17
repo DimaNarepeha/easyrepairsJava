@@ -31,4 +31,9 @@ public class ServiceController {
     public ServiceDTO saveServiceForProvider (@PathVariable("providerId") Integer id, @RequestBody ServiceDTO serviceDTO ) {
         return serviceFromProviders.saveServiceFromProvider(id, serviceDTO);
     }
+
+    @GetMapping("not-in-provider/{providerId}")
+    public List<ServiceDTO> findAllServiceIsNotPresentInProvider (@PathVariable("providerId") Integer id) {
+        return serviceFromProviders.findAllServicesNotPresentInProviders(id);
+    }
 }

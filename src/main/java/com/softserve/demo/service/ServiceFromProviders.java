@@ -12,4 +12,6 @@ public interface ServiceFromProviders {
     Service getServiceById(Integer id);
 
     ServiceDTO saveServiceFromProvider (Integer id, ServiceDTO serviceDTO);
+
+    List<ServiceDTO> findAllServicesNotPresentInProviders(Integer idProvider);
 }

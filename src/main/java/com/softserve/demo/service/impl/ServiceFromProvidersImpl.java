@@ -10,6 +10,7 @@ import com.softserve.demo.util.mappers.ServiceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @org.springframework.stereotype.Service
 public class ServiceFromProvidersImpl implements ServiceFromProviders {
@@ -44,5 +45,21 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
         provider.getServices().add(service);
         providerRepository.save(provider);
         return serviceDTO;
+    }
+
+    @Override
+    public List<ServiceDTO> findAllServicesNotPresentInProviders(Integer idProvider) {
+        Provider provider = providerRepository.findById(idProvider).get();
+        List<Service> notPresentService = servicesRepository.findAll();
+//        for (Service s: provider.getServices()
+//             ) {
+//            notPresentService.removeIf(service -> service.getServiceName().equals(s.getServiceName()));
+//        }
+
+        provider.getServices().forEach(s ->
+            notPresentService.removeIf(service -> service.getServiceName().equals(s.getServiceName()))
+        );
+        return notPresentService.stream()
+                .map(serviceMapper::serviceToServiceDTO).collect(Collectors.toList());
     }
 }
