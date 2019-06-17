@@ -38,7 +38,7 @@ public class AuthorizationUserServiceImpl implements AuthorizationUserService {
 
     @Override
     public AuthorizationUserDTO getUser(String username) {
-        User user = userRepository.findByUsername(username).get();
+        User user = userRepository.findByUsernameOrEmail(username, username).get();
         return authorizationUserMapper.userToAuthorizationUserDTO(user);
     }
 
