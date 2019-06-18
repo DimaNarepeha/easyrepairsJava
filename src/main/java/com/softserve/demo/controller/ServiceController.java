@@ -41,9 +41,6 @@ public class ServiceController {
 
     @DeleteMapping("delete/{providerId}/{serviceName}")
     public List<ServiceDTO> deleteByServiceName (@PathVariable("providerId") Integer id, @PathVariable("serviceName") String serviceName) {
-        System.out.println("------------------------------------------");
-        System.out.println(id + "service: " + serviceName);
-        System.out.println("------------------------------------------");
         return serviceFromProviders.deleteByServiceNameInProvider(id,serviceName);
     }
 }
