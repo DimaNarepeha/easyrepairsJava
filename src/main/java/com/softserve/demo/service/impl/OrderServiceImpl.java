@@ -14,6 +14,7 @@ import java.util.List;
 
 @Slf4j
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
 
     private static final String CONTRACT_WAS_CREATED = "New contract was created";
