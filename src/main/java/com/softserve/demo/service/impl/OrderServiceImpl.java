@@ -33,9 +33,9 @@ public class OrderServiceImpl implements OrderService {
             "Thank you for using our services!\n" +
             "Your easyrepairs.com";
 
-    private OrderRepository orderRepository;
-    private LocationRepository locationRepository;
-    private NotificationServiceImpl notificationService;
+    private final OrderRepository orderRepository;
+    private final LocationRepository locationRepository;
+    private final NotificationServiceImpl notificationService;
     private final EmailService emailService;
 
     public OrderServiceImpl(OrderRepository orderRepository, LocationRepository locationRepository,
@@ -64,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.findById(order.getId()).orElseThrow(() ->
                 new NotFoundException(String.format("Order with id: [%d] not found", order.getId())));
 
-//        notifyAboutOrder(order, CONTRACT_WAS_UPDATED);
+        notifyAboutOrder(order, CONTRACT_WAS_UPDATED);
         order.setLocation(saveLocation(order.getLocation()));
         return orderRepository.save(order);
     }
@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findById(id).orElseThrow(() ->
                 new NotFoundException(String.format("Order with id: [%d] not found", id)));
 
-//        notifyAboutOrder(order, CONTRACT_WAS_DELETED);
+        notifyAboutOrder(order, CONTRACT_WAS_DELETED);
         emailAboutOrder(order, CONTRACT_WAS_DELETED, TEXT_DELETE_CONTRACT);
         orderRepository.deleteById(id);
     }
@@ -96,8 +96,7 @@ public class OrderServiceImpl implements OrderService {
         notification.setMessage(header + String.format(
                 BY, order.getCustomer().getLastName(), order.getCustomer().getFirstName())
                 + String.format(WITH, order.getProvider().getName()));
-        notificationService.notifyByUserId(order.getProvider().getUser().getId(), notification);  //TODO
-        notificationService.notifyByUserId(order.getCustomer().getUser().getId(), notification);  //TODO
+        notificationService.notifyByUserId(order.getProvider().getUser().getId(), notification);
     }
 
     private void emailAboutOrder(Order order, String header, String message) {

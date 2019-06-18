@@ -13,11 +13,10 @@ import java.util.List;
 
 @Slf4j
 @Service
-@Transactional
 public class OfferServiceImpl implements OfferService {
 
-    private OfferRepository offerRepository;
-    private LocationRepository locationRepository;
+    private final OfferRepository offerRepository;
+    private final LocationRepository locationRepository;
 
     public OfferServiceImpl(OfferRepository offerRepository, LocationRepository locationRepository) {
         this.offerRepository = offerRepository;
