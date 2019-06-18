@@ -1,5 +1,6 @@
 package com.softserve.demo.service.impl;
 
+import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.dto.ServiceDTO;
 import com.softserve.demo.model.Provider;
 import com.softserve.demo.model.Service;
@@ -51,15 +52,19 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
     public List<ServiceDTO> findAllServicesNotPresentInProviders(Integer idProvider) {
         Provider provider = providerRepository.findById(idProvider).get();
         List<Service> notPresentService = servicesRepository.findAll();
-//        for (Service s: provider.getServices()
-//             ) {
-//            notPresentService.removeIf(service -> service.getServiceName().equals(s.getServiceName()));
-//        }
-
         provider.getServices().forEach(s ->
             notPresentService.removeIf(service -> service.getServiceName().equals(s.getServiceName()))
         );
+
         return notPresentService.stream()
                 .map(serviceMapper::serviceToServiceDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ServiceDTO> deleteByServiceNameInProvider(Integer idProvider, String serviceName) {
+        Provider provider = providerRepository.findById(idProvider).get();
+        provider.getServices().removeIf(service -> service.getServiceName().equals(serviceName));
+        providerRepository.save(provider);
+        return provider.getServices().stream().map(serviceMapper::serviceToServiceDTO).collect(Collectors.toList());
     }
 }
