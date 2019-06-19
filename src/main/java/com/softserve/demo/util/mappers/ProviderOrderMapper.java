@@ -11,9 +11,11 @@ import java.util.List;
 public interface ProviderOrderMapper {
 
     @Mapping(target = "userDTO", source = "user")
+    @Mapping(target = "serviceDTOs", source = "services")
     ProviderOrderDTO ProviderToProviderOrderDTO(Provider provider);
 
     @Mapping(target = "user", source = "userDTO")
+    @Mapping(target = "services", source = "serviceDTOs")
     Provider ProviderToProviderOrderDTO(ProviderOrderDTO providerDTO);
 
     List<ProviderOrderDTO> ProvidersToProviderOrderDTOs(List<Provider> providers);

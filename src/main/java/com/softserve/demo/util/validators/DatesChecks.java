@@ -4,10 +4,10 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
-@Constraint(validatedBy = OfferDatesChecker.class)
+@Constraint(validatedBy = DatesChecker.class)
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface OfferDatesCheck {
+public @interface DatesChecks {
     String message() default "startDate must be before endDate";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};

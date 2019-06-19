@@ -1,9 +1,8 @@
 package com.softserve.demo.service.impl;
 
-import com.softserve.demo.model.Location;
 import com.softserve.demo.model.Offer;
-import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.repository.OfferRepository;
+import com.softserve.demo.service.LocationService;
 import com.softserve.demo.service.OfferService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,16 +16,16 @@ import java.util.List;
 public class OfferServiceImpl implements OfferService {
 
     private final OfferRepository offerRepository;
-    private final LocationRepository locationRepository;
+    private final LocationService locationService;
 
-    public OfferServiceImpl(OfferRepository offerRepository, LocationRepository locationRepository) {
+    public OfferServiceImpl(OfferRepository offerRepository, LocationService locationService) {
         this.offerRepository = offerRepository;
-        this.locationRepository = locationRepository;
+        this.locationService = locationService;
     }
 
     @Override
     public Offer createOffer(Offer offer) {
-        offer.setLocation(saveLocation(offer.getLocation()));
+        offer.setLocation(locationService.saveLocationIfNotExist(offer.getLocation()));
         return offerRepository.save(offer);
     }
 
@@ -43,15 +42,5 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public List<Offer> getOffersByCustomerId(Integer id) {
         return offerRepository.findAllByCustomerId(id);
-    }
-
-    private Location saveLocation(final Location location) {
-        Location locationFromDB = locationRepository.findLocationByCityAndCountryAndRegion(
-                location.getCity(), location.getCountry(), location.getRegion());
-
-        if (locationFromDB == null) {
-            return locationRepository.save(location);
-        }
-        return locationFromDB;
     }
 }

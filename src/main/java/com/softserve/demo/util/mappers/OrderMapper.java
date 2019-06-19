@@ -12,6 +12,7 @@ public interface OrderMapper {
 
     @Mapping(target = "providerDTO", source = "provider")
     @Mapping(target = "providerDTO.userDTO", source = "provider.user")
+    @Mapping(target = "providerDTO.serviceDTOs", source = "provider.services")
     @Mapping(target = "customerDTO", source = "customer")
     @Mapping(target = "customerDTO.userDTO", source = "customer.user")
     @Mapping(target = "serviceDTOs", source = "services")
@@ -20,6 +21,7 @@ public interface OrderMapper {
 
     @Mapping(target = "provider", source = "providerDTO")
     @Mapping(target = "provider.user", source = "providerDTO.userDTO")
+    @Mapping(target = "provider.services", source = "providerDTO.serviceDTOs")
     @Mapping(target = "customer", source = "customerDTO")
     @Mapping(target = "customer.user", source = "customerDTO.userDTO")
     @Mapping(target = "services", source = "serviceDTOs")

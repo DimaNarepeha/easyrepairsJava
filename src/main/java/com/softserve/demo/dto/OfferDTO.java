@@ -1,7 +1,8 @@
 package com.softserve.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.softserve.demo.util.validators.OfferDatesCheck;
+import com.softserve.demo.util.validators.DatesChecks;
+import com.softserve.demo.util.validators.StartEndDates;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,8 +15,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@OfferDatesCheck
-public class OfferDTO {
+@DatesChecks
+public class OfferDTO implements StartEndDates {
 
     private Integer id;
     private String description;
