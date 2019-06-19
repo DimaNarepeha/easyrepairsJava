@@ -38,7 +38,7 @@ public class AuthorizationUserServiceImpl implements AuthorizationUserService {
 
     @Override
     public AuthorizationUserDTO getUser(String username) {
-        User user = userRepository.findByUsername(username).get();
+        User user = userRepository.findByUsernameOrEmail(username, username).get();
         return authorizationUserMapper.userToAuthorizationUserDTO(user);
     }
 
@@ -68,7 +68,6 @@ public class AuthorizationUserServiceImpl implements AuthorizationUserService {
 
     @Override
     public String getWaitTime(Duration duration) {
-        System.out.println(Math.abs(duration.toMinutes()));
         if (Math.abs(duration.toMinutes()) == TIME_THRESH_HOLD) {
             return String.format(BLOCK_MSG_SECONDS, Math.abs(duration.getSeconds() - SECONDS));
         }
@@ -76,7 +75,7 @@ public class AuthorizationUserServiceImpl implements AuthorizationUserService {
     }
 
     @Override
-    public void setDefaultAttempt(AuthorizationUserDTO user) {
+    public void setDefaultAttemptValue(AuthorizationUserDTO user) {
         user.setAttempts(DEFAULT_ATTEMPT_VALUE);
         user.setLastFail(DEFAULT_TIME_VALUE);
         updateUser(user);
