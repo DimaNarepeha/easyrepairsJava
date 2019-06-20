@@ -80,8 +80,8 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public List<FeedbackGeneralDTO> findTop4ByCreatedDateBefore(LocalDateTime createdDate) {
-        return feedbackGeneralMapper.map(feedbackRepository.findTop4ByCreatedDateBefore(createdDate));
+    public List<FeedbackGeneralDTO> findTop4ByUpdateDateNotNullOrderByCreatedDate() {
+        return feedbackGeneralMapper.map(feedbackRepository.findTop4ByUpdateDateNotNullOrderByCreatedDate());
     }
 
 }

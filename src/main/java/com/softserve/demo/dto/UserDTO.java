@@ -5,12 +5,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotNull;
+
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
 public class UserDTO {
+    @NotNull
     private Integer id;
+    @NotNull
     private String username;
     private String password;
     private String email;
