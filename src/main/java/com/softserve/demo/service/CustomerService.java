@@ -27,7 +27,7 @@ public interface CustomerService {
 
     void addImageToCustomer(Integer id, String fileName);
 
-    CustomerDTO getCustomerByUserId (Integer id);
+    CustomerDTO findCustomerByUserId(Integer id);
 
     Page<CustomerDTO> getCustomersByStatus(Pageable pageable, CustomerStatus status);
 
@@ -35,7 +35,7 @@ public interface CustomerService {
 
     <T> Page<Customer> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy);
 
-     void addFavourite(Integer id, ProviderDTO providerDTO);
+     void addOrRemoveFromFavourites(Integer customerId, Integer providerId);
 
     void removeById(Integer customerId,Integer favouriteId);
 

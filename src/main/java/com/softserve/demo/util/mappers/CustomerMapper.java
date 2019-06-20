@@ -17,14 +17,15 @@ public interface CustomerMapper {
     @Mappings({
             @Mapping(target = "userDTO", source = "user"),
             @Mapping(target = "image", source = "customer.user.image"),
-            @Mapping(target = "email", source = "customer.user.email")
+            @Mapping(target = "email", source = "customer.user.email"),
+            @Mapping(target = "favourites", source = "customer.favourites")
 
     })
     CustomerDTO customerToCustomerDTO(Customer customer);
 
     @Mappings({
            @Mapping(target = "user", source = "userDTO"),
-          //  @Mapping(target = "user.image", source = "image"),
+            @Mapping(target = "user.image", source = "image"),
             @Mapping(target = "user.email", source = "customerDTO.email")
     })
     Customer customerDTOToCustomer(CustomerDTO customerDTO);

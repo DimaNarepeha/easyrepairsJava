@@ -16,7 +16,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@ToString
 @Table(name = "customer")
 public class Customer {
     @Column(name = "id")
@@ -50,16 +49,15 @@ public class Customer {
     private List<Offer> offers;
 
     @JsonBackReference(value = "order_customer")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer",cascade = CascadeType.REMOVE)
     private List<Order> orders;
 
     @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
+            CascadeType.ALL
     })
-    @JoinTable(name = "favourite",
+    @JoinTable(name = "favourites",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "provider_id")
     )
-    private List<Provider> favourite;
+    private List<Provider> favourites;
 }

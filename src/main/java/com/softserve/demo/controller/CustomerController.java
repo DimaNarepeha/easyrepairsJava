@@ -1,11 +1,8 @@
 package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.CustomerDTO;
-import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.filter.CustomerFilter;
-import com.softserve.demo.filter.ProviderFilter;
 import com.softserve.demo.model.CustomerStatus;
-import com.softserve.demo.model.ProviderStatus;
 import com.softserve.demo.service.CustomerService;
 import com.softserve.demo.service.FilesStorageService;
 import org.springframework.core.io.Resource;
@@ -100,9 +97,8 @@ public class CustomerController {
 
 
     @GetMapping("find-by-userId/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CUSTOMER')")
     public CustomerDTO getCustomerByUserId(@PathVariable("id") Integer id) {
-        return customerService.getCustomerByUserId(id);
+        return customerService.findCustomerByUserId(id);
     }
 
     @GetMapping("status")
@@ -122,9 +118,9 @@ public class CustomerController {
     @GetMapping("status/searchByFirstName")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public Page<?> getCustomersByFirstName(@RequestParam(defaultValue = "0") int page,
+    public Page<?> getCustomersByFirstName(@RequestParam int page,
                                            @RequestParam int pageSize,
-                                           @RequestParam(defaultValue = "ACTIVE") String status,
+                                           @RequestParam String status,
                                            @RequestParam String firstName) {
         return customerFilter.firstNameLike(page,pageSize, firstName, CustomerStatus.valueOf(status));
     }
@@ -132,9 +128,9 @@ public class CustomerController {
     @GetMapping("status/searchByLastName")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public Page<?> getCustomersByLastName(@RequestParam(defaultValue = "0") int page,
+    public Page<?> getCustomersByLastName(@RequestParam int page,
                                           @RequestParam int pageSize,
-                                          @RequestParam(defaultValue = "ACTIVE") String status,
+                                          @RequestParam String status,
                                           @RequestParam String lastName) {
         return customerFilter.lastNameLike(page,pageSize, lastName, CustomerStatus.valueOf(status));
     }
