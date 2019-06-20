@@ -68,7 +68,6 @@ public class ProvidersController {
     }
 
     @PostMapping("{userId}")
-    @ResponseStatus(HttpStatus.OK)
     public void uploadImage(
             @PathVariable("userId") Integer idUser,
             @RequestParam("imageFile") MultipartFile file
