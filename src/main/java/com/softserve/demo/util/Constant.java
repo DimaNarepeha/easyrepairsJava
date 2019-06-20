@@ -4,7 +4,7 @@ package com.softserve.demo.util;
  * Created by Illia Chenchak
  */
 public final class Constant {
-    public final static String DEFAULT_PHOTO = "nophoto.png";
+    public static final String DEFAULT_PHOTO = "nophoto.png";
     public static final Integer FEEDBACK_TIME_OUT = 72;
     public static final Integer DEFAULT_LOCATION = 1001;
     public static final String STR_ZERO = "0";
