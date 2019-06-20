@@ -13,4 +13,6 @@ public interface LocationService {
     Location save(Location location);
 
     void delete(Integer id);
+
+    Location saveLocationIfNotExist(Location location);
 }

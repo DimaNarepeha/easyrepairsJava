@@ -41,4 +41,15 @@ public class LocationServiceImpl implements LocationService {
     public void delete(Integer idLocation) {
         locationRepository.delete(locationRepository.findById(idLocation).get());
     }
+
+    @Override
+    public Location saveLocationIfNotExist(Location location) {
+        Location locationFromDB = locationRepository.findLocationByCityAndCountryAndRegion(
+                location.getCity(), location.getCountry(), location.getRegion());
+
+        if (locationFromDB == null) {
+            return locationRepository.save(location);
+        }
+        return locationFromDB;
+    }
 }

@@ -1,6 +1,5 @@
 package com.softserve.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,7 +35,7 @@ public class Offer {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    @JsonBackReference(value="customer-movement")
+    @JsonManagedReference(value = "offer_customer")
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
@@ -54,5 +53,4 @@ public class Offer {
             inverseJoinColumns = {@JoinColumn(name = "service_id")}
     )
     private List<Service> services;
-
 }
