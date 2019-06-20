@@ -3,7 +3,6 @@ package com.softserve.demo.service.impl;
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Customer;
-import com.softserve.demo.model.Offer;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.CustomerService;
