@@ -8,7 +8,6 @@
 
     <changeSet author="Nastya" id="dropForeignKeyConstraint-example1">
         <dropForeignKeyConstraint baseTableName="chat" constraintName="chat_provider"/>
-
     </changeSet>
     <changeSet author="liquibase-docs" id="dropForeignKeyConstraint-example2">
     <addColumn tableName="chat">
@@ -16,13 +15,7 @@
 
     </addColumn>
     </changeSet>
-    <!--<changeSet author="liquibase-docs" id="dropForeignKeyConstraint-example3">-->
-        <!--<addDefaultValue-->
-                         <!--columnDataType="boolean"-->
-                         <!--columnName="is_read"-->
-                         <!--defaultValueBoolean="false"-->
-                         <!--tableName="chat"/>-->
-    <!--</changeSet>-->
+
     <changeSet author="Nastya" id="renameColumn-example">
         <renameColumn
                       columnDataType="int"
@@ -58,4 +51,10 @@
                                  onDelete="CASCADE"/>
     </changeSet>
 
+    <changeSet author="liquibase-docs" id="dropColumn-example">
+        <dropColumn
+                    columnName="sent_by"
+                    schemaName="easyrepairs"
+                    tableName="chat"/>
+    </changeSet>
 </databaseChangeLog>

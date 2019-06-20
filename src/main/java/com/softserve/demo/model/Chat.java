@@ -19,17 +19,8 @@ public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
-    @ManyToOne
-    @JoinColumn(name = "provider_id")
-    private Provider provider;
 
     private String message;
-
-    @Column(name = "sent_by")
-    private Integer sentBy;
 
     @CreationTimestamp
     @Column(name = "sending_time")
