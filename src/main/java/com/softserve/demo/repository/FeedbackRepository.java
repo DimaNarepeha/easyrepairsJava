@@ -18,6 +18,6 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Integer> {
     @Query("SELECT f from Feedback f where f.addressedTo.id = :userId")
     List<Feedback> findActiveFeedbackByUserId(@Param("userId") Integer id);
 
-    List<Feedback> findTop4ByCreatedDateBefore(LocalDateTime createdDate);
+    List<Feedback> findTop4ByUpdateDateNotNullOrderByCreatedDate();
 
 }
