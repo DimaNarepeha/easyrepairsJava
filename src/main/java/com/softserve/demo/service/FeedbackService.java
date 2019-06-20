@@ -20,5 +20,5 @@ public interface FeedbackService {
 
     List<FeedbackDTO> findFeedbackByUserId(Integer id);
 
-    List<FeedbackGeneralDTO> findTop4ByCreatedDateBefore(LocalDateTime createdDate);
+    List<FeedbackGeneralDTO> findTop4ByUpdateDateNotNullOrderByCreatedDate();
 }
