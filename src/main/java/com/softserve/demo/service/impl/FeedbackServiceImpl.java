@@ -75,7 +75,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public List<FeedbackDTO> findFeedbackByUserId(Integer idUser) {
-        return feedbackRepository.findAllFeedbacksByUserIdAAndUpdateDateIsNull(idUser).stream().map(
+        return feedbackRepository.findAllFeedbacksByUserIdAndUpdateDateIsNull(idUser).stream().map(
                 feedbackMapper::feedbackToFeedbackDTO).collect(Collectors.toList());
     }
 

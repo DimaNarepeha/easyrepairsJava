@@ -41,5 +41,7 @@
     <include file="db/changelog/08-06-2019-17-30_insert_feedbacks.xml"/>
     <include file="db/changelog/10-06-2019-15-50_insert_portfolio_new.xml"/>
     <include file="db/changelog/10-06-2019-21-01_insert_default_feedbacks.xml"/>
+    <include file="db/changelog/21-06-2019-12-41_alter_table_customer_add_rating_filed.xml"/>
+
 
 </databaseChangeLog>
