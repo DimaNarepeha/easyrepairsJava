@@ -8,6 +8,7 @@ import com.softserve.demo.model.Customer;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.CustomerService;
+import com.softserve.demo.service.ProvidersService;
 import com.softserve.demo.util.mappers.CustomerMapper;
 import com.softserve.demo.util.mappers.ProviderMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -18,17 +19,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
     private final ProviderMapper providerMapper;
+    private final ProvidersService providersService;
 
-    public CustomerServiceImpl(CustomerMapper customerMapper, CustomerRepository customerRepository, UserRepository userRepositor, ProviderMapper providerMapper) {
+    public CustomerServiceImpl(ProvidersService providersService, CustomerMapper customerMapper, CustomerRepository customerRepository, UserRepository userRepositor, ProviderMapper providerMapper) {
+        this.providersService = providersService;
         this.providerMapper = providerMapper;
         this.customerRepository = customerRepository;
         this.customerMapper = customerMapper;
@@ -36,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO updateCustomer(CustomerDTO customerDTO) {
-        if(!customerRepository.existsById(customerDTO.getId())){
+        if (!customerRepository.existsById(customerDTO.getId())) {
             throw new NotFoundException(String.format("Customer with id: [%d] not found", customerDTO.getId()));
         }
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
@@ -53,8 +56,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(Integer id) {
-        if(!customerRepository.existsById(id)){
-            throw new NotFoundException(String.format("Customer with id: [%d] not found",id));
+        if (!customerRepository.existsById(id)) {
+            throw new NotFoundException(String.format("Customer with id: [%d] not found", id));
         }
         customerRepository.deleteById(id);
         log.debug(String.format("Delete customer with id: [%d]", id));
@@ -62,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getCustomerById(Integer id) {
-        Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Customer with id: [%d] not found",id)));
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Customer with id: [%d] not found", id)));
         return customerMapper.customerToCustomerDTO(customer);
     }
 
@@ -75,8 +78,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void addImageToCustomer(Integer id, String fileName) {
         Customer customerEntity =
-                customerRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Customer with id: [%d] not found",id)));
-         customerEntity.getUser().setImage(fileName);
+                customerRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Customer with id: [%d] not found", id)));
+        customerEntity.getUser().setImage(fileName);
         customerRepository.save(customerEntity);
     }
 
@@ -87,7 +90,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Page<CustomerDTO> getCustomersByStatus(Pageable pageable, CustomerStatus status) {
-        return customerRepository.findByStatus(status,pageable).map(customerMapper::customerToCustomerDTO);
+        return customerRepository.findByStatus(status, pageable).map(customerMapper::customerToCustomerDTO);
     }
 
     @Override
@@ -100,31 +103,34 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public <T> Page<Customer> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy) {
-        return customerRepository.findAll(approved,PageRequest.of(page, numberOfProvidersOnPage, Sort.by(sortBy).descending()));
+        return customerRepository.findAll(approved, PageRequest.of(page, numberOfProvidersOnPage, Sort.by(sortBy).descending()));
     }
 
     @Override
-    public void addFavourite(Integer id, ProviderDTO providerDTO) {
-        Customer customer = customerRepository.findCustomerById(id);
-        List<Provider> list = customer.getFavourite();
-        list.add(providerMapper.providerDTOToProvider(providerDTO));
-        customer.setFavourite(list);
+    public void addOrRemoveFavourite(Integer customerId, Integer providerId) {
+        boolean isFavourite = getCustomerById(customerId).getFavourites().stream()
+                .map(ProviderDTO::getId)
+                .anyMatch(p -> p.equals(providerId));
+        if (isFavourite) {
+            removeFavourite(customerId, providerId);
+        } else {
+            addFavourite(customerId,providerId);
+        }
+    }
+
+    private void addFavourite(Integer customerId, Integer providerId) {
+        Customer customer = customerRepository.findCustomerById(customerId);
+        List<Provider> list = customer.getFavourites();
+        list.add(providerMapper.providerDTOToProvider(providersService.findById(providerId)));
+        customer.setFavourites(list);
         customerRepository.save(customer);
     }
 
-    @Override
-    public void removeById(Integer customerId, Integer favouriteId) {
+   private void removeFavourite(Integer customerId, Integer favouriteId) {
         Customer customer = customerRepository.findCustomerById(customerId);
-        List<Provider> list = customer.getFavourite();
-        int numberOfFavouriteProvider = 0;
-        for (Provider provider : list) {
-            numberOfFavouriteProvider++;
-            if (provider.getId().equals(favouriteId)) {
-                break;
-            }
-        }
-        list.remove(numberOfFavouriteProvider-1);
-        customer.setFavourite(list);
+        List<Provider> list = customer.getFavourites();
+        list.removeIf(p -> p.getId().equals(favouriteId));
+        customer.setFavourites(list);
         customerRepository.save(customer);
     }
 }

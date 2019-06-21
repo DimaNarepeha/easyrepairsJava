@@ -88,7 +88,6 @@ public class CustomerController {
             @PathVariable("imageName") String name,
             final HttpServletRequest servletRequest
     ) {
-
         Resource resource = fileStorageService.loadFile(name);
         String contentType = fileStorageService.getContentType(servletRequest, resource, name);
         return ResponseEntity.ok()
@@ -109,7 +108,7 @@ public class CustomerController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public Page<?> getCustomersByStatus(@PageableDefault Pageable pageable,
-                                        @RequestParam(defaultValue = "ACTIVE") String status) {
+                                        @RequestParam String status) {
         return customerService.getCustomersByStatus(pageable, CustomerStatus.valueOf(status));
     }
 
@@ -122,9 +121,9 @@ public class CustomerController {
     @GetMapping("status/searchByFirstName")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public Page<?> getCustomersByFirstName(@RequestParam(defaultValue = "0") int page,
+    public Page<?> getCustomersByFirstName(@RequestParam int page,
                                            @RequestParam int pageSize,
-                                           @RequestParam(defaultValue = "ACTIVE") String status,
+                                           @RequestParam String status,
                                            @RequestParam String firstName) {
         return customerFilter.firstNameLike(page,pageSize, firstName, CustomerStatus.valueOf(status));
     }
@@ -132,9 +131,9 @@ public class CustomerController {
     @GetMapping("status/searchByLastName")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public Page<?> getCustomersByLastName(@RequestParam(defaultValue = "0") int page,
+    public Page<?> getCustomersByLastName(@RequestParam int page,
                                           @RequestParam int pageSize,
-                                          @RequestParam(defaultValue = "ACTIVE") String status,
+                                          @RequestParam String status,
                                           @RequestParam String lastName) {
         return customerFilter.lastNameLike(page,pageSize, lastName, CustomerStatus.valueOf(status));
     }

@@ -35,8 +35,6 @@ public interface CustomerService {
 
     <T> Page<Customer> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy);
 
-     void addFavourite(Integer id, ProviderDTO providerDTO);
-
-    void removeById(Integer customerId,Integer favouriteId);
+     void addOrRemoveFavourite(Integer customerId, Integer providerId);
 
 }

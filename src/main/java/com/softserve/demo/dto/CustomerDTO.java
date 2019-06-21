@@ -27,5 +27,5 @@ public class CustomerDTO {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updated;
     private UserDTO userDTO;
-    List<ProviderDTO> favourite;
+    List<ProviderDTO> favourites;
 }

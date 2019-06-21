@@ -4,12 +4,16 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.softserve.demo.model.Feedback;
 import com.softserve.demo.model.ProviderStatus;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
 public class ProviderDTO {
     private Integer id;
     private String name;

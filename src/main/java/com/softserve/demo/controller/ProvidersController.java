@@ -80,21 +80,20 @@ public class ProvidersController {
         providersService.addImageToProviders(idUser, file.getOriginalFilename());
     }
 
-
     @GetMapping("find-all/status")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public Page<?> getServiceProviderByStatus(@RequestParam(defaultValue = "0") int page,
+    public Page<?> getServiceProviderByStatus(@RequestParam int page,
                                               @RequestParam int numberOfProvidersOnPage,
-                                              @RequestParam(defaultValue = "NOTAPPROVED") String status) {
+                                              @RequestParam String status) {
         return providersService.getServiceProvidersByStatus(page,numberOfProvidersOnPage, ProviderStatus.valueOf(status));
     }
 
     @GetMapping("find-all/searchByName")
     @PreAuthorize("hasAnyRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public Page<ProviderInfoDTO> getServiceProviderByName(@RequestParam(defaultValue = "0") int page,
+    public Page<ProviderInfoDTO> getServiceProviderByName(@RequestParam int page,
                                                           @RequestParam int numberOfProvidersOnPage,
-                                                          @RequestParam(defaultValue = "NOTAPPROVED") String status,
+                                                          @RequestParam String status,
                                                           @RequestParam String searchName) {
         return providerFilter.nameLike(page, numberOfProvidersOnPage, searchName, ProviderStatus.valueOf(status));
 

@@ -16,7 +16,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@ToString
 @Table(name = "customer")
 public class Customer {
     @Column(name = "id")
@@ -54,12 +53,12 @@ public class Customer {
     private List<Order> orders;
 
     @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
+            CascadeType.ALL,
+            CascadeType.ALL
     })
     @JoinTable(name = "favourite",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "provider_id")
     )
-    private List<Provider> favourite;
+    private List<Provider> favourites;
 }
