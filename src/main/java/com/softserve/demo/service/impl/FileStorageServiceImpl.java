@@ -77,7 +77,6 @@ public class FileStorageServiceImpl implements FilesStorageService {
 
     @Override
     public String getContentType(HttpServletRequest servletRequest, Resource resource, String name) {
-        String contentType = "application/octet-stream";
-        return contentType;
+        return "application/octet-stream";
     }
 }

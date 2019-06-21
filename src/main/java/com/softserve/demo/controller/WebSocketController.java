@@ -21,7 +21,4 @@ public class WebSocketController {
     public void onReceivedMessage(String message){
         this.template.convertAndSend("/chat",new SimpleDateFormat("HH:mm:ss").format((new Date()))+" - "+message);
     }
-
-
-
 }

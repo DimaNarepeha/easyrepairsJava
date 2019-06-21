@@ -29,10 +29,25 @@ public class ChatController {
     }
 
     @RequestMapping(value = "/{customerId}/{providerId}", method=RequestMethod.GET)
-    public List<Chat> getCustomer(@PathVariable("customerId") Integer customerId,
+    public List<ChatDTO> getCustomer(@PathVariable("customerId") Integer customerId,
                                   @PathVariable("providerId") Integer providerId){
         return chatService.getMessagesBySenderAndGetter( customerId,providerId);
     }
 
+    @RequestMapping(value = "unread/{customerId}/{providerId}", method=RequestMethod.GET)
+    public List<ChatDTO> getUnreadMessages(@PathVariable("customerId") Integer customerId,
+                                     @PathVariable("providerId") Integer providerId){
+        return chatService.getUnreadMessages(customerId,providerId);
+    }
 
+    @RequestMapping(value = "read/{customerId}/{providerId}", method=RequestMethod.POST)
+    public void readMessages(@PathVariable("customerId") Integer customerId,
+                                           @PathVariable("providerId") Integer providerId){
+         chatService.readMessages(customerId,providerId);
+    }
+
+    @RequestMapping(value = "getUnreadForUser/{messageTo}", method=RequestMethod.GET)
+    public List<ChatDTO> readMessages(@PathVariable("messageTo") Integer messageTo){
+       return  chatService.getUreadMessagesForUser(messageTo);
+    }
 }
