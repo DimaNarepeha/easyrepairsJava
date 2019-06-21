@@ -3,8 +3,8 @@ package com.softserve.demo.util;
 /**
  * Created by Illia Chenchak
  */
-public final class  Constant {
-    public static final String defaultPhoto = "nophoto.png";
+public final class Constant {
+    public static final String DEFAULT_PHOTO = "nophoto.png";
     public static final Integer FEEDBACK_TIME_OUT = 72;
     public static final Integer DEFAULT_LOCATION = 1001;
     public static final String STR_ZERO = "0";
@@ -28,5 +28,6 @@ public final class  Constant {
             "Your contract with %s has been deleted. If you want to restore it, please contact Admin.\n" +
             "Thank you for using our services!\n" +
             "Your easyrepairs.com";
+    public static final Double DEFAULT_RATING = 2.;
 
 }

@@ -3,6 +3,7 @@ package com.softserve.demo.jobs;
 import com.softserve.demo.model.Feedback;
 import com.softserve.demo.repository.FeedbackRepository;
 import com.softserve.demo.repository.ProviderRepository;
+import com.softserve.demo.util.Constant;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -24,15 +25,15 @@ public class RemoveRatingForProviders {
         providerRepository.findAll().stream().forEach(provider -> {
             Double sum = 0.;
             Integer count;
-            for (Feedback f : feedbackRepository.findActiveFeedbackByUserId(provider.getUser().getId())
+            for (Feedback f : feedbackRepository.findAllActiveFeedbacksByUserId(provider.getUser().getId())
             ) {
                 sum += f.getRating();
             }
-            if (feedbackRepository.findActiveFeedbackByUserId(provider.getUser().getId()).size() == 0) {
-                provider.setRaiting(2);
+            if (feedbackRepository.findAllActiveFeedbacksByUserId(provider.getUser().getId()).size() == 0) {
+                provider.setRaiting(Constant.DEFAULT_RATING);
                 providerRepository.save(provider);
             } else {
-                count = feedbackRepository.findActiveFeedbackByUserId(provider.getUser().getId()).size();
+                count = feedbackRepository.findAllActiveFeedbacksByUserId(provider.getUser().getId()).size();
                 provider.setRaiting(sum / count);
                 providerRepository.save(provider);
             }

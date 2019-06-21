@@ -79,7 +79,7 @@ public class ProvidersServiceImpl implements ProvidersService {
         LocalDateTime localDateTime = LocalDateTime.now();
         provider.setLastUpdate(localDateTime);
         User user = userRepository.findById(provider.getId());
-        user.setImage(Constant.defaultPhoto);
+        user.setImage(Constant.DEFAULT_PHOTO);
         providerRepository.save(provider);
         return providerMapper.providerToProviderDTO(provider);
     }
