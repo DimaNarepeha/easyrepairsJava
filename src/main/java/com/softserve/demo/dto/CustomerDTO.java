@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,6 +27,7 @@ public class CustomerDTO {
     private String image;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updated;
+    @NotNull
     private UserDTO userDTO;
     List<ProviderDTO> favourites;
 }

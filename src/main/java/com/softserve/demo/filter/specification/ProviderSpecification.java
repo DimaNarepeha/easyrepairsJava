@@ -36,8 +36,7 @@ public class ProviderSpecification {
 
     public static Specification<Provider> greaterThanOrEqualToRating(int minRating) {
         return (root, query, criteriaBuilder) ->
-                (minRating == 0) ? null
-                        : criteriaBuilder.greaterThanOrEqualTo(root.get("raiting"), minRating);
+                criteriaBuilder.greaterThanOrEqualTo(root.get("raiting"), minRating);
     }
 
     private static Specification<Provider> isMemberService(Service service) {

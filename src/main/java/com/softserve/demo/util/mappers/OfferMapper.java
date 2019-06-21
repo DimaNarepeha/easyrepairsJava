@@ -11,11 +11,13 @@ import java.util.List;
 public interface OfferMapper {
 
     @Mapping(target = "customerDTO", source = "customer")
+    @Mapping(target = "customerDTO.userDTO", source = "customer.user")
     @Mapping(target = "serviceDTOs", source = "services")
     @Mapping(target = "locationDTO", source = "location")
     OfferDTO offerToOfferDTO(Offer offer);
 
     @Mapping(target = "customer", source = "customerDTO")
+    @Mapping(target = "customer.user", source = "customerDTO.userDTO")
     @Mapping(target = "services", source = "serviceDTOs")
     @Mapping(target = "location", source = "locationDTO")
     Offer offerDTOToOffer(OfferDTO offerDTO);
