@@ -28,6 +28,8 @@ public class OrderDTO implements StartEndDates {
     private String extraDetails;
     @Size(max = 1000)
     private String price;
+    @Size(max = 30)
+    private String status;
     @NotNull
     @Size(max = 30)
     private String timeRequirement;

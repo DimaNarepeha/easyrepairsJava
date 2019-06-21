@@ -27,7 +27,6 @@
     <include file="db/changelog/02-06-2019-19-38_add_attempts_columns.xml"/>
     <include file="db/changelog/01-06-2019-23-00_add_column_to_offers.xml"/>
     <include file="db/changelog/07-06-2019-03-17_change_order.xml"/>
-
     <include file="db/changelog/22-05-2019-13-17_insert_user_data.xml"/>
     <include file="db/changelog/05-06-2019-20-40_insert_locations.xml"/>
     <include file="db/changelog/22-05-2019-18-34_insert_customers.xml"/>
@@ -41,5 +40,6 @@
     <include file="db/changelog/08-06-2019-17-30_insert_feedbacks.xml"/>
     <include file="db/changelog/10-06-2019-15-50_insert_portfolio_new.xml"/>
     <include file="db/changelog/10-06-2019-21-01_insert_default_feedbacks.xml"/>
+    <include file="db/changelog/20-06-2019-23-42_add_column_to_order.xml"/>
 
 </databaseChangeLog>
