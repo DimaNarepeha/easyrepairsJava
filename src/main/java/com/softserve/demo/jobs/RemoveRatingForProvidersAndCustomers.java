@@ -5,7 +5,6 @@ import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.repository.FeedbackRepository;
 import com.softserve.demo.repository.ProviderRepository;
 import com.softserve.demo.util.Constant;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +36,7 @@ public class RemoveRatingForProvidersAndCustomers {
     @Scheduled(cron = "0 0 0 * * *")
     public void removeRatingForProviders() {
         providerRepository.findAll().stream().forEach(provider -> {
-            if (feedbackRepository.findAllActiveFeedbacksByUserId(provider.getUser().getId()).size() == 0) {
+            if (feedbackRepository.findAllActiveFeedbacksByUserId(provider.getUser().getId()).isEmpty()) {
                 provider.setRaiting(Constant.DEFAULT_RATING);
                 providerRepository.save(provider);
             } else {
@@ -47,10 +46,10 @@ public class RemoveRatingForProvidersAndCustomers {
         });
     }
 
-    @Scheduled(cron = "0 5 0 * * *")
+    @Scheduled(cron = "0 40 16 * * *")
     public void removeRatingForCustomers() {
         customerRepository.findAll().stream().forEach(customer -> {
-            if (feedbackRepository.findAllActiveFeedbacksByUserId(customer.getUser().getId()).size() == 0) {
+            if (feedbackRepository.findAllActiveFeedbacksByUserId(customer.getUser().getId()).isEmpty()) {
                 customer.setRating(Constant.DEFAULT_RATING);
                 customerRepository.save(customer);
             } else {

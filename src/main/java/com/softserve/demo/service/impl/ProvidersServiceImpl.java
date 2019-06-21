@@ -32,13 +32,11 @@ import java.util.stream.Collectors;
 public class ProvidersServiceImpl implements ProvidersService {
 
     private static final String PROVIDER_NOT_FOUND = "Provider with id [%s] was not found!";
-
     private final ProviderRepository providerRepository;
     private final UserRepository userRepository;
     private final ProviderMapper providerMapper;
     private final LocationRepository locationRepository;
     private final LocationMapper locationMapper;
-
 
     public ProvidersServiceImpl(final ProviderRepository providerRepository, final UserRepository userRepository,
                                 final LocationRepository locationRepository, final ProviderMapper providerMapper,
@@ -99,7 +97,6 @@ public class ProvidersServiceImpl implements ProvidersService {
         newProvider.setStatus(ProviderStatus.MODIFIED);
         return providerMapper.providerToProviderDTO(newProvider);
     }
-
 
     @Override
     public void delete(final Integer idProvider) {
