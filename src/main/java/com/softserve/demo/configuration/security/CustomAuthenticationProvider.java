@@ -51,7 +51,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Aut
             throw new DisabledException(authorizationUserService.getWaitTime(duration));
         }
 
-        authorizationUserService.setDefaultAttempt(user);
+        authorizationUserService.setDefaultAttemptValue(user);
 
         return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
     }

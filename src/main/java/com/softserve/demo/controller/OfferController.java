@@ -46,7 +46,7 @@ public class OfferController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER', 'ROLE_CUSTOMER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER')")
     public void deleteOfferById(@PathVariable("id") Integer id) {
         offerService.deleteOffer(id);
     }

@@ -73,4 +73,5 @@ public class Order {
             inverseJoinColumns = {@JoinColumn(name = "service_id")}
     )
     private List<Service> services;
+
 }
