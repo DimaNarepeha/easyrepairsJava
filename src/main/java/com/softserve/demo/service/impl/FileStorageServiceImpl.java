@@ -1,6 +1,7 @@
 package com.softserve.demo.service.impl;
 
 import com.softserve.demo.service.FilesStorageService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.nio.file.StandardCopyOption;
 
 
 @Service
+@Slf4j
 public class FileStorageServiceImpl implements FilesStorageService {
 
 
@@ -35,7 +37,7 @@ public class FileStorageServiceImpl implements FilesStorageService {
         try {
             Files.createDirectories(this.fileStorageLocation);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
 
     }
@@ -51,7 +53,7 @@ public class FileStorageServiceImpl implements FilesStorageService {
             Files.copy(file.getInputStream(), targetLocation,
                     StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
 
         return fileName;
@@ -69,7 +71,7 @@ public class FileStorageServiceImpl implements FilesStorageService {
                 return resource;
             }
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
 
         return null;
@@ -77,7 +79,6 @@ public class FileStorageServiceImpl implements FilesStorageService {
 
     @Override
     public String getContentType(HttpServletRequest servletRequest, Resource resource, String name) {
-        String contentType = "application/octet-stream";
-        return contentType;
+        return "application/octet-stream";
     }
 }
