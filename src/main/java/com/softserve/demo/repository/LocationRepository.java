@@ -7,3 +7,4 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
 
     Location findLocationByCityAndCountryAndRegion(String city, String country, String region);
 }
+

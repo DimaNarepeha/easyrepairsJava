@@ -27,10 +27,18 @@ public class Service {
     @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
     private List<Offer> offers = new ArrayList<>();
 
+    @JsonManagedReference
     @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
     private List<Provider> providers = new ArrayList<>();
 
     @JsonManagedReference(value = "service_order")
     @ManyToMany(mappedBy = "services",fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Service{" +
+                "id=" + id +
+                ", serviceName='" + serviceName + '\'';
+    }
 }

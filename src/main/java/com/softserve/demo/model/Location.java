@@ -35,4 +35,5 @@ public class Location {
     @JsonBackReference(value = "location-order")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location", cascade = CascadeType.REMOVE)
     private List<Order> orders;
+
 }
