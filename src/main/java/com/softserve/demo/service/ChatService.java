@@ -16,4 +16,6 @@ public interface ChatService {
 
     List<ChatDTO> getUreadMessagesForUser(Integer messageTo);
 
+    List<ChatDTO> getMessagesForUser(Integer messageFrom);
+
 }

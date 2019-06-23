@@ -50,4 +50,11 @@ public class ChatController {
     public List<ChatDTO> readMessages(@PathVariable("messageTo") Integer messageTo){
        return  chatService.getUreadMessagesForUser(messageTo);
     }
+
+    @RequestMapping(value = "getMessagesForUser/{messageFrom}", method=RequestMethod.GET)
+    public List<ChatDTO> getMessagesForUser(@PathVariable("messageFrom") Integer messageFrom){
+        return  chatService.getMessagesForUser(messageFrom);
+    }
+
+
 }

@@ -52,4 +52,10 @@ public class ChatServiceImpl implements ChatService {
         return chatRepository.findUnreadMessagesForUser(messageTo).stream().map(
                 chatMapper::chatToChatDTO).collect(Collectors.toList());
     }
+
+    @Override
+    public List<ChatDTO> getMessagesForUser(Integer messageFrom) {
+        return chatRepository.findMessagesForUser(messageFrom).stream().map(
+                chatMapper::chatToChatDTO).collect(Collectors.toList());
+    }
 }
