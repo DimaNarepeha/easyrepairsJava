@@ -55,10 +55,7 @@ public class Customer {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.REMOVE)
     private List<Order> orders;
 
-    @ManyToMany(cascade = {
-            CascadeType.ALL,
-            CascadeType.ALL
-    })
+    @ManyToMany()
     @JoinTable(name = "favourite",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "provider_id")

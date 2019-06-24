@@ -108,29 +108,27 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void addOrRemoveFavourite(Integer customerId, Integer providerId) {
-        boolean isFavourite = getCustomerById(customerId).getFavourites().stream()
+        CustomerDTO customerDTO = getCustomerById(customerId);
+        boolean isFavourite = customerDTO.getFavourites().stream()
                 .map(ProviderDTO::getId)
                 .anyMatch(p -> p.equals(providerId));
         if (isFavourite) {
             removeFavourite(customerId, providerId);
         } else {
-            addFavourite(customerId,providerId);
+            addFavourite(customerDTO, providerId);
         }
     }
 
-    private void addFavourite(Integer customerId, Integer providerId) {
-        Customer customer = customerRepository.findCustomerById(customerId);
-        List<Provider> list = customer.getFavourites();
-        list.add(providerMapper.providerDTOToProvider(providersService.findById(providerId)));
-        customer.setFavourites(list);
-        customerRepository.save(customer);
+    private void addFavourite(CustomerDTO customerDTO, Integer providerId) {
+        List<ProviderDTO> list = customerDTO.getFavourites();
+        list.add(providersService.findById(providerId));
+        customerRepository.save(customerMapper.customerDTOToCustomer(customerDTO));
     }
 
    private void removeFavourite(Integer customerId, Integer favouriteId) {
         Customer customer = customerRepository.findCustomerById(customerId);
         List<Provider> list = customer.getFavourites();
         list.removeIf(p -> p.getId().equals(favouriteId));
-        customer.setFavourites(list);
         customerRepository.save(customer);
     }
 }
