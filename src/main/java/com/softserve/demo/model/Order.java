@@ -31,6 +31,9 @@ public class Order {
     @Column(name = "price")
     private String price;
 
+    @Column(name = "status")
+    private String status;
+
     @CreationTimestamp
     @Column(name = "create_date")
     private LocalDateTime createDate;

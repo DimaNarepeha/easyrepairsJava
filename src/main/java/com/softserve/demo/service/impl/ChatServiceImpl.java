@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -22,8 +23,9 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<Chat> getMessagesBySenderAndGetter(Integer customerId, Integer providerId) {
-        return chatRepository.findAllBySenderAndGetterId(customerId, providerId);
+    public List<ChatDTO> getMessagesBySenderAndGetter(Integer customerId, Integer providerId) {
+        return chatRepository.findAllBySenderAndGetterId(customerId, providerId).stream().map(
+                chatMapper::chatToChatDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -32,4 +34,22 @@ public class ChatServiceImpl implements ChatService {
         chatRepository.save(chat);
     }
 
+    @Override
+    public List<ChatDTO> getUnreadMessages(Integer customerId, Integer providerId) {
+        return chatRepository.findUnreadMessages(customerId, providerId).stream().map(
+                chatMapper::chatToChatDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public void readMessages(Integer customerId, Integer providerId) {
+        List<Chat>toRead = chatRepository.findUnreadMessages(customerId, providerId);
+        toRead.forEach((Chat c) ->{c.setIsRead(true);chatRepository.save(c);});
+
+    }
+
+    @Override
+    public List<ChatDTO> getUreadMessagesForUser(Integer messageTo) {
+        return chatRepository.findUnreadMessagesForUser(messageTo).stream().map(
+                chatMapper::chatToChatDTO).collect(Collectors.toList());
+    }
 }
