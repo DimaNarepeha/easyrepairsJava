@@ -46,7 +46,7 @@ public class RemoveRatingForProvidersAndCustomers {
         });
     }
 
-    @Scheduled(cron = "0 40 16 * * *")
+    @Scheduled(cron = "0 5 17 * * *")
     public void removeRatingForCustomers() {
         customerRepository.findAll().stream().forEach(customer -> {
             if (feedbackRepository.findAllActiveFeedbacksByUserId(customer.getUser().getId()).isEmpty()) {
