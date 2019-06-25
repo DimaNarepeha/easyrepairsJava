@@ -121,7 +121,6 @@ public class CustomerController {
 
     @GetMapping("status/searchByFirstName")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
     public Page<?> getCustomersByFirstName(@RequestParam int page,
                                            @RequestParam int pageSize,
                                            @RequestParam String status,
@@ -131,7 +130,6 @@ public class CustomerController {
 
     @GetMapping("status/searchByLastName")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
     public Page<?> getCustomersByLastName(@RequestParam int page,
                                           @RequestParam int pageSize,
                                           @RequestParam String status,

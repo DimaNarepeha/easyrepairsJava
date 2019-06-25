@@ -79,7 +79,7 @@ public class ProvidersController {
         fileStorageService.storeFile(file);
         providersService.addImageToProviders(idUser, file.getOriginalFilename());
     }
-
+//todo remove ? and add ...
     @GetMapping("find-all/status")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public Page<?> getServiceProviderByStatus(@RequestParam int page,
