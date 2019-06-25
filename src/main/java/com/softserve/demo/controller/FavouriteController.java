@@ -14,7 +14,7 @@ public class FavouriteController {
 
     private final CustomerService customerService;
 
-    public FavouriteController( CustomerService customerService) {
+    public FavouriteController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
@@ -26,7 +26,7 @@ public class FavouriteController {
 
     @PutMapping("addToFavourite/{customerId}/provider/{providerId}")
     public ResponseEntity<?> addToFavourite(@PathVariable("customerId") Integer customerId,
-                                         @PathVariable("providerId") Integer providerId) {
+                                            @PathVariable("providerId") Integer providerId) {
         customerService.addOrRemoveFavourite(customerId, providerId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
