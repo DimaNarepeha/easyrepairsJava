@@ -32,7 +32,8 @@ public class CustomerController {
     private final CustomerFilter customerFilter;
 
 
-    public CustomerController(final CustomerService customerService, final FilesStorageService fileStorageService,final CustomerFilter customerFilter) {
+    public CustomerController(final CustomerService customerService, final FilesStorageService fileStorageService,
+                              final CustomerFilter customerFilter) {
         this.customerService = customerService;
         this.customerFilter = customerFilter;
         this.fileStorageService = fileStorageService;

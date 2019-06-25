@@ -22,7 +22,7 @@ public interface CustomerMapper {
 
     @Mappings({
             @Mapping(target = "user", source = "userDTO"),
-git            @Mapping(target = "user.email", source = "customerDTO.email")
+            @Mapping(target = "user.email", source = "customerDTO.email")
     })
     Customer customerDTOToCustomer(CustomerDTO customerDTO);
 

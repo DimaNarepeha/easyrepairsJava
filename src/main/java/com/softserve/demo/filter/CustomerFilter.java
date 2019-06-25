@@ -29,20 +29,24 @@ public class CustomerFilter {
         this.customerService = customerService;
     }
 
-    public Page<CustomerDTO> firstNameLike(int page, int numberOfProvidersOnPage, String searchName, CustomerStatus status) {
+    public Page<CustomerDTO> firstNameLike(int page, int numberOfProvidersOnPage, String searchName,
+                                           CustomerStatus status) {
         Page<Customer> entityPage = customerService.findAll(Specification.where(CustomerSpecification.isStatus(status))
                         .and(CustomerSpecification.likeFirstName(searchName)),
                 page, numberOfProvidersOnPage, "firstName");
         List<CustomerDTO> customerDTO = customerMapper.map(entityPage.getContent());
-        return new PageImpl<CustomerDTO>(customerDTO, PageRequest.of(page, numberOfProvidersOnPage), entityPage.getTotalElements());
+        return new PageImpl<CustomerDTO>(customerDTO, PageRequest.of(page, numberOfProvidersOnPage),
+                entityPage.getTotalElements());
     }
 
 
-    public Page<CustomerDTO> lastNameLike(int page, int numberOfProvidersOnPage, String searchName, CustomerStatus status) {
+    public Page<CustomerDTO> lastNameLike(int page, int numberOfProvidersOnPage, String searchName,
+                                          CustomerStatus status) {
         Page<Customer> entityPage = customerService.findAll(Specification.where(CustomerSpecification.isStatus(status))
                         .and(CustomerSpecification.likeLastName(searchName)),
                 page, numberOfProvidersOnPage, "lastName");
         List<CustomerDTO> customerDTO = customerMapper.map(entityPage.getContent());
-        return new PageImpl<CustomerDTO>(customerDTO, PageRequest.of(page, numberOfProvidersOnPage), entityPage.getTotalElements());
+        return new PageImpl<CustomerDTO>(customerDTO, PageRequest.of(page, numberOfProvidersOnPage),
+                entityPage.getTotalElements());
     }
 }

@@ -8,11 +8,13 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class CustomerSpecification {
     public static Specification<Customer> likeFirstName(String firstName) {
-        return ((root, query, criteriaBuilder) -> firstName.isEmpty() ? null : criteriaBuilder.like(root.get("firstName"), "%" + firstName + "%"));
+        return ((root, query, criteriaBuilder) -> firstName.isEmpty() ? null : criteriaBuilder
+                .like(root.get("firstName"), "%" + firstName + "%"));
     }
 
     public static Specification<Customer> likeLastName(String lastName) {
-        return ((root, query, criteriaBuilder) -> lastName.isEmpty() ? null : criteriaBuilder.like(root.get("lastName"), "%" + lastName + "%"));
+        return ((root, query, criteriaBuilder) -> lastName.isEmpty() ? null : criteriaBuilder
+                .like(root.get("lastName"), "%" + lastName + "%"));
     }
 
     public static Specification<Customer> isStatus(CustomerStatus status) {
