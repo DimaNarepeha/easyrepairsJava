@@ -19,7 +19,7 @@ public interface ProviderMapper {
             @Mapping(target = "email", source = "user.email"),
             @Mapping(target = "image", source = "user.image"),
             @Mapping(target = "location", source = "location"),
-            @Mapping(target = "countComment", expression = "java( provider.getUser().getFeedbackTo().size())"),
+            @Mapping(target = "countComment", expression = "java(provider.getUser().getFeedbackTo().size())"),
             @Mapping(target = "services", source = "services"),
             @Mapping(target = "feedbacks", expression = "java( provider.getUser().getFeedbackTo())")
     })

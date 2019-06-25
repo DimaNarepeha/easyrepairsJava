@@ -31,6 +31,9 @@ public class Order {
     @Column(name = "price")
     private String price;
 
+    @Column(name = "status")
+    private String status;
+
     @CreationTimestamp
     @Column(name = "create_date")
     private LocalDateTime createDate;
@@ -73,4 +76,5 @@ public class Order {
             inverseJoinColumns = {@JoinColumn(name = "service_id")}
     )
     private List<Service> services;
+
 }

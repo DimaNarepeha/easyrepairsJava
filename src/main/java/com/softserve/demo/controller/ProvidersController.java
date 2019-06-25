@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -43,8 +44,8 @@ public class ProvidersController {
     }
 
     @PutMapping("/update")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER')")
-    public ProviderDTO updateServiceProviders(@RequestBody ProviderDTO providerDTO) {
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN') or (hasRole( 'ROLE_PROVIDER') and principal.username==#providerDTO.userDTO.username)")
+    public ProviderDTO updateServiceProviders(@RequestBody ProviderDTO providerDTO, Principal principal) {
         return providersService.update(providerDTO);
     }
 
@@ -71,7 +72,6 @@ public class ProvidersController {
     }
 
     @PostMapping("{userId}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
     public void uploadImage(
             @PathVariable("userId") Integer idUser,
             @RequestParam("imageFile") MultipartFile file

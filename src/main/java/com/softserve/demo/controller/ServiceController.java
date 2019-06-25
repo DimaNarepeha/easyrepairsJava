@@ -1,13 +1,12 @@
 package com.softserve.demo.controller;
 
+import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.dto.ServiceDTO;
+import com.softserve.demo.model.Provider;
 import com.softserve.demo.service.ServiceFromProviders;
 import com.softserve.demo.util.mappers.ServiceMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +27,20 @@ public class ServiceController {
     @GetMapping
     public List<ServiceDTO> getAllServices() {
         return serviceMapper.servicesToServiceDTOs(serviceFromProviders.getAllServices());
+    }
+
+    @PostMapping("/save/{providerId}")
+    public ServiceDTO saveServiceForProvider (@PathVariable("providerId") Integer id, @RequestBody ServiceDTO serviceDTO ) {
+        return serviceFromProviders.saveServiceFromProvider(id, serviceDTO);
+    }
+
+    @GetMapping("not-in-provider/{providerId}")
+    public List<ServiceDTO> findAllServiceIsNotPresentInProvider (@PathVariable("providerId") Integer id) {
+        return serviceFromProviders.findAllServicesNotPresentInProviders(id);
+    }
+
+    @DeleteMapping("delete/{providerId}/{serviceName}")
+    public List<ServiceDTO> deleteByServiceName (@PathVariable("providerId") Integer id, @PathVariable("serviceName") String serviceName) {
+        return serviceFromProviders.deleteByServiceNameInProvider(id,serviceName);
     }
 }
