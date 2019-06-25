@@ -1,6 +1,7 @@
 package com.softserve.demo.service.impl;
 
 
+import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Location;

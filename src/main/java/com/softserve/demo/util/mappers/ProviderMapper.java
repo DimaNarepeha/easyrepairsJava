@@ -1,5 +1,6 @@
 package com.softserve.demo.util.mappers;
 
+
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
 import com.softserve.demo.model.User;
@@ -28,7 +29,8 @@ public interface ProviderMapper {
             @Mapping(target = "user", source = "userDTO"),
             @Mapping(target = "user.email", source = "email"),
             @Mapping(target = "user.image", source = "image"),
-            @Mapping(target = "services", source = "services")
+            @Mapping(target = "services", source = "services"),
+            @Mapping(target = "status", source = "status")
     })
     Provider providerDTOToProvider(ProviderDTO providerDTO);
 
@@ -37,7 +39,8 @@ public interface ProviderMapper {
             @Mapping(target = "username", source = "userDTO.username"),
             @Mapping(target = "password", source = "userDTO.password"),
             @Mapping(target = "email", source = "email"),
-            @Mapping(target = "image", source = "image"),
+            @Mapping(target = "image", source = "image")
+
     })
     User providerDTOToUser(ProviderDTO providerDTO);
 
