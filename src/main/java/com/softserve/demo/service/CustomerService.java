@@ -11,11 +11,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
+
 public interface CustomerService {
 
-
-    CustomerDTO updateCustomer( CustomerDTO customer);
+    CustomerDTO updateCustomer(CustomerDTO customer);
 
     List<CustomerDTO> getAllCustomers();
 
@@ -27,7 +26,7 @@ public interface CustomerService {
 
     void addImageToCustomer(Integer id, String fileName);
 
-    CustomerDTO getCustomerByUserId (Integer id);
+    CustomerDTO getCustomerByUserId(Integer id);
 
     Page<CustomerDTO> getCustomersByStatus(Pageable pageable, CustomerStatus status);
 
@@ -35,6 +34,6 @@ public interface CustomerService {
 
     <T> Page<Customer> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy);
 
-     void addOrRemoveFavourite(Integer customerId, Integer providerId);
+    void addOrRemoveFavourite(Integer customerId, Integer providerId);
 
 }

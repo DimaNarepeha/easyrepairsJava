@@ -22,8 +22,7 @@ public interface CustomerMapper {
 
     @Mappings({
             @Mapping(target = "user", source = "userDTO"),
-//            @Mapping(target = "user.image", source = "image"),
-            @Mapping(target = "user.email", source = "customerDTO.email")
+git            @Mapping(target = "user.email", source = "customerDTO.email")
     })
     Customer customerDTOToCustomer(CustomerDTO customerDTO);
 

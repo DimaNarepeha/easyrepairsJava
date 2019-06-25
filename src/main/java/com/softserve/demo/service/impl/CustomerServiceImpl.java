@@ -6,7 +6,6 @@ import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.*;
 import com.softserve.demo.model.Customer;
 import com.softserve.demo.repository.CustomerRepository;
-import com.softserve.demo.repository.UserRepository;
 import com.softserve.demo.service.CustomerService;
 import com.softserve.demo.service.ProvidersService;
 import com.softserve.demo.util.mappers.CustomerMapper;
@@ -27,12 +26,11 @@ import java.util.stream.Collectors;
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
-    private final ProviderMapper providerMapper;
     private final ProvidersService providersService;
 
-    public CustomerServiceImpl(ProvidersService providersService, CustomerMapper customerMapper, CustomerRepository customerRepository, UserRepository userRepositor, ProviderMapper providerMapper) {
+    public CustomerServiceImpl(ProvidersService providersService, CustomerMapper customerMapper,
+                               CustomerRepository customerRepository) {
         this.providersService = providersService;
-        this.providerMapper = providerMapper;
         this.customerRepository = customerRepository;
         this.customerMapper = customerMapper;
     }
@@ -65,7 +63,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getCustomerById(Integer id) {
-        Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Customer with id: [%d] not found", id)));
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException(
+                String.format("Customer with id: [%d] not found", id)));
         return customerMapper.customerToCustomerDTO(customer);
     }
 
@@ -78,7 +77,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void addImageToCustomer(Integer id, String fileName) {
         Customer customerEntity =
-                customerRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Customer with id: [%d] not found", id)));
+                customerRepository.findById(id).orElseThrow(() -> new NotFoundException(
+                        String.format("Customer with id: [%d] not found", id)));
         customerEntity.getUser().setImage(fileName);
         customerRepository.save(customerEntity);
     }

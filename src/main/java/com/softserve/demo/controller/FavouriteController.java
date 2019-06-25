@@ -2,7 +2,6 @@ package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.service.CustomerService;
-import com.softserve.demo.service.ProvidersService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
