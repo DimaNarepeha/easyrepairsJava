@@ -48,4 +48,7 @@ public class Customer {
     @JsonBackReference(value = "order_customer")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer",cascade = CascadeType.REMOVE)
     private List<Order> orders;
+
+    @Column(name = "rating")
+    private Double rating;
 }

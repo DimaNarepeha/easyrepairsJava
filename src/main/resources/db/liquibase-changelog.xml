@@ -40,6 +40,7 @@
     <include file="db/changelog/08-06-2019-17-30_insert_feedbacks.xml"/>
     <include file="db/changelog/10-06-2019-15-50_insert_portfolio_new.xml"/>
     <include file="db/changelog/10-06-2019-21-01_insert_default_feedbacks.xml"/>
+    <include file="db/changelog/21-06-2019-12-41_alter_table_customer_add_rating_filed.xml"/>
     <include file="db/changelog/12-06-2019-21-09_chage_foreign_key_constraint_chat.xml"/>
     <include file="db/changelog/20-06-2019-23-42_add_column_to_order.xml"/>
     <include file="db/changelog/25-06-2019-17-41_insert_offers_and_orders.xml"/>

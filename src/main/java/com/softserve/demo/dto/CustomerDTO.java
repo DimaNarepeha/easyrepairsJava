@@ -28,4 +28,5 @@ public class CustomerDTO {
     private LocalDateTime updated;
     @NotNull
     private UserDTO userDTO;
+    private Double rating;
 }
