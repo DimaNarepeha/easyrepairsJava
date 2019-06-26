@@ -39,7 +39,8 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
     @Override
     public ServiceDTO saveServiceFromProvider(Integer id, ServiceDTO serviceDTO) {
         Service service = servicesRepository.findByServiceName(serviceDTO.getServiceName());
-        Provider provider = providerRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, id)));
+        Provider provider = providerRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, id)));
         provider.getServices().removeIf(oldService -> oldService.getServiceName().equals(service.getServiceName()));
         provider.getServices().add(service);
         providerRepository.save(provider);
@@ -48,7 +49,8 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
 
     @Override
     public List<ServiceDTO> findAllServicesNotPresentInProviders(Integer idProvider) {
-        Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
+        Provider provider = providerRepository.findById(idProvider)
+                .orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
         List<Service> notPresentService = servicesRepository.findAll();
         provider.getServices().forEach(s ->
             notPresentService.removeIf(service -> service.getServiceName().equals(s.getServiceName()))
@@ -60,7 +62,8 @@ public class ServiceFromProvidersImpl implements ServiceFromProviders {
 
     @Override
     public List<ServiceDTO> deleteByServiceNameInProvider(Integer idProvider, String serviceName) {
-        Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
+        Provider provider = providerRepository.findById(idProvider)
+                .orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
         provider.getServices().removeIf(service -> service.getServiceName().equals(serviceName));
         providerRepository.save(provider);
         return provider.getServices().stream().map(serviceMapper::serviceToServiceDTO).collect(Collectors.toList());

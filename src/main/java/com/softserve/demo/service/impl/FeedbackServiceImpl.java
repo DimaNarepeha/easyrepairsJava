@@ -26,7 +26,8 @@ public class FeedbackServiceImpl implements FeedbackService {
     private final UserRepository userRepository;
     private final FeedbackGeneralMapper feedbackGeneralMapper;
 
-    public FeedbackServiceImpl(FeedbackRepository feedbackRepository, FeedbackMapper feedbackMapper, UserRepository userRepository, FeedbackGeneralMapper feedbackGeneralMapper) {
+    public FeedbackServiceImpl(FeedbackRepository feedbackRepository, FeedbackMapper feedbackMapper,
+                               UserRepository userRepository, FeedbackGeneralMapper feedbackGeneralMapper) {
         this.feedbackRepository = feedbackRepository;
         this.feedbackMapper = feedbackMapper;
         this.userRepository = userRepository;
@@ -47,7 +48,8 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public FeedbackDTO update(FeedbackDTO feedbackDTO) {
         Feedback feedback = feedbackMapper.feedbackDTOToFeedback(feedbackDTO);
-        Feedback newFeedback = feedbackRepository.findById(feedback.getId()).orElseThrow(() -> new NotFoundException(String.format(FEEDBACK_NOT_FOUND, feedback.getId())));
+        Feedback newFeedback = feedbackRepository.findById(feedback.getId())
+                .orElseThrow(() -> new NotFoundException(String.format(FEEDBACK_NOT_FOUND, feedback.getId())));
         newFeedback.setUpdateDate(LocalDateTime.now());
         newFeedback.setComment(feedback.getComment());
         newFeedback.setRating(feedback.getRating());
@@ -56,7 +58,8 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public FeedbackDTO findById(Integer idFeedback) {
-        return feedbackMapper.feedbackToFeedbackDTO(feedbackRepository.findById(idFeedback).orElseThrow(() -> new NotFoundException(String.format(FEEDBACK_NOT_FOUND, idFeedback))));
+        return feedbackMapper.feedbackToFeedbackDTO(feedbackRepository.findById(idFeedback)
+                .orElseThrow(() -> new NotFoundException(String.format(FEEDBACK_NOT_FOUND, idFeedback))));
     }
 
     @Override
@@ -67,7 +70,8 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public void delete(Integer idFeedback) {
-        feedbackRepository.delete(feedbackRepository.findById(idFeedback).orElseThrow(() -> new NotFoundException(String.format(FEEDBACK_NOT_FOUND, idFeedback))));
+        feedbackRepository.delete(feedbackRepository.findById(idFeedback)
+                .orElseThrow(() -> new NotFoundException(String.format(FEEDBACK_NOT_FOUND, idFeedback))));
     }
 
     @Override
