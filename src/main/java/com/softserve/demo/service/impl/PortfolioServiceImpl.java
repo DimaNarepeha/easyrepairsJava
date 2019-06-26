@@ -37,7 +37,10 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     @Override
     public PortfolioDTO findById(Integer id) {
-        return convertPortfolioToPortfolioDTO(portfolioRepository.findById(id).get());
+        Portfolio portfolio = portfolioRepository.findById(id).get();
+        PortfolioDTO portfolioDTO = convertPortfolioToPortfolioDTO(portfolio);
+        portfolioDTO.setUserId(portfolio.getProvider().getUser().getId());
+        return portfolioDTO;
     }
 
     @Override
