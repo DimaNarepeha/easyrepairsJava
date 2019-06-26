@@ -55,7 +55,7 @@ public class ProvidersController {
     }
 
     @GetMapping("find-all/page")
-    public Page<?> getServiceProvidersByPage(@PageableDefault Pageable pageable) {
+    public Page<ProviderDTO> getServiceProvidersByPage(@PageableDefault Pageable pageable) {
         return providersService.getServiceProvidersByPage(pageable);
     }
 
@@ -79,10 +79,11 @@ public class ProvidersController {
         fileStorageService.storeFile(file);
         providersService.addImageToProviders(idUser, file.getOriginalFilename());
     }
-//todo remove ? and add ...
+
+
     @GetMapping("find-all/status")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public Page<?> getServiceProviderByStatus(@RequestParam int page,
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public Page<ProviderDTO> getServiceProviderByStatus(@RequestParam int page,
                                               @RequestParam int numberOfProvidersOnPage,
                                               @RequestParam String status) {
         return providersService.getServiceProvidersByStatus(page,numberOfProvidersOnPage, ProviderStatus.valueOf(status));

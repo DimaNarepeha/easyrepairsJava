@@ -30,4 +30,5 @@ public class CustomerDTO {
     @NotNull
     private UserDTO userDTO;
     List<ProviderDTO> favourites;
+    private Double rating;
 }

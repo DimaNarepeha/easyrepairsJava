@@ -97,6 +97,7 @@ public class RegisterServiceImpl implements RegisterService {
 
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setUser(user);
+        customer.setRating(Constant.DEFAULT_RATING);
         sendWelcomeUserNotification(user.getId());
         return customerMapper.customerToCustomerDTO(customerRepository.save(customer));
     }
@@ -109,7 +110,7 @@ public class RegisterServiceImpl implements RegisterService {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
         provider.setLocation(locationRepository.findById(Constant.DEFAULT_LOCATION).get());
         provider.setUser(user);
-        provider.setRaiting(1);
+        provider.setRaiting(Constant.DEFAULT_RATING);
         provider.setStatus(ProviderStatus.NOTAPPROVED);
         provider = providerRepository.save(provider);
         portfolioService.createEmptyPortfolio(provider);

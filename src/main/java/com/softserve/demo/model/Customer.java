@@ -1,9 +1,6 @@
 package com.softserve.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,8 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Data
+@Getter
+@Setter
 @Entity
+@ToString
 @Table(name = "customer")
 public class Customer {
     @Column(name = "id")
@@ -52,8 +51,11 @@ public class Customer {
     private List<Offer> offers;
 
     @JsonBackReference(value = "order_customer")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer",cascade = CascadeType.REMOVE)
     private List<Order> orders;
+
+    @Column(name = "rating")
+    private Double rating;
 
     @ManyToMany()
     @JoinTable(name = "favourite",
