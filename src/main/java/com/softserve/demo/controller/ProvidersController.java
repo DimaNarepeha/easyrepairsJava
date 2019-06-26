@@ -51,7 +51,7 @@ public class ProvidersController {
     }
 
     @GetMapping("find-all/page")
-    public Page<?> getServiceProvidersByPage(@PageableDefault Pageable pageable) {
+    public Page<ProviderDTO> getServiceProvidersByPage(@PageableDefault Pageable pageable) {
         return providersService.getServiceProvidersByPage(pageable);
     }
 
@@ -78,8 +78,8 @@ public class ProvidersController {
 
 
     @GetMapping("find-all/status")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public Page<?> getServiceProviderByStatus(@PageableDefault Pageable pageable,
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public Page<ProviderDTO> getServiceProviderByStatus(@PageableDefault Pageable pageable,
                                               @RequestParam(defaultValue = "NOTAPPROVED") String status) {
         return providersService.getServiceProvidersByStatus(pageable, ProviderStatus.valueOf(status));
     }
