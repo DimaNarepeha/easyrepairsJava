@@ -32,13 +32,11 @@ import java.util.stream.Collectors;
 public class ProvidersServiceImpl implements ProvidersService {
 
     private static final String PROVIDER_NOT_FOUND = "Provider with id [%s] was not found!";
-
     private final ProviderRepository providerRepository;
     private final UserRepository userRepository;
     private final ProviderMapper providerMapper;
     private final LocationRepository locationRepository;
     private final LocationMapper locationMapper;
-
 
     public ProvidersServiceImpl(final ProviderRepository providerRepository, final UserRepository userRepository,
                                 final LocationRepository locationRepository, final ProviderMapper providerMapper,
@@ -61,7 +59,8 @@ public class ProvidersServiceImpl implements ProvidersService {
 
     @Override
     public ProviderDTO findById(final Integer idProvider) {
-        Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
+        Provider provider = providerRepository.findById(idProvider)
+                .orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
         return providerMapper.providerToProviderDTO(provider);
     }
 
@@ -87,7 +86,8 @@ public class ProvidersServiceImpl implements ProvidersService {
     @Override
     public ProviderDTO update(final ProviderDTO providerDTO) {
         Provider provider = providerMapper.providerDTOToProvider(providerDTO);
-        Provider newProvider = providerRepository.findById(provider.getId()).orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
+        Provider newProvider = providerRepository.findById(provider.getId())
+                .orElseThrow(() -> new NotFoundException("ServiceProvider not found"));
         Location location = locationMapper.locationDTOToLocation(providerDTO.getLocation());
         newProvider.setLocation(setOrSaveLocation(location));
         newProvider.setName(provider.getName());
@@ -100,17 +100,18 @@ public class ProvidersServiceImpl implements ProvidersService {
         return providerMapper.providerToProviderDTO(newProvider);
     }
 
-
     @Override
     public void delete(final Integer idProvider) {
-        Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
+        Provider provider = providerRepository.findById(idProvider)
+                .orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
         providerRepository.delete(provider);
     }
 
     @Override
     public void addImageToProviders(final Integer idProvider, final String fileName) {
         Provider provider =
-                providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
+                providerRepository.findById(idProvider)
+                        .orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
         User user = userRepository.findById(provider.getUser().getId());
         user.setImage(fileName);
         providerRepository.save(provider);
@@ -130,7 +131,8 @@ public class ProvidersServiceImpl implements ProvidersService {
 
     @Override
     public ProviderDTO updateStatus(final Integer idProvider, final String status) {
-        Provider provider = providerRepository.findById(idProvider).orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
+        Provider provider = providerRepository.findById(idProvider)
+                .orElseThrow(() -> new NotFoundException(String.format(PROVIDER_NOT_FOUND, idProvider)));
         provider.setStatus(ProviderStatus.valueOf(status));
         providerRepository.save(provider);
         return providerMapper.providerToProviderDTO(provider);

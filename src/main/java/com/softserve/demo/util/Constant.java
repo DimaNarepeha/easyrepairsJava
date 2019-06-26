@@ -28,6 +28,6 @@ public final class Constant {
             "Your contract with %s has been deleted. If you want to restore it, please contact Admin.\n" +
             "Thank you for using our services!\n" +
             "Your easyrepairs.com";
-    public static final Double DEFAULT_RATING = 2.;
+    public static final Double DEFAULT_RATING = 0.;
 
 }

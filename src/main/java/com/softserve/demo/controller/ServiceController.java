@@ -1,8 +1,6 @@
 package com.softserve.demo.controller;
 
-import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.dto.ServiceDTO;
-import com.softserve.demo.model.Provider;
 import com.softserve.demo.service.ServiceFromProviders;
 import com.softserve.demo.util.mappers.ServiceMapper;
 import lombok.extern.slf4j.Slf4j;

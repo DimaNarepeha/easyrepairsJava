@@ -1,5 +1,6 @@
 package com.softserve.demo.service.impl;
 
+import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Location;
 import com.softserve.demo.repository.LocationRepository;
 import com.softserve.demo.service.LocationService;
@@ -15,8 +16,8 @@ import java.util.List;
 @Transactional
 public class LocationServiceImpl implements LocationService {
 
+    private static final String LOCATION_NOT_FOUND = "Location with id [%s] was not found!";
     private final LocationRepository locationRepository;
-
 
     public LocationServiceImpl(LocationRepository locationRepository) {
         this.locationRepository = locationRepository;
@@ -24,7 +25,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public Location findById(Integer idLocation) {
-        return locationRepository.findById(idLocation).get();
+        return locationRepository.findById(idLocation).orElseThrow(() -> new NotFoundException(String.format(LOCATION_NOT_FOUND, idLocation)));
     }
 
     @Override
@@ -39,7 +40,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public void delete(Integer idLocation) {
-        locationRepository.delete(locationRepository.findById(idLocation).get());
+        locationRepository.delete(locationRepository.findById(idLocation).orElseThrow(() -> new NotFoundException(String.format(LOCATION_NOT_FOUND, idLocation))));
     }
 
     @Override
