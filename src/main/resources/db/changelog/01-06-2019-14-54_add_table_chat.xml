@@ -25,7 +25,7 @@
         <addForeignKeyConstraint baseTableName="chat"
                                  baseColumnNames="message_to"
                                  constraintName="chat_customer"
-                                 referencedTableName="customer"
+                                 referencedTableName="usr"
                                  referencedColumnNames="id"
                                  onUpdate="CASCADE"
                                  onDelete="CASCADE"/>
@@ -34,7 +34,7 @@
         <addForeignKeyConstraint baseTableName="chat"
                                  baseColumnNames="message_from"
                                  constraintName="chat_provider"
-                                 referencedTableName="service_provider"
+                                 referencedTableName="usr"
                                  referencedColumnNames="id"
                                  onUpdate="CASCADE"
                                  onDelete="CASCADE"/>
