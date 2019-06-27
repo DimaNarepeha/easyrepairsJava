@@ -84,8 +84,8 @@ public class ProvidersController {
     @GetMapping("find-all/status")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Page<ProviderDTO> getServiceProviderByStatus(@RequestParam int page,
-                                              @RequestParam int numberOfProvidersOnPage,
-                                              @RequestParam String status) {
+                                                        @RequestParam int numberOfProvidersOnPage,
+                                                        @RequestParam String status) {
         return providersService.getServiceProvidersByStatus(page,numberOfProvidersOnPage, ProviderStatus.valueOf(status));
     }
 

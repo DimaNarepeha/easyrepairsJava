@@ -10,6 +10,7 @@ import com.softserve.demo.service.CustomerService;
 import com.softserve.demo.service.FilesStorageService;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
@@ -108,9 +109,10 @@ public class CustomerController {
     @GetMapping("status")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public Page<?> getCustomersByStatus(@PageableDefault Pageable pageable,
+    public Page<?> getCustomersByStatus(@RequestParam int pageNumber,
+                                        @RequestParam int pageSize,
                                         @RequestParam String status) {
-        return customerService.getCustomersByStatus(pageable, CustomerStatus.valueOf(status));
+        return customerService.getCustomersByStatus(PageRequest.of(pageNumber, pageSize), CustomerStatus.valueOf(status));
     }
 
     @PutMapping("update-status/{id}")
@@ -121,19 +123,19 @@ public class CustomerController {
 
     @GetMapping("status/searchByFirstName")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Page<?> getCustomersByFirstName(@RequestParam int page,
+    public Page<?> getCustomersByFirstName(@RequestParam int pageNumber,
                                            @RequestParam int pageSize,
                                            @RequestParam String status,
                                            @RequestParam String firstName) {
-        return customerFilter.firstNameLike(page,pageSize, firstName, CustomerStatus.valueOf(status));
+        return customerFilter.firstNameLike(pageNumber,pageSize, firstName, CustomerStatus.valueOf(status));
     }
 
     @GetMapping("status/searchByLastName")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Page<?> getCustomersByLastName(@RequestParam int page,
+    public Page<?> getCustomersByLastName(@RequestParam int pageNumber,
                                           @RequestParam int pageSize,
                                           @RequestParam String status,
                                           @RequestParam String lastName) {
-        return customerFilter.lastNameLike(page,pageSize, lastName, CustomerStatus.valueOf(status));
+        return customerFilter.lastNameLike(pageNumber,pageSize, lastName, CustomerStatus.valueOf(status));
     }
 }

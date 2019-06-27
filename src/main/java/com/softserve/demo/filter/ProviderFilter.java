@@ -69,6 +69,5 @@ public class ProviderFilter {
         List<ProviderInfoDTO> providerDTO =providerMapper.map(entityPage.getContent());
         return new PageImpl<>(providerDTO, PageRequest.of(page, numberOfProvidersOnPage), entityPage.getTotalElements());
     }
-
 }
 
