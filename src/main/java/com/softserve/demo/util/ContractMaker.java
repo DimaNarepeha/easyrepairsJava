@@ -40,11 +40,12 @@ public class ContractMaker {
         }
 
         String contractName = getContractName(order);
+        log.info("Create contract with name: [{}]", contractName);
         FileInputStream fileInputStream = new FileInputStream(new ClassPathResource(pathToContractTemplate).getFile());
         FileOutputStream fileOutputStream = new FileOutputStream(new File(pathToContracts + contractName));
         PdfReader pdfReader = new PdfReader(fileInputStream);
         PdfStamper pdfDocument = new PdfStamper(pdfReader, fileOutputStream);
-        setFields(order, pdfDocument.getAcroFields());
+        setContractFields(order, pdfDocument.getAcroFields());
         PdfContentByte content = pdfDocument.getOverContent(pdfReader.getNumberOfPages());
         signContract(content, order);
         pdfDocument.setFormFlattening(true);
@@ -57,8 +58,9 @@ public class ContractMaker {
     }
 
     private void signContract(PdfContentByte content, Order order) throws DocumentException {
-        String customerSignature = order.getCustomer().getUser().getUsername();
-        String providerSignature = order.getProvider().getUser().getUsername();
+        log.info("Sign contract with id: [{}]", order.getId());
+        String customerSignature = order.getCustomer().getUser().getSignature();
+        String providerSignature = order.getProvider().getUser().getSignature();
         content.addImage(getQRImage(customerSignature, CUSTOMER_SIGNATURE_X_POSITION));
         content.addImage(getQRImage(providerSignature, PROVIDER_SIGNATURE_X_POSITION));
     }
@@ -69,7 +71,7 @@ public class ContractMaker {
         return qrUserSignature;
     }
 
-    private void setFields(Order order, AcroFields fields) throws IOException, DocumentException {
+    private void setContractFields(Order order, AcroFields fields) throws IOException, DocumentException {
         fields.setField("provider.name", order.getProvider().getName());
         fields.setField("customer.firstName", order.getCustomer().getFirstName());
         fields.setField("customer.lastName", order.getCustomer().getLastName());

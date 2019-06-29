@@ -63,6 +63,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order updateOrder(Order order) {
+        log.info("Update order with id: [{}]", order.getId());
         if (!orderRepository.existsById(order.getId())) {
             throw new NotFoundException(String.format(Constant.ORDER_NOT_FOUND, order.getId()));
         }
@@ -80,7 +81,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void deleteOrder(Integer id) {
-        log.debug("Delete order with id: [{}]", id);
+        log.info("Delete order with id: [{}]", id);
         Order order = orderRepository.findById(id).orElseThrow(() ->
                 new NotFoundException(String.format(Constant.ORDER_NOT_FOUND, id)));
 
@@ -91,7 +92,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Resource getResource(String fileName, HttpServletResponse response) {
-        log.info("Get resource name " + fileName);
+        log.info("Get resource name: [{}]", fileName);
         response.setContentType("text/csv; charset=utf-8");
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
         response.setHeader("filename", fileName);
@@ -106,6 +107,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void sendOrderByEmail(User user, Integer orderId) {
+        log.info("Send order with id: [{}] by email to user: [{}]", orderId, user.getUsername());
         Order order = orderRepository.findById(orderId).orElseThrow(() ->
                 new NotFoundException(String.format(Constant.ORDER_NOT_FOUND, orderId)));
         emailService.sendEmailWithFile(user.getEmail(),
@@ -140,7 +142,7 @@ public class OrderServiceImpl implements OrderService {
         return (isApproved(order.getCustomerApproved()) && isApproved(order.getProviderApproved()));
     }
 
-    private boolean isApproved(String x) {
-        return x.equals("approved");
+    private boolean isApproved(String value) {
+        return value.equals("approved");
     }
 }

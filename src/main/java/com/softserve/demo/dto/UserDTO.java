@@ -20,4 +20,6 @@ public class UserDTO {
     @NotNull
     private String email;
     private String image;
+    @NotNull
+    private String signature;
 }
