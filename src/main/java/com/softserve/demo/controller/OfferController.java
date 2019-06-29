@@ -34,7 +34,7 @@ public class OfferController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER', 'ROLE_CUSTOMER')")
+    @PreAuthorize("isAuthenticated()")
     public List<OfferDTO> getAllOffers() {
         return offerMapper.offersToOfferDTOs(offerService.getAllOffers());
     }

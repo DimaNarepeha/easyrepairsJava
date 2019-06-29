@@ -37,6 +37,8 @@ public class OrderDTO implements StartEndDates {
     private String customerApproved;
     @Size(max = 30)
     private String providerApproved;
+    @Size(max = 50)
+    private String contractName;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createDate;
     @FutureOrPresent

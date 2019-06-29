@@ -1,7 +1,5 @@
 package com.softserve.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,6 +37,8 @@ public class User {
     private Integer attempts;
     @Column(name = "last_fail")
     private LocalDateTime lastFail;
+    @Column(name = "signature")
+    private String signature;
 
     @JsonManagedReference(value = "a_f")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "addressedFrom")

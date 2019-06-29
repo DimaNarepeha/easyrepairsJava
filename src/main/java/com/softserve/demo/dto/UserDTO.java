@@ -17,6 +17,7 @@ public class UserDTO {
     @NotNull
     private String username;
     private String password;
+    @NotNull
     private String email;
     private String image;
 }
