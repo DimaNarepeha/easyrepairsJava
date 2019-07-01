@@ -11,6 +11,7 @@
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="IMG-Handyman-Skills.jpg"/>
             <column name="email" value="vasyapupkin@gmail.com"/>
+            <column name="signature" value="7ce0073c5f3cfe20148e779afc87b97d"/>
         </insert>
         <insert tableName="user_role">
             <column name="user_id" value="20100"/>
