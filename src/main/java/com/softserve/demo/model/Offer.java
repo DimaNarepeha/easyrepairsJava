@@ -35,6 +35,9 @@ public class Offer {
     @Column(name = "end_date")
     private LocalDate endDate;
 
+    @Column(name = "remove_date")
+    private LocalDate removeDate;
+
     @JsonManagedReference(value = "offer_customer")
     @ManyToOne
     @JoinColumn(name = "customer_id")

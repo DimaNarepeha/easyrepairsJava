@@ -23,7 +23,6 @@ public class FavouriteController {
         return customerService.getCustomerById(customerId);
     }
 
-
     //todo remove return and make 2 methods
     @PutMapping("addToFavourite/{customerId}/provider/{providerId}")
     public ResponseEntity<?> addToFavourite(@PathVariable("customerId") Integer customerId,

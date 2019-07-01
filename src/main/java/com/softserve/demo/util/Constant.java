@@ -6,6 +6,7 @@ package com.softserve.demo.util;
 public final class Constant {
     public static final String DEFAULT_PHOTO = "nophoto.png";
     public static final Integer FEEDBACK_TIME_OUT = 72;
+    public static final Integer OFFER_DATE_OUT = 7;
     public static final Integer DEFAULT_LOCATION = 1001;
     public static final String STR_ZERO = "0";
     public static final String STR_FOUR = "4";
@@ -29,5 +30,8 @@ public final class Constant {
             "Thank you for using our services!\n" +
             "Your easyrepairs.com";
     public static final Double DEFAULT_RATING = 0.;
+    public static final String OFFER_WAS_DELETED = "Your job offer was deleted!";
+    public static final String AUTOMATICALLY_DELETED = "Due to the fact that your offer expired, it was " +
+            "automatically deleted";
 
 }
