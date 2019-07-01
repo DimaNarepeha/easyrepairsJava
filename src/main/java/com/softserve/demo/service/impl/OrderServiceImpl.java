@@ -1,6 +1,5 @@
 package com.softserve.demo.service.impl;
 
-import com.itextpdf.text.DocumentException;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.*;
 import com.softserve.demo.repository.OrderRepository;
@@ -21,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Slf4j
@@ -28,8 +29,8 @@ import java.util.List;
 @Transactional
 public class OrderServiceImpl implements OrderService {
 
-    @Value("${contract.path}")
-    private String pathToContracts;
+    @Value("${contract.folder}")
+    private String contractsFolder;
 
     private final OrderRepository orderRepository;
     private final NotificationService notificationService;
@@ -69,11 +70,7 @@ public class OrderServiceImpl implements OrderService {
         }
         order.setLocation(locationService.saveLocationIfNotExist(order.getLocation()));
         if (isOrderApproved(order)) {
-            try {
-                contractMaker.createContract(order);
-            } catch (IOException | DocumentException e) {
-                log.error(e.getMessage());
-            }
+            contractMaker.createContract(order);
         }
         notifyAboutOrder(order, Constant.CONTRACT_WAS_UPDATED);
         return orderRepository.save(order);
@@ -91,16 +88,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Resource getResource(String fileName, HttpServletResponse response) {
-        log.info("Get resource name: [{}]", fileName);
+    public Resource getResponseResource(String fileName, HttpServletResponse response) {
+        log.info("Get response resource with name: [{}]", fileName);
         response.setContentType("text/csv; charset=utf-8");
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
         response.setHeader("filename", fileName);
-        Resource resource = null;
+        Resource resource;
         try {
-            resource = new UrlResource(new File(pathToContracts + fileName).toPath().toUri());
+            resource = getResource(fileName);
         } catch (MalformedURLException e) {
-            log.error("getResource error " + e.getMessage());
+            log.error(e.getMessage());
+            throw new NotFoundException("File not found during downloading");
         }
         return resource;
     }
@@ -110,9 +108,21 @@ public class OrderServiceImpl implements OrderService {
         log.info("Send order with id: [{}] by email to user: [{}]", orderId, user.getUsername());
         Order order = orderRepository.findById(orderId).orElseThrow(() ->
                 new NotFoundException(String.format(Constant.ORDER_NOT_FOUND, orderId)));
+        File file;
+        try {
+            file = getResource(order.getContractName()).getFile();
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            throw new NotFoundException("File not found during sending by email");
+        }
         emailService.sendEmailWithFile(user.getEmail(),
-                Constant.RECEIVED_CONTRACT, Constant.YOU_RECEIVED_CONTRACT_BY_EMAIL,
-                new File(pathToContracts + order.getContractName()));
+                Constant.RECEIVED_CONTRACT, Constant.YOU_RECEIVED_CONTRACT_BY_EMAIL, file);
+    }
+
+    private Resource getResource(String fileName) throws MalformedURLException {
+        Path fileStorageLocation = Paths.get(contractsFolder).toAbsolutePath().normalize();
+        Path pathToFile = fileStorageLocation.resolve(fileName);
+        return new UrlResource(pathToFile.toUri());
     }
 
     private void notifyAboutOrder(Order order, String header) {

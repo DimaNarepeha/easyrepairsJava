@@ -62,7 +62,7 @@ public class OrderController {
     @GetMapping("/contract/{fileName}")
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER', 'ROLE_CUSTOMER')")
     public Resource getOrderDocument(@PathVariable("fileName") String fileName, HttpServletResponse response) {
-        return orderService.getResource(fileName, response);
+        return orderService.getResponseResource(fileName, response);
     }
 
     @PutMapping("/email/contract/{id}")
