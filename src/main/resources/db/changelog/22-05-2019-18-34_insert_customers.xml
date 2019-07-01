@@ -11,6 +11,7 @@
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="man1.jpg"/>
             <column name="email" value="customer1@gmail.com"/>
+            <column name="signature" value="b3e69b3ab5e71954462d8fc56a3b91a3"/>
         </insert>
         <insert tableName="user_role">
             <column name="user_id" value="10001"/>
@@ -34,6 +35,7 @@
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="man2.jpg"/>
             <column name="email" value="customer2@gmail.com"/>
+            <column name="signature" value="c81b6c0944846dfd52d621f4befd350f"/>
         </insert>
         <insert tableName="user_role">
             <column name="user_id" value="10002"/>
@@ -55,6 +57,7 @@
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="man3.jpg"/>
             <column name="email" value="customer3@gmail.com"/>
+            <column name="signature" value="6b6ca296c1b39832cf4d60f3faff9b34"/>
         </insert>
         <insert tableName="user_role">
             <column name="user_id" value="10003"/>
@@ -76,6 +79,7 @@
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="man4.jpg"/>
             <column name="email" value="customer4@gmail.com"/>
+            <column name="signature" value="ffdb0e3229cf4557a21743a0a858190e"/>
         </insert>
         <insert tableName="user_role">
             <column name="user_id" value="10004"/>
@@ -97,6 +101,7 @@
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="man5.jpg"/>
             <column name="email" value="customer5@gmail.com"/>
+            <column name="signature" value="64b703f887200709c366c0b16893ce49"/>
         </insert>
         <insert tableName="user_role">
             <column name="user_id" value="10005"/>
@@ -118,6 +123,7 @@
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="man6.jpg"/>
             <column name="email" value="customer6@gmail.com"/>
+            <column name="signature" value="43f7c873a7b534b969d703b5c625e95c"/>
         </insert>
         <insert tableName="user_role">
             <column name="user_id" value="10006"/>

@@ -36,6 +36,7 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public void deleteOffer(Integer id) {
+        log.info("Delete offer with id: [{}]", id);
         offerRepository.deleteById(id);
     }
 
