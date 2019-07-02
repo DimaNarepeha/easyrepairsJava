@@ -29,6 +29,7 @@ public class OfferController {
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     public OfferDTO createOffer(@RequestBody @Valid OfferDTO offerDTO) {
+        System.out.println("!!!!!!!!!!" + offerDTO.getId());
         return offerMapper.offerToOfferDTO(
                 offerService.createOffer(offerMapper.offerDTOToOffer(offerDTO)));
     }
