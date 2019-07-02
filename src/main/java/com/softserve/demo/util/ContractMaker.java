@@ -25,10 +25,6 @@ import java.util.stream.Collectors;
 @Component
 public class ContractMaker {
 
-    public ContractMaker() {
-
-    }
-
     private static final int QR_SIZE = 75;
     private static final float ABSOLUTE_Y_POSITION = 30f;
     private static final float CUSTOMER_SIGNATURE_X_POSITION = 440f;
@@ -38,11 +34,9 @@ public class ContractMaker {
     private Path fileStorageLocation;
 
     @Value("${contract.template}")
-    private String pathToContractTemplateFile;
+    private String contractTemplateFile;
     @Value("${contract.folder}")
     private String contractsFolder;
-    @Value("${contract.template_folder}")
-    private String contractTemplateFolder;
 
     public void createContract(Order order) {
         createContractFolder(contractsFolder);
@@ -50,8 +44,7 @@ public class ContractMaker {
         log.info("Create contract with name: [{}]", contractFileName);
 
         try (
-                FileInputStream fileInputStream = new FileInputStream(
-                        getContractFile("ContractTemplate.pdf"));
+                FileInputStream fileInputStream = new FileInputStream(getContractFile(contractTemplateFile));
                 FileOutputStream fileOutputStream = new FileOutputStream(getContractFile(contractFileName))
         ) {
             PdfReader pdfReader = new PdfReader(fileInputStream);
@@ -119,13 +112,5 @@ public class ContractMaker {
     private File getContractFile(String contractFileName) throws IOException {
         Path path = this.fileStorageLocation.resolve(contractFileName);
         return new UrlResource(path.toUri()).getFile();
-    }
-
-    private String getTemplateFolderPath() {
-        log.info("---------------------------------------------------------------------------------------");
-        String templateFolderPath = getClass().getClassLoader().getResource("ContractTemplate.pdf").getPath();
-        log.info("TemplateFolderPath: [{}]", templateFolderPath);
-        log.info("---------------------------------------------------------------------------------------");
-        return templateFolderPath;
     }
 }
