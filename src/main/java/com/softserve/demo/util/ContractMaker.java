@@ -25,6 +25,10 @@ import java.util.stream.Collectors;
 @Component
 public class ContractMaker {
 
+    public ContractMaker() {
+
+    }
+
     private static final int QR_SIZE = 75;
     private static final float ABSOLUTE_Y_POSITION = 30f;
     private static final float CUSTOMER_SIGNATURE_X_POSITION = 440f;
@@ -47,7 +51,7 @@ public class ContractMaker {
 
         try (
                 FileInputStream fileInputStream = new FileInputStream(
-                        new File(getTemplateFolderPath() + pathToContractTemplateFile));
+                        getContractFile("ContractTemplate.pdf"));
                 FileOutputStream fileOutputStream = new FileOutputStream(getContractFile(contractFileName))
         ) {
             PdfReader pdfReader = new PdfReader(fileInputStream);
@@ -118,8 +122,10 @@ public class ContractMaker {
     }
 
     private String getTemplateFolderPath() {
-        String templateFolderPath = getClass().getClassLoader().getResource(contractTemplateFolder).getPath();
+        log.info("---------------------------------------------------------------------------------------");
+        String templateFolderPath = getClass().getClassLoader().getResource("ContractTemplate.pdf").getPath();
         log.info("TemplateFolderPath: [{}]", templateFolderPath);
+        log.info("---------------------------------------------------------------------------------------");
         return templateFolderPath;
     }
 }
