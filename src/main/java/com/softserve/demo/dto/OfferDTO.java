@@ -11,6 +11,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Getter
@@ -22,6 +24,8 @@ public class OfferDTO implements StartEndDates {
     private String description;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate removeDate;
     @FutureOrPresent
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;

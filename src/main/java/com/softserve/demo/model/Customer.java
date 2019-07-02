@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,6 +29,10 @@ public class Customer {
 
     @Column(name = "lastname")
     private String lastName;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private CustomerStatus status;
 
     @UpdateTimestamp
     @Column(name = "last_update")
@@ -51,4 +56,11 @@ public class Customer {
 
     @Column(name = "rating")
     private Double rating;
+
+    @ManyToMany()
+    @JoinTable(name = "favourite",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "provider_id")
+    )
+    private List<Provider> favourites;
 }

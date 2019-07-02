@@ -1,6 +1,8 @@
 package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.ProviderDTO;
+import com.softserve.demo.dto.ProviderInfoDTO;
+import com.softserve.demo.filter.ProviderFilter;
 import com.softserve.demo.model.ProviderStatus;
 import com.softserve.demo.service.FilesStorageService;
 import com.softserve.demo.service.ProvidersService;
@@ -24,11 +26,13 @@ public class ProvidersController {
     private final ProvidersService providersService;
 
     private final FilesStorageService fileStorageService;
+    private final ProviderFilter providerFilter;
 
 
-    public ProvidersController(ProvidersService providersService, FilesStorageService fileStorageService) {
+    public ProvidersController(ProvidersService providersService, FilesStorageService fileStorageService, ProviderFilter providerFilter) {
         this.providersService = providersService;
         this.fileStorageService = fileStorageService;
+        this.providerFilter = providerFilter;
     }
 
 
@@ -79,9 +83,21 @@ public class ProvidersController {
 
     @GetMapping("find-all/status")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Page<ProviderDTO> getServiceProviderByStatus(@PageableDefault Pageable pageable,
-                                              @RequestParam(defaultValue = "NOTAPPROVED") String status) {
-        return providersService.getServiceProvidersByStatus(pageable, ProviderStatus.valueOf(status));
+    public Page<ProviderDTO> getServiceProviderByStatus(@RequestParam int page,
+                                                        @RequestParam int numberOfProvidersOnPage,
+                                                        @RequestParam String status) {
+        return providersService.getServiceProvidersByStatus(page,numberOfProvidersOnPage, ProviderStatus.valueOf(status));
+    }
+
+    @GetMapping("find-all/searchByName")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<ProviderInfoDTO> getServiceProviderByName(@RequestParam int page,
+                                                          @RequestParam int numberOfProvidersOnPage,
+                                                          @RequestParam String status,
+                                                          @RequestParam String searchName) {
+        return providerFilter.nameLike(page, numberOfProvidersOnPage, searchName, ProviderStatus.valueOf(status));
+
     }
 
     @PutMapping("update-status/{id}")
