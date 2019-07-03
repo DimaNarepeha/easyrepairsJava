@@ -93,14 +93,11 @@ public class OrderServiceImpl implements OrderService {
         response.setContentType("text/csv; charset=utf-8");
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
         response.setHeader("filename", fileName);
-        Resource resource;
         try {
-            resource = getResource(fileName);
+            return getResource(fileName);
         } catch (MalformedURLException e) {
-            log.error(e.getMessage());
             throw new NotFoundException("File not found during downloading");
         }
-        return resource;
     }
 
     @Override
@@ -112,7 +109,6 @@ public class OrderServiceImpl implements OrderService {
         try {
             file = getResource(order.getContractName()).getFile();
         } catch (IOException e) {
-            log.error(e.getMessage());
             throw new NotFoundException("File not found during sending by email");
         }
         emailService.sendEmailWithFile(user.getEmail(),

@@ -9,7 +9,6 @@ import com.softserve.demo.model.Order;
 import com.softserve.demo.model.Service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -31,7 +30,6 @@ public class ContractMaker {
     private static final float PROVIDER_SIGNATURE_X_POSITION = 150f;
     private static final String PATH = System.getProperty("user.dir");
     private static final String SEPARATOR = System.getProperty("file.separator");
-    private Path fileStorageLocation;
 
     @Value("${contract.template}")
     private String contractTemplateFile;
@@ -39,16 +37,17 @@ public class ContractMaker {
     private String contractsFolder;
 
     public void createContract(Order order) {
-        createContractFolder(contractsFolder);
+        createContractFolder();
         String contractFileName = getContractFileName(order);
         log.info("Create contract with name: [{}]", contractFileName);
-
+        PdfReader pdfReader = null;
+        PdfStamper pdfDocument = null;
         try (
                 FileInputStream fileInputStream = new FileInputStream(getContractFile(contractTemplateFile));
                 FileOutputStream fileOutputStream = new FileOutputStream(getContractFile(contractFileName))
         ) {
-            PdfReader pdfReader = new PdfReader(fileInputStream);
-            PdfStamper pdfDocument = new PdfStamper(pdfReader, fileOutputStream);
+            pdfReader = new PdfReader(fileInputStream);
+            pdfDocument = new PdfStamper(pdfReader, fileOutputStream);
             setContractFields(order, pdfDocument.getAcroFields());
             PdfContentByte content = pdfDocument.getOverContent(pdfReader.getNumberOfPages());
             signContract(content, order);
@@ -58,8 +57,17 @@ public class ContractMaker {
             pdfReader.close();
 
         } catch (IOException | DocumentException e) {
-            log.error(e.getMessage());
             throw new NotFoundException("Can't create contract file");
+        } finally {
+            try {
+                if (pdfDocument != null) {
+                    pdfDocument.close();
+                }
+            } catch (DocumentException | IOException e) {
+                log.error(e.getMessage());
+            }
+
+            pdfReader.close();
         }
 
         order.setContractName(contractFileName);
@@ -98,19 +106,19 @@ public class ContractMaker {
                 + order.getProvider().getUser().getId() + "_" + order.getId() + ".pdf");
     }
 
-    private void createContractFolder(String folderName) {
-        String contractFolder = PATH + SEPARATOR + folderName;
-        this.fileStorageLocation = Paths.get(contractFolder).toAbsolutePath().normalize();
+    private void createContractFolder() {
         try {
-            Files.createDirectories(this.fileStorageLocation);
+            Files.createDirectories(getAbsolutePathToContractFolder());
         } catch (IOException e) {
-            log.error("Fail to create contract folder: " + e.getMessage());
             throw new NotFoundException("Contract folder not found");
         }
     }
 
-    private File getContractFile(String contractFileName) throws IOException {
-        Path path = this.fileStorageLocation.resolve(contractFileName);
-        return new UrlResource(path.toUri()).getFile();
+    private Path getAbsolutePathToContractFolder() {
+        return Paths.get(PATH + SEPARATOR + contractsFolder).toAbsolutePath().normalize();
+    }
+
+    private File getContractFile(String contractFileName) {
+        return getAbsolutePathToContractFolder().resolve(contractFileName).toFile();
     }
 }
