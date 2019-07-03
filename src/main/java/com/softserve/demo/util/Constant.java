@@ -29,5 +29,6 @@ public final class Constant {
             "Thank you for using our services!\n" +
             "Your easyrepairs.com";
     public static final Double DEFAULT_RATING = 0.;
+    public static final Double DOUBLE_ZERO = 0.;
 
 }
