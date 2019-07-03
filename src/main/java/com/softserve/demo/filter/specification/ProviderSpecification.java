@@ -56,4 +56,15 @@ public class ProviderSpecification {
         }
         return result;
     }
+
+    public static Specification<Provider> isStatus(ProviderStatus status) {
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get("status"), status);
+    }
+
+    public static Specification<Provider> likeName (String name) {
+        return (root, query, criteriaBuilder) ->
+                (name == null) ? null
+                        : criteriaBuilder.like(root.get("name"),"%"+name+"%");
+    }
 }

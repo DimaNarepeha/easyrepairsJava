@@ -28,7 +28,7 @@
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-02-12 12:12:12"/>
-            <column name="raiting" value="5"/>
+            <column name="raiting" value="3.2"/>
             <column name="location_id" value="1"/>
         </insert>
     </changeSet>
@@ -56,7 +56,7 @@
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-03-11 10:12:02"/>
-            <column name="raiting" value="5"/>
+            <column name="raiting" value="2.4"/>
             <column name="location_id" value="1"/>
         </insert>
     </changeSet>
@@ -84,7 +84,7 @@
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-03-11 10:12:02"/>
-            <column name="raiting" value="5"/>
+            <column name="raiting" value="1.7"/>
             <column name="location_id" value="1"/>
         </insert>
     </changeSet>
@@ -112,7 +112,7 @@
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
             <column name="registration_date" value="2019-02-01 10:12:02"/>
-            <column name="raiting" value="5"/>
+            <column name="raiting" value="4.2"/>
             <column name="location_id" value="1"/>
         </insert>
     </changeSet>

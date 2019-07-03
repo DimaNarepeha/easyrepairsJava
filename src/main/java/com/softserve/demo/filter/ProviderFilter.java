@@ -3,6 +3,7 @@ package com.softserve.demo.filter;
 import com.softserve.demo.dto.ProviderInfoDTO;
 import com.softserve.demo.filter.specification.ProviderSpecification;
 import com.softserve.demo.model.Provider;
+import com.softserve.demo.model.ProviderStatus;
 import com.softserve.demo.model.Service;
 import com.softserve.demo.model.search.ProviderCriteria;
 import com.softserve.demo.service.impl.ProvidersServiceImpl;
@@ -59,6 +60,14 @@ public class ProviderFilter {
                 page, numberOfProvidersOnPage, searchCriteria.getSortBy());
         List<ProviderInfoDTO> providerInfoDTOS = providerMapper.map(entityPage.getContent());
         return new PageImpl<>(providerInfoDTOS, PageRequest.of(page, numberOfProvidersOnPage), entityPage.getTotalElements());
+    }
+
+    public Page<ProviderInfoDTO> nameLike(int page, int numberOfProvidersOnPage, String searchName, ProviderStatus status) {
+        Page<Provider> entityPage = providersService.findAll(Specification.where(ProviderSpecification.isStatus(status))
+                        .and(ProviderSpecification.likeName(searchName)),
+                page, numberOfProvidersOnPage, "name");
+        List<ProviderInfoDTO> providerDTO =providerMapper.map(entityPage.getContent());
+        return new PageImpl<>(providerDTO, PageRequest.of(page, numberOfProvidersOnPage), entityPage.getTotalElements());
     }
 }
 
