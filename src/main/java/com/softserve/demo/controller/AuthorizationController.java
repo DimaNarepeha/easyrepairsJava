@@ -31,7 +31,7 @@ public class AuthorizationController {
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
+    @PreAuthorize("isAuthenticated()")
     public AuthorizationUserDTO getUser(Principal principal) {
         return authorizationUserService.getUser(principal.getName());
     }
