@@ -99,6 +99,7 @@ public class RegisterServiceImpl implements RegisterService {
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setUser(user);
         customer.setRating(Constant.DEFAULT_RATING);
+        customer.setStatus(CustomerStatus.ACTIVE);
         sendWelcomeUserNotification(user.getId());
         return customerMapper.customerToCustomerDTO(customerRepository.save(customer));
     }
