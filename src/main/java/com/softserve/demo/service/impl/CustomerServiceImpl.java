@@ -40,6 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
             throw new NotFoundException(String.format("Customer with id: [%d] not found", customerDTO.getId()));
         }
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
+        customer.setStatus(CustomerStatus.ACTIVE);
         customerRepository.save(customer);
         log.debug(String.format("Update customer with id: [%d]", customerDTO.getId()));
         return customerMapper.customerToCustomerDTO(customer);
