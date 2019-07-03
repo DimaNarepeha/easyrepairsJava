@@ -34,6 +34,9 @@ public final class Constant {
             "Your easyrepairs.com";
     public static final Double DEFAULT_RATING = 0.;
     public static final String RECEIVED_CONTRACT = "You received contract";
-    public static final String YOU_RECEIVED_CONTRACT_BY_EMAIL = "You received contract by email!";
+    public static final String YOU_RECEIVED_CONTRACT_BY_EMAIL = "Your contract is attached to the email.\n" +
+            "\n" +
+            "Thank you for using our services!\n" +
+            "Your easyrepairs.com";
 
 }
