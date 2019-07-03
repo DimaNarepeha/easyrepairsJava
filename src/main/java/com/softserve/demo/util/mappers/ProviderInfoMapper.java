@@ -24,16 +24,6 @@ public interface ProviderInfoMapper {
     @Named("toDto")
     ProviderInfoDTO convertToDTO(Provider entity);
 
-            @Mapping(target = "id", source = "dto.id")
-            @Mapping(target = "name", source = "dto.name")
-            @Mapping(target = "location.city", source = "dto.city")
-            @Mapping(target = "user.image", source = "dto.image")
-            @Mapping(target = "description", source = "dto.description")
-            @Mapping(target = "registrationDate", source = "dto.registrationDate")
-            @Mapping(target = "services", ignore = true)
-            @Mapping(target = "raiting", source = "dto.raiting")
-    Provider convertToEntity(ProviderInfoDTO dto);
-
     @IterableMapping(qualifiedByName = "toDto")
     List<ProviderInfoDTO> map(List<Provider> children);
 }

@@ -66,7 +66,7 @@ public class ProvidersController {
     }
 
     @GetMapping("find-by-id/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
+    @PreAuthorize("isAuthenticated()")
     public ProviderDTO findById(@PathVariable("id") Integer idProvider) {
         return providersService.findById(idProvider);
     }
@@ -107,7 +107,7 @@ public class ProvidersController {
     }
 
     @GetMapping("find-by-userId/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
+    @PreAuthorize("isAuthenticated()")
     public ProviderDTO findProviderByUserId(@PathVariable("id") Integer idUser) {
         return providersService.findProvidersByUserId(idUser);
     }

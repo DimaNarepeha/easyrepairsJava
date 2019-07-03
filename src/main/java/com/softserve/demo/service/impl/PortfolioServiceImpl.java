@@ -40,6 +40,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         Portfolio portfolio = portfolioRepository.findById(id).get();
         PortfolioDTO portfolioDTO = convertPortfolioToPortfolioDTO(portfolio);
         portfolioDTO.setUserId(portfolio.getProvider().getUser().getId());
+        portfolioDTO.setUsername(portfolio.getProvider().getUser().getUsername());
         return portfolioDTO;
     }
 
@@ -52,7 +53,10 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     @Override
     public PostDTO findPostById(Integer id) {
-        return postMapper.postToPostDTO(postRepository.findById(id).get());
+        Post post = postRepository.findById(id).get();
+        PostDTO postDTO = postMapper.postToPostDTO(post);
+        postDTO.setUsername(post.getPortfolio().getProvider().getUser().getUsername());
+        return postDTO;
     }
 
     @Override

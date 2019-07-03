@@ -40,8 +40,7 @@ public class OrderController {
     }
 
     @PutMapping
-    @PreAuthorize("(hasRole('ROLE_PROVIDER') and principal.username == #orderDTO.providerDTO.userDTO.username) " +
-            "or hasRole('ROLE_CUSTOMER') and principal.username == #orderDTO.customerDTO.userDTO.username")
+    @PreAuthorize("@accessPermission.orderUpdatePermission(#orderDTO, principal)")
     public OrderDTO updateOrder(@RequestBody @Valid OrderDTO orderDTO) {
         return orderMapper.orderToOrderDTO(
                 orderService.updateOrder(orderMapper.orderDTOToOrder(orderDTO)));
@@ -54,7 +53,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or @accessPermission.canDeleteOrder(#id, principal)")
     public void deleteOrderById(@PathVariable("id") Integer id) {
         orderService.deleteOrder(id);
     }
@@ -62,7 +61,7 @@ public class OrderController {
     @GetMapping("/contract/{fileName}")
     @PreAuthorize("hasAnyRole('ROLE_PROVIDER', 'ROLE_CUSTOMER')")
     public Resource getOrderDocument(@PathVariable("fileName") String fileName, HttpServletResponse response) {
-        return orderService.getResource(fileName, response);
+        return orderService.getResponseResource(fileName, response);
     }
 
     @PutMapping("/email/contract/{id}")

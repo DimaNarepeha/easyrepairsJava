@@ -17,7 +17,7 @@ public interface OrderService {
 
     void deleteOrder(Integer id);
 
-    Resource getResource(String fileName, HttpServletResponse response);
+    Resource getResponseResource(String fileName, HttpServletResponse response);
 
     void sendOrderByEmail(User user, Integer orderId);
 }

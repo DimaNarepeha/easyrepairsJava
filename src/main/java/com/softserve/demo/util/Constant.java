@@ -34,10 +34,15 @@ public final class Constant {
             "Thank you for using our services!\n" +
             "Your easyrepairs.com";
     public static final Double DEFAULT_RATING = 0.;
+    public static final Double DOUBLE_ZERO = 0.;
     public static final String OFFER_WAS_DELETED = "Your job offer was deleted!";
     public static final String AUTOMATICALLY_DELETED = "Due to the fact that your offer expired, it was " +
             "automatically deleted";
     public static final String RECEIVED_CONTRACT = "You received contract";
-    public static final String YOU_RECEIVED_CONTRACT_BY_EMAIL = "You received contract by email!";
+    public static final String YOU_RECEIVED_CONTRACT_BY_EMAIL = "Your contract is attached to the email.\n" +
+            "\n" +
+            "Thank you for using our services!\n" +
+            "Your easyrepairs.com";
+
 
 }
