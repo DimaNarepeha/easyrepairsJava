@@ -40,12 +40,15 @@ public class ContractMaker {
         createContractFolder();
         String contractFileName = getContractFileName(order);
         log.info("Create contract with name: [{}]", contractFileName);
-        try (
-                FileInputStream fileInputStream = new FileInputStream(getContractFile(contractTemplateFile));
-                FileOutputStream fileOutputStream = new FileOutputStream(getContractFile(contractFileName))
-        ) {
-            PdfReader pdfReader = new PdfReader(fileInputStream);
-            PdfStamper pdfDocument = new PdfStamper(pdfReader, fileOutputStream);
+        FileInputStream fileInputStream = null;
+        FileOutputStream fileOutputStream = null;
+        PdfReader pdfReader = null;
+        PdfStamper pdfDocument = null;
+        try {
+            fileInputStream = new FileInputStream(getContractFile(contractTemplateFile));
+            fileOutputStream = new FileOutputStream(getContractFile(contractFileName));
+            pdfReader = new PdfReader(fileInputStream);
+            pdfDocument = new PdfStamper(pdfReader, fileOutputStream);
             setContractFields(order, pdfDocument.getAcroFields());
             PdfContentByte content = pdfDocument.getOverContent(pdfReader.getNumberOfPages());
             signContract(content, order);
@@ -55,6 +58,15 @@ public class ContractMaker {
 
         } catch (IOException | DocumentException e) {
             throw new CreationException("Can't create contract file");
+        } finally {
+            try {
+                pdfDocument.close();
+                pdfReader.close();
+                fileInputStream.close();
+                fileOutputStream.close();
+            } catch (IOException | DocumentException e) {
+                log.error(e.getMessage());
+            }
         }
 
         order.setContractName(contractFileName);
