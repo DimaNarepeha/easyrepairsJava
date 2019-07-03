@@ -4,7 +4,7 @@ import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.*;
-import com.softserve.demo.exceptions.NotFoundException;
+import com.softserve.demo.exceptions.CreationException;
 import com.softserve.demo.model.Order;
 import com.softserve.demo.model.Service;
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +54,7 @@ public class ContractMaker {
             pdfReader.close();
 
         } catch (IOException | DocumentException e) {
-            throw new NotFoundException("Can't create contract file");
+            throw new CreationException("Can't create contract file");
         }
 
         order.setContractName(contractFileName);
@@ -97,7 +97,7 @@ public class ContractMaker {
         try {
             Files.createDirectories(getAbsolutePathToContractFolder());
         } catch (IOException e) {
-            throw new NotFoundException("Contract folder not found");
+            throw new CreationException("Can't create contract folder");
         }
     }
 
