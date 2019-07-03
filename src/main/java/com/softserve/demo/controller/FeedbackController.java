@@ -8,14 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("feedback")
 @CrossOrigin("*")
 public class FeedbackController {
 
     private final FeedbackService feedbackService;
-
 
     public FeedbackController(FeedbackService feedbackService) {
         this.feedbackService = feedbackService;
@@ -28,34 +26,32 @@ public class FeedbackController {
 
     @PostMapping("save")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
+    @PreAuthorize("isAuthenticated()")
     public FeedbackDTO saveFeedback(@RequestBody FeedbackDTO feedbackDTO) {
         return feedbackService.save(feedbackDTO);
     }
 
     @PutMapping("update")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
+    @PreAuthorize("isAuthenticated()")
     public FeedbackDTO updateFeedback(@RequestBody FeedbackDTO feedbackDTO) {
         return feedbackService.update(feedbackDTO);
     }
 
     @DeleteMapping("delete/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
+    @PreAuthorize("isAuthenticated()")
     public void deleteFeedback(@PathVariable("id") Integer idFeedback) {
         feedbackService.delete(idFeedback);
     }
 
     @GetMapping("find-by-id/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
+    @PreAuthorize("isAuthenticated()")
     public FeedbackDTO findById(@PathVariable("id") Integer idFeedback) {
         return feedbackService.findById(idFeedback);
     }
 
     @GetMapping("find-by-user-id/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER', 'ROLE_PROVIDER')")
+    @PreAuthorize("isAuthenticated()")
     public List<FeedbackDTO> findFeedbackByUserId(@PathVariable("id") Integer idFeedback) {
         return feedbackService.findFeedbackByUserId(idFeedback);
     }
-
-
 }
