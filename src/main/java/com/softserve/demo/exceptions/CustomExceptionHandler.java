@@ -26,4 +26,11 @@ public class CustomExceptionHandler
         log.warn("Already exist {}",e.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler({CreationException.class})
+    public ResponseEntity<?> handleCreationException(Exception e, WebRequest req) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(e.getMessage(), req.getDescription(false));
+        log.warn("Fail to create {}", e.getMessage());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
 }
