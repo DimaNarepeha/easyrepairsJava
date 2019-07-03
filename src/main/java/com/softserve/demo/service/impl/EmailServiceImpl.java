@@ -16,6 +16,7 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 
 /**
  * Implementation of email service.
@@ -104,6 +105,29 @@ public class EmailServiceImpl implements EmailService {
     }
 
     /**
+     * Sends email with provided generated HTML template.
+     *
+     * @param addressedTo       address of the receiver
+     * @param subject           of the letter
+     * @param generatedTemplate template of the body of the letter
+     * @param file              the file which you want to attach to the letter
+     */
+    private void sendEmailWithTemplateAndFile(final String addressedTo, final String subject,
+                                              final String generatedTemplate, final File file) {
+        try {
+            MimeMessage message = emailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setTo(addressedTo);
+            helper.setSubject(subject);
+            helper.addAttachment("file", file);
+            helper.setText(generatedTemplate, true);
+            emailSender.send(message);
+        } catch (MessagingException e) {
+            log.error("Unable to send email with file to [{}]!", addressedTo, e);
+        }
+    }
+
+    /**
      * This method sends email
      * to the provided address.
      *
@@ -127,5 +151,20 @@ public class EmailServiceImpl implements EmailService {
     @Async
     public void sendVerificationEmailTo(final User user) {
         sendEmailWithTemplate(user.getEmail(), SUBJECT_ACTIVATION_CODE, getVerificationTemplate(user));
+    }
+
+    /**
+     * This method sends email
+     * to the provided address.
+     *
+     * @param addressedTo receiver of the letter
+     * @param subject     subject of the letter
+     * @param text        the letter text itself
+     * @param file        the file which you want to attach to the letter
+     */
+    @Override
+    @Async
+    public void sendEmailWithFile(String addressedTo, String subject, String text, File file) {
+        sendEmailWithTemplateAndFile(addressedTo, subject, getMailTemplateWithText(text), file);
     }
 }

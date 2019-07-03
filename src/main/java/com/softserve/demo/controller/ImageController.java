@@ -28,7 +28,7 @@ public class ImageController {
     public ResponseEntity<?> getImageForProviders(@PathVariable("imageName") String name,
                                                   HttpServletRequest servletRequest) {
         Resource resource = fileStorageService.loadFile(name);
-        String contentType = fileStorageService.getContentType(servletRequest,resource,name);
+        String contentType = fileStorageService.getContentType(servletRequest, resource, name);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))

@@ -10,6 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -28,5 +29,6 @@ public class CustomerDTO {
     private LocalDateTime updated;
     @NotNull
     private UserDTO userDTO;
+    List<ProviderDTO> favourites;
     private Double rating;
 }

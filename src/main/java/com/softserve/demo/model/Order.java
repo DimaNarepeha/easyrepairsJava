@@ -53,6 +53,9 @@ public class Order {
     @Column(name = "provider_approved")
     private String providerApproved;
 
+    @Column(name = "contract_name")
+    private String contractName;
+
     @JsonManagedReference(value = "order_provider")
     @ManyToOne
     @JoinColumn(name = "provider_id")

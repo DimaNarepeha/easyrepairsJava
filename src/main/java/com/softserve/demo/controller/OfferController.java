@@ -29,13 +29,19 @@ public class OfferController {
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     public OfferDTO createOffer(@RequestBody @Valid OfferDTO offerDTO) {
-        System.out.println("!!!!!!!!!!" + offerDTO.getId());
         return offerMapper.offerToOfferDTO(
                 offerService.createOffer(offerMapper.offerDTOToOffer(offerDTO)));
     }
 
+    @PutMapping("/update")
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    public OfferDTO updateOffer(@RequestBody OfferDTO offerDTO) {
+        return offerMapper.offerToOfferDTO(offerService.updateOffer(offerMapper.offerDTOToOffer(offerDTO)));
+    }
+
+
     @GetMapping
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER', 'ROLE_CUSTOMER')")
+    @PreAuthorize("isAuthenticated()")
     public List<OfferDTO> getAllOffers() {
         return offerMapper.offersToOfferDTOs(offerService.getAllOffers());
     }

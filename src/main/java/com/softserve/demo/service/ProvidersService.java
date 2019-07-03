@@ -25,7 +25,7 @@ public interface ProvidersService {
 
     Page<ProviderDTO> getServiceProvidersByPage(Pageable pageable);
 
-    Page<ProviderDTO> getServiceProvidersByStatus(Pageable pageable, ProviderStatus status);
+    Page<ProviderDTO> getServiceProvidersByStatus(int page, int numberOfProvidersOnPage, ProviderStatus status);
 
     ProviderDTO updateStatus(Integer id, String status);
 

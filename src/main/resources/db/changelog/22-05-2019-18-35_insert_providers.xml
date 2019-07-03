@@ -11,6 +11,7 @@
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="1.jpg"/>
             <column name="email" value="provider1@gmail.com"/>
+            <column name="signature" value="2f24a5ce27da9789aacf591fc8422953"/>
         </insert>
         <insert tableName="user_role">
             <column name="user_id" value="20001"/>
@@ -39,6 +40,7 @@
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="1.jpg"/>
             <column name="email" value="provider2@gmail.com"/>
+            <column name="signature" value="f67606b142604a967f9e7b8188185c39"/>
         </insert>
         <insert tableName="user_role">
             <column name="user_id" value="20002"/>
@@ -65,6 +67,7 @@
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="1.jpg"/>
             <column name="email" value="provider3@gmail.com"/>
+            <column name="signature" value="02a84526e9eebe4112919a9c693011c8"/>
         </insert>
         <insert tableName="user_role">
             <column name="user_id" value="20003"/>
