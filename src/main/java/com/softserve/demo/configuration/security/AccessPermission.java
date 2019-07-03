@@ -24,24 +24,21 @@ public class AccessPermission {
         this.postRepository = postRepository;
     }
 
-    public boolean canDeleteOrder(Integer id, Principal principal) {
+    public boolean canDeleteOrder(Integer id, String username) {
         Order order = orderRepository.findById(id).get();
         Customer customer = order.getCustomer();
-        String username = customer.getUser().getUsername();
-        boolean isSameName = principal.getName().equals(username);
+        String customerUsername = customer.getUser().getUsername();
+        boolean isSameName = username.equals(customerUsername);
         return isSameName && isCustomer(customer.getUser());
     }
 
-    public boolean orderUpdatePermission(OrderDTO orderDTO, Principal principal) {
+    public boolean orderUpdatePermission(OrderDTO orderDTO, String username) {
         Order order = orderRepository.findById(orderDTO.getId()).get();
         Customer customer = order.getCustomer();
         Provider provider = order.getProvider();
         String customerUsername = customer.getUser().getUsername();
         String providerUsername = provider.getUser().getUsername();
-        String principalName = principal.getName();
-
-        boolean isSameName = principalName.equals(customerUsername) || principalName.equals(providerUsername);
-
+        boolean isSameName = username.equals(customerUsername) || username.equals(providerUsername);
         return isSameName && (isCustomer(customer.getUser()) || isProvider(provider.getUser()));
     }
 
