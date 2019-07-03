@@ -40,7 +40,7 @@ public class OrderController {
     }
 
     @PutMapping
-    @PreAuthorize("@accessPermission.orderUpdatePermission(#orderDTO, principal)")
+    @PreAuthorize("@accessPermission.orderUpdatePermission(#orderDTO, principal.username)")
     public OrderDTO updateOrder(@RequestBody @Valid OrderDTO orderDTO) {
         return orderMapper.orderToOrderDTO(
                 orderService.updateOrder(orderMapper.orderDTOToOrder(orderDTO)));
@@ -53,7 +53,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or @accessPermission.canDeleteOrder(#id, principal)")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or @accessPermission.canDeleteOrder(#id, principal.username)")
     public void deleteOrderById(@PathVariable("id") Integer id) {
         orderService.deleteOrder(id);
     }
