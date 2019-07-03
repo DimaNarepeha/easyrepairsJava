@@ -2,13 +2,11 @@ package com.softserve.demo.service;
 
 
 import com.softserve.demo.dto.CustomerDTO;
-import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Customer;
 import com.softserve.demo.model.CustomerStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -34,6 +32,7 @@ public interface CustomerService {
 
     <T> Page<Customer> findAll(Specification<T> approved, int page, int numberOfProvidersOnPage, String sortBy);
 
-    void addOrRemoveFavourite(Integer customerId, Integer providerId);
+    void addToFavourite(Integer customerId, Integer providerId);
 
+    void removeFromFavourite(Integer customerId, Integer providerId);
 }

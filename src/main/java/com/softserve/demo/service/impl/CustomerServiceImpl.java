@@ -3,13 +3,12 @@ package com.softserve.demo.service.impl;
 import com.softserve.demo.dto.CustomerDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.exceptions.NotFoundException;
-import com.softserve.demo.model.*;
 import com.softserve.demo.model.Customer;
+import com.softserve.demo.model.CustomerStatus;
 import com.softserve.demo.repository.CustomerRepository;
 import com.softserve.demo.service.CustomerService;
 import com.softserve.demo.service.ProvidersService;
 import com.softserve.demo.util.mappers.CustomerMapper;
-import com.softserve.demo.util.mappers.ProviderMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -107,28 +106,18 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void addOrRemoveFavourite(Integer customerId, Integer providerId) {
+    public void addToFavourite(Integer customerId, Integer providerId) {
         CustomerDTO customerDTO = getCustomerById(customerId);
-        boolean isFavourite = customerDTO.getFavourites().stream()
-                .map(ProviderDTO::getId)
-                .anyMatch(p -> p.equals(providerId));
-        if (isFavourite) {
-            removeFavourite(customerId, providerId);
-        } else {
-            addFavourite(customerDTO, providerId);
-        }
-    }
-
-    private void addFavourite(CustomerDTO customerDTO, Integer providerId) {
         List<ProviderDTO> list = customerDTO.getFavourites();
         list.add(providersService.findById(providerId));
         customerRepository.save(customerMapper.customerDTOToCustomer(customerDTO));
     }
 
-   private void removeFavourite(Integer customerId, Integer favouriteId) {
-        Customer customer = customerRepository.findCustomerById(customerId);
-        List<Provider> list = customer.getFavourites();
+    @Override
+    public void removeFromFavourite(Integer customerId, Integer favouriteId) {
+        CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customerRepository.findCustomerById(customerId));
+        List<ProviderDTO> list = customerDTO.getFavourites();
         list.removeIf(p -> p.getId().equals(favouriteId));
-        customerRepository.save(customer);
+        customerRepository.save(customerMapper.customerDTOToCustomer(customerDTO));
     }
 }
