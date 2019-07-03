@@ -40,6 +40,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         Portfolio portfolio = portfolioRepository.findById(id).get();
         PortfolioDTO portfolioDTO = convertPortfolioToPortfolioDTO(portfolio);
         portfolioDTO.setUserId(portfolio.getProvider().getUser().getId());
+        portfolioDTO.setUsername(portfolio.getProvider().getUser().getUsername());
         return portfolioDTO;
     }
 

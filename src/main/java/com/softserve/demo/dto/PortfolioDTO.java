@@ -14,4 +14,5 @@ public class PortfolioDTO {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastUpdate;
     private List<PostDTO> postDTOs;
+    private String username;
 }
