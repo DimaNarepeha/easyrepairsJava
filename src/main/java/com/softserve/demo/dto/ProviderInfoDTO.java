@@ -1,15 +1,16 @@
 package com.softserve.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
+@NoArgsConstructor
 @ToString
 @Getter
 @Setter
+@EqualsAndHashCode(of ={"id"})
 public class ProviderInfoDTO {
     private Integer id;
     private String name;
@@ -22,7 +23,4 @@ public class ProviderInfoDTO {
     private double raiting;
     private long countComment;
     private long countContract;
-    public ProviderInfoDTO() {
-    }
-
 }

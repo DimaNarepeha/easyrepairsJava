@@ -11,6 +11,8 @@ import java.util.List;
 
 public class ProviderSpecification {
 
+    private ProviderSpecification(){}
+
     public static Specification<Provider> isApproved() {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(root.get("status"), ProviderStatus.APPROVED);
