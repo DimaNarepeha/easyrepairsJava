@@ -23,12 +23,19 @@ public class FavouriteController {
         return customerService.getCustomerById(customerId);
     }
 
-    //todo remove return and make 2 methods
     @PutMapping("addToFavourite/{customerId}/provider/{providerId}")
-    public ResponseEntity<?> addToFavourite(@PathVariable("customerId") Integer customerId,
+    public ResponseEntity<HttpStatus> addToFavourite(@PathVariable("customerId") Integer customerId,
                                             @PathVariable("providerId") Integer providerId) {
-        customerService.addOrRemoveFavourite(customerId, providerId);
+        customerService.addToFavourite(customerId, providerId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PutMapping("removeFromFavourite/{customerId}/provider/{providerId}")
+    public ResponseEntity<HttpStatus> removeFromFavourite(@PathVariable("customerId") Integer customerId,
+                                                     @PathVariable("providerId") Integer providerId) {
+        customerService.removeFromFavourite(customerId, providerId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
 

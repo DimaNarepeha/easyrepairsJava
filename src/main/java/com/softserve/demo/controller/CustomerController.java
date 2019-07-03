@@ -1,11 +1,8 @@
 package com.softserve.demo.controller;
 
 import com.softserve.demo.dto.CustomerDTO;
-import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.filter.CustomerFilter;
-import com.softserve.demo.filter.ProviderFilter;
 import com.softserve.demo.model.CustomerStatus;
-import com.softserve.demo.model.ProviderStatus;
 import com.softserve.demo.service.CustomerService;
 import com.softserve.demo.service.FilesStorageService;
 import org.springframework.core.io.Resource;
@@ -123,7 +120,7 @@ public class CustomerController {
 
     @GetMapping("status/searchByFirstName")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Page<?> getCustomersByFirstName(@RequestParam int pageNumber,
+    public Page<CustomerDTO> getCustomersByFirstName(@RequestParam int pageNumber,
                                            @RequestParam int pageSize,
                                            @RequestParam String status,
                                            @RequestParam String firstName) {
@@ -132,7 +129,7 @@ public class CustomerController {
 
     @GetMapping("status/searchByLastName")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Page<?> getCustomersByLastName(@RequestParam int pageNumber,
+    public Page<CustomerDTO> getCustomersByLastName(@RequestParam int pageNumber,
                                           @RequestParam int pageSize,
                                           @RequestParam String status,
                                           @RequestParam String lastName) {

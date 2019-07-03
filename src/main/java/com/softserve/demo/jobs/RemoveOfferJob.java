@@ -31,7 +31,7 @@ public class RemoveOfferJob {
     public void removeOffers() {
         List<Offer> allOffers = offerRepository.findAll();
         allOffers.forEach(offer -> {
-            if (isOfferDateExpired(offer)) {//todo CHECK!!!!
+            if (isOfferDateExpired(offer)) {
                 allOffers.remove(offer);
                 sendEmailToUser(offer);
                 sendNotificationToUser(offer);

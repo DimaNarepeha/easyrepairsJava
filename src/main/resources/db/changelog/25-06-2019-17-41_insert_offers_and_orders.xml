@@ -13,6 +13,8 @@
             <column name="location_id" value="1"/>
             <column name="start_date" value="2019-07-21"/>
             <column name="end_date" value="2019-07-22"/>
+            <column name="remove_date" value="2019-07-05"/>
+
         </insert>
         <insert tableName="offer_service">
             <column name="offer_id" value="1"/>
@@ -31,6 +33,7 @@
             <column name="location_id" value="2"/>
             <column name="start_date" value="2019-07-23"/>
             <column name="end_date" value="2019-08-10"/>
+            <column name="remove_date" value="2019-07-05"/>
         </insert>
         <insert tableName="offer_service">
             <column name="offer_id" value="2"/>
@@ -39,6 +42,63 @@
         <insert tableName="offer_service">
             <column name="offer_id" value="2"/>
             <column name="service_id" value="3"/>
+        </insert>
+
+        <insert tableName="offers">
+            <column name="id" value="3"/>
+            <column name="customer_id" value="1"/>
+            <column name="create_date" value="2019-07-01 15:48:06"/>
+            <column name="description" value="I have 3 rooms to work with..."/>
+            <column name="location_id" value="1"/>
+            <column name="start_date" value="2019-07-21"/>
+            <column name="end_date" value="2019-07-22"/>
+            <column name="remove_date" value="2019-07-05"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="3"/>
+            <column name="service_id" value="1"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="3"/>
+            <column name="service_id" value="2"/>
+        </insert>
+
+        <insert tableName="offers">
+            <column name="id" value="4"/>
+            <column name="customer_id" value="1"/>
+            <column name="create_date" value="2019-07-02 15:48:06"/>
+            <column name="description" value="I have 3 rooms to work with..."/>
+            <column name="location_id" value="1"/>
+            <column name="start_date" value="2019-07-21"/>
+            <column name="end_date" value="2019-07-22"/>
+            <column name="remove_date" value="2019-07-05"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="4"/>
+            <column name="service_id" value="1"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="4"/>
+            <column name="service_id" value="2"/>
+        </insert>
+
+        <insert tableName="offers">
+            <column name="id" value="5"/>
+            <column name="customer_id" value="1"/>
+            <column name="create_date" value="2019-07-01 15:48:06"/>
+            <column name="description" value="I have 3 rooms to work with..."/>
+            <column name="location_id" value="1"/>
+            <column name="start_date" value="2019-07-21"/>
+            <column name="end_date" value="2019-07-22"/>
+            <column name="remove_date" value="2019-07-05"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="5"/>
+            <column name="service_id" value="1"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="5"/>
+            <column name="service_id" value="2"/>
         </insert>
     </changeSet>
 
