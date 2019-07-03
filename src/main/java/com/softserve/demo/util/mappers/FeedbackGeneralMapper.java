@@ -21,12 +21,6 @@ public interface FeedbackGeneralMapper {
     @Named("toDto")
     FeedbackGeneralDTO convertToDTO(Feedback entity);
 
-            @Mapping(target = "id", source = "dto.id")
-            @Mapping(target = "comment", source = "dto.comment")
-            @Mapping(target = "rating", source = "dto.rating")
-            @Mapping(target = "createdDate", source = "dto.createdDate")
-    Feedback convertToEntity(FeedbackGeneralDTO dto);
-
     @IterableMapping(qualifiedByName = "toDto")
     List<FeedbackGeneralDTO> map(List<Feedback> children);
 }
