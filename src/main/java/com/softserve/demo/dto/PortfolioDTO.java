@@ -10,6 +10,7 @@ import java.util.List;
 public class PortfolioDTO {
     private Integer id;
     private Integer providerId;
+    private Integer userId;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastUpdate;
     private List<PostDTO> postDTOs;

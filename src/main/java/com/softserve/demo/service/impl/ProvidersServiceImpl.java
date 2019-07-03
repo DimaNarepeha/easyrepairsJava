@@ -1,6 +1,7 @@
 package com.softserve.demo.service.impl;
 
 
+import com.softserve.demo.dto.LocationDTO;
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.exceptions.NotFoundException;
 import com.softserve.demo.model.Location;
@@ -124,8 +125,8 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public Page<ProviderDTO> getServiceProvidersByStatus(final Pageable pageable, final ProviderStatus status) {
-        return providerRepository.findByStatus(status, pageable)
+    public Page<ProviderDTO> getServiceProvidersByStatus(int page, int numberOfProvidersOnPage, ProviderStatus status) {
+        return providerRepository.findByStatus(status, new PageRequest(page,numberOfProvidersOnPage))
                 .map(providerMapper::providerToProviderDTO);
     }
 

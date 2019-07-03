@@ -1,11 +1,15 @@
 package com.softserve.demo.util.mappers;
 
+
 import com.softserve.demo.dto.ProviderDTO;
 import com.softserve.demo.model.Provider;
 import com.softserve.demo.model.User;
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ProviderMapper {
@@ -25,7 +29,8 @@ public interface ProviderMapper {
             @Mapping(target = "user", source = "userDTO"),
             @Mapping(target = "user.email", source = "email"),
             @Mapping(target = "user.image", source = "image"),
-            @Mapping(target = "services", source = "services")
+            @Mapping(target = "services", source = "services"),
+            @Mapping(target = "status", source = "status")
     })
     Provider providerDTOToProvider(ProviderDTO providerDTO);
 
@@ -35,6 +40,10 @@ public interface ProviderMapper {
             @Mapping(target = "password", source = "userDTO.password"),
             @Mapping(target = "email", source = "email"),
             @Mapping(target = "image", source = "image")
+
     })
     User providerDTOToUser(ProviderDTO providerDTO);
+
+    @IterableMapping(qualifiedByName = "toDto")
+    List<ProviderDTO> providerToProviderDTO(List<Provider> providers);
 }

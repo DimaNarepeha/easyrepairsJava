@@ -12,13 +12,13 @@ public interface ProviderOrderMapper {
 
     @Mapping(target = "userDTO", source = "user")
     @Mapping(target = "serviceDTOs", source = "services")
-    ProviderOrderDTO ProviderToProviderOrderDTO(Provider provider);
+    ProviderOrderDTO providerToProviderOrderDTO(Provider provider);
 
     @Mapping(target = "user", source = "userDTO")
     @Mapping(target = "services", source = "serviceDTOs")
-    Provider ProviderToProviderOrderDTO(ProviderOrderDTO providerDTO);
+    Provider providerOrderDTOToProvider(ProviderOrderDTO providerDTO);
 
-    List<ProviderOrderDTO> ProvidersToProviderOrderDTOs(List<Provider> providers);
+    List<ProviderOrderDTO> providersToProviderOrderDTOs(List<Provider> providers);
 
-    List<Provider> ProviderOrderDTOsToProviders(List<ProviderOrderDTO> providerDTOs);
+    List<Provider> providerOrderDTOsToProviders(List<ProviderOrderDTO> providerDTOs);
 }

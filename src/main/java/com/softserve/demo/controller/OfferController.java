@@ -33,8 +33,15 @@ public class OfferController {
                 offerService.createOffer(offerMapper.offerDTOToOffer(offerDTO)));
     }
 
+    @PutMapping("/update")
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    public OfferDTO updateOffer(@RequestBody OfferDTO offerDTO) {
+        return offerMapper.offerToOfferDTO(offerService.updateOffer(offerMapper.offerDTOToOffer(offerDTO)));
+    }
+
+
     @GetMapping
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER', 'ROLE_CUSTOMER')")
+    @PreAuthorize("isAuthenticated()")
     public List<OfferDTO> getAllOffers() {
         return offerMapper.offersToOfferDTOs(offerService.getAllOffers());
     }

@@ -5,13 +5,20 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="1" author="Volodymyr">
+    <changeSet id="1" author="Andrii">
+        <addColumn tableName="usr">
+            <column name="signature" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="2" author="Volodymyr">
         <insert tableName="usr">
             <column name="id" value="1"/>
             <column name="login" value="admin"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="1.png"/>
             <column name="email" value="pitbullboks@gmail.com"/>
+            <column name="signature" value="114685a08588b412e1fda752178f308b"/>
         </insert>
         <insert tableName="usr">
             <column name="id" value="2"/>
@@ -19,6 +26,7 @@
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="1.png"/>
             <column name="email" value="customer@gmail.com"/>
+            <column name="signature" value="bc22f686db079151f5a99aee65b5f61c"/>
         </insert>
         <insert tableName="usr">
             <column name="id" value="3"/>
@@ -26,16 +34,17 @@
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="1.png"/>
             <column name="email" value="provider@gmail.com"/>
+            <column name="signature" value="089bf7c16e046ca32a7e86d62f80bce9"/>
         </insert>
     </changeSet>
 
-    <changeSet id="2" author="Volodymyr">
+    <changeSet id="3" author="Volodymyr">
         <addColumn tableName="user_role">
             <column name="roles" type="varchar(20)"/>
         </addColumn>
     </changeSet>
 
-    <changeSet id="3" author="Volodymyr">
+    <changeSet id="4" author="Volodymyr">
         <insert tableName="user_role">
             <column name="user_id" value="1"/>
             <column name="roles" value="ADMIN"/>
