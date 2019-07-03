@@ -16,4 +16,5 @@ public class PostDTO {
     private String mainPhoto;
     private Integer portfolioId;
     private List<PostInfoDTO> postInfo;
+    private String username;
 }
