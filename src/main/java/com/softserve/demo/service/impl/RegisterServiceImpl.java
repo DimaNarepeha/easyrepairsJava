@@ -14,6 +14,7 @@ import com.softserve.demo.service.NotificationService;
 import com.softserve.demo.service.PortfolioService;
 import com.softserve.demo.service.RegisterService;
 import com.softserve.demo.util.Constant;
+import com.softserve.demo.util.SignatureGenerator;
 import com.softserve.demo.util.mappers.CustomerMapper;
 import com.softserve.demo.util.mappers.ProviderMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -98,6 +99,7 @@ public class RegisterServiceImpl implements RegisterService {
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         customer.setUser(user);
         customer.setRating(Constant.DEFAULT_RATING);
+        customer.setStatus(CustomerStatus.ACTIVE);
         sendWelcomeUserNotification(user.getId());
         return customerMapper.customerToCustomerDTO(customerRepository.save(customer));
     }
@@ -125,6 +127,7 @@ public class RegisterServiceImpl implements RegisterService {
         user.setRoles(roles);
         user.setImage(Constant.DEFAULT_PHOTO);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setSignature(SignatureGenerator.getSignature(user));
         return user;
     }
 

@@ -15,20 +15,19 @@ public class RemoveRatingForProvidersAndCustomers {
     private final FeedbackRepository feedbackRepository;
     private final CustomerRepository customerRepository;
 
-    public RemoveRatingForProvidersAndCustomers(ProviderRepository providerRepository, FeedbackRepository feedbackRepository, CustomerRepository customerRepository) {
+    public RemoveRatingForProvidersAndCustomers(ProviderRepository providerRepository, FeedbackRepository feedbackRepository,
+                                                CustomerRepository customerRepository) {
         this.providerRepository = providerRepository;
         this.feedbackRepository = feedbackRepository;
         this.customerRepository = customerRepository;
     }
 
     private Double recalculateRating(Integer userId) {
-        Double sum = 0.;
-        Integer count;
-        for (Feedback f : feedbackRepository.findAllActiveFeedbacksByUserId(userId)
-        ) {
+        Double sum = Constant.DOUBLE_ZERO;
+        Integer count = feedbackRepository.findAllActiveFeedbacksByUserId(userId).size();
+        for (Feedback f : feedbackRepository.findAllActiveFeedbacksByUserId(userId)) {
             sum += f.getRating();
         }
-        count = feedbackRepository.findAllActiveFeedbacksByUserId(userId).size();
         return sum / count;
 
     }

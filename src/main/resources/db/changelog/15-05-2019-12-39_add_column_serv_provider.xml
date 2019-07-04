@@ -9,6 +9,11 @@
             <column name="status" type="VARCHAR(15)"/>
         </addColumn>
     </changeSet>
+    <changeSet id="3" author="Levytskyi">
+        <addColumn tableName="customer">
+            <column name="status" type="VARCHAR(20)"/>
+        </addColumn>
+    </changeSet>
     <changeSet id="2" author="Hanuliak">
         <addColumn tableName="service_provider">
             <column name="raiting" type="DOUBLE"/>

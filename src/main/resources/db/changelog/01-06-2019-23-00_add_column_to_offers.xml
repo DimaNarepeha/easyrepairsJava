@@ -10,6 +10,7 @@
         <addColumn tableName="offers">
             <column name="start_date" type="DATE"/>
             <column name="end_date" type="DATE"/>
+            <column name="remove_date" type="DATE"/>
         </addColumn>
     </changeSet>
 </databaseChangeLog>

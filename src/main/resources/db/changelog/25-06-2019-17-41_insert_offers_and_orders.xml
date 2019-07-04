@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Andrii">
+        <insert tableName="offers">
+            <column name="id" value="1"/>
+            <column name="customer_id" value="2"/>
+            <column name="create_date" value="2019-06-21 15:48:06"/>
+            <column name="description" value="I have so much work!!!"/>
+            <column name="location_id" value="1"/>
+            <column name="start_date" value="2019-07-21"/>
+            <column name="end_date" value="2019-07-22"/>
+            <column name="remove_date" value="2019-07-05"/>
+
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="1"/>
+            <column name="service_id" value="1"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="1"/>
+            <column name="service_id" value="2"/>
+        </insert>
+
+        <insert tableName="offers">
+            <column name="id" value="2"/>
+            <column name="customer_id" value="3"/>
+            <column name="create_date" value="2019-06-23 18:48:06"/>
+            <column name="description" value="I have 3 rooms to work with..."/>
+            <column name="location_id" value="2"/>
+            <column name="start_date" value="2019-07-23"/>
+            <column name="end_date" value="2019-08-10"/>
+            <column name="remove_date" value="2019-07-05"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="2"/>
+            <column name="service_id" value="2"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="2"/>
+            <column name="service_id" value="3"/>
+        </insert>
+
+        <insert tableName="offers">
+            <column name="id" value="3"/>
+            <column name="customer_id" value="1"/>
+            <column name="create_date" value="2019-07-01 15:48:06"/>
+            <column name="description" value="I have 3 rooms to work with..."/>
+            <column name="location_id" value="1"/>
+            <column name="start_date" value="2019-07-21"/>
+            <column name="end_date" value="2019-07-22"/>
+            <column name="remove_date" value="2019-07-05"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="3"/>
+            <column name="service_id" value="1"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="3"/>
+            <column name="service_id" value="2"/>
+        </insert>
+
+        <insert tableName="offers">
+            <column name="id" value="4"/>
+            <column name="customer_id" value="1"/>
+            <column name="create_date" value="2019-07-02 15:48:06"/>
+            <column name="description" value="I have 3 rooms to work with..."/>
+            <column name="location_id" value="1"/>
+            <column name="start_date" value="2019-07-21"/>
+            <column name="end_date" value="2019-07-22"/>
+            <column name="remove_date" value="2019-07-05"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="4"/>
+            <column name="service_id" value="1"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="4"/>
+            <column name="service_id" value="2"/>
+        </insert>
+
+        <insert tableName="offers">
+            <column name="id" value="5"/>
+            <column name="customer_id" value="1"/>
+            <column name="create_date" value="2019-07-01 15:48:06"/>
+            <column name="description" value="I have 3 rooms to work with..."/>
+            <column name="location_id" value="1"/>
+            <column name="start_date" value="2019-07-21"/>
+            <column name="end_date" value="2019-07-22"/>
+            <column name="remove_date" value="2019-07-05"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="5"/>
+            <column name="service_id" value="1"/>
+        </insert>
+        <insert tableName="offer_service">
+            <column name="offer_id" value="5"/>
+            <column name="service_id" value="2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2" author="Andrii">
+        <insert tableName="orders">
+            <column name="id" value="1"/>
+            <column name="provider_id" value="20010"/>
+            <column name="price" value="100$"/>
+            <column name="description" value="I have so much work!!!"/>
+            <column name="customer_id" value="2"/>
+            <column name="create_date" value="2019-06-23 18:48:06"/>
+            <column name="location_id" value="1"/>
+            <column name="start_date" value="2019-07-23"/>
+            <column name="end_date" value="2019-08-10"/>
+            <column name="extra_details" value="This is red house"/>
+            <column name="time_requirement" value="approximate"/>
+        </insert>
+        <insert tableName="order_service">
+            <column name="order_id" value="1"/>
+            <column name="service_id" value="1"/>
+        </insert>
+        <insert tableName="order_service">
+            <column name="order_id" value="1"/>
+            <column name="service_id" value="2"/>
+        </insert>
+
+        <insert tableName="orders">
+            <column name="id" value="2"/>
+            <column name="provider_id" value="20010"/>
+            <column name="price" value="100$"/>
+            <column name="description" value="I have 3 rooms to work with..."/>
+            <column name="customer_id" value="2"/>
+            <column name="create_date" value="2019-06-23 18:48:06"/>
+            <column name="location_id" value="1"/>
+            <column name="start_date" value="2019-07-23"/>
+            <column name="end_date" value="2019-08-10"/>
+            <column name="extra_details" value="This house by the road"/>
+            <column name="time_requirement" value="approximate"/>
+        </insert>
+        <insert tableName="order_service">
+            <column name="order_id" value="2"/>
+            <column name="service_id" value="2"/>
+        </insert>
+        <insert tableName="order_service">
+            <column name="order_id" value="2"/>
+            <column name="service_id" value="3"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

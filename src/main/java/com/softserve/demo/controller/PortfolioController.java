@@ -23,35 +23,35 @@ public class PortfolioController {
     }
 
     @GetMapping("provider/{providerId}")
-    public PortfolioDTO getPortfolioIdByProviderId(@PathVariable("providerId") Integer providerId){
+    public PortfolioDTO getPortfolioIdByProviderId(@PathVariable("providerId") Integer providerId) {
         return portfolioService.findByProviderId(providerId);
     }
 
     @GetMapping("{portfolioId}")
-    public PortfolioDTO getPortfolio(@PathVariable("portfolioId") Integer portfolioId){
+    public PortfolioDTO getPortfolio(@PathVariable("portfolioId") Integer portfolioId) {
         return portfolioService.findById(portfolioId);
     }
 
     @GetMapping("/post/{id}")
-    public PostDTO getPost(@PathVariable("id") Integer id){
+    public PostDTO getPost(@PathVariable("id") Integer id) {
         return portfolioService.findPostById(id);
     }
 
     @PutMapping("/post/{postId}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER')")
-    public PostDTO updatePost(@PathVariable("postId") Integer postId, @RequestBody PostDTO postDTO){
-        return portfolioService.updatePost(postDTO,postId);
+    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_PROVIDER') and principal.username==#postDTO.username)")
+    public PostDTO updatePost(@PathVariable("postId") Integer postId, @RequestBody PostDTO postDTO) {
+        return portfolioService.updatePost(postDTO, postId);
     }
 
     @PostMapping("/post")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER')")
-    public PostDTO createPost(@RequestBody PostDTO postDTO){
+    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_PROVIDER') and principal.username==#postDTO.username)")
+    public PostDTO createPost(@RequestBody PostDTO postDTO) {
         return portfolioService.createPost(postDTO);
     }
 
-    @DeleteMapping("/post/{postId}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROVIDER')")
-    public void deletePost(@PathVariable("postId") Integer postId){
+    @PutMapping("/delete-post/{postId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_PROVIDER') and principal.username==#postDTO.username)")
+    public void deletePost(@PathVariable("postId") Integer postId, @RequestBody PostDTO postDTO) {
         portfolioService.deletePost(postId);
     }
 

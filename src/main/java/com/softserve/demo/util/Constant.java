@@ -4,14 +4,19 @@ package com.softserve.demo.util;
  * Created by Illia Chenchak
  */
 public final class Constant {
+    private Constant() {
+    }
+
     public static final String DEFAULT_PHOTO = "nophoto.png";
     public static final Integer FEEDBACK_TIME_OUT = 72;
+    public static final Integer OFFER_DATE_OUT = 7;
     public static final Integer DEFAULT_LOCATION = 1001;
     public static final String STR_ZERO = "0";
     public static final String STR_FOUR = "4";
     public static final Integer ONE = 1;
     public static final Integer TWO = 2;
     public static final String COMMA = ",";
+    public static final String ORDER_NOT_FOUND = "Order with id: [%d] not found";
     public static final String CONTRACT_WAS_CREATED = "New contract was created";
     public static final String CONTRACT_WAS_UPDATED = "Contract was updated";
     public static final String CONTRACT_WAS_DELETED = "Contract was deleted";
@@ -29,5 +34,15 @@ public final class Constant {
             "Thank you for using our services!\n" +
             "Your easyrepairs.com";
     public static final Double DEFAULT_RATING = 0.;
+    public static final Double DOUBLE_ZERO = 0.;
+    public static final String OFFER_WAS_DELETED = "Your job offer was deleted!";
+    public static final String AUTOMATICALLY_DELETED = "Due to the fact that your offer expired, it was " +
+            "automatically deleted";
+    public static final String RECEIVED_CONTRACT = "You received contract";
+    public static final String YOU_RECEIVED_CONTRACT_BY_EMAIL = "Your contract is attached to the email.\n" +
+            "\n" +
+            "Thank you for using our services!\n" +
+            "Your easyrepairs.com";
+
 
 }

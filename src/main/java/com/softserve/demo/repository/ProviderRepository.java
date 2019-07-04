@@ -17,3 +17,4 @@ public interface ProviderRepository extends JpaRepository<Provider, Integer> {
 
     <T> Page<Provider> findAll(Specification<T> approved, Pageable pageable);
 }
+
