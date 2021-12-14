@@ -23,7 +23,7 @@
         <insert tableName="service_provider">
             <column name="id" value="20111"/>
             <column name="name" value="Dima Blochin"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20111"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
@@ -51,7 +51,7 @@
         <insert tableName="service_provider">
             <column name="id" value="20112"/>
             <column name="name" value="Handyman Service"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20112"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
@@ -79,7 +79,7 @@
         <insert tableName="service_provider">
             <column name="id" value="20007"/>
             <column name="name" value="Remont-BUD"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20006"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
@@ -107,7 +107,7 @@
         <insert tableName="service_provider">
             <column name="id" value="20008"/>
             <column name="name" value="Fixic Remont"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20007"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
@@ -135,7 +135,7 @@
         <insert tableName="service_provider">
             <column name="id" value="20009"/>
             <column name="name" value="Remont Dream Team"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20008"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
@@ -163,7 +163,7 @@
         <insert tableName="service_provider">
             <column name="id" value="20010"/>
             <column name="name" value="Olena Designer"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20009"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
@@ -191,7 +191,7 @@
         <insert tableName="service_provider">
             <column name="id" value="20011"/>
             <column name="name" value="Petro Petrenkco"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20010"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
@@ -219,7 +219,7 @@
         <insert tableName="service_provider">
             <column name="id" value="20012"/>
             <column name="name" value="Master Lamaster"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20011"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
