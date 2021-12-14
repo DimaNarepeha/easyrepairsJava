@@ -23,7 +23,7 @@
         <insert tableName="service_provider">
             <column name="id" value="20100"/>
             <column name="name" value="Portfolio provider"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20100"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>

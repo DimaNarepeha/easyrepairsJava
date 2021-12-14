@@ -23,7 +23,7 @@
         <insert tableName="service_provider">
             <column name="id" value="20111"/>
             <column name="name" value="Dima Blochin"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20111"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
@@ -50,8 +50,8 @@
     <changeSet id="4" author="Hanuliak">
         <insert tableName="service_provider">
             <column name="id" value="20112"/>
-            <column name="name" value="Handyman Service"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="name" value="Design Service"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20112"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
@@ -64,7 +64,7 @@
     <changeSet id="5" author="Hanuliak">
         <insert tableName="usr">
             <column name="id" value="20112"/>
-            <column name="login" value="Remont-BUD"/>
+            <column name="login" value="Design floor"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="man3.jpg"/>
             <column name="email" value="remontbud@gmail.com"/>
@@ -78,8 +78,8 @@
     <changeSet id="6" author="Hanuliak">
         <insert tableName="service_provider">
             <column name="id" value="20007"/>
-            <column name="name" value="Remont-BUD"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="name" value="Design phone"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20006"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
@@ -92,7 +92,7 @@
     <changeSet id="7" author="Hanuliak">
         <insert tableName="usr">
             <column name="id" value="20007"/>
-            <column name="login" value="Fixic Remont"/>
+            <column name="login" value="Top designer"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="man4.jpg"/>
             <column name="email" value="fixic@gmail.com"/>
@@ -106,8 +106,8 @@
     <changeSet id="8" author="Hanuliak">
         <insert tableName="service_provider">
             <column name="id" value="20008"/>
-            <column name="name" value="Fixic Remont"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="name" value="Designer Tom"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20007"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
@@ -120,7 +120,7 @@
     <changeSet id="9" author="Hanuliak">
         <insert tableName="usr">
             <column name="id" value="20008"/>
-            <column name="login" value="Remont Dream Team "/>
+            <column name="login" value="Design Dream Team "/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="man4.jpg"/>
             <column name="email" value="dreamteam@gmail.com"/>
@@ -134,8 +134,8 @@
     <changeSet id="10" author="Hanuliak">
         <insert tableName="service_provider">
             <column name="id" value="20009"/>
-            <column name="name" value="Remont Dream Team"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="name" value="Design Dream Team"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20008"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
@@ -163,7 +163,7 @@
         <insert tableName="service_provider">
             <column name="id" value="20010"/>
             <column name="name" value="Olena Designer"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20009"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
@@ -176,7 +176,7 @@
     <changeSet id="13" author="Hanuliak">
         <insert tableName="usr">
             <column name="id" value="20010"/>
-            <column name="login" value="Petro Petrencko"/>
+            <column name="login" value="Petro Designer"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="man6.jpg"/>
             <column name="email" value="olena@gmail.com"/>
@@ -190,8 +190,8 @@
     <changeSet id="14" author="Hanuliak">
         <insert tableName="service_provider">
             <column name="id" value="20011"/>
-            <column name="name" value="Petro Petrenkco"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="name" value="Petro Designer"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20010"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
@@ -204,7 +204,7 @@
     <changeSet id="15" author="Hanuliak">
         <insert tableName="usr">
             <column name="id" value="20011"/>
-            <column name="login" value="Master Lamaster"/>
+            <column name="login" value="Design top"/>
             <column name="password" value="$2a$04$EZzbSqieYfe/nFWfBWt2KeCdyq0UuDEM1ycFF8HzmlVR6sbsOnw7u"/>
             <column name="image" value="man7.jpg"/>
             <column name="email" value="olena@gmail.com"/>
@@ -218,8 +218,8 @@
     <changeSet id="16" author="Hanuliak">
         <insert tableName="service_provider">
             <column name="id" value="20012"/>
-            <column name="name" value="Master Lamaster"/>
-            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, bath and shower screen fitting, toilet seat fitting, aerial installation"/>
+            <column name="name" value="Free Design"/>
+            <column name="description" value="We have a large team of multi-skilled handymen who are able to perform any task that you can think of. These odd jobs include, designing, painting and other creative services"/>
             <column name="user_id" value="20011"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
