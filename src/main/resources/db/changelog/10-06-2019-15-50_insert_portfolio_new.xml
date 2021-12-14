@@ -27,7 +27,7 @@
             <column name="user_id" value="20100"/>
             <column name="status" value="APPROVED"/>
             <column name="location_id" value="1"/>
-            <column name="registration_date" value="2019-02-12 12:12:12"/>
+            <column name="registration_date" value="2023-06-08 10:12:12"/>
             <column name="raiting" value="3"/>
         </insert>
     </changeSet>
