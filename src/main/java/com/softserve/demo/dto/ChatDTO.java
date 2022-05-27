@@ -17,3 +17,4 @@ public class ChatDTO {
     private UserDTO messageFrom;
     private Boolean isRead;
 }
+
