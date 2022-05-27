@@ -7,12 +7,12 @@
     <changeSet id="1" author="Hanuliak">
         <insert tableName="services">
             <column name="id" value="1"/>
-            <column name="service_name" value="Designing houses"/>
+            <column name="service_name" value="Service center Phone"/>
         </insert>
 
         <insert tableName="services">
             <column name="id" value="2"/>
-            <column name="service_name" value="Designer Specialist"/>
+            <column name="service_name" value="Service center"/>
         </insert>
 
         <insert tableName="services">
