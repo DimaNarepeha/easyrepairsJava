@@ -17,7 +17,7 @@
 
         <insert tableName="services">
             <column name="id" value="3"/>
-            <column name="service_name" value="Painting"/>
+            <column name="service_name" value="Notebooks repair"/>
         </insert>
 
     </changeSet>
